@@ -53,5 +53,7 @@ export default defineConfig({
     driver: sessionDrivers.memory(),
   },
 
-  adapter: cloudflare(),
+  adapter: cloudflare({
+    imageService: { build: 'compile', runtime: 'cloudflare-binding' },
+  }),
 });
