@@ -10,6 +10,9 @@ export default defineConfig({
   site: 'https://www.insightmoving.com',
   output: 'static',
   trailingSlash: 'never',
+  build: {
+    format: 'file',
+  },
   integrations: [sitemap(), mdx()],
 
   vite: {
