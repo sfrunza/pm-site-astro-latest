@@ -1,0 +1,216 @@
+---
+import {
+  Card,
+  CardHeader,
+  CardTitle,
+  CardDescription,
+  CardContent,
+} from '@/components/starwind/card';
+import { Button } from '@/components/starwind/button';
+import { SITE } from '@/config/site';
+import { PhoneIcon, CircleCheckIcon } from '@/icons';
+import Section from '@/components/Section.astro';
+import SectionHeader from '@/components/SectionHeader.astro';
+import Container from '@/components/Container.astro';
+import { tv } from 'tailwind-variants';
+
+type Price = {
+  two_men: [number, number];
+  three_men: [number, number];
+  four_men: [number, number];
+  add_men: [number, number];
+  add_truck: [number, number];
+};
+
+type Tier = {
+  name: string;
+  href: string;
+  priceMonthly: number;
+  description: string;
+  sizes: string;
+  includedFeatures: string[];
+  isPopular?: boolean;
+};
+
+const prices: Price[] = await fetch(
+  `https://account.gophoenixmoving.com/api/v1/prices`
+).then((res) => res.json());
+
+const tiers: Tier[] = [
+  {
+    name: '2 Movers',
+    href: '/book',
+    priceMonthly: prices?.[0]?.two_men[0] ?? 0,
+    description: 'Starting from',
+    sizes: 'Room/Studio',
+    includedFeatures: [
+      '2 Professional Movers.',
+      'Clean, fully stocked moving trucks.',
+      'Delicate handling of your stuff.',
+      'All taxes included in the price.',
+    ],
+  },
+  {
+    name: '3 Movers',
+    href: '/book',
+    priceMonthly: prices?.[0]?.three_men[0] ?? 0,
+    description: 'Starting from',
+    sizes: '1-2 Bedroom Apt/House',
+    includedFeatures: [
+      '3 Professional Movers.',
+      'Clean, fully stocked moving trucks.',
+      'Delicate handling of your stuff.',
+      'All taxes included in the price.',
+    ],
+    isPopular: true,
+  },
+  {
+    name: '4 Movers',
+    href: '/book',
+    priceMonthly: prices?.[0]?.four_men[0] ?? 0,
+    description: 'Starting from',
+    sizes: '3-4 Bedroom Apt/House',
+    includedFeatures: [
+      '4 Professional Movers.',
+      'Clean, fully stocked moving trucks.',
+      'Delicate handling of your stuff.',
+      'All taxes included in the price.',
+    ],
+  },
+];
+
+const pricing = tv({
+  base: 'py-16',
+});
+
+const { class: className = '' } = Astro.props;
+---
+
+<Section class={pricing({ class: className })}>
+  <Container>
+    <SectionHeader
+      label="Pricing"
+      title="Best prices, for everyone."
+      subtitle="Affordable rates on professional moving services tailored to your needs."
+    />
+    <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+      {
+        tiers.map((tier) => (
+          <Card class="relative overflow-visible gap-2 hover:shadow-lg hover:-translate-y-1 transition-all">
+            {tier.isPopular && (
+              <div class="bg-secondary rounded-full text-secondary-foreground absolute -top-[12px] right-0 left-0 mx-auto w-fit px-4 py-1 text-center text-xs font-medium shadow-sm">
+                MOST POPULAR
+              </div>
+            )}
+            <CardHeader class="gap-0">
+              <CardTitle class="text-lg font-bold">{tier.name}</CardTitle>
+              <CardDescription>& Truck</CardDescription>
+            </CardHeader>
+            <CardContent>
+              <p class="text-muted-foreground mt-4 text-sm">
+                {tier.description}
+              </p>
+              <p class="text-4xl font-semibold tracking-tight">
+                ${tier.priceMonthly}
+                <span class="text-muted-foreground ml-1 text-sm font-normal tracking-normal">
+                  per hour
+                </span>
+              </p>
+              <p class="my-8 font-semibold">{tier.sizes}</p>
+              <Button
+                variant="primary"
+                class="w-full"
+                title="Get a Quote"
+                href={tier.href}
+              >
+                Get a Quote
+              </Button>
+              <div class="mt-6">
+                <p class="font-semibold">What&apos;s included</p>
+                <ul class="mt-6 space-y-4">
+                  {tier.includedFeatures.map((feature) => (
+                    <li class="flex space-x-3">
+                      <CircleCheckIcon
+                        class="size-5 shrink-0 mt-[3px] text-green-600"
+                        aria-hidden="true"
+                      />
+                      <span>{feature}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </CardContent>
+          </Card>
+        ))
+      }
+      <div class="flex flex-col justify-between gap-6">
+        <Card
+          class="grow gap-2 hover:shadow-lg hover:-translate-y-1 transition-all"
+        >
+          <CardHeader>
+            <CardTitle class="text-lg font-bold"> Additional mover </CardTitle>
+          </CardHeader>
+          <CardContent>
+            <p class="mt-4">
+              <span class="text-4xl font-semibold tracking-tight">
+                ${prices?.[0]?.add_men[0] ?? 0}
+              </span>
+              <span class="text-muted-foreground text-sm">per hour</span>
+            </p>
+            <p class="mt-6 flex space-x-3">
+              <CircleCheckIcon
+                class="size-5 shrink-0 mt-[3px] text-green-600"
+                aria-hidden="true"
+              />
+              <span>
+                Rate per hour per mover added to your quoted houry rate if you
+                request it.
+              </span>
+            </p>
+          </CardContent>
+        </Card>
+        <Card
+          class="grow gap-2 hover:shadow-lg hover:-translate-y-1 transition-all"
+        >
+          <CardHeader>
+            <CardTitle class="text-lg font-bold"> Additional truck </CardTitle>
+          </CardHeader>
+          <CardContent>
+            <p class="mt-4">
+              <span class="text-4xl font-semibold tracking-tight">
+                ${prices?.[0]?.add_truck[0] ?? 0}
+              </span>
+              <span class="text-muted-foreground text-sm">per hour</span>
+            </p>
+            <p class="mt-6 flex space-x-3">
+              <CircleCheckIcon
+                class="size-5 shrink-0 mt-[3px] text-green-600"
+                aria-hidden="true"
+              />
+              <span>
+                Rate per hour per truck added to your quoted houry rate if you
+                request it.
+              </span>
+            </p>
+          </CardContent>
+        </Card>
+      </div>
+    </div>
+    <div class="col-span-12 flex flex-col p-8 text-center">
+      <h3 class="mb-2 text-2xl font-bold">Need a Custom Solution?</h3>
+      <p class="mb-4 text-lg">
+        Contact us for a personalized quote tailored to your specific moving
+        needs.
+      </p>
+      <Button
+        variant="secondary"
+        class="self-center"
+        title="Contact Sales"
+        href={`tel:${SITE.contactPhone}`}
+      >
+        <PhoneIcon />
+        Contact Sales
+      </Button>
+    </div>
+  </Container>
+</Section>

@@ -1,0 +1,128 @@
+---
+import blanketImg from '@/assets/packing/blanket.jpg';
+import lgImg from '@/assets/packing/lg.jpg';
+import mdImg from '@/assets/packing/md.jpg';
+import paperImg from '@/assets/packing/paper.jpg';
+import pictureImg from '@/assets/packing/picture.jpg';
+import smImg from '@/assets/packing/sm.jpg';
+import wardrobeImg from '@/assets/packing/wardrobe.jpg';
+import Container from '@/components/Container.astro';
+import Section from '@/components/Section.astro';
+import SectionHeader from '@/components/SectionHeader.astro';
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+} from '@/components/starwind/card';
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from '@/components/starwind/carousel';
+import { Image } from '@/components/starwind/image';
+
+interface Item {
+  img: ImageMetadata;
+  price: string;
+  name: string;
+  size: string;
+}
+
+const items: Item[] = [
+  {
+    img: blanketImg,
+    price: 'free',
+    name: 'Moving Blankets',
+    size: `72" x 0.2" x 80`,
+  },
+  {
+    img: smImg,
+    price: '$4.00',
+    name: 'Small Box',
+    size: `17" x 12 3/8" x 12 3/8`,
+  },
+  {
+    img: mdImg,
+    price: '$6.00',
+    name: 'Medium Box',
+    size: `18" x 18" x 16`,
+  },
+  {
+    img: lgImg,
+    price: '$8.00',
+    name: 'Large Box',
+    size: `18" x 18" x 24`,
+  },
+  {
+    img: wardrobeImg,
+    price: '$20.00',
+    name: 'Wardrobe',
+    size: `21" x 18" x 46`,
+  },
+  {
+    img: pictureImg,
+    price: '$8.00',
+    name: 'Picture Box',
+    size: `37" x 4" x 27`,
+  },
+  {
+    img: paperImg,
+    price: '$30.00',
+    name: 'Packing Paper',
+    size: `approx. 450 sheets`,
+  },
+];
+
+interface Props {
+  id?: string;
+}
+
+const { id } = Astro.props;
+---
+
+<Section class="py-16" id={id}>
+  <Container class="relative">
+    <SectionHeader title="Packing Supplies." />
+    <Carousel opts={{ align: 'start' }}>
+      <CarouselContent class="py-4 px-2">
+        {
+          items.map((item) => (
+            <CarouselItem class="pl-4 basis-[75%] sm:basis-[40%] md:basis-[28.5%] lg:basis-[22.22%] xl:basis-[18.18%]">
+              <Card class="hover:-translate-y-1 transition-transform hover:shadow-lg">
+                <CardHeader>
+                  <CardTitle class="text-sm font-medium">
+                    {item.price}
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  {/* // class="w-40 h-50 mx-auto flex items-center justify-center overflow-hidden relative" */}
+                  {/* <p class="text-sm font-medium">{item.price}</p> */}
+                  <div class="flex justify-center items-center w-[130px] h-full min-h-[170px] m-auto">
+                    <Image
+                      src={item.img}
+                      alt={item.name}
+                      loading="lazy"
+                      title={item.name}
+                      class="object-contain object-center"
+                      decoding="async"
+                      fetchpriority="auto"
+                    />
+                  </div>
+                  <div class="pt-6">
+                    <p class="text-sm font-semibold">{item.name}</p>
+                    <p class="text-sm text-muted-foreground/80">{item.size}</p>
+                  </div>
+                </CardContent>
+              </Card>
+            </CarouselItem>
+          ))
+        }
+      </CarouselContent>
+      <CarouselPrevious />
+      <CarouselNext />
+    </Carousel>
+  </Container>
+</Section>

@@ -1,0 +1,69 @@
+---
+import type { Faq } from '@/blocks/faq/FAQ1.astro';
+import Container from '@/components/Container.astro';
+import Section from '@/components/Section.astro';
+import SectionHeader from '@/components/SectionHeader.astro';
+import { accordionContent } from '@/components/starwind/accordion/AccordionContent.astro';
+import { accordionTrigger } from '@/components/starwind/accordion/AccordionTrigger.astro';
+import Prose from '@/components/starwind/prose';
+import { ChevronDownIcon } from '@/icons';
+
+interface Props {
+  items: Faq[];
+  title?: string;
+  label?: string;
+  /** Shared name for mutually exclusive disclosures (HTML exclusive accordion). */
+  groupName?: string;
+  class?: string;
+}
+
+const {
+  items,
+  title = 'Frequently Asked Questions',
+  label = 'Common Questions',
+  groupName = 'faq',
+  class: className,
+} = Astro.props;
+---
+
+<Section class:list={['py-16', className]}>
+  <Container>
+    <div class="grid w-full grid-cols-4 gap-4 py-12 md:grid-cols-12">
+      <div
+        class="col-span-4 col-start-1 md:col-span-10 md:col-start-2 lg:col-span-10 lg:col-start-2"
+      >
+        <SectionHeader title={title} label={label} />
+        <div class="space-y-3" role="list">
+          {
+            items.map((item, index) => (
+              <details
+                class="bg-muted group w-full overflow-hidden px-8 py-3"
+                name={groupName}
+                open={index === 0}
+                role="listitem"
+              >
+                <summary
+                  class={accordionTrigger({
+                    class:
+                      'cursor-pointer py-4 list-none marker:content-none [&::-webkit-details-marker]:hidden text-xl font-medium hover:cursor-pointer hover:no-underline [&>svg]:size-6',
+                  })}
+                >
+                  <span class="flex items-center justify-between gap-4 w-full">
+                    {item.question}
+                    <ChevronDownIcon class="size-5 shrink-0 transition-transform group-open:rotate-180" />
+                  </span>
+                </summary>
+                <div class={accordionContent({ class: 'pb-5' })}>
+                  <Prose
+                    set:html={item.answer}
+                    class="max-w-none font-normal"
+                  />
+                </div>
+              </details>
+            ))
+          }
+        </div>
+      </div>
+    </div>
+  </Container>
+</Section>

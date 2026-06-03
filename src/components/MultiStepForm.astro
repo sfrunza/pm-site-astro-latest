@@ -1,0 +1,303 @@
+---
+import {
+  Card,
+  CardContent,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from './starwind/card';
+import Button from './starwind/button';
+import Input from './starwind/input';
+import Label from './starwind/label';
+
+// ─── Config ──────────────────────────────────────────────────────────────────
+// Edit these arrays to add/remove options without touching layout code.
+
+const serviceTypes = [
+  { id: 'local-move', label: 'Local Move' },
+  { id: 'loading-help', label: 'Loading Help' },
+  { id: 'unloading-help', label: 'Unloading Help' },
+] satisfies { id: string; label: string }[];
+
+const packingOptions = [
+  { id: 'full-packing', label: 'Full Packing' },
+  { id: 'partial-packing', label: 'Partial Packing' },
+  { id: 'self-packing', label: "I'll Pack Myself" },
+] satisfies { id: string; label: string }[];
+
+const moveSizes = [
+  { id: 'room-or-less', label: 'Room or Less' },
+  { id: 'studio', label: 'Studio Apartment' },
+  { id: '1br', label: '1 Bedroom Apartment' },
+  { id: '2br', label: '2 Bedroom Apartment' },
+  { id: '3br', label: '3 Bedroom Apartment' },
+  { id: '4br-plus', label: '4+ Bedroom Home' },
+  { id: 'office', label: 'Office / Commercial' },
+] satisfies { id: string; label: string }[];
+
+const floorOptions = [
+  { id: '1st', label: '1st Floor' },
+  { id: '2nd', label: '2nd Floor' },
+  { id: '3rd', label: '3rd Floor' },
+  { id: 'elevator', label: 'Elevator Building' },
+  { id: 'house', label: 'Private House' },
+  { id: 'storage', label: 'Storage Unit' },
+] satisfies { id: string; label: string }[];
+
+const TOTAL_STEPS = 2;
+---
+
+<div id="msf-root" data-total={TOTAL_STEPS}>
+  <Card class="h-[600px] p-0 gap-0">
+    <CardHeader>
+      <CardTitle
+        id="msf-title"
+        class="text-primary py-4 text-xl font-bold text-left"
+      />
+    </CardHeader>
+
+    <CardContent class="flex-1 overflow-y-auto">
+      {/* ── Step 1 ── */}
+      <div id="msf-step-1" class="msf-step hidden space-y-6">
+        {/* ZIP codes */}
+        <div class="grid grid-cols-2 gap-4">
+          <div class="flex flex-col gap-2 items-start">
+            <Label for="zip-from" size="sm">From ZIP Code</Label>
+            <Input
+              id="zip-from"
+              name="zipFrom"
+              type="text"
+              inputmode="numeric"
+              maxlength="5"
+              placeholder="10001"
+              size="md"
+            />
+          </div>
+          <div class="flex flex-col gap-2 items-start">
+            <Label for="zip-to" size="sm">To ZIP Code</Label>
+            <Input
+              id="zip-to"
+              name="zipTo"
+              type="text"
+              inputmode="numeric"
+              maxlength="5"
+              placeholder="10002"
+              size="md"
+            />
+          </div>
+        </div>
+
+        {/* Service type */}
+        <div class="flex flex-col gap-2 items-start">
+          <Label size="sm">Service Type</Label>
+          <div class="grid grid-cols-1 gap-2 sm:grid-cols-3">
+            {
+              serviceTypes.map(({ id, label }) => (
+                <label class="msf-option-card group cursor-pointer">
+                  <input
+                    type="radio"
+                    name="serviceType"
+                    value={id}
+                    class="sr-only"
+                  />
+                  <span class="border-border text-foreground group-has-checked:border-primary group-has-checked:bg-primary/5 group-has-checked:text-primary flex items-center justify-center rounded-xl border px-3 py-2.5 text-sm font-medium transition-colors">
+                    {label}
+                  </span>
+                </label>
+              ))
+            }
+          </div>
+        </div>
+
+        {/* Packing service */}
+        <div class="flex flex-col gap-2 items-start">
+          <Label size="sm">Packing Service</Label>
+          <div class="grid grid-cols-1 gap-2 sm:grid-cols-3">
+            {
+              packingOptions.map(({ id, label }) => (
+                <label class="msf-option-card group cursor-pointer">
+                  <input
+                    type="radio"
+                    name="packingOption"
+                    value={id}
+                    class="sr-only"
+                  />
+                  <span class="border-border text-foreground group-has-checked:border-primary group-has-checked:bg-primary/5 group-has-checked:text-primary flex items-center justify-center rounded-xl border px-3 py-2.5 text-sm font-medium transition-colors">
+                    {label}
+                  </span>
+                </label>
+              ))
+            }
+          </div>
+        </div>
+      </div>
+
+      {/* ── Step 2 ── */}
+      <div id="msf-step-2" class="msf-step hidden space-y-6">
+        {/* Move size */}
+        <div class="space-y-2">
+          <Label size="sm">Size of the Move</Label>
+          <div class="grid grid-cols-1 gap-2 sm:grid-cols-2">
+            {
+              moveSizes.map(({ id, label }) => (
+                <label class="msf-option-card group cursor-pointer">
+                  <input
+                    type="radio"
+                    name="moveSize"
+                    value={id}
+                    class="sr-only"
+                  />
+                  <span class="border-border text-foreground group-has-checked:border-primary group-has-checked:bg-primary/5 group-has-checked:text-primary flex items-center justify-center rounded-xl border px-3 py-2.5 text-sm font-medium transition-colors">
+                    {label}
+                  </span>
+                </label>
+              ))
+            }
+          </div>
+        </div>
+
+        {/* Floors */}
+        <div class="grid grid-cols-1 gap-6 sm:grid-cols-2">
+          <div class="space-y-2">
+            <Label size="sm">Floor at Origin</Label>
+            <div class="grid grid-cols-1 gap-2">
+              {
+                floorOptions.map(({ id, label }) => (
+                  <label class="msf-option-card group cursor-pointer">
+                    <input
+                      type="radio"
+                      name="floorOrigin"
+                      value={id}
+                      class="sr-only"
+                    />
+                    <span class="border-border text-foreground group-has-checked:border-primary group-has-checked:bg-primary/5 group-has-checked:text-primary flex items-center justify-center rounded-xl border px-3 py-2.5 text-sm font-medium transition-colors">
+                      {label}
+                    </span>
+                  </label>
+                ))
+              }
+            </div>
+          </div>
+
+          <div class="space-y-2">
+            <Label size="sm">Floor at Destination</Label>
+            <div class="grid grid-cols-1 gap-2">
+              {
+                floorOptions.map(({ id, label }) => (
+                  <label class="msf-option-card group cursor-pointer">
+                    <input
+                      type="radio"
+                      name="floorDestination"
+                      value={id}
+                      class="sr-only"
+                    />
+                    <span class="border-border text-foreground group-has-checked:border-primary group-has-checked:bg-primary/5 group-has-checked:text-primary flex items-center justify-center rounded-xl border px-3 py-2.5 text-sm font-medium transition-colors">
+                      {label}
+                    </span>
+                  </label>
+                ))
+              }
+            </div>
+          </div>
+        </div>
+      </div>
+    </CardContent>
+
+    <CardFooter class="flex justify-between gap-4">
+      <Button
+        id="msf-back"
+        type="button"
+        variant="outline"
+        class="w-full"
+        disabled
+      >
+        Back
+      </Button>
+      <Button id="msf-next" type="button" variant="primary" class="w-full">
+        Next
+      </Button>
+    </CardFooter>
+  </Card>
+</div>
+
+<script>
+  const STEP_META: Record<number, { label: string; title: string }> = {
+    1: {
+      label: 'Step 1 of 2',
+      title: 'Get a Quote',
+    },
+    2: {
+      label: 'Step 2 of 2',
+      title: 'Fill Move Details',
+    },
+  };
+
+  function init() {
+    const root = document.getElementById('msf-root');
+    if (!root) return;
+
+    const total = Number(root.dataset.total) || 2;
+    let current = 1;
+
+    const title = document.getElementById('msf-title')!;
+    const backBtn = document.getElementById('msf-back') as HTMLButtonElement;
+    const nextBtn = document.getElementById('msf-next') as HTMLButtonElement;
+
+    function render(step: number) {
+      // Show / hide panels
+      document.querySelectorAll<HTMLElement>('.msf-step').forEach((el) => {
+        el.classList.add('hidden');
+      });
+      document.getElementById(`msf-step-${step}`)?.classList.remove('hidden');
+
+      // Header meta
+      const meta = STEP_META[step];
+
+      title.textContent = meta?.title ?? '';
+
+      // Buttons
+      backBtn.disabled = step === 1;
+      nextBtn.textContent = step === total ? 'Get My Quote' : 'Next';
+    }
+
+    backBtn.addEventListener('click', () => {
+      if (current > 1) {
+        current--;
+        render(current);
+      }
+    });
+
+    nextBtn.addEventListener('click', () => {
+      if (current < total) {
+        current++;
+        render(current);
+      } else {
+        handleSubmit();
+      }
+    });
+
+    function handleSubmit() {
+      const fields: Record<string, string> = {};
+      root
+        ?.querySelectorAll<HTMLInputElement>('input[name]')
+        .forEach((input) => {
+          if (input.type === 'radio') {
+            if (input.checked) fields[input.name] = input.value;
+          } else {
+            fields[input.name] = input.value;
+          }
+        });
+
+      // Replace with your form submission logic (fetch, redirect, etc.)
+      console.log('Quote request:', fields);
+      nextBtn.textContent = 'Sending…';
+      nextBtn.disabled = true;
+    }
+
+    render(1);
+  }
+
+  // Run after DOM is ready (handles Astro view transitions too)
+  document.addEventListener('astro:page-load', init);
+  if (document.readyState !== 'loading') init();
+</script>

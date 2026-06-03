@@ -1,0 +1,43 @@
+---
+import CityPremiumLanding from '@/components/city-premium/CityPremiumLanding.astro';
+import {
+  getPremiumCityBySlug,
+  getPremiumCityPaths,
+} from '@/config/city-premium/registry';
+import type { CityPremiumContent } from '@/config/city-premium/types';
+import { SITE } from '@/config/site';
+import Layout from '@/layouts/Layout.astro';
+import { resolveCityPremiumAssets } from '@/utils/city-premium-assets';
+import { buildCityPremiumPageSeo } from '@/utils/city-premium-seo';
+
+export function getStaticPaths() {
+  return getPremiumCityPaths().map((slug) => {
+    const content = getPremiumCityBySlug(slug)!;
+    return {
+      params: { cityPremium: slug },
+      props: { content },
+    };
+  });
+}
+
+interface Props {
+  content: CityPremiumContent;
+}
+
+const { content } = Astro.props;
+const siteBase = Astro.site?.href ?? SITE.url;
+const assets = await resolveCityPremiumAssets(content, siteBase);
+const seo = buildCityPremiumPageSeo(
+  content,
+  Astro.url,
+  assets.socialImageUrl,
+);
+---
+
+<Layout {...seo} lcpPreload={assets.lcpPreload}>
+  <CityPremiumLanding
+    content={content}
+    cityHero={assets.cityHero}
+    cityLogo={assets.cityLogo}
+  />
+</Layout>

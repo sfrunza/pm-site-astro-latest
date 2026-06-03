@@ -1,0 +1,145 @@
+---
+import { Picture } from 'astro:assets';
+import heroBg from '@/assets/heros/home.webp';
+import Button from '@/components/starwind/button';
+import { SITE } from '@/config/site';
+import { ArrowRight, SparklesIcon } from '@/icons';
+
+interface Props {
+  badge?: string;
+  title?: string;
+  titleAccent?: string;
+  subtitle?: string;
+}
+
+const {
+  badge = 'Licensed & insured in Massachusetts',
+  title = 'Stress-free moves',
+  titleAccent = 'you can trust',
+  subtitle = 'Professional residential and commercial moving across Greater Boston. Transparent pricing, experienced crews, and a free quote in minutes.',
+} = Astro.props;
+
+const stats = [
+  { value: '4.9★', label: 'Average rating' },
+  { value: '240+', label: 'Happy customers' },
+  { value: '100%', label: 'On-time guarantee' },
+];
+---
+
+<section class="relative isolate flex min-h-dvh flex-col overflow-hidden">
+  <Picture
+    src={heroBg}
+    alt=""
+    formats={['avif', 'webp']}
+    fallbackFormat="webp"
+    layout="full-width"
+    fit="cover"
+    position="center"
+    quality="mid"
+    priority
+    pictureAttributes={{
+      class:
+        'pointer-events-none absolute inset-0 -z-20 h-full min-h-full w-full [&>img]:h-full [&>img]:w-full [&>img]:object-cover',
+    }}
+    class="h-full w-full object-cover"
+  />
+
+  <!-- Background overlay -->
+  <div
+    class="absolute inset-0 -z-10 bg-linear-to-r from-neutral-950/70 via-neutral-950/55 to-neutral-900/25"
+    aria-hidden="true"
+  >
+  </div>
+  <div
+    class="absolute inset-0 -z-10 bg-linear-to-t from-neutral-950/60 via-transparent to-neutral-950/20"
+    aria-hidden="true"
+  >
+  </div>
+
+  <!-- Content container -->
+  <div
+    class="relative mx-auto flex w-full max-w-[1440px] flex-1 flex-col px-6 pt-28 pb-10 lg:px-10 lg:pt-32 lg:pb-14"
+  >
+    {/* Main copy — upper-left */}
+    <div class="flex flex-1 flex-col justify-center">
+      <div class="max-w-3xl space-y-8">
+        <p
+          class="inline-flex w-fit items-center gap-2 rounded-full border border-white/15 bg-white/10 px-4 py-1.5 text-sm font-medium text-white/90"
+        >
+          <SparklesIcon
+            class="text-secondary size-4 shrink-0"
+            aria-hidden="true"
+          />
+          {badge}
+        </p>
+
+        <h1
+          class="text-4xl font-bold tracking-tight text-pretty text-white text-shadow-lg sm:text-5xl lg:text-6xl lg:leading-[1.1]"
+        >
+          {title}
+          <span class="text-secondary">{titleAccent}</span>
+        </h1>
+
+        <p
+          class="max-w-xl text-lg leading-relaxed font-medium text-pretty text-white/75 sm:text-xl"
+        >
+          {subtitle}
+        </p>
+
+        <div class="flex flex-wrap items-center gap-4">
+          <Button variant="outline" size="lg" href="/book" class="group">
+            Get a Quote
+            <ArrowRight
+              class="transition-transform group-hover:translate-x-1"
+              aria-hidden="true"
+            />
+          </Button>
+          <Button
+            variant="outline"
+            size="lg"
+            href="/pricing"
+            class="border-white/25 bg-white/5 text-white hover:bg-white/10 hover:text-white"
+          >
+            View pricing
+          </Button>
+        </div>
+      </div>
+    </div>
+
+    {/* Bottom bar — stats + scroll */}
+    <div
+      class="mt-12 flex flex-col gap-10 border-t border-white/10 pt-10 sm:flex-row sm:items-end sm:justify-between"
+    >
+      <dl class="grid grid-cols-3 gap-8 sm:gap-12">
+        {
+          stats.map((stat) => (
+            <div class="space-y-1">
+              <dt class="text-sm font-medium text-white/70">{stat.label}</dt>
+              <dd class="text-2xl font-bold tracking-tight text-white sm:text-3xl font-[system-ui]">
+                {stat.value}
+              </dd>
+            </div>
+          ))
+        }
+      </dl>
+
+      <!-- <a
+        href="#services"
+        class="group hidden shrink-0 flex-col items-center gap-2 text-white/60 transition-colors hover:text-white/90 sm:flex"
+        aria-label="Scroll to services"
+      >
+        <span class="text-xs font-semibold tracking-[0.2em] uppercase">
+          Scroll
+        </span>
+        <ArrowDown
+          class="size-5 motion-reduce:animate-none animate-bounce transition-transform group-hover:translate-y-0.5"
+          aria-hidden="true"
+        />
+      </a> -->
+    </div>
+
+    <p class="mt-6 text-xs text-white/40 sm:hidden">
+      Licensed MDPU #{SITE.businessLicenses.MDPU}
+    </p>
+  </div>
+</section>

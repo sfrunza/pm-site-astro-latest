@@ -1,0 +1,35 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Hero from '@/components/Hero.astro';
+import Pricing1 from '@/blocks/pricing/Pricing1.astro';
+import Services1 from '@/blocks/services/Services1.astro';
+import Feature1 from '@/blocks/feature/Feature1.astro';
+import CTA1 from '@/blocks/cta/CTA1.astro';
+import Cities1 from '@/blocks/cities/Cities1.astro';
+import RelatedServices from '@/blocks/related/RelatedServices.astro';
+import { getRelatedLinks } from '@/config/service-faqs';
+import feature1Image from '@/assets/2-movers-and-truck-opt.jpg';
+import { homeSeo } from '@/config/seo';
+import heroBg from '@/assets/heros/home.webp';
+import { getLcpPreload } from '@/utils/lcp-preload';
+
+const seo = homeSeo(Astro.url);
+const lcpPreload = await getLcpPreload(heroBg);
+---
+
+<Layout {...seo} lcpPreload={lcpPreload}>
+  <Hero />
+  <Services1 />
+  <Pricing1 class="defer-section" />
+
+  <Feature1
+    image={{
+      src: feature1Image,
+      alt: '2 Movers and Truck',
+    }}
+    class="defer-section"
+  />
+  <Cities1 class="defer-section" />
+  <RelatedServices links={getRelatedLinks('/')} class="defer-section" />
+  <CTA1 class="defer-section" />
+</Layout>

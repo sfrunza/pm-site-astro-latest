@@ -1,0 +1,64 @@
+---
+import Container from '@/components/Container.astro';
+import Section from '@/components/Section.astro';
+import SectionHeader from '@/components/SectionHeader.astro';
+import Prose from '@/components/starwind/prose';
+import { Image } from 'astro:assets';
+
+type Props = {
+  title: string;
+  subtitle?: string;
+  label?: string;
+  position?: 'left' | 'right' | 'center';
+  image: ImageMetadata;
+  alt: string;
+};
+
+const { title, subtitle, image, alt, position = 'center', label } = Astro.props;
+---
+
+<Section class="py-16">
+  <Container>
+    <SectionHeader
+      title={title}
+      subtitle={subtitle}
+      position={position}
+      label={label}
+    />
+
+    <div class="grid gap-12 lg:grid-cols-2 lg:items-center lg:gap-16">
+      <div class="flex min-w-0 w-full flex-col">
+        <Prose class="w-full max-lg:max-w-none">
+          <slot />
+        </Prose>
+        {
+          Astro.slots.has('actions') && (
+            <div class="mt-8 flex w-full flex-wrap gap-3">
+              <slot name="actions" />
+            </div>
+          )
+        }
+      </div>
+      <div
+        class="order-first flex w-full items-center justify-center lg:order-last"
+      >
+        <div
+          class="flex w-full items-center justify-center overflow-hidden rounded-3xl"
+        >
+          <Image
+            alt={alt}
+            title={alt}
+            class="starwind-image mx-auto max-h-[min(28rem,70dvh)] w-auto max-w-full object-contain"
+            data-slot="image"
+            decoding="async"
+            fetchpriority="auto"
+            height={450}
+            loading="lazy"
+            src={image}
+            width={700}
+          />
+        </div>
+      </div>
+    </div>
+  </Container>
+</Section>

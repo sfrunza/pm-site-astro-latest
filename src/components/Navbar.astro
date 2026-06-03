@@ -1,0 +1,263 @@
+---
+import Logo from '@/components/Logo.astro';
+import Button from '@/components/starwind/button';
+import Separator from '@/components/starwind/separator';
+import { Sheet, SheetContent, SheetTrigger } from '@/components/starwind/sheet';
+import {
+  Collapsible,
+  CollapsibleContent,
+  CollapsibleTrigger,
+} from '@/components/starwind/collapsible';
+import {
+  Dropdown,
+  DropdownTrigger,
+  DropdownContent,
+  DropdownItem,
+} from '@/components/starwind/dropdown';
+import { SITE } from '@/config/site';
+import {
+  UserIcon,
+  PhoneIcon,
+  MailIcon,
+  ChevronDownIcon,
+  MenuIcon,
+} from '@/icons';
+import Banner from '@/components/Banner.astro';
+import { services } from '@/config/site-data';
+
+export type NavLink = {
+  label: string;
+  href: string;
+  description?: string;
+  shortDescription?: string;
+  items?: NavLink[];
+};
+
+export const navLinks: NavLink[] = [
+  {
+    label: 'Home',
+    href: '/',
+  },
+  {
+    label: 'Services',
+    href: '#',
+    items: services.map((service) => ({
+      label: service.name,
+      href: service.href,
+      shortDescription: service.shortDescription,
+    })),
+  },
+  {
+    label: 'Pricing',
+    href: '/pricing',
+  },
+  {
+    label: 'Blog',
+    href: '/blog',
+  },
+  {
+    label: 'FAQ',
+    href: '/faq',
+  },
+];
+---
+
+<header class="sticky top-0 right-0 h-0 left-0 z-60 transform-gpu">
+  <!-- <Banner /> -->
+  <div class="relative sm:p-4">
+    <div
+      class="bg-background/10 pointer-events-none absolute inset-0 -z-10 h-22 mask-[linear-gradient(to_bottom,#000_20%,transparent_100%)] backdrop-blur-lg"
+    >
+    </div>
+    <div class="mx-auto w-full max-w-[1440px]">
+      <div
+        class="bg-background flex h-16 items-center justify-between shadow-lg gap-1 px-3 sm:rounded-3xl"
+      >
+        <a href="/" aria-label="Phoenix Moving">
+          <Logo className="h-10 -ml-4" />
+        </a>
+        <!-- Center: Nav -->
+        <div class="flex grow justify-end lg:justify-center">
+          <nav class="pointer-events-auto hidden lg:block">
+            <ul class="flex gap-1">
+              {
+                navLinks.map((link) => {
+                  if (link.items) {
+                    return (
+                      <li>
+                        <Dropdown openOnHover>
+                          <DropdownTrigger asChild>
+                            <Button variant="ghost" class="group">
+                              Services
+                              <ChevronDownIcon class="transition-transform duration-200 group-aria-expanded:rotate-180" />
+                            </Button>
+                          </DropdownTrigger>
+                          <DropdownContent
+                            align="center"
+                            class="min-w-xs rounded-3xl shadow-lg p-2.5"
+                          >
+                            {link.items.map((item) => (
+                              <DropdownItem
+                                as="a"
+                                href={item.href}
+                                class="rounded-2xl p-3 flex flex-col items-start cursor-pointer"
+                                title={item.label}
+                              >
+                                <div class="flex flex-col gap-1 text-sm">
+                                  <div class="leading-none font-medium">
+                                    {item.label}
+                                  </div>
+                                  <div class="text-muted-foreground line-clamp-2">
+                                    {item.shortDescription}
+                                  </div>
+                                </div>
+                              </DropdownItem>
+                            ))}
+                          </DropdownContent>
+                        </Dropdown>
+                      </li>
+                    );
+                  }
+                  return (
+                    <li>
+                      <Button
+                        variant="ghost"
+                        href={link.href}
+                        title={link.label}
+                      >
+                        {link.label}
+                      </Button>
+                    </li>
+                  );
+                })
+              }
+              <li>
+                <Button
+                  variant="outline"
+                  href={`tel:${SITE.contactPhone}`}
+                  title={SITE.contactPhone}
+                >
+                  <PhoneIcon />
+                  {SITE.contactPhone}</Button
+                >
+              </li>
+            </ul>
+          </nav>
+        </div>
+
+        <!-- Right side -->
+        <div class="flex items-center gap-1">
+          <Button variant="ghost" class="max-xl:hidden">
+            <UserIcon />
+            Client login
+          </Button>
+          <Button variant="secondary" href="/book">Get a Quote</Button>
+        </div>
+        <!-- Mobile menu  -->
+        <div class="block lg:hidden">
+          <Sheet>
+            <SheetTrigger asChild>
+              <Button aria-label="mobile menu" variant="outline" size="icon">
+                <MenuIcon />
+              </Button>
+            </SheetTrigger>
+            <SheetContent side="right" class="pb-22">
+              <!-- <SheetHeader>
+                <SheetTitle class="sr-only">{SITE.businessName}</SheetTitle>
+                <SheetDescription class="sr-only">
+                  {SITE.description}
+                </SheetDescription>
+              </SheetHeader> -->
+              <div class="px-4 pt-12">
+                <nav>
+                  <ul class="flex flex-col space-y-1">
+                    {
+                      navLinks.map((link) => {
+                        if (link.items) {
+                          return (
+                            <li>
+                              <Collapsible class="group">
+                                <CollapsibleTrigger asChild>
+                                  <Button
+                                    variant="ghost"
+                                    class="w-full justify-between"
+                                  >
+                                    Services
+                                    <ChevronDownIcon class="transition-transform duration-200 group-data-[state=open]:rotate-180" />
+                                  </Button>
+                                </CollapsibleTrigger>
+                                <CollapsibleContent class="flex flex-col gap-1 pt-1 pl-3">
+                                  {link.items.map((item) => (
+                                    <Button
+                                      variant="ghost"
+                                      class="w-full justify-start font-normal"
+                                      href={item.href}
+                                    >
+                                      {item.label}
+                                    </Button>
+                                  ))}
+                                </CollapsibleContent>
+                              </Collapsible>
+                            </li>
+                          );
+                        }
+
+                        return (
+                          <li>
+                            <Button
+                              variant="ghost"
+                              class="w-full justify-start"
+                              href={link.href}
+                            >
+                              {link.label}
+                            </Button>
+                          </li>
+                        );
+                      })
+                    }
+                  </ul>
+                  <Separator class="my-6" />
+                  <ul class="space-y-4">
+                    <li>
+                      <Button
+                        variant="ghost"
+                        class="w-full justify-start"
+                        href={`tel:${SITE.contactPhone}`}
+                      >
+                        <UserIcon />
+                        Client login</Button
+                      >
+                    </li>
+                  </ul>
+                  <Separator class="my-6" />
+                  <ul class="space-y-4">
+                    <li>
+                      <Button
+                        variant="outline"
+                        class="w-full justify-start"
+                        href={`tel:${SITE.contactPhone}`}
+                      >
+                        <PhoneIcon />
+                        {SITE.contactPhone}</Button
+                      >
+                    </li>
+                    <li>
+                      <Button
+                        variant="primary"
+                        class="w-full justify-start"
+                        href={`mailto:${SITE.contactEmail}`}
+                      >
+                        <MailIcon />
+                        {SITE.contactEmail}</Button
+                      >
+                    </li>
+                  </ul>
+                </nav>
+              </div>
+            </SheetContent>
+          </Sheet>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>

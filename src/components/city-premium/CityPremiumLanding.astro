@@ -1,0 +1,86 @@
+---
+import CTA1 from '@/blocks/cta/CTA1.astro';
+import Feature3 from '@/blocks/feature/Feature3.astro';
+import FeatureImageRight from '@/blocks/feature/FeatureImageRight.astro';
+import RenderCityPremiumSection from '@/components/city-premium/RenderCityPremiumSection.astro';
+import Button from '@/components/starwind/button';
+import Hero2 from '@/components/Hero2.astro';
+import {
+  DEFAULT_CITY_PREMIUM_SECTION_ORDER,
+  type CityPremiumContent,
+} from '@/config/city-premium/types';
+import { SITE } from '@/config/site';
+import type { ImageMetadata } from 'astro';
+
+interface Props {
+  content: CityPremiumContent;
+  cityHero: ImageMetadata;
+  cityLogo: ImageMetadata;
+}
+
+const { content, cityHero, cityLogo } = Astro.props;
+const c = content;
+const office = SITE.businessAddresses[c.intro.officeIndex ?? 0];
+const phoneTel = `+${SITE.contactPhone.replace(/\D/g, '')}`;
+const sectionOrder = c.sectionOrder ?? DEFAULT_CITY_PREMIUM_SECTION_ORDER;
+---
+
+<Hero2 bgImage={cityHero} title={c.hero.title} subtitle={c.hero.subtitle} />
+
+<Feature3 features={c.trustFeatures} />
+
+<FeatureImageRight
+  label={c.intro.label}
+  title={c.intro.title}
+  subtitle={c.directAnswer}
+  position="left"
+  image={cityLogo}
+  alt={c.intro.imageAlt}
+>
+  <p>
+    <strong>{c.intro.trustLead}</strong>
+    {c.directAnswer}
+  </p>
+  <address class="not-italic mt-6 space-y-2 text-sm">
+    <p>
+      <strong>{SITE.businessShortName}</strong><br />
+      {office.address}<br />
+      {office.city}, {office.state}
+      {office.zip}
+    </p>
+    <p>
+      Phone: <a href={`tel:${phoneTel}`}>{SITE.contactPhone}</a><br />
+      Email: <a href={`mailto:${SITE.contactEmail}`}>{SITE.contactEmail}</a>
+    </p>
+    <p>Hours: {SITE.businessHours}</p>
+  </address>
+  <p>
+    Ready to move within {c.schema.cityName} or across Massachusetts? Compare our
+    <a href="/pricing">moving prices</a>, explore
+    <a href="/local-moving">local moving services</a>, or
+    <a href="/book">book your free quote</a> today.
+  </p>
+
+  <Fragment slot="actions">
+    <Button variant="primary" href="/book">Get a free quote</Button>
+    <Button variant="secondary" href="/pricing">View pricing</Button>
+  </Fragment>
+</FeatureImageRight>
+
+{
+  sectionOrder.map((sectionId) => (
+    <RenderCityPremiumSection
+      id={sectionId}
+      content={c}
+      cityHero={cityHero}
+      phoneTel={phoneTel}
+    />
+  ))
+}
+
+<CTA1
+  title={c.finalCta.title}
+  description={c.finalCta.description}
+  primaryButton={{ text: 'Get a free quote', href: '/book' }}
+  secondaryButton={{ text: 'Call us', href: `tel:${phoneTel}` }}
+/>

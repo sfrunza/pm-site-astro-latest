@@ -1,0 +1,37 @@
+---
+import Layout from '@/layouts/Layout.astro';
+import Container from '@/components/Container.astro';
+import Section from '@/components/Section.astro';
+import SectionHeader from '@/components/SectionHeader.astro';
+import SitemapTree from '@/components/SitemapTree.astro';
+import { getSitemapTree } from '@/config/sitemap-tree';
+import { buildPageSeo } from '@/config/seo';
+
+const tree = await getSitemapTree();
+
+const seo = buildPageSeo(Astro.url, {
+  title: 'Sitemap - Phoenix Moving Boston',
+  description:
+    'Browse all Phoenix Moving pages: services, pricing, booking, FAQs, Massachusetts service areas, and legal policies.',
+  keywords: 'sitemap, Phoenix Moving pages, Boston movers site map',
+  pathname: Astro.url.pathname,
+  breadcrumbs: [
+    { name: 'Home', path: '/' },
+    { name: 'Sitemap', path: '/sitemap' },
+  ],
+});
+---
+
+<Layout {...seo}>
+  <Section class="pt-28 pb-16 md:pt-32">
+    <Container>
+      <SectionHeader
+        position="left"
+        label="Site navigation"
+        title="Sitemap"
+        subtitle="A complete tree of pages on Phoenix Moving — services, locations, and policies."
+      />
+      <SitemapTree nodes={tree} />
+    </Container>
+  </Section>
+</Layout>

@@ -1,0 +1,378 @@
+---
+import CTA2 from '@/blocks/cta/CTA2.astro';
+import FAQDetails from '@/blocks/faq/FAQDetails.astro';
+import Feature2 from '@/blocks/feature/Feature2.astro';
+import FeatureImageLeft from '@/blocks/feature/FeatureImageLeft.astro';
+import FeatureSteps from '@/blocks/feature/FeatureSteps.astro';
+import RelatedServices from '@/blocks/related/RelatedServices.astro';
+import Services1 from '@/blocks/services/Services1.astro';
+import Container from '@/components/Container.astro';
+import Section from '@/components/Section.astro';
+import SectionHeader from '@/components/SectionHeader.astro';
+import Button from '@/components/starwind/button';
+import { Image } from '@/components/starwind/image';
+import Prose from '@/components/starwind/prose';
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+} from '@/components/starwind/card';
+import type {
+  CityPremiumContent,
+  CityPremiumSectionId,
+} from '@/config/city-premium/types';
+import { SITE } from '@/config/site';
+import type { ImageMetadata } from 'astro';
+
+interface Props {
+  id: CityPremiumSectionId;
+  content: CityPremiumContent;
+  cityHero: ImageMetadata;
+  phoneTel: string;
+}
+
+const { id, content: c, cityHero, phoneTel } = Astro.props;
+---
+
+{
+  id === 'services' &&
+    (c.services ? (
+      <Services1
+        label={c.services.label}
+        title={c.services.title}
+        subtitle={c.services.subtitle}
+      />
+    ) : (
+      <Services1 />
+    ))
+}
+
+{
+  id === 'movingInCity' && c.movingInCity && (
+    <FeatureImageLeft
+      title={c.movingInCity.title}
+      subtitle={c.movingInCity.subtitle}
+      image={cityHero}
+      alt={c.movingInCity.imageAlt}
+    >
+      {c.movingInCity.paragraphs.map((paragraph) => (
+        <p set:html={paragraph} />
+      ))}
+    </FeatureImageLeft>
+  )
+}
+
+{
+  id === 'moveTypes' && c.moveTypes && (
+    <Section class="py-12">
+      <Container class="@container">
+        <SectionHeader
+          label={c.moveTypes.label}
+          title={c.moveTypes.title}
+          subtitle={c.moveTypes.subtitle}
+          position="center"
+        />
+        <div class="mt-12 grid gap-6 @md:grid-cols-2 @2xl:grid-cols-3">
+          {c.moveTypes.items.map((moveType) => (
+            <Card class="h-full">
+              <CardHeader>
+                <CardTitle>
+                  <h3>{moveType.title}</h3>
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p>{moveType.description}</p>
+              </CardContent>
+            </Card>
+          ))}
+        </div>
+        <div class="mt-10 flex flex-wrap justify-center gap-3">
+          <Button variant="primary" href="/book">
+            {c.moveTypes.quoteButtonLabel ??
+              `Get a ${c.schema.cityName} moving quote`}
+          </Button>
+          {c.moveTypes.showPianoLink && (
+            <Button variant="outline" href="/piano-moving">
+              Piano & specialty moves
+            </Button>
+          )}
+        </div>
+      </Container>
+    </Section>
+  )
+}
+
+{
+  id === 'whyChoose' && (
+    <Feature2
+      title={c.whyChoose.title}
+      subtitle={c.whyChoose.subtitle}
+      label={c.whyChoose.label}
+      position="center"
+      features={c.whyChoose.features}
+    />
+  )
+}
+
+{
+  id === 'howTo' && (
+    <FeatureSteps
+      label={c.howTo.label}
+      title={c.howTo.title}
+      subtitle={c.howTo.subtitle}
+      steps={c.howTo.steps}
+    />
+  )
+}
+
+{
+  id === 'neighborhoods' && (
+    <Section class="py-12">
+      <Container class="@container">
+        <SectionHeader
+          label={c.neighborhoods.label}
+          title={c.neighborhoods.title}
+          subtitle={c.neighborhoods.subtitle}
+          position="center"
+        />
+        <div class="mt-12 grid gap-6 @md:grid-cols-2 @2xl:grid-cols-4">
+          {c.neighborhoods.areas.map((area) => (
+            <Card class="h-full">
+              <CardHeader>
+                <CardTitle>
+                  <h3>{area.title}</h3>
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p>{area.description}</p>
+              </CardContent>
+            </Card>
+          ))}
+        </div>
+        <div class="mt-12">
+          <h3 class="text-lg font-semibold">
+            {c.neighborhoods.nearbyHeading ?? 'Nearby towns we also serve'}
+          </h3>
+          <ul class="mt-4 flex flex-wrap gap-3">
+            {c.nearbyTowns.map((town) => (
+              <li>
+                <a
+                  href={town.href}
+                  class="bg-muted hover:bg-muted/80 inline-flex rounded-full px-4 py-2 text-sm font-medium transition-colors"
+                >
+                  {town.label}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </Container>
+    </Section>
+  )
+}
+
+{
+  id === 'midCta' && c.midCta && (
+    <CTA2
+      title={c.midCta.title}
+      description={c.midCta.description}
+      primaryButton={{ text: 'Request a free estimate', href: '/book' }}
+      secondaryButton={{ text: 'View moving prices', href: '/pricing' }}
+    />
+  )
+}
+
+{
+  id === 'pricing' && (
+    <Section class="bg-muted/40 py-12">
+      <Container class="@container">
+        <SectionHeader
+          label={c.pricing.label}
+          title={c.pricing.title}
+          subtitle={c.pricing.subtitle}
+          position="center"
+        />
+        {c.pricing.factors && (
+          <div class="mt-12 grid gap-6 @md:grid-cols-2">
+            {c.pricing.factors.map((factor) => (
+              <Card class="h-full">
+                <CardHeader>
+                  <CardTitle>
+                    <h3>{factor.title}</h3>
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <p>{factor.description}</p>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        )}
+        <div class="mt-10 flex flex-wrap justify-center gap-3">
+          <Button variant="primary" href="/pricing">
+            See moving prices
+          </Button>
+          <Button variant="secondary" href="/book">
+            Get a free estimate
+          </Button>
+        </div>
+      </Container>
+    </Section>
+  )
+}
+
+{
+  id === 'commercial' && c.commercial && (
+    <Section class="py-12">
+      <Container class="@container">
+        <div class="grid gap-12 @2xl:grid-cols-2 @2xl:items-center">
+          <div>
+            <SectionHeader
+              label={c.commercial.label}
+              title={c.commercial.title}
+              subtitle={c.commercial.subtitle}
+              position="left"
+            />
+            <Prose class="mt-6 max-w-none">
+              {c.commercial.paragraphs.map((paragraph) => (
+                <p>{paragraph}</p>
+              ))}
+              <p>
+                <a href="/book">Request a commercial moving quote</a> or call{' '}
+                <a href={`tel:${phoneTel}`}>{SITE.contactPhone}</a> to discuss
+                your {c.schema.cityName} office timeline.
+              </p>
+            </Prose>
+          </div>
+          <div class="overflow-hidden rounded-3xl">
+            <Image
+              src={cityHero}
+              alt={c.commercial.imageAlt}
+              class="object-cover size-full starwind-image max-h-[min(28rem,70dvh)]"
+              loading="lazy"
+            />
+          </div>
+        </div>
+      </Container>
+    </Section>
+  )
+}
+
+{
+  id === 'localGuide' && c.localGuide && (
+    <Section class="py-12">
+      <Container class="@container">
+        <SectionHeader
+          label={c.localGuide.label}
+          title={c.localGuide.title}
+          subtitle={c.localGuide.subtitle}
+          position="left"
+        />
+        <Prose class="mt-8 max-w-none">
+          {c.localGuide.paragraphs.map((paragraph) => (
+            <p set:html={paragraph} />
+          ))}
+        </Prose>
+      </Container>
+    </Section>
+  )
+}
+
+{
+  id === 'prepTips' && c.prepTips && (
+    <Section class="defer-section py-12">
+      <Container class="@container">
+        <SectionHeader
+          label={c.prepTips.label}
+          title={c.prepTips.title}
+          subtitle={c.prepTips.subtitle}
+          position="center"
+        />
+        <ul class="mx-auto mt-10 max-w-2xl space-y-4">
+          {c.prepTips.tips.map((tip) => (
+            <li class="bg-muted flex gap-3 rounded-2xl px-6 py-4 text-pretty">
+              <span
+                class="text-primary shrink-0 font-semibold"
+                aria-hidden="true"
+              >
+                ✓
+              </span>
+              <span>{tip}</span>
+            </li>
+          ))}
+        </ul>
+      </Container>
+    </Section>
+  )
+}
+
+{
+  id === 'reviews' && (
+    <Section class="defer-section py-12">
+      <Container>
+        <SectionHeader
+          label={c.reviews.label}
+          title={c.reviews.title}
+          subtitle={c.reviews.subtitle}
+          position="center"
+        />
+        <ul class="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+          {c.reviews.items.map((review) => (
+            <li>
+              <Card class="h-full">
+                <CardHeader>
+                  <CardTitle class="text-base font-semibold">
+                    {review.author}
+                  </CardTitle>
+                  <p class="text-muted-foreground text-sm">{review.location}</p>
+                </CardHeader>
+                <CardContent>
+                  <p
+                    class="text-yellow-500 mb-2 text-sm"
+                    aria-label={`${review.rating} out of 5 stars`}
+                  >
+                    {'★'.repeat(review.rating)}
+                  </p>
+                  <p class="text-pretty">{review.text}</p>
+                </CardContent>
+              </Card>
+            </li>
+          ))}
+        </ul>
+        <p class="text-muted-foreground mt-8 text-center text-sm">
+          Read more on{' '}
+          <a
+            href="https://www.yelp.com/biz/phoenix-moving-natick-6"
+            rel="noopener noreferrer"
+            target="_blank"
+            class="text-red-700 underline underline-offset-2 hover:text-red-700/80 transition-colors font-medium"
+          >
+            Yelp
+          </a>
+          .
+        </p>
+      </Container>
+    </Section>
+  )
+}
+
+{
+  id === 'faq' && (
+    <FAQDetails
+      class="defer-section"
+      items={c.faq.items}
+      title={c.faq.title}
+      label={c.faq.label}
+      groupName={c.faq.groupName}
+    />
+  )
+}
+
+{
+  id === 'related' && (
+    <div class="defer-section">
+      <RelatedServices links={c.relatedLinks} title={c.relatedTitle} />
+    </div>
+  )
+}

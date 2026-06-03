@@ -1,0 +1,45 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Hero2 from '@/components/Hero2.astro';
+import FAQ1, { faqs } from '@/blocks/faq/FAQ1.astro';
+import CTA1 from '@/blocks/cta/CTA1.astro';
+import heroBg from '@/assets/heros/faq.jpg';
+import RelatedServices from '@/blocks/related/RelatedServices.astro';
+import { buildFaqJsonLd, buildPageSeo, stripHtmlForSchema } from '@/config/seo';
+import { getRelatedLinks } from '@/config/service-faqs';
+import { getLcpPreload } from '@/utils/lcp-preload';
+
+const lcpPreload = await getLcpPreload(heroBg);
+const seo = buildPageSeo(Astro.url, {
+  title: 'FAQ - Phoenix Moving Boston',
+  description:
+    'Frequently asked questions about Phoenix Moving services, pricing, licensing, payments, and what to expect on moving day.',
+  keywords:
+    'moving FAQ, moving questions, Boston movers FAQ, moving cost, licensed movers',
+  pathname: Astro.url.pathname,
+  breadcrumbs: [
+    { name: 'Home', path: '/' },
+    { name: 'FAQ', path: '/faq' },
+  ],
+  jsonLdExtra: [
+    buildFaqJsonLd(
+      Astro.url.pathname,
+      faqs.map((faq) => ({
+        question: faq.question,
+        answer: stripHtmlForSchema(faq.answer),
+      })),
+    ),
+  ],
+});
+---
+
+<Layout {...seo} lcpPreload={lcpPreload}>
+  <Hero2
+    bgImage={heroBg}
+    title="Questions? Answers."
+    subtitle="Answers to your questions about our moving services."
+  />
+  <FAQ1 />
+  <RelatedServices links={getRelatedLinks(Astro.url.pathname)} />
+  <CTA1 />
+</Layout>

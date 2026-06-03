@@ -1,0 +1,153 @@
+---
+import { getCollection, render } from 'astro:content';
+import CTA1 from '@/blocks/cta/CTA1.astro';
+import FAQ1 from '@/blocks/faq/FAQ1.astro';
+import RelatedServices from '@/blocks/related/RelatedServices.astro';
+import ArticleMeta from '@/components/blog/ArticleMeta.astro';
+import AuthorBio from '@/components/blog/AuthorBio.astro';
+import BlogHero from '@/components/blog/BlogHero.astro';
+import KeyTakeaways from '@/components/blog/KeyTakeaways.astro';
+import RelatedPosts from '@/components/blog/RelatedPosts.astro';
+import TableOfContents from '@/components/blog/TableOfContents.astro';
+import Container from '@/components/Container.astro';
+import Section from '@/components/Section.astro';
+import Prose from '@/components/starwind/prose';
+import { Badge } from '@/components/starwind/badge';
+import {
+  BLOG_CATEGORIES,
+  getPostReadingTime,
+  getPostUrl,
+  getPublishedPosts,
+  getRelatedPosts,
+} from '@/config/blog';
+import { getBlogRelatedServices } from '@/config/blog-related-services';
+import Layout from '@/layouts/Layout.astro';
+import { buildBlogPostSeo } from '@/config/seo';
+import { getBlogImageUrl } from '@/utils/blog-image-url';
+import { getLcpPreload } from '@/utils/lcp-preload';
+import CTA2 from '@/blocks/cta/CTA2.astro';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('blog', ({ data }) => !data.draft);
+  return posts.map((post) => ({
+    params: { slug: post.id },
+    props: { post },
+  }));
+}
+
+const { post } = Astro.props;
+const { Content, headings } = await render(post);
+const { data } = post;
+const pathname = getPostUrl(post);
+const category = BLOG_CATEGORIES[data.category];
+
+const readingTime = getPostReadingTime(post);
+
+const allPosts = await getPublishedPosts();
+const related = getRelatedPosts(post, allPosts);
+
+const faqItems =
+  data.faq?.map((item) => ({
+    question: item.question,
+    answer: `<p>${item.answer}</p>`,
+  })) ?? [];
+
+const blogImageUrl = await getBlogImageUrl(data.image, Astro.site);
+const lcpPreload = data.image
+  ? await getLcpPreload(data.image, { width: 896, quality: 80 })
+  : undefined;
+
+const seo = buildBlogPostSeo(
+  Astro.url,
+  {
+    title: data.title,
+    description: data.description,
+    keywords: data.keywords,
+    pathname,
+    pubDate: data.pubDate,
+    updatedDate: data.updatedDate,
+    category: category.label,
+    tags: data.tags,
+    image: blogImageUrl,
+    faq: data.faq,
+    howTo: data.howTo,
+  },
+  data.title
+);
+
+const relatedServices = getBlogRelatedServices();
+---
+
+<Layout {...seo} lcpPreload={lcpPreload}>
+  <Section class="pt-24 sm:pt-28 pb-4">
+    <Container>
+      <nav aria-label="Breadcrumb" class="text-muted-foreground mb-6 text-sm">
+        <ol class="flex flex-wrap items-center gap-2">
+          <li><a href="/" class="hover:text-foreground">Home</a></li>
+          <li aria-hidden="true">/</li>
+          <li><a href="/blog" class="hover:text-foreground">Blog</a></li>
+          <li aria-hidden="true">/</li>
+          <li class="text-foreground font-medium">{data.title}</li>
+        </ol>
+      </nav>
+
+      <Badge variant="secondary" class="mb-4">{category.label}</Badge>
+      <h1 class="text-3xl font-bold tracking-tight md:text-4xl lg:text-5xl">
+        {data.title}
+      </h1>
+      <div class="mt-4">
+        <ArticleMeta
+          pubDate={data.pubDate}
+          updatedDate={data.updatedDate}
+          readingTime={readingTime}
+        />
+      </div>
+    </Container>
+  </Section>
+
+  <Section class="pb-8">
+    <Container>
+      <BlogHero
+        title={data.title}
+        categoryLabel={category.label}
+        image={data.image}
+        lcpPreload
+      />
+    </Container>
+  </Section>
+
+  <Section class="pb-16">
+    <Container>
+      <div class="lg:grid lg:grid-cols-[minmax(0,1fr)_220px] lg:gap-8">
+        <div>
+          <KeyTakeaways items={data.keyTakeaways} />
+          <Prose class="blog-post-prose text-base md:text-lg">
+            <Content />
+          </Prose>
+
+          {
+            faqItems.length > 0 && (
+              <div class="not-sw-prose mt-12">
+                <FAQ1 items={faqItems} />
+              </div>
+            )
+          }
+
+          <AuthorBio />
+          <CTA2
+            title="Ready for your Boston move?"
+            description="Get a free estimate from licensed, insured crews serving Greater Boston and Massachusetts."
+          />
+        </div>
+
+        <aside class="hidden lg:block">
+          <TableOfContents headings={headings} />
+        </aside>
+      </div>
+    </Container>
+  </Section>
+
+  <RelatedPosts posts={related} />
+  <RelatedServices links={relatedServices} />
+  <CTA1 />
+</Layout>

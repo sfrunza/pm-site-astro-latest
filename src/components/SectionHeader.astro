@@ -1,0 +1,82 @@
+---
+import { tv, type VariantProps } from 'tailwind-variants';
+import Badge from './starwind/badge';
+
+const sectionHeaderRoot = tv({
+  base: 'mb-14 space-y-4',
+  variants: {
+    position: {
+      center: 'text-center',
+      left: 'text-left',
+      right: 'text-right',
+    },
+  },
+  defaultVariants: { position: 'center' },
+});
+
+const sectionHeaderTitle = tv({
+  base: 'text-3xl font-bold tracking-tight sm:text-4xl lg:text-5xl text-pretty',
+});
+
+const sectionHeaderSubtitle = tv({
+  base: 'text-lg text-pretty text-muted-foreground leading-relaxed',
+  variants: {
+    position: {
+      center: 'mx-auto max-w-4xl',
+      left: '',
+      right: '',
+    },
+  },
+  defaultVariants: { position: 'center' },
+});
+
+interface Props extends VariantProps<typeof sectionHeaderRoot> {
+  title: string;
+  subtitle?: string;
+  label?: string;
+  class?: string;
+  titleClass?: string;
+  subtitleClass?: string;
+}
+
+const {
+  title,
+  subtitle,
+  label,
+  class: className,
+  titleClass: titleClassName,
+  subtitleClass: subtitleClassName,
+  position = 'center',
+} = Astro.props;
+
+const rootClass = sectionHeaderRoot({ position, class: className });
+const titleClass = sectionHeaderTitle({ class: titleClassName });
+const subtitleClass = sectionHeaderSubtitle({
+  position,
+  class: subtitleClassName,
+});
+
+const hasSubtitleSlot = Astro.slots.has('subtitle');
+const showSubtitle = Boolean(subtitle || hasSubtitleSlot);
+---
+
+<div class={rootClass}>
+  {
+    label && (
+      <Badge
+        size="lg"
+        class="bg-primary/10 text-primary uppercase tracking-widest"
+      >
+        {label}
+      </Badge>
+    )
+  }
+  <h2 class={titleClass}>{title}</h2>
+  {
+    showSubtitle && (
+      <p class={subtitleClass}>
+        {hasSubtitleSlot ? <slot name="subtitle" /> : subtitle}
+      </p>
+    )
+  }
+</div>

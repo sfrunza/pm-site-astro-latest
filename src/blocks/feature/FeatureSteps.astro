@@ -1,0 +1,61 @@
+---
+import Container from '@/components/Container.astro';
+import Section from '@/components/Section.astro';
+import SectionHeader from '@/components/SectionHeader.astro';
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+} from '@/components/starwind/card';
+
+import {
+  movingHowToSteps,
+  type MovingStep,
+} from '@/config/moving-howto';
+
+interface Props {
+  steps?: MovingStep[];
+  label?: string;
+  title?: string;
+  subtitle?: string;
+}
+
+const {
+  steps = movingHowToSteps,
+  label = 'The Process',
+  title = "Moving Is Easy With Us — Here's How",
+  subtitle = "We've streamlined the moving process so there are no surprises on moving day.",
+} = Astro.props;
+---
+
+<Section class="py-16">
+  <Container class="@container">
+    <SectionHeader label={label} title={title} subtitle={subtitle} />
+    <div class="grid @5xl:grid-cols-4 @md:grid-cols-2 gap-4 mt-16">
+      {
+        steps.map((step, index) => (
+          <div class="relative group h-full">
+            {index !== steps.length - 1 && (
+              <div class="hidden @5xl:block absolute bg-linear-to-r from-primary-accent h-0.5 right-0 to-primary-accent/50 top-14 translate-x-full via-primary-accent w-4" />
+            )}
+            <Card class="relative overflow-hidden h-full hover:shadow-lg hover:-translate-y-1 transition-all">
+              <div
+                aria-hidden="true"
+                class="-right-2 -top-4 absolute font-black text-7xl text-muted-foreground/70"
+              >
+                {step.stepNumber}
+              </div>
+              <CardHeader>
+                <CardTitle class="uppercase">{step.title}</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p>{step.description}</p>
+              </CardContent>
+            </Card>
+          </div>
+        ))
+      }
+    </div>
+  </Container>
+</Section>

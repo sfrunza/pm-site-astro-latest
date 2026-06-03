@@ -1,0 +1,21 @@
+---
+import { tv, type VariantProps } from 'tailwind-variants';
+
+const containerRoot = tv({
+  base: 'px-4',
+});
+
+interface Props extends VariantProps<typeof containerRoot> {
+  class?: string;
+}
+
+const { class: className } = Astro.props;
+
+const rootClass = containerRoot({ class: className });
+---
+
+<div class={rootClass}>
+  <div class="mx-auto w-full max-w-7xl">
+    <slot />
+  </div>
+</div>

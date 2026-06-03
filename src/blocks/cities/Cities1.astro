@@ -1,0 +1,56 @@
+---
+import Section from '@/components/Section.astro';
+import SectionHeader from '@/components/SectionHeader.astro';
+import { cities } from '@/config/cities-data';
+import { MapPinIcon } from '@/icons';
+import Container from '@/components/Container.astro';
+import { tv } from 'tailwind-variants';
+
+interface Props {
+  class?: string;
+}
+
+const cities1 = tv({
+  base: 'py-16',
+});
+
+const { class: className = '' } = Astro.props;
+---
+
+<Section class={cities1({ class: className })}>
+  <Container>
+    <div class="bg-muted rounded-3xl px-10 py-24">
+      <SectionHeader title="Massachusetts serving areas." />
+      <div
+        class="grid grid-cols-2 gap-x-3 gap-y-0 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6"
+      >
+        {
+          cities
+            .sort((a, b) => {
+              if (a.name < b.name) {
+                return -1;
+              }
+              if (a.name > b.name) {
+                return 1;
+              }
+              return 0;
+            })
+            .map((city, i) => {
+              return (
+                <a
+                  href={`/${city.slug}`}
+                  title={city.fullName}
+                  class="text-muted-foreground group flex min-h-11 items-center gap-2 rounded-sm px-1 py-2.5 text-sm hover:underline"
+                >
+                  <MapPinIcon class="size-4" />
+                  <span class="group-hover:translate-x-1 transition-transform">
+                    {city.fullName}
+                  </span>
+                </a>
+              );
+            })
+        }
+      </div>
+    </div>
+  </Container>
+</Section>

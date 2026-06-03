@@ -1,0 +1,167 @@
+---
+import heroBg from '@/assets/heros/storage-solutions.jpg';
+import storageUnits from '@/assets/storage-units.jpg';
+import CTA1 from '@/blocks/cta/CTA1.astro';
+import CTA2 from '@/blocks/cta/CTA2.astro';
+import FAQ1 from '@/blocks/faq/FAQ1.astro';
+import Feature2 from '@/blocks/feature/Feature2.astro';
+import Feature3 from '@/blocks/feature/Feature3.astro';
+import FeatureImageLeft from '@/blocks/feature/FeatureImageLeft.astro';
+import Hero2 from '@/components/Hero2.astro';
+import {
+  CalendarTimeIcon,
+  ClockShieldIcon,
+  LicenseIcon,
+  Receipt2Icon,
+  ShieldCheckIcon,
+} from '@/icons';
+import Layout from '@/layouts/Layout.astro';
+import RelatedServices from '@/blocks/related/RelatedServices.astro';
+import { buildPageSeo } from '@/config/seo';
+import { getRelatedLinks, getServiceFaqs } from '@/config/service-faqs';
+import { getLcpPreload } from '@/utils/lcp-preload';
+import { servicePageJsonLd } from '@/utils/page-schema';
+
+const pathname = Astro.url.pathname;
+const pageFaqs = getServiceFaqs(pathname);
+const lcpPreload = await getLcpPreload(heroBg);
+const seo = buildPageSeo(Astro.url, {
+  title: 'Storage Solutions - Phoenix Moving Boston (Free Estimate)',
+  description:
+    'Secure, flexible storage solutions for your move — short-term, long-term, and overnight options with licensed and insured Phoenix Moving.',
+  keywords:
+    'moving storage, storage units Boston, short term storage, climate controlled storage, mover storage',
+  pathname,
+  breadcrumbs: [
+    { name: 'Home', path: '/' },
+    { name: 'Storage Solutions', path: '/storage-solutions' },
+  ],
+  service: {
+    name: 'Storage Solutions',
+    description:
+      'Temperature-controlled and secure storage options for moves in the Greater Boston area.',
+  },
+  jsonLdExtra: servicePageJsonLd(pathname),
+});
+
+const options = [
+  {
+    name: 'Monthly Storage',
+    items: [
+      'Perfect for those who need ongoing storage solutions, our monthly storage options offer flexibility and convenience.',
+      'Room or Less: Starting from $100/month.',
+      'Studio: Starting from $150/month.',
+      'One Bedroom: Starting from $250/month.',
+      'Two Bedroom: Starting from $300/month.',
+      'Three Bedroom: Starting from $350/month.',
+      'Private House: Starting from $500/month.',
+    ],
+  },
+  {
+    name: 'Short-term Storage',
+    items: [
+      'Ideal for temporary storage needs during a move or renovation, our short-term storage options provide a secure and accessible solution.',
+      'Contact us for pricing and availability.',
+    ],
+  },
+  {
+    name: 'Long-term Storage',
+    items: [
+      'For those looking for extended storage solutions, our long-term storage options offer peace of mind knowing your belongings are safe and secure for the duration of your storage period.',
+      'Contact us for pricing and availability.',
+    ],
+  },
+  {
+    name: 'Overnight Storage',
+    items: [
+      'Need to store your belongings overnight? Our overnight storage service provides a convenient solution for short-term storage needs.',
+      'Price: $200 per overnight stay.',
+    ],
+  },
+];
+---
+
+<Layout {...seo} lcpPreload={lcpPreload}>
+  <Hero2 bgImage={heroBg} title="Storage Solutions" />
+  <Feature3
+    features={[
+      'Secure Storage Facilities',
+      'Flexible Storage Options',
+      '24/7 Access',
+      'Climate-Controlled Units',
+      'Short-Term and Long-Term Storage',
+      'Licensed and Insured',
+      'Packing and Unpacking Services',
+    ]}
+  />
+
+  <!-- Storage Solutions -->
+  <FeatureImageLeft
+    title="Welcome to Our Storage Services."
+    subtitle="Phoenix Movers offers a variety of storage solutions to meet your needs, whether you require short-term, long-term, or overnight storage. Our services are designed to provide convenience, affordability, and peace of mind for all your storage needs."
+    image={storageUnits}
+    alt="Storage units"
+  >
+    {
+      options.map((option) => (
+        <div class="border-b last:border-b-0">
+          <h3>{option.name}</h3>
+          {option.items && (
+            <ul>
+              {option.items.map((item) => (
+                <li class="sw-prose!">{item}</li>
+              ))}
+            </ul>
+          )}
+        </div>
+      ))
+    }
+  </FeatureImageLeft>
+
+  <Feature2
+    title="Why Choose Us As Your Storage Solutions?"
+    features={[
+      {
+        name: 'Climate-Controlled Facility',
+        description:
+          'Our storage facility is equipped with climate control technology to maintain stable temperature and humidity levels, ensuring optimal conditions for your stored items.',
+        icon: ShieldCheckIcon,
+      },
+      {
+        name: 'Secure Facilities',
+        description:
+          'Our storage facilities are equipped with state-of-the-art security features to ensure the safety of your belongings.',
+        icon: ShieldCheckIcon,
+      },
+      {
+        name: 'Flexible Options',
+        description:
+          'Whether you need storage for a month or a year, we offer flexible storage solutions tailored to your specific needs.',
+        icon: CalendarTimeIcon,
+      },
+      {
+        name: 'Affordable Pricing',
+        description:
+          'With competitive pricing and transparent pricing structures, we make storage accessible to all.',
+        icon: Receipt2Icon,
+      },
+      {
+        name: 'Exceptional Customer Service',
+        description:
+          'Our friendly and knowledgeable staff are here to assist you every step of the way, from choosing the right storage option to accessing your belongings.',
+        icon: LicenseIcon,
+      },
+      {
+        name: '100% On-Time Guarantee',
+        description:
+          'We guarantee that we will be at the needed place on time, as specified in our agreement. Be sure that we got you covered.',
+        icon: ClockShieldIcon,
+      },
+    ]}
+  />
+
+  <CTA2 />
+  <RelatedServices links={getRelatedLinks(pathname)} />
+  <FAQ1 items={pageFaqs} />
+  <CTA1 />
+</Layout>

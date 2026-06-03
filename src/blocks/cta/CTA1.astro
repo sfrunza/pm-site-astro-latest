@@ -1,0 +1,67 @@
+---
+import Container from '@/components/Container.astro';
+import Section from '@/components/Section.astro';
+import SectionHeader from '@/components/SectionHeader.astro';
+import Button from '@/components/starwind/button';
+import { ArrowRight } from '@/icons';
+
+import type { HTMLAttributes } from 'astro/types';
+import { tv } from 'tailwind-variants';
+
+export interface ButtonConfig {
+  text: string;
+  href: string;
+}
+
+interface Props extends HTMLAttributes<'section'> {
+  /** Main heading text */
+  title?: string;
+  /** Description text */
+  description?: string;
+  /** Primary button configuration */
+  primaryButton?: ButtonConfig;
+  /** Secondary button configuration (optional) */
+  secondaryButton?: ButtonConfig;
+}
+
+const cta1 = tv({
+  base: 'py-16',
+});
+
+const {
+  title = 'Ready to Move? Get Your Free Quote Today.',
+  description = 'Join hundreds of happy families who made their local move stress-free. No obligation, no pressure — just an honest estimate.',
+  primaryButton = { text: 'Request Free Estimate Online', href: '/book' },
+  secondaryButton,
+  class: className,
+  ...rest
+} = Astro.props;
+---
+
+<Section class={cta1({ class: className })} {...rest}>
+  <Container>
+    <div
+      class="bg-primary rounded-3xl px-8 py-24 flex flex-col items-center justify-center"
+    >
+      <SectionHeader
+        title={title}
+        subtitle={description}
+        titleClass="text-primary-foreground"
+        subtitleClass="text-primary-foreground/90"
+      />
+      <div class="flex flex-wrap items-center justify-center gap-4">
+        <Button variant="secondary" href={primaryButton.href}>
+          {primaryButton.text}
+        </Button>
+        {
+          secondaryButton && (
+            <Button variant="outline" class="group" href={secondaryButton.href}>
+              {secondaryButton.text}
+              <ArrowRight class="transition-transform group-hover:translate-x-1" />
+            </Button>
+          )
+        }
+      </div>
+    </div>
+  </Container>
+</Section>

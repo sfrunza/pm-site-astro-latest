@@ -1,0 +1,39 @@
+---
+import { BLOG_AUTHOR, formatPostDate } from '@/config/blog';
+
+interface Props {
+  pubDate: Date;
+  updatedDate?: Date;
+  readingTime: string;
+}
+
+const { pubDate, updatedDate, readingTime } = Astro.props;
+const showUpdated =
+  updatedDate && updatedDate.getTime() !== pubDate.getTime();
+---
+
+<div
+  class="text-muted-foreground flex flex-wrap items-center gap-x-3 gap-y-1 text-sm"
+>
+  <span>
+    By <a href={BLOG_AUTHOR.url} class="text-foreground font-medium hover:underline"
+      >{BLOG_AUTHOR.name}</a
+    >
+  </span>
+  <span aria-hidden="true">·</span>
+  <time datetime={pubDate.toISOString()}>{formatPostDate(pubDate)}</time>
+  {
+    showUpdated && updatedDate && (
+      <>
+        <span aria-hidden="true">·</span>
+        <span>
+          Updated <time datetime={updatedDate.toISOString()}
+            >{formatPostDate(updatedDate)}</time
+          >
+        </span>
+      </>
+    )
+  }
+  <span aria-hidden="true">·</span>
+  <span>{readingTime}</span>
+</div>

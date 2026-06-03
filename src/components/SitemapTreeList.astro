@@ -1,0 +1,53 @@
+---
+import type { SitemapNode } from '@/config/sitemap-tree';
+import SitemapTreeBranch from '@/components/SitemapTreeList.astro';
+
+interface Props {
+  nodes: SitemapNode[];
+  depth?: number;
+}
+
+const { nodes, depth = 0 } = Astro.props;
+
+const listClass =
+  depth === 0
+    ? 'sitemap-tree-root space-y-1'
+    : 'sitemap-tree-branch mt-2 ml-3 space-y-1 border-l-2 border-border/80 pl-4';
+---
+
+<ul class={listClass} role={depth === 0 ? 'tree' : 'group'}>
+  {
+    nodes.map((node) => {
+      const hasChildren = Boolean(node.children?.length);
+
+      return (
+        <li class="sitemap-tree-item" role="treeitem">
+          {hasChildren ? (
+            <>
+              {node.href ? (
+                <a
+                  href={node.href}
+                  class="text-foreground hover:text-primary block py-1.5 text-sm font-semibold transition-colors"
+                >
+                  {node.label}
+                </a>
+              ) : (
+                <span class="text-foreground block py-1.5 text-sm font-semibold">
+                  {node.label}
+                </span>
+              )}
+              <SitemapTreeBranch nodes={node.children!} depth={depth + 1} />
+            </>
+          ) : (
+            <a
+              href={node.href}
+              class="text-muted-foreground hover:text-primary block py-1 text-sm transition-colors hover:underline"
+            >
+              {node.label}
+            </a>
+          )}
+        </li>
+      );
+    })
+  }
+</ul>

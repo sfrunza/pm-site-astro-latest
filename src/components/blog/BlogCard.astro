@@ -1,0 +1,46 @@
+---
+import { Badge } from '@/components/starwind/badge';
+import {
+  BLOG_CATEGORIES,
+  formatPostDate,
+  getPostReadingTime,
+  getPostUrl,
+  type BlogPost,
+} from '@/config/blog';
+import { Card, CardContent, CardHeader, CardTitle } from '../starwind/card';
+
+interface Props {
+  post: BlogPost;
+}
+
+const { post } = Astro.props;
+const { data } = post;
+const category = BLOG_CATEGORIES[data.category];
+const href = getPostUrl(post);
+const readingTime = getPostReadingTime(post);
+---
+
+<article>
+  <a href={href}>
+    <Card
+      class="hover:shadow-lg hover:-translate-y-1 transition-all h-full min-h-full"
+    >
+      <CardHeader>
+        <Badge variant="primary" class="mb-3 w-fit text-primary bg-primary/10">
+          {category.label}
+        </Badge>
+        <CardTitle>
+          {data.title}
+        </CardTitle>
+      </CardHeader>
+      <CardContent>
+        <p class="text-muted-foreground mt-3 flex-1 text-sm leading-relaxed">
+          {data.excerpt}
+        </p>
+        <p class="text-muted-foreground mt-4 text-xs">
+          {formatPostDate(data.pubDate)} · {readingTime}
+        </p>
+      </CardContent>
+    </Card>
+  </a>
+</article>

@@ -1,0 +1,79 @@
+---
+import Section from '@/components/Section.astro';
+import SectionHeader from '@/components/SectionHeader.astro';
+import {
+  Card,
+  CardHeader,
+  CardTitle,
+  CardContent,
+  CardAction,
+} from '@/components/starwind/card';
+import { Button } from '@/components/starwind/button';
+import { ChevronLeftIcon } from '@/icons';
+import { services as defaultServices, type Service } from '@/config/site-data';
+import Container from '@/components/Container.astro';
+import { tv } from 'tailwind-variants';
+
+type Props = {
+  class?: string;
+  label?: string;
+  title?: string;
+  subtitle?: string;
+  services?: Service[];
+};
+
+const services1 = tv({
+  base: 'py-16 bg-muted',
+});
+
+const {
+  class: className = '',
+  label = 'What We Offer',
+  title = 'Moving services.',
+  subtitle = 'Phoenix Moving Boston is a premier moving company that provides high-quality service to customers throughout the United States. We specialize in long-distance, commercial, and residential moves, providing a stress-free and hassle-free experience.',
+  services = defaultServices,
+} = Astro.props;
+---
+
+<Section id="services" class={services1({ class: className })}>
+  <Container>
+    <SectionHeader label={label} title={title} subtitle={subtitle} />
+    <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+      {
+        services.map((service) => (
+          <Card class="group hover:shadow-lg hover:-translate-y-1 transition-all">
+            <CardHeader>
+              <CardTitle>{service.name}</CardTitle>
+              <CardAction>
+                <Button
+                  data-state="active"
+                  variant="ghost"
+                  size="icon-sm"
+                  title={`Learn More about ${service.name}`}
+                  aria-label={`Learn More about ${service.name}`}
+                  href={service.href}
+                  class="rotate-180"
+                >
+                  <ChevronLeftIcon />
+                </Button>
+              </CardAction>
+            </CardHeader>
+            <CardContent class="grow flex flex-col space-y-4">
+              <p class="grow">{service.description}</p>
+              <div>
+                <Button
+                  variant="primary"
+                  title={`Learn More about ${service.name}`}
+                  aria-label={`Learn More about ${service.name}`}
+                  href={service.href}
+                >
+                  Learn More<span class="sr-only">about {service.name}</span>
+                </Button>
+              </div>
+            </CardContent>
+          </Card>
+        ))
+      }
+    </div>
+  </Container>
+</Section>

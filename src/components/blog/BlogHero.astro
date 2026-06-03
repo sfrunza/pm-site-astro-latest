@@ -1,0 +1,53 @@
+---
+import { Image } from '@/components/starwind/image';
+import type { ImageMetadata } from 'astro';
+
+interface Props {
+  title: string;
+  categoryLabel: string;
+  image?: ImageMetadata;
+  lcpPreload?: boolean;
+}
+
+const { title, categoryLabel, image, lcpPreload = false } = Astro.props;
+
+/** Max display width inside Container (max-w-7xl) with px-4 padding. */
+const heroSizes = '(min-width: 80rem) 1280px, calc(100vw - 2rem)';
+const heroWidths = [480, 640, 768, 896, 1024, 1280];
+---
+
+<div
+  class="relative aspect-video w-full overflow-hidden rounded-3xl md:aspect-21/9"
+  role="img"
+  aria-label={`${categoryLabel}: ${title}`}
+>
+  {
+    image ? (
+      <Image
+        src={image}
+        alt={title}
+        width={1280}
+        height={672}
+        widths={heroWidths}
+        sizes={heroSizes}
+        class="h-full w-full object-cover"
+        loading={lcpPreload ? 'eager' : 'lazy'}
+        fetchpriority={lcpPreload ? 'high' : undefined}
+      />
+    ) : (
+      <div
+        class="from-primary/80 via-primary to-amber-600/90 flex h-full w-full items-end bg-linear-to-br p-6 md:p-10"
+        aria-hidden="true"
+      >
+        <div class="max-w-2xl">
+          <p class="text-primary-foreground/90 text-sm font-medium tracking-wide uppercase">
+            {categoryLabel}
+          </p>
+          <p class="text-primary-foreground mt-2 text-2xl font-bold leading-tight md:text-3xl">
+            {title}
+          </p>
+        </div>
+      </div>
+    )
+  }
+</div>

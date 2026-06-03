@@ -1,0 +1,174 @@
+---
+import heroBg from '@/assets/heros/packing-services.jpg';
+import Carousel2 from '@/blocks/carousel/Carousel2.astro';
+import CTA1 from '@/blocks/cta/CTA1.astro';
+import CTA2 from '@/blocks/cta/CTA2.astro';
+import FAQ1 from '@/blocks/faq/FAQ1.astro';
+import Feature2 from '@/blocks/feature/Feature2.astro';
+import Feature3 from '@/blocks/feature/Feature3.astro';
+import Container from '@/components/Container.astro';
+import Hero2 from '@/components/Hero2.astro';
+import Section from '@/components/Section.astro';
+import Button from '@/components/starwind/button';
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+} from '@/components/starwind/card';
+import { Image } from '@/components/starwind/image';
+import Prose from '@/components/starwind/prose';
+import Layout from '@/layouts/Layout.astro';
+import Packages from '@/blocks/packages/Packages.astro';
+import RelatedServices from '@/blocks/related/RelatedServices.astro';
+import { buildPageSeo } from '@/config/seo';
+import { getRelatedLinks, getServiceFaqs } from '@/config/service-faqs';
+import { getLcpPreload } from '@/utils/lcp-preload';
+import { servicePageJsonLd } from '@/utils/page-schema';
+
+const pathname = Astro.url.pathname;
+const pageFaqs = getServiceFaqs(pathname);
+const lcpPreload = await getLcpPreload(heroBg);
+const seo = buildPageSeo(Astro.url, {
+  title: 'Packing Services - Phoenix Moving Boston',
+  description:
+    'Professional packing and unpacking services plus moving boxes and supplies. Our experienced team protects your belongings for a stress-free move.',
+  keywords:
+    'packing services, moving boxes, packing supplies, full packing service, Boston packers',
+  pathname,
+  breadcrumbs: [
+    { name: 'Home', path: '/' },
+    { name: 'Packing Services', path: '/packing-services' },
+  ],
+  service: {
+    name: 'Packing Services',
+    description:
+      'Full and partial packing services with quality materials for residential and commercial moves in the Boston area.',
+  },
+  jsonLdExtra: servicePageJsonLd(pathname),
+});
+---
+
+<Layout {...seo} lcpPreload={lcpPreload}>
+  <Hero2 bgImage={heroBg} title="Packing Services" />
+  <Feature3
+    features={[
+      'Flat Rate Pricing',
+      'Licensed and Insured',
+      'Packing and Unpacking',
+      'Transportation',
+      'Storage Solutions',
+      'Assembly furniture',
+      'Disassembly furniture',
+      'Safety and Security',
+    ]}
+  />
+
+  <Section class="py-16">
+    <Container class="@container">
+      <div class="grid @2xl:grid-cols-2 @4xl:grid-cols-3 gap-6">
+        <!-- 1st card -->
+        <Card
+          class="group p-0 @2xl:col-span-2 @4xl:row-span-2 bg-muted overflow-hidden relative"
+        >
+          <div class="grid @xl:grid-cols-2 h-full">
+            <div class="relative w-full pb-[100%]">
+              <div class="@xl:aspect-auto absolute inset-0">
+                <Image
+                  src={heroBg}
+                  alt="Two movers packing dishes"
+                  class="object-cover size-full starwind-image"
+                  loading="lazy"
+                />
+              </div>
+            </div>
+            <CardContent
+              class="flex justify-between gap-6 @xl:p-8 flex-col p-6"
+            >
+              <h2 class="text-2xl font-bold">
+                Packing and unpacking services.
+              </h2>
+              <Prose>
+                Our packing service is an ideal solution for those looking to
+                make their move as stress-free as possible. Our team of
+                experienced professionals will come to your home and carefully
+                pack all of your belongings into sturdy boxes and containers
+                that are designed to protect your items during the move. We will
+                label each box with its contents, so that you can easily find
+                your belongings after the move. Additionally, our packing
+                service allows you to focus on other aspects of your move, such
+                as finding a new home or making travel arrangements. With our
+                packing service, you can rest assured that your items will be
+                securely and safely transported to your new home.
+                <a href="/pricing">View pricing page</a>.
+              </Prose>
+              <Button class="mr-auto" variant="primary" href="/book"
+                >Get a Free Quote</Button
+              >
+            </CardContent>
+          </div>
+        </Card>
+        <!-- 2nd card -->
+        <Card>
+          <CardHeader>
+            <CardTitle>Full Packing Service.</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <p>
+              Our full packing and moving service is a comprehensive service
+              package that helps individuals and businesses move their
+              possessions from one location to another. This service includes
+              packing, loading, unloading, and transporting items. It also
+              includes setting up furniture and other items at the destination.
+              With this service, all the stress of packing and moving is taken
+              care of, and you can focus on other aspects of your move.
+            </p>
+          </CardContent>
+        </Card>
+        <!-- 3rd card -->
+        <Card>
+          <CardHeader>
+            <CardTitle>Packing Specialty Items.</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <p>
+              Packing specialty items requires careful attention to detail and
+              skill to ensure safe delivery. Specialty items may require custom
+              boxes, specialty wrapping and cushioning materials, as well as
+              specialized labeling. Our movers secure and label all materials to
+              ensure items are not damaged during transit. We take additional
+              care to ensure that any fragile items are properly protected and
+              padded. We also use specialized equipment for heavier items if
+              necessary. Following all packing instructions and taking the extra
+              time to properly package specialty items can help ensure safe and
+              successful delivery.
+            </p>
+          </CardContent>
+        </Card>
+        <!-- 4th card -->
+        <Card>
+          <CardHeader>
+            <CardTitle>Self Packing.</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <Prose>
+              If you choose to pack yourself, we provide packing materials such
+              as boxes, packing tape, and bubble wrap. You pay only for the
+              boxes you use, and we will collect any unused boxes on the day of
+              your move. Don&apos;t know how many boxes you need for your move
+              size? Check our
+              <a href="#packages">Packages section</a>.
+            </Prose>
+          </CardContent>
+        </Card>
+      </div>
+    </Container>
+  </Section>
+  <Carousel2 />
+  <Packages />
+  <Feature2 title="Why Choose Us As Your Packing Services?" />
+  <CTA2 />
+  <RelatedServices links={getRelatedLinks(pathname)} />
+  <FAQ1 items={pageFaqs} />
+  <CTA1 />
+</Layout>

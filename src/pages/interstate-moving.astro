@@ -1,0 +1,176 @@
+---
+import Feature3 from '@/blocks/feature/Feature3.astro';
+import Layout from '../layouts/Layout.astro';
+import Hero2 from '@/components/Hero2.astro';
+import heroBg from '@/assets/heros/interstate-moving.jpeg';
+import Feature1 from '@/blocks/feature/Feature1.astro';
+import FAQ1 from '@/blocks/faq/FAQ1.astro';
+import CTA1 from '@/blocks/cta/CTA1.astro';
+import Section from '@/components/Section.astro';
+import Container from '@/components/Container.astro';
+import SectionHeader from '@/components/SectionHeader.astro';
+import Prose from '@/components/starwind/prose';
+import { Image } from '@/components/starwind/image';
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+} from '@/components/starwind/card';
+import Button from '@/components/starwind/button';
+import Feature2 from '@/blocks/feature/Feature2.astro';
+import Carousel2 from '@/blocks/carousel/Carousel2.astro';
+import Carousel1 from '@/blocks/carousel/Carousel1.astro';
+import CTA2 from '@/blocks/cta/CTA2.astro';
+import RelatedServices from '@/blocks/related/RelatedServices.astro';
+import { buildPageSeo } from '@/config/seo';
+import { getRelatedLinks, getServiceFaqs } from '@/config/service-faqs';
+import { getLcpPreload } from '@/utils/lcp-preload';
+import { servicePageJsonLd } from '@/utils/page-schema';
+
+const pathname = Astro.url.pathname;
+const pageFaqs = getServiceFaqs(pathname);
+const lcpPreload = await getLcpPreload(heroBg);
+const seo = buildPageSeo(Astro.url, {
+  title: 'Interstate Moving - Phoenix Moving Boston (Free Estimate)',
+  description:
+    'Interstate and long-distance moving with licensed, insured crews. Flat-rate pricing includes gas, mileage, tolls, and insurance.',
+  keywords:
+    'interstate moving, long distance movers, cross country moving, Boston long distance movers',
+  pathname,
+  breadcrumbs: [
+    { name: 'Home', path: '/' },
+    { name: 'Interstate Moving', path: '/interstate-moving' },
+  ],
+  service: {
+    name: 'Interstate Moving',
+    description:
+      'Long-distance and interstate relocation services for residential and commercial moves across the United States.',
+  },
+  jsonLdExtra: servicePageJsonLd(pathname),
+});
+---
+
+<Layout {...seo} lcpPreload={lcpPreload}>
+  <Hero2
+    bgImage={heroBg}
+    title="Interstate Moving"
+    subtitle="Interstate moving services with experienced movers. Residential and commercial moves, packing services, and storage solutions."
+  />
+  <Feature3
+    features={[
+      'Flat Rate Pricing',
+      'Licensed and Insured',
+      'Packing and Unpacking',
+      'Transportation',
+      'Storage Solutions',
+      'Assembly furniture',
+      'Disassembly furniture',
+      'Safety and Security',
+    ]}
+  />
+  <Section class="py-16">
+    <Container class="@container">
+      <div class="grid @2xl:grid-cols-2 @4xl:grid-cols-3 gap-6">
+        <!-- 1st card -->
+        <Card
+          class="group p-0 @2xl:col-span-2 @4xl:row-span-2 bg-muted overflow-hidden relative"
+        >
+          <div class="grid @xl:grid-cols-2 h-full">
+            <div class="relative w-full pb-[100%]">
+              <div class="@xl:aspect-auto absolute inset-0">
+                <Image
+                  src={heroBg}
+                  alt="Two movers packing dishes"
+                  class="object-cover size-full starwind-image"
+                  loading="lazy"
+                />
+              </div>
+            </div>
+            <CardContent
+              class="flex justify-between gap-6 @xl:p-8 flex-col p-6"
+            >
+              <h2 class="text-2xl font-bold">
+                Our Comprehensive Long-Distance Moving Services.
+              </h2>
+              <p>
+                Are you planning a long-distance move and need reliable
+                assistance? Look no further! At Phoenix Movers, we specialize in
+                professional long-distance moving services tailored to meet your
+                needs. Whether you're relocating to a new state or city, our
+                experienced team is here to make your move seamless and
+                stress-free.
+              </p>
+              <Button class="mr-auto" variant="primary" href="/book"
+                >Get a Free Quote</Button
+              >
+            </CardContent>
+          </div>
+        </Card>
+        <!-- 2nd card -->
+        <Card>
+          <CardHeader>
+            <CardTitle>Packing and Unpacking</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <p>
+              Let us take the stress out of packing for your long-distance move.
+              Our expert packers will carefully wrap and pack your belongings,
+              ensuring they arrive at your new home safely and securely. Upon
+              arrival, we can also assist with unpacking, helping you settle
+              into your new space with ease.
+            </p>
+          </CardContent>
+        </Card>
+        <!-- 3rd card -->
+        <Card>
+          <CardHeader>
+            <CardTitle>Transportation</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <p>
+              Our fleet of modern, well-maintained vehicles is equipped to
+              handle long-distance moves of any size. Whether you're moving a
+              few miles or across the country, you can trust us to transport
+              your belongings safely and on time.
+            </p>
+          </CardContent>
+        </Card>
+        <!-- 4th card -->
+        <Card>
+          <CardHeader>
+            <CardTitle>Storage Solutions</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <p>
+              Need temporary storage during your long-distance move? We offer
+              secure storage facilities where you can store your belongings for
+              short or long periods. Our climate-controlled units provide the
+              perfect solution for keeping your items safe and protected.
+            </p>
+          </CardContent>
+        </Card>
+        <!-- 5th card -->
+        <Card>
+          <CardHeader>
+            <CardTitle>Customized Services</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <p>
+              Every long-distance move is unique, which is why we offer
+              customizable services to meet your specific needs. Whether you
+              require specialized handling for delicate items or assistance with
+              furniture disassembly and reassembly, we've got you covered.
+            </p>
+          </CardContent>
+        </Card>
+      </div>
+    </Container>
+  </Section>
+  <Feature2 title="Why Choose Us As Your Long-Distance Movers?" />
+  <Carousel1 />
+  <CTA2 />
+  <RelatedServices links={getRelatedLinks(pathname)} />
+  <FAQ1 items={pageFaqs} />
+  <CTA1 />
+</Layout>

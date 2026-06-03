@@ -1,0 +1,30 @@
+---
+import BlogCard from '@/components/blog/BlogCard.astro';
+import Container from '@/components/Container.astro';
+import Section from '@/components/Section.astro';
+import SectionHeader from '@/components/SectionHeader.astro';
+import type { BlogPost } from '@/config/blog';
+
+interface Props {
+  posts: BlogPost[];
+}
+
+const { posts } = Astro.props;
+
+if (posts.length === 0) return;
+---
+
+<Section class="py-12">
+  <Container>
+    <SectionHeader
+      position="left"
+      title="Related articles"
+      label="Keep reading"
+    />
+    <div class="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+      {posts.map((post) => (
+        <BlogCard post={post} />
+      ))}
+    </div>
+  </Container>
+</Section>

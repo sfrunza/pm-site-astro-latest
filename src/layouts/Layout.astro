@@ -1,0 +1,69 @@
+---
+import Footer from '@/components/Footer.astro';
+import Navbar from '@/components/Navbar.astro';
+import PageGrid from '@/components/PageGrid.astro';
+import { SITE } from '@/config/site';
+import '@/styles/starwind.css';
+import { Font } from 'astro:assets';
+import AstroSeo from '@/components/AstroSeo.astro';
+import type { AstroSeoProps } from '@/types/seo';
+import Analytics from '@/components/Analytics.astro';
+import Contact1 from '@/blocks/contact/Contact1.astro';
+
+Astro.response.headers.set('X-Robots-Tag', 'index, follow');
+
+interface Props extends AstroSeoProps {
+  /** Preload URL for the page LCP hero image (WebP). */
+  lcpPreload?: string;
+}
+
+const { lcpPreload, ...seoProps } = Astro.props;
+---
+
+<!doctype html>
+<html lang={SITE.language}>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" href="/favicon.ico" />
+    <link rel="sitemap" href="/sitemap-index.xml" />
+    <link rel="apple-touch-icon" href="/logo.svg" />
+    <meta name="generator" content={Astro.generator} />
+    <Font cssVariable="--font-sans" preload />
+    {
+      lcpPreload && (
+        <link
+          rel="preload"
+          as="image"
+          href={lcpPreload}
+          fetchpriority="high"
+          type="image/webp"
+        />
+      )
+    }
+    <slot name="head" />
+    <AstroSeo
+      noindex={false}
+      nofollow={false}
+      {...seoProps}
+      additionalMetaTags={[
+        ...(seoProps.additionalMetaTags || []),
+        { name: 'publisher', content: SITE.author },
+      ]}
+    />
+    <Analytics
+      googleAnalyticsId={SITE.googleAnalyticsId}
+      googleTagManagerId={SITE.googleTagManagerId}
+    />
+  </head>
+  <body class="flex min-h-screen flex-col overflow-x-hidden bg-violet-50/30">
+    <PageGrid />
+    <Navbar />
+    <main class="grow">
+      <slot />
+      <Contact1 />
+    </main>
+    <Footer />
+  </body>
+</html>

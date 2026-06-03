@@ -1,0 +1,48 @@
+---
+import type { AstroSeoProps } from '@/types/seo';
+import { buildTags } from '@/utils/build-tags';
+
+export interface Props extends AstroSeoProps {}
+
+const {
+  title,
+  titleTemplate,
+  noindex,
+  nofollow,
+  robotsProps = {
+    maxSnippet: -1,
+    maxImagePreview: 'large',
+    maxVideoPreview: -1,
+  },
+  description,
+  canonical,
+  mobileAlternate,
+  languageAlternates,
+  openGraph,
+  facebook,
+  twitter,
+  additionalMetaTags,
+  additionalLinkTags,
+  jsonLd,
+} = Astro.props;
+---
+
+<Fragment
+  set:html={buildTags({
+    title,
+    titleTemplate,
+    noindex,
+    nofollow,
+    robotsProps,
+    description,
+    canonical,
+    mobileAlternate,
+    languageAlternates,
+    openGraph,
+    facebook,
+    twitter,
+    additionalMetaTags,
+    additionalLinkTags,
+    jsonLd,
+  })}
+/>

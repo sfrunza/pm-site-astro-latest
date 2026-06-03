@@ -1,0 +1,91 @@
+---
+import { CheckIcon } from '@/icons';
+import type { HTMLAttributes } from 'astro/types';
+import { tv } from 'tailwind-variants';
+
+import { Image } from '@/components/starwind/image';
+import Section from '@/components/Section.astro';
+import SectionHeader from '@/components/SectionHeader.astro';
+import { SITE } from '@/config/site';
+import Container from '@/components/Container.astro';
+
+export interface FeatureItem {
+  text: string;
+}
+
+interface Props extends HTMLAttributes<'section'> {
+  /** Section title */
+  title?: string;
+  /** Section description */
+  description?: string;
+  /** List of features */
+  features?: FeatureItem[];
+  /** Image configuration */
+  image?: {
+    src: string | ImageMetadata;
+    alt: string;
+  };
+}
+
+const feature2Styles = tv({
+  base: '@container py-16',
+});
+
+const {
+  title = `Why choose ${SITE.businessShortName}?`,
+  description = 'We are a professional moving company that provides fast, reliable, and affordable moving services for residential and commercial customers.',
+  features = [
+    { text: 'Experienced Professionals' },
+    { text: 'Safe and Secure Transport' },
+    { text: 'Flexible Scheduling' },
+    { text: 'Competitive Pricing' },
+    { text: 'Fully Licensed and Insured' },
+    { text: '100% On-Time Guarantee' },
+  ],
+  image = {
+    src: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&h=600&fit=crop',
+    alt: 'Dashboard analytics',
+  },
+  class: className,
+  ...rest
+} = Astro.props;
+---
+
+<Section class={feature2Styles({ class: className })} {...rest}>
+  <Container class="@container">
+    <div class="grid gap-12 @lg:grid-cols-2 @lg:gap-16">
+      <!-- Left Content -->
+      <div class="flex flex-col justify-center">
+        <SectionHeader title={title} subtitle={description} position="left" />
+
+        <!-- Features List -->
+        <ul class="space-y-4 grid grid-cols-2 gap-4">
+          {
+            features.map((feature) => (
+              <li class="flex items-start gap-3">
+                <div class="bg-green-600/10 flex size-6 shrink-0 items-center justify-center rounded-full ring-1 ring-green-600/15">
+                  <CheckIcon class="text-green-600 size-4" aria-hidden="true" />
+                </div>
+                <span class="leading-6 text-pretty truncate font-medium">
+                  {feature.text}
+                </span>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+
+      <!-- Right Image -->
+      <div class="order-first @lg:order-last">
+        <div class="overflow-hidden rounded-3xl border">
+          <Image
+            src={image.src as string}
+            alt={image.alt}
+            class="size-full object-cover aspect-3/2"
+            loading="lazy"
+          />
+        </div>
+      </div>
+    </div>
+  </Container>
+</Section>

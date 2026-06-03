@@ -1,0 +1,16 @@
+---
+import SitemapTreeList from '@/components/SitemapTreeList.astro';
+import type { SitemapNode } from '@/config/sitemap-tree';
+
+interface Props {
+  nodes: SitemapNode[];
+}
+
+const { nodes } = Astro.props;
+---
+
+<nav aria-label="Site map">
+  <div class="bg-muted/50 mt-10 rounded-3xl border p-6 md:p-10">
+    <SitemapTreeList nodes={nodes} depth={0} />
+  </div>
+</nav>

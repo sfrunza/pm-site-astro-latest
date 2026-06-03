@@ -1,0 +1,182 @@
+---
+import CTA1 from '@/blocks/cta/CTA1.astro';
+import FeatureImageRight from '@/blocks/feature/FeatureImageRight.astro';
+import RelatedServices from '@/blocks/related/RelatedServices.astro';
+import Hero2 from '@/components/Hero2.astro';
+import Button from '@/components/starwind/button';
+import { cities, type City } from '@/config/cities-data';
+import {
+  getCityHeroImage,
+  getCityLogoImage,
+  getDefaultCityHeroImage,
+  getDefaultCityLogoImage,
+} from '@/utils/city-image';
+import { buildFaqJsonLd, buildPageSeo, stripHtmlForSchema } from '@/config/seo';
+import { SITE } from '@/config/site';
+import type { RelatedLink } from '@/config/service-faqs';
+import Layout from '@/layouts/Layout.astro';
+import { getLcpPreload } from '@/utils/lcp-preload';
+import Services1 from '@/blocks/services/Services1.astro';
+import { ArrowRight } from '@/icons';
+import CTA2 from '@/blocks/cta/CTA2.astro';
+
+export function getStaticPaths() {
+  return cities.map((city) => ({
+    params: { slug: city.slug },
+    props: { city },
+  }));
+}
+
+interface Props {
+  city: City;
+}
+
+const { city } = Astro.props;
+const pathname = `/${city.slug}`;
+const cityHero = getCityHeroImage(city.slug) ?? getDefaultCityHeroImage();
+const cityLogo = getCityLogoImage(city.slug) ?? getDefaultCityLogoImage();
+const lcpPreload = await getLcpPreload(cityHero);
+
+const lead =
+  city.intro ??
+  `Phoenix Moving provides licensed, insured ${city.name} movers for residential and commercial relocations across ${city.name}, ${city.state}.`;
+
+const description = `${lead} Request a free moving estimate for ${city.name}, MA.`;
+
+const cityFaqs = [
+  {
+    question: `Do you provide moving services in ${city.name}, MA?`,
+    answer: `<p>Yes. Phoenix Moving serves ${city.name} and nearby communities with local moving, packing, storage, and long-distance options.</p>`,
+  },
+  {
+    question: `How do I get a moving quote in ${city.name}?`,
+    answer: `<p><a href="/book">Book online</a> or call us for a free, no-obligation estimate tailored to your ${city.name} move.</p>`,
+  },
+  {
+    question: `Are your ${city.name} movers licensed and insured?`,
+    answer:
+      '<p>Yes. We are licensed in Massachusetts and carry cargo, motor vehicle, and general liability insurance.</p>',
+  },
+];
+
+const relatedLinks: RelatedLink[] = [
+  {
+    href: '/local-moving',
+    label: `${city.name} local moving`,
+    description: `Full-service local moves across ${city.name}, ${city.state}.`,
+  },
+  {
+    href: '/book',
+    label: 'Get a free moving quote',
+    description: `Schedule your ${city.name}, ${city.state} move online.`,
+  },
+  {
+    href: '/pricing',
+    label: 'Moving prices',
+    description: 'Transparent rates for local and long-distance moves.',
+  },
+];
+
+const keywords = [
+  `${city.name} movers`,
+  `${city.name} moving company`,
+  `moving company ${city.name} MA`,
+  `local movers ${city.name}`,
+  `best movers in ${city.name}`,
+  `affordable movers ${city.name}`,
+  `licensed and insured movers ${city.name}`,
+  `professional movers ${city.name}`,
+  `residential movers ${city.name}`,
+  `commercial movers ${city.name}`,
+  `office movers ${city.name}`,
+  `apartment movers ${city.name}`,
+  `house movers ${city.name}`,
+  `packing services ${city.name}`,
+  `full service movers ${city.name}`,
+  `moving and storage ${city.name}`,
+  `same day movers ${city.name}`,
+  `long distance movers ${city.name}`,
+  `moving companies near ${city.name}`,
+  `top rated movers ${city.name}`,
+  `${city.name} MA moving services`,
+  `${city.name} Massachusetts movers`,
+].join(', ');
+
+// const isLegacyNatick = city.slug === 'natick-movers';
+// const canonicalUrl = isLegacyNatick
+//   ? new URL(natickPremium.path, SITE.url).href
+//   : undefined;
+
+const seo = buildPageSeo(Astro.url, {
+  title: `${city.name}, ${city.state} Movers - Phoenix Moving (Free Estimate)`,
+  description,
+  keywords,
+  pathname,
+  // canonical: canonicalUrl,
+  breadcrumbs: [
+    { name: 'Home', path: '/' },
+    { name: 'Local Moving', path: '/local-moving' },
+    { name: city.fullName, path: pathname },
+  ],
+  service: {
+    name: `${city.name}, ${city.state} Moving Services`,
+    description: city.description,
+  },
+  jsonLdExtra: [
+    buildFaqJsonLd(
+      pathname,
+      cityFaqs.map((faq) => ({
+        question: faq.question,
+        answer: stripHtmlForSchema(faq.answer),
+      }))
+    ),
+  ],
+});
+---
+
+<Layout {...seo} lcpPreload={lcpPreload}>
+  <Hero2
+    bgImage={cityHero}
+    title={`${city.name}, ${city.state} Movers`}
+    subtitle={`Licensed ${city.name}, ${city.state} movers for local, long-distance, packing, and storage moves.`}
+  />
+  <Services1
+    label={`${city.name} Moving Services`}
+    title={`Moving services in ${city.name}, ${city.state}`}
+    subtitle={lead}
+  />
+
+  <FeatureImageRight
+    label={`${city.name}, ${city.state}`}
+    title={`Reliable and affordable movers near ${city.name}, ${city.state}`}
+    position="left"
+    image={cityLogo}
+    alt={`${city.name}, ${city.state} city logo`}
+  >
+    <p>
+      <b>{city.fullName}</b> — {lead}
+    </p>
+    <p>{city.description}</p>
+    <p>
+      Ready to move in or out of {city.name}? Compare our <a href="/pricing"
+        >moving prices</a
+      >, explore <a href="/local-moving">local moving services</a>, or <a
+        href="/book">book your free quote</a
+      > today.
+    </p>
+
+    <Fragment slot="actions">
+      <Button variant="primary" href="/book">Get a free quote</Button>
+      <Button variant="outline" class="group" href="/pricing">
+        View hourly rates
+        <ArrowRight class="transition-transform group-hover:translate-x-1" />
+      </Button>
+    </Fragment>
+  </FeatureImageRight>
+
+  <RelatedServices
+    links={relatedLinks}
+    title={`Moving services for ${city.name}, ${city.state} residents`}
+  />
+  <CTA2 title={`Ready to move in or out of ${city.name}, ${city.state}?`} />
+</Layout>

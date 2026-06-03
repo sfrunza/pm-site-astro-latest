@@ -1,0 +1,172 @@
+---
+import Logo from '@/components/Logo.astro';
+import { SITE } from '@/config/site';
+import { services as siteServices } from '@/config/site-data';
+
+const year = new Date().getFullYear();
+
+interface NavigationItem {
+  name: string;
+  href: string | null;
+}
+
+const services: NavigationItem[] = siteServices.map((service) => ({
+  name: service.name,
+  href: service.href,
+}));
+const support: NavigationItem[] = [
+  { name: 'Pricing', href: '/pricing' },
+  { name: 'Blog', href: '/blog' },
+  { name: 'FAQ', href: '/faq' },
+  { name: 'Sitemap', href: '/sitemap' },
+];
+const company: NavigationItem[] = [{ name: 'About', href: null }];
+const legal: NavigationItem[] = [
+  { name: 'Company Policy', href: '/policy' },
+  { name: 'Privacy policy', href: '/privacy' },
+  { name: 'Terms and Conditions', href: '/terms' },
+];
+
+const allLinks: Record<string, NavigationItem[]> = {
+  Services: services,
+  Support: support,
+  Company: company,
+  Legal: legal,
+};
+---
+
+<footer class="bg-neutral-900 relative @container">
+  <div class="relative mx-auto max-w-7xl px-6 py-16">
+    <div class="relative w-full">
+      <h2 class="flex w-full select-none justify-between pointer-events-none">
+        <span
+          class="font-bold text-[clamp(2rem,13cqi,14rem)] text-outline-muted leading-none opacity-50 outline-text text-neutral-800 uppercase"
+          >P</span
+        >
+        <span
+          class="font-bold text-[clamp(2rem,13cqi,14rem)] text-outline-muted leading-none opacity-50 outline-text text-neutral-800 uppercase"
+          >h</span
+        >
+        <span
+          class="font-bold text-[clamp(2rem,13cqi,14rem)] text-outline-muted leading-none opacity-50 outline-text text-neutral-800 uppercase"
+          >o</span
+        >
+        <span
+          class="font-bold text-[clamp(2rem,13cqi,14rem)] text-outline-muted leading-none opacity-50 outline-text text-neutral-800 uppercase"
+          >e</span
+        >
+        <span
+          class="font-bold text-[clamp(2rem,13cqi,14rem)] text-outline-muted leading-none opacity-50 outline-text text-neutral-800 uppercase"
+          >n</span
+        >
+        <span
+          class="font-bold text-[clamp(2rem,13cqi,14rem)] text-outline-muted leading-none opacity-50 outline-text text-neutral-800 uppercase"
+          >i</span
+        >
+        <span
+          class="font-bold text-[clamp(2rem,13cqi,14rem)] text-outline-muted leading-none opacity-50 outline-text text-neutral-800 uppercase"
+          >x</span
+        >
+      </h2>
+    </div>
+    {/* Main footer content */}
+    <div
+      class="grid grid-cols-1 bg-neutral-900 relative z-1 -mt-3 @3xl:-mt-8 @7xl:-mt-12 @xl:-mt-4 gap-12 pt-6 lg:grid-cols-12 lg:gap-16"
+    >
+      {/* Brand section */}
+      <div class="lg:col-span-4">
+        <div class="space-y-6">
+          {/* Logo */}
+          <a
+            href="/"
+            title="Home page"
+            class="inline-block transition-opacity hover:opacity-90"
+          >
+            <h2 class="sr-only">{SITE.businessName}</h2>
+            <Logo active={false} />
+          </a>
+
+          {/* Company description */}
+          <p class="max-w-sm text-sm leading-relaxed text-white/70">
+            {SITE.businessName} is fully licensed, bonded and insured. Making your
+            move smooth and stress-free.
+          </p>
+
+          <p class="text-sm text-white/70">
+            <span class="font-semibold text-white">4.98★</span> average rating ·
+            <span class="font-medium text-white"> 240+</span> customer reviews on{
+              ' '
+            }
+            <a
+              href="https://www.yelp.com/biz/phoenix-moving-natick-6"
+              class="text-secondary underline underline-offset-2"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              Yelp
+            </a>
+          </p>
+
+          {/* Licenses */}
+          <div class="space-y-3">
+            <p
+              class="text-xs font-medium tracking-wider text-white/60 uppercase"
+            >
+              Licenses & Certifications
+            </p>
+            <div class="flex flex-wrap gap-x-6 gap-y-2">
+              {
+                Object.entries(SITE.businessLicenses).map(([key, value]) => (
+                  <div class="flex items-center gap-2">
+                    <span class="text-xs font-medium text-white/80">{key}</span>
+                    <span class="text-xs text-white/60">#{value}</span>
+                  </div>
+                ))
+              }
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Navigation sections  -->
+      <div class="grid grid-cols-2 gap-8 sm:grid-cols-4 lg:col-span-8">
+        {
+          Object.entries(allLinks).map(([key, items]) => (
+            <div class="space-y-6">
+              <h3 class="mb-6 text-sm font-semibold text-white/80">{key}</h3>
+              <ul role="list" class="space-y-3.5">
+                {items.map((item) => (
+                  <li>
+                    {item.href ? (
+                      <a
+                        href={item.href}
+                        class="group inline-flex items-center text-sm text-white/60 transition-colors hover:text-white"
+                      >
+                        <span class="relative">{item.name}</span>
+                      </a>
+                    ) : (
+                      <span class="cursor-not-allowed text-sm text-white/60">
+                        {item.name}
+                      </span>
+                    )}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+
+    {/* Bottom bar */}
+    <div class="mt-16 border-t border-white/10 pt-8 sm:mt-20 lg:mt-24">
+      <div class="flex flex-col items-center justify-between gap-4 sm:flex-row">
+        <p class="text-sm text-white/60">
+          &copy; {year}
+          {SITE.businessName}. All rights reserved.
+        </p>
+        <p class="text-sm font-medium text-white/80">Make moving chill.</p>
+      </div>
+    </div>
+  </div>
+</footer>

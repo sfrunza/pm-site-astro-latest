@@ -1,0 +1,48 @@
+---
+import Section from '@/components/Section.astro';
+import SectionHeader from '@/components/SectionHeader.astro';
+import Container from '@/components/Container.astro';
+import type { RelatedLink } from '@/config/service-faqs';
+import { tv } from 'tailwind-variants';
+
+interface Props {
+  links: RelatedLink[];
+  title?: string;
+  class?: string;
+}
+
+const relatedServices = tv({
+  base: 'py-16',
+});
+
+const {
+  links,
+  title = 'Related moving services',
+  class: className = '',
+} = Astro.props;
+
+if (links.length === 0) return;
+---
+
+<Section class={relatedServices({ class: className })}>
+  <Container>
+    <SectionHeader position="left" title={title} label="Explore" />
+    <ul class="mt-8 grid auto-rows-fr gap-4 sm:grid-cols-2 lg:grid-cols-3">
+      {
+        links.map((link) => (
+          <li class="h-full min-h-0">
+            <a
+              href={link.href}
+              class="bg-muted hover:shadow-lg hover:-translate-y-1 transition-all hover:bg-muted/80 flex h-full min-h-full flex-col rounded-3xl p-6"
+            >
+              <span class="text-lg font-semibold">{link.label}</span>
+              <p class="text-muted-foreground mt-2 flex-1 text-sm leading-relaxed">
+                {link.description}
+              </p>
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </Container>
+</Section>

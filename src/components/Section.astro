@@ -1,0 +1,17 @@
+---
+import type { HTMLAttributes } from 'astro/types';
+import { tv, type VariantProps } from 'tailwind-variants';
+
+interface Props extends HTMLAttributes<'section'> {}
+
+const sectionRoot = tv({
+  // base: 'mx-auto max-w-[1440px]',
+  base: '',
+});
+
+const { class: className, ...rest } = Astro.props;
+---
+
+<section class={sectionRoot({ class: className })} {...rest}>
+  <slot />
+</section>

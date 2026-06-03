@@ -1,0 +1,56 @@
+---
+export type TocHeading = {
+  depth: number;
+  slug: string;
+  text: string;
+};
+
+interface Props {
+  headings: TocHeading[];
+}
+
+const { headings } = Astro.props;
+const h2s = headings.filter((h) => h.depth === 2);
+const showNav = h2s.length >= 3;
+---
+
+{
+  showNav && (
+    <nav
+      class="mb-8 rounded-3xl border bg-card p-6 lg:sticky lg:top-26"
+      aria-labelledby="toc-heading"
+    >
+      <h2
+        id="toc-heading"
+        class="text-sm font-semibold uppercase tracking-wide"
+      >
+        On this page
+      </h2>
+      <ol class="mt-4 list-decimal space-y-2 pl-5 text-sm">
+        {h2s.map((heading) => (
+          <li>
+            <a
+              href={`#${heading.slug}`}
+              class="hover:text-primary transition-colors"
+            >
+              {heading.text}
+            </a>
+          </li>
+        ))}
+      </ol>
+    </nav>
+  )
+}
+
+<style is:global>
+  /* Keep in-page anchor targets below the sticky navbar (matches lg:top-26 on this nav). */
+  .blog-post-prose :is(h2, h3, h4)[id] {
+    scroll-margin-top: 5.5rem;
+  }
+
+  @media (min-width: 640px) {
+    .blog-post-prose :is(h2, h3, h4)[id] {
+      scroll-margin-top: 6.5rem;
+    }
+  }
+</style>

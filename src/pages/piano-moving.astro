@@ -1,0 +1,271 @@
+---
+import heroBg from '@/assets/heros/piano-movers.jpg';
+import Carousel2 from '@/blocks/carousel/Carousel2.astro';
+import Cities1 from '@/blocks/cities/Cities1.astro';
+import CTA1 from '@/blocks/cta/CTA1.astro';
+import CTA2 from '@/blocks/cta/CTA2.astro';
+import FAQ1 from '@/blocks/faq/FAQ1.astro';
+import Feature2 from '@/blocks/feature/Feature2.astro';
+import Feature3 from '@/blocks/feature/Feature3.astro';
+import FeatureImageRight from '@/blocks/feature/FeatureImageRight.astro';
+import FeatureSteps from '@/blocks/feature/FeatureSteps.astro';
+import Container from '@/components/Container.astro';
+import Hero2 from '@/components/Hero2.astro';
+import Section from '@/components/Section.astro';
+import SectionHeader from '@/components/SectionHeader.astro';
+import Button from '@/components/starwind/button';
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+} from '@/components/starwind/card';
+import { Image } from '@/components/starwind/image';
+import Layout from '@/layouts/Layout.astro';
+import RelatedServices from '@/blocks/related/RelatedServices.astro';
+import { buildPageSeo } from '@/config/seo';
+import { getRelatedLinks, getServiceFaqs } from '@/config/service-faqs';
+import { getLcpPreload } from '@/utils/lcp-preload';
+import { servicePageJsonLd } from '@/utils/page-schema';
+
+const pathname = Astro.url.pathname;
+const pageFaqs = getServiceFaqs(pathname);
+const lcpPreload = await getLcpPreload(heroBg);
+const seo = buildPageSeo(Astro.url, {
+  title: 'Piano Moving - Phoenix Moving (Free Estimate)',
+  description:
+    'Professional piano movers in Boston and Greater Massachusetts. Upright, baby grand, and grand piano moving with proper equipment, padding, and licensed, insured crews.',
+  keywords:
+    'piano movers Boston, piano moving service, upright piano movers, grand piano movers, Boston piano relocation',
+  pathname,
+  breadcrumbs: [
+    { name: 'Home', path: '/' },
+    { name: 'Piano Moving', path: '/piano-moving' },
+  ],
+  service: {
+    name: 'Piano Moving Services',
+    description:
+      'Specialized piano moving with professional equipment and trained crews for upright, baby grand, and grand pianos in the Boston area.',
+  },
+  jsonLdExtra: servicePageJsonLd(pathname, {
+    name: 'How to move a piano with professional movers',
+    description:
+      'Four steps to book, protect, and deliver your piano with Phoenix Moving Boston.',
+  }),
+});
+---
+
+<Layout {...seo} lcpPreload={lcpPreload}>
+  <Hero2
+    bgImage={heroBg}
+    title="Piano Moving"
+    subtitle="Boston piano movers with specialized equipment, trained crews, and careful handling for upright, baby grand, and grand pianos."
+  />
+
+  <Feature3
+    features={[
+      'Upright & grand pianos',
+      'Piano boards & straps',
+      'Floor & wall protection',
+      'Stair & tight-space moves',
+      'Licensed & insured',
+      'Free estimates',
+      'Residential & venues',
+      'Local & regional delivery',
+    ]}
+  />
+
+  <FeatureImageRight
+    title="Boston Piano Movers You Can Trust"
+    label="Specialty Moving"
+    image={heroBg}
+    alt="Phoenix Moving crew preparing furniture for a careful local move"
+  >
+    <p>
+      Moving a piano is not a standard furniture job. Weight distribution,
+      fragile internal components, and narrow doorways require <b
+        >specialized tools and experience</b
+      >. Phoenix Moving provides dedicated piano moving services throughout
+      Boston, Natick, Cambridge, and surrounding communities.
+    </p>
+    <p>
+      Our crews use piano boards, heavy-duty straps, padding, and floor runners
+      to protect your instrument and your home. We plan the route in advance —
+      measuring staircases, turns, and entryways — so there are no surprises on
+      moving day.
+    </p>
+    <ul>
+      <li>
+        <b>Trained movers</b> experienced with delicate, high-value items.
+      </li>
+      <li>
+        <b>Transparent quotes</b> based on piano type, access, and distance.
+      </li>
+      <li>
+        <b>Fully licensed and insured</b> with the Massachusetts DPU.
+      </li>
+    </ul>
+    <p>
+      Whether you are moving a single piano to a new room, a new home, or a
+      performance venue, we treat your instrument with the care it deserves.
+    </p>
+  </FeatureImageRight>
+
+  <Section class="py-16">
+    <Container class="@container">
+      <SectionHeader
+        position="left"
+        label="What We Move"
+        title="Piano moving for every size and setting"
+        subtitle="From apartments and homes to studios, schools, and event spaces — we adapt our approach to your piano and your property."
+      />
+      <div class="grid gap-6 @2xl:grid-cols-2 @4xl:grid-cols-3">
+        <Card
+          class="group relative overflow-hidden bg-muted p-0 @2xl:col-span-2 @4xl:row-span-2"
+        >
+          <div class="grid h-full @xl:grid-cols-2">
+            <div class="relative w-full pb-[100%]">
+              <div class="absolute inset-0 @xl:aspect-auto">
+                <Image
+                  src={heroBg}
+                  alt="Moving team using equipment to transport heavy items safely"
+                  class="starwind-image size-full object-cover"
+                  loading="lazy"
+                  decoding="async"
+                />
+              </div>
+            </div>
+            <CardContent
+              class="flex flex-col justify-between gap-6 p-6 @xl:p-8"
+            >
+              <div class="space-y-4">
+                <h2 class="text-2xl font-bold">
+                  Full-service piano relocation
+                </h2>
+                <p>
+                  We handle pickup, secure loading, transport, and placement at
+                  your destination. Need help positioning the piano in its new
+                  room? We will place it exactly where you want it and remove
+                  all packing materials before we leave.
+                </p>
+                <p>
+                  Moving a piano as part of a larger home move? We coordinate
+                  with our residential crews so your piano and household items
+                  arrive safely on schedule.
+                </p>
+              </div>
+              <Button class="mr-auto" variant="primary" href="/book">
+                Get a Free Quote
+              </Button>
+            </CardContent>
+          </div>
+        </Card>
+
+        <Card>
+          <CardHeader>
+            <CardTitle>Upright Pianos</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <p>
+              Vertical pianos are heavy and top-heavy. We use piano boards and
+              multiple crew members to keep the instrument balanced through
+              doorways, hallways, and stairs.
+            </p>
+          </CardContent>
+        </Card>
+
+        <Card>
+          <CardHeader>
+            <CardTitle>Baby Grand & Grand Pianos</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <p>
+              Grand pianos often require partial disassembly of legs and pedals,
+              specialized skids, and extra padding. Our team follows
+              manufacturer-safe practices to protect the cabinet and soundboard.
+            </p>
+          </CardContent>
+        </Card>
+
+        <Card>
+          <CardHeader>
+            <CardTitle>Stairs & Tight Access</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <p>
+              Narrow stairwells and tight turns are common in Boston homes. We
+              survey access in advance and bring the right equipment to navigate
+              challenging paths without damage.
+            </p>
+          </CardContent>
+        </Card>
+
+        <Card>
+          <CardHeader>
+            <CardTitle>Studios & Institutions</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <p>
+              Music schools, churches, and performance venues trust us for
+              on-time delivery and careful setup. We work around your schedule
+              to minimize downtime.
+            </p>
+          </CardContent>
+        </Card>
+      </div>
+    </Container>
+  </Section>
+
+  <Section class="border-y bg-muted/40 py-16">
+    <Container>
+      <SectionHeader
+        title="What's included in a piano move"
+        subtitle="Every job is quoted based on your piano, access, and distance — but our standard approach always prioritizes protection and communication."
+      />
+      <ul class="mx-auto grid max-w-4xl gap-4 sm:grid-cols-2" role="list">
+        {
+          [
+            'Pre-move assessment of access and path',
+            'Protective blankets, straps, and floor coverings',
+            'Proper lifting techniques and crew sizing',
+            'Secure transport in our moving truck',
+            'Placement and basic positioning at destination',
+            'Licensed, insured Massachusetts movers',
+          ].map((item) => (
+            <li class="bg-background flex items-start gap-3 rounded-3xl border px-4 py-3 text-sm font-medium">
+              <span
+                class="bg-primary/10 text-primary mt-0.5 flex size-6 shrink-0 items-center justify-center rounded-full text-xs font-bold"
+                aria-hidden="true"
+              >
+                ✓
+              </span>
+              {item}
+            </li>
+          ))
+        }
+      </ul>
+    </Container>
+  </Section>
+
+  <FeatureSteps />
+
+  <Feature2
+    title="Why Choose Phoenix for Piano Moving"
+    label="Why Choose Us"
+    subtitle="Specialty moves demand specialty care — and a moving company that shows up prepared."
+  />
+
+  <Carousel2 />
+
+  <CTA2
+    title="Ready to move your piano?"
+    description="Get a free, no-obligation estimate. Tell us your piano type and addresses — we'll handle the rest."
+    primaryButton={{ text: 'Request a Free Quote', href: '/book' }}
+  />
+
+  <Cities1 />
+
+  <RelatedServices links={getRelatedLinks(pathname)} />
+  <FAQ1 items={pageFaqs} />
+  <CTA1 />
+</Layout>

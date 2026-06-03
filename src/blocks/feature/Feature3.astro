@@ -1,0 +1,43 @@
+---
+import Container from '@/components/Container.astro';
+import Section from '@/components/Section.astro';
+import { CheckIcon } from '@/icons';
+
+interface Props {
+  features?: string[];
+}
+const {
+  features = [
+    'Feature 1',
+    'Feature 2',
+    'Feature 3',
+    'Feature 4',
+    'Feature 5',
+    'Feature 6',
+    'Feature 7',
+    'Feature 8',
+  ],
+} = Astro.props;
+---
+
+<Section class="border-y bg-muted/30 py-12">
+  <Container>
+    <ul class="grid grid-cols-2 gap-6 md:grid-cols-3 lg:grid-cols-4">
+      {
+        features.map((feature) => (
+          <li class="flex items-center justify-start gap-6">
+            <span
+              class="bg-green-600/10 size-6 shrink-0 flex items-center justify-center rounded-full ring-1 ring-green-600/15"
+              aria-hidden="true"
+            >
+              <CheckIcon class="size-4 text-green-600" />
+            </span>
+            <span class="leading-6 text-pretty truncate font-medium">
+              {feature}
+            </span>
+          </li>
+        ))
+      }
+    </ul>
+  </Container>
+</Section>

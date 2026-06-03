@@ -1,0 +1,19 @@
+---
+interface Props {
+  items: string[];
+}
+
+const { items } = Astro.props;
+---
+
+<aside
+  class="bg-muted border-primary/20 mb-8 rounded-3xl border-l-4 p-6"
+  aria-labelledby="key-takeaways-heading"
+>
+  <h2 id="key-takeaways-heading" class="text-lg font-semibold">
+    Key takeaways
+  </h2>
+  <ul class="mt-4 list-disc space-y-2 pl-5 text-sm leading-relaxed">
+    {items.map((item) => <li>{item}</li>)}
+  </ul>
+</aside>

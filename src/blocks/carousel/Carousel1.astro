@@ -1,0 +1,42 @@
+---
+import Container from '@/components/Container.astro';
+import Section from '@/components/Section.astro';
+import { Card } from '@/components/starwind/card';
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from '@/components/starwind/carousel';
+import { Image } from '@/components/starwind/image';
+import heroBg from '@/assets/heros/home.webp';
+---
+
+<Section class="py-16">
+  <Container class="relative">
+    <Carousel opts={{ align: 'start', loop: true }}>
+      <CarouselContent>
+        {
+          Array.from({ length: 5 }).map((_, index) => (
+            <CarouselItem class="pl-4 basis-[80%] sm:basis-[40%] md:basis-[28.5%] lg:basis-[22.22%]">
+              <div class="p-1">
+                <Card class="aspect-square p-0 overflow-hidden">
+                  <Image
+                    src={heroBg}
+                    alt="gallery image"
+                    class="size-full object-cover"
+                    loading="lazy"
+                    title="Phoenix Moving Gallery"
+                  />
+                </Card>
+              </div>
+            </CarouselItem>
+          ))
+        }
+      </CarouselContent>
+      <CarouselPrevious />
+      <CarouselNext />
+    </Carousel>
+  </Container>
+</Section>

@@ -1,0 +1,160 @@
+---
+import Section from '@/components/Section.astro';
+import Container from '@/components/Container.astro';
+import SectionHeader from '@/components/SectionHeader.astro';
+import Button from '@/components/starwind/button';
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+} from '@/components/starwind/card';
+import Prose from '@/components/starwind/prose';
+import { SITE } from '@/config/site';
+import { MapPinIcon, PhoneIcon, MailIcon } from '@/icons';
+import ContactSocialIcon, {
+  type SocialNetwork,
+} from '@/blocks/contact/ContactSocialIcon.astro';
+
+type Social = {
+  name: string;
+  href: string;
+  network: SocialNetwork;
+};
+
+const social: Social[] = [
+  {
+    name: 'Facebook',
+    href: 'https://www.facebook.com/phoenixmoving',
+    network: 'facebook',
+  },
+  {
+    name: 'Instagram',
+    href: 'https://www.instagram.com/phoenixmovingboston/',
+    network: 'instagram',
+  },
+  {
+    name: 'Twitter',
+    href: 'https://twitter.com/phoenix_moving?ref_src=twsrc%5Etfw',
+    network: 'twitter',
+  },
+  {
+    name: 'Yelp',
+    href: 'https://www.yelp.com/biz/phoenix-moving-natick-6',
+    network: 'yelp',
+  },
+  {
+    name: 'Google',
+    href: 'https://goo.gl/maps/NPF6QwaYbWBQdG3Q6',
+    network: 'google',
+  },
+];
+---
+
+<Section class="py-16">
+  <Container>
+    {/* Header */}
+    <SectionHeader
+      title="Get in touch."
+      subtitle="We're here to help make your move smooth and stress-free."
+    />
+    {/* Contact Cards Grid */}
+    <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+      {/* Addresses Card */}
+      <Card class="hover:shadow-lg hover:-translate-y-1 transition-all">
+        <CardHeader>
+          <div class="bg-primary/10 mb-4 inline-flex w-fit rounded-xl p-3">
+            <MapPinIcon class="text-primary size-6" aria-hidden="true" />
+          </div>
+          <CardTitle>Addresses</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <div class="space-y-4">
+            {
+              SITE.businessAddresses.map((address, index: number) => (
+                <address class="text-muted-foreground not-italic">
+                  <div class="text-foreground font-medium">
+                    {address.address}
+                  </div>
+                  <div class="mt-1">
+                    {address.city}, {address.state} {address.zip}
+                  </div>
+                </address>
+              ))
+            }
+          </div>
+        </CardContent>
+      </Card>
+
+      {/* Phone Card */}
+      <Card class="hover:shadow-lg hover:-translate-y-1 transition-all">
+        <CardHeader>
+          <div class="bg-primary/10 mb-4 inline-flex w-fit rounded-xl p-3">
+            <PhoneIcon class="text-primary size-6" aria-hidden="true" />
+          </div>
+          <CardTitle>Phone</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <Prose>
+            <a href={`tel:${SITE.contactPhone}`}>
+              {SITE.contactPhone}
+            </a>
+          </Prose>
+        </CardContent>
+      </Card>
+
+      {/* Email Card */}
+      <Card class="hover:shadow-lg hover:-translate-y-1 transition-all">
+        <CardHeader>
+          <div class="bg-primary/10 mb-4 inline-flex w-fit rounded-xl p-3">
+            <MailIcon class="text-primary size-6" aria-hidden="true" />
+          </div>
+          <CardTitle>Email</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <Prose>
+            <a href={`mailto:${SITE.contactEmail}`}>
+              {SITE.contactEmail}
+            </a>
+          </Prose>
+        </CardContent>
+      </Card>
+    </div>
+  </Container>
+</Section>
+
+<Section class="py-12 border-y bg-muted/30">
+  <Container>
+    <div class="text-center">
+      <h3 class="mb-2 text-lg font-semibold">Follow us.</h3>
+      <p class="text-muted-foreground mb-6">
+        Stay connected with us on social media.
+      </p>
+      <ul class="flex flex-wrap items-center justify-center gap-3">
+        {
+          social.map((item) => (
+            <li>
+              <Button
+                href={item.href}
+                title={item.name}
+                aria-label={item.name}
+                aria-labelledby={item.name}
+                target="_blank"
+                rel="noopener noreferrer"
+                variant="ghost"
+                size="icon"
+                class="group hover:bg-background relative h-12 w-12 rounded-xl hover:shadow-sm"
+              >
+                <ContactSocialIcon
+                  network={item.network}
+                  aria-hidden="true"
+                  class="text-muted-foreground group-hover:text-foreground size-5 transition-colors"
+                />
+              </Button>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </Container>
+</Section>

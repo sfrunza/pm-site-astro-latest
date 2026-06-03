@@ -1,0 +1,235 @@
+---
+import heroBg from '@/assets/heros/local-moving.jpg';
+import Carousel1 from '@/blocks/carousel/Carousel1.astro';
+import Cities1 from '@/blocks/cities/Cities1.astro';
+import CTA1 from '@/blocks/cta/CTA1.astro';
+import CTA2 from '@/blocks/cta/CTA2.astro';
+import FAQ1 from '@/blocks/faq/FAQ1.astro';
+import Feature2 from '@/blocks/feature/Feature2.astro';
+import Feature3 from '@/blocks/feature/Feature3.astro';
+import FeatureImageRight from '@/blocks/feature/FeatureImageRight.astro';
+import FeatureSteps from '@/blocks/feature/FeatureSteps.astro';
+import Container from '@/components/Container.astro';
+import Hero2 from '@/components/Hero2.astro';
+import Section from '@/components/Section.astro';
+import Button from '@/components/starwind/button';
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+} from '@/components/starwind/card';
+import { Image } from '@/components/starwind/image';
+import RelatedServices from '@/blocks/related/RelatedServices.astro';
+import Layout from '@/layouts/Layout.astro';
+import { buildPageSeo } from '@/config/seo';
+import { getRelatedLinks, getServiceFaqs } from '@/config/service-faqs';
+import { getLcpPreload } from '@/utils/lcp-preload';
+import { servicePageJsonLd } from '@/utils/page-schema';
+
+const pathname = Astro.url.pathname;
+const pageFaqs = getServiceFaqs(pathname);
+const lcpPreload = await getLcpPreload(heroBg);
+const seo = buildPageSeo(Astro.url, {
+  title: 'Local Moving - Phoenix Moving (Free Estimate)',
+  description:
+    'Boston local movers for residential and commercial moves. Licensed, insured crews pack, load, and relocate your belongings quickly and safely throughout Greater Boston.',
+  keywords:
+    'local movers Boston, residential moving, commercial moving, Boston moving company',
+  pathname,
+  breadcrumbs: [
+    { name: 'Home', path: '/' },
+    { name: 'Local Moving', path: '/local-moving' },
+  ],
+  service: {
+    name: 'Local Moving Services',
+    description:
+      'Professional local moving services in Boston and surrounding areas for residential and commercial customers.',
+  },
+  jsonLdExtra: servicePageJsonLd(pathname, {
+    name: 'How to move with Phoenix Moving in Boston',
+    description:
+      'Book Boston local movers in four steps — from free quote to move-in day.',
+  }),
+});
+---
+
+<Layout {...seo} lcpPreload={lcpPreload}>
+  <Hero2
+    bgImage={heroBg}
+    title="Local Moving"
+    subtitle="Boston local movers with experienced crews for residential and commercial moves, packing, and storage across Greater Boston."
+  />
+
+  <Feature3
+    features={[
+      'Residential',
+      'Commercial',
+      'Storage',
+      'Loading',
+      'Unloading',
+      'Inside help',
+      'Assembly furniture',
+      'Disassembly furniture',
+    ]}
+  />
+
+  <FeatureImageRight
+    title="Your Neighborhood Moving Experts."
+    label="Who We Are"
+    image={heroBg}
+    alt="Two movers packing dishes"
+  >
+    <p>
+      As <b>Boston local movers</b>, Phoenix Moving serves Greater Massachusetts
+      with residential and commercial relocation. If you need local movers in
+      Boston MA, check your area and request a free quote.
+    </p>
+    <p>
+      Are you searching for reliable local movers in Boston and the surrounding
+      areas? Look no further! At Phoenix Moving, we specialize in professional
+      local moving services tailored to meet your needs. Whether you're
+      relocating within Boston, Cambridge, Somerville, Brookline, or beyond, our
+      experienced team is here to make your move seamless and stress-free.
+    </p>
+
+    <ul>
+      <li>
+        <b>High-quality local moving services.</b>
+      </li>
+      <li>
+        <b>Furniture disassembling and assembling.</b>
+      </li>
+      <li>
+        <b>Attentiveness and respect for the client.</b>
+      </li>
+    </ul>
+    <p>
+      Since moving is a big part of their everyday lives, our Phoenix Movers are
+      experienced in everything that comes along with the word relocation.
+      Accurate quotes, on-time arrival,
+      <b>professional packing techniques</b>, and qualified handling of moving
+      equipment and materials — our workers are trained and equipped in the best
+      possible way.
+    </p>
+  </FeatureImageRight>
+
+  <Section class="py-16">
+    <Container class="@container">
+      <div class="grid @2xl:grid-cols-2 @4xl:grid-cols-3 gap-6">
+        <!-- 1st card -->
+        <Card
+          class="group p-0 @2xl:col-span-2 @4xl:row-span-2 bg-muted overflow-hidden relative"
+        >
+          <div class="grid @xl:grid-cols-2 h-full">
+            <div class="relative w-full pb-[100%]">
+              <div class="@xl:aspect-auto absolute inset-0">
+                <Image
+                  src={heroBg}
+                  alt="Two movers packing dishes"
+                  class="object-cover size-full starwind-image"
+                  loading="lazy"
+                />
+              </div>
+            </div>
+            <CardContent
+              class="flex justify-between gap-6 @xl:p-8 flex-col p-6"
+            >
+              <h2 class="text-2xl font-bold">
+                Our Comprehensive Local Moving Services.
+              </h2>
+              <p>
+                Serving Boston, Natick, Cambridge, Somerville, Brookline, and
+                Beyond. Locally based Phoenix Movers proudly serves clients
+                throughout the city and its neighboring areas. In addition to
+                Boston, our services extend to Cambridge, Somerville, Brookline,
+                Newton, Quincy, Waltham, Medford, Arlington, and other nearby
+                cities. Wherever your destination may be within the Greater
+                Boston area, we are here to assist you.
+              </p>
+              <Button class="mr-auto" variant="primary" href="/book"
+                >Get a Free Quote</Button
+              >
+            </CardContent>
+          </div>
+        </Card>
+        <!-- 2nd card -->
+        <Card>
+          <CardHeader>
+            <CardTitle>Residential Local Moves</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <p>
+              Trust our skilled team to handle every aspect of your residential
+              move with care and efficiency. We offer customizable moving
+              packages designed to suit your unique requirements, including
+              furniture disassembly/reassembly, packing/unpacking services, and
+              secure transportation of your belongings.
+            </p>
+          </CardContent>
+        </Card>
+        <!-- 3rd card -->
+        <Card>
+          <CardHeader>
+            <CardTitle>Commercial Local Moves</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <p>
+              Planning an office relocation? Count our movers for professional
+              commercial moving services. We understand the importance of
+              minimizing downtime and disruption to your business operations.
+              Our services include office furniture/equipment relocation, IT
+              equipment handling, and comprehensive logistics management.
+            </p>
+          </CardContent>
+        </Card>
+        <!-- 4th card -->
+        <Card>
+          <CardHeader>
+            <CardTitle>Small Moves</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <p>
+              If you find yourself needing to move only a few items, opting for
+              a full-service moving company might not be necessary. At our
+              company, we offer a diverse range of services tailored to meet
+              your specific needs, whether it is relocating a piano or household
+              appliances.
+            </p>
+          </CardContent>
+        </Card>
+        <!-- 5th card -->
+        <Card>
+          <CardHeader>
+            <CardTitle> Loading/Unloading Help </CardTitle>
+          </CardHeader>
+          <CardContent>
+            <p>
+              If you require solely loading or unloading assistance, Phoenix
+              Moving Company has you covered. Our dedicated team ensures
+              efficient and secure loading, or unloading, of your belongings,
+              making your move hassle-free.
+            </p>
+          </CardContent>
+        </Card>
+      </div>
+    </Container>
+  </Section>
+
+  <FeatureSteps />
+
+  <Feature2
+    title="The Moving Company That Actually Cares."
+    label="Why Choose Us"
+  />
+
+  <Carousel1 />
+
+  <CTA2 />
+
+  <Cities1 />
+
+  <RelatedServices links={getRelatedLinks(pathname)} />
+  <FAQ1 items={pageFaqs} />
+  <CTA1 />
+</Layout>

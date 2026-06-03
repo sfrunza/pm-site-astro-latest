@@ -1,0 +1,67 @@
+---
+import { ArrowRight } from '@/icons';
+import type { HTMLAttributes } from 'astro/types';
+import { tv } from 'tailwind-variants';
+
+import { Button } from '@/components/starwind/button';
+import Section from '@/components/Section.astro';
+import Container from '@/components/Container.astro';
+import SectionHeader from '@/components/SectionHeader.astro';
+import RotatingGradientBorder from '@/components/RotatingGradientBorder.astro';
+
+export interface ButtonConfig {
+  text: string;
+  href: string;
+}
+
+interface Props extends HTMLAttributes<'section'> {
+  /** Main heading text */
+  title?: string;
+  /** Description text */
+  description?: string;
+  /** Primary button configuration */
+  primaryButton?: ButtonConfig;
+  /** Secondary button configuration (optional) */
+  secondaryButton?: ButtonConfig;
+}
+
+const cta2Styles = tv({
+  base: 'py-16',
+});
+
+const {
+  title = 'Move with Phoenix Moving Boston.',
+  description = 'No credit card required.',
+  primaryButton = { text: 'Request Free Estimate Online', href: '/book' },
+  secondaryButton,
+  class: className,
+  ...rest
+} = Astro.props;
+---
+
+<Section class={cta2Styles({ class: className })} {...rest}>
+  <Container class="text-center">
+    <RotatingGradientBorder class="rounded-3xl bg-card px-8 py-24">
+      <SectionHeader title={title} subtitle={description} />
+      <div
+        class="flex
+      flex-wrap
+      items-center
+      justify-center
+      gap-4"
+      >
+        <Button variant="primary" href={primaryButton.href}>
+          {primaryButton.text}
+        </Button>
+        {
+          secondaryButton && (
+            <Button variant="outline" class="group" href={secondaryButton.href}>
+              {secondaryButton.text}
+              <ArrowRight class="transition-transform group-hover:translate-x-1" />
+            </Button>
+          )
+        }
+      </div>
+    </RotatingGradientBorder>
+  </Container>
+</Section>

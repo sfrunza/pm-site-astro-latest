@@ -1,0 +1,82 @@
+---
+import CTA1 from '@/blocks/cta/CTA1.astro';
+import RelatedServices from '@/blocks/related/RelatedServices.astro';
+import BlogCard from '@/components/blog/BlogCard.astro';
+import Container from '@/components/Container.astro';
+import Section from '@/components/Section.astro';
+import SectionHeader from '@/components/SectionHeader.astro';
+import { getFeaturedPosts, getPostUrl, getPublishedPosts } from '@/config/blog';
+import { getBlogRelatedServices } from '@/config/blog-related-services';
+import Layout from '@/layouts/Layout.astro';
+import { buildBlogListingJsonLd, buildPageSeo } from '@/config/seo';
+
+const pathname = Astro.url.pathname;
+const posts = await getPublishedPosts();
+const featured = await getFeaturedPosts();
+const featuredIds = new Set(featured.map((post) => post.id));
+const remainingPosts = posts.filter((post) => !featuredIds.has(post.id));
+const relatedServices = getBlogRelatedServices();
+
+const listingPosts = posts.map((post) => ({
+  title: post.data.title,
+  pathname: getPostUrl(post),
+  description: post.data.description,
+}));
+
+const seo = buildPageSeo(Astro.url, {
+  title: 'Moving Tips & Guides Blog | Phoenix Moving Boston',
+  description:
+    'Boston and Massachusetts moving tips, cost guides, packing advice, and checklists from licensed Phoenix Moving crews. Plan your next move with confidence.',
+  keywords:
+    'moving blog Boston, moving tips Massachusetts, packing guide, moving cost Boston, moving checklist',
+  pathname,
+  breadcrumbs: [
+    { name: 'Home', path: '/' },
+    { name: 'Blog', path: '/blog' },
+  ],
+  jsonLdExtra: buildBlogListingJsonLd(listingPosts),
+});
+---
+
+<Layout {...seo}>
+  <Section class="pt-28 sm:pt-32 pb-8">
+    <Container>
+      <SectionHeader
+        position="center"
+        label="Resources"
+        title="Boston Moving Tips & Guides"
+        subtitle="Practical advice for local and long-distance moves across Greater Boston and Massachusetts — from budgeting and packing to move-day prep."
+      />
+    </Container>
+  </Section>
+
+  <Section class="pb-12">
+    <Container>
+      <SectionHeader
+        position="left"
+        label="Recommended"
+        title="Featured articles"
+        subtitle="Start with these guides if you are planning a Boston-area move in 2026."
+      />
+      <div class="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-2">
+        {featured.map((post) => <BlogCard post={post} />)}
+      </div>
+    </Container>
+  </Section>
+
+  <Section class="pb-16">
+    <Container>
+      <SectionHeader
+        position="left"
+        label="All posts"
+        title="Latest from the blog"
+      />
+      <div class="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        {remainingPosts.map((post) => <BlogCard post={post} />)}
+      </div>
+    </Container>
+  </Section>
+
+  <RelatedServices links={relatedServices} title="Moving services we cover" />
+  <CTA1 />
+</Layout>

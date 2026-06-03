@@ -1,0 +1,77 @@
+---
+import { Picture } from 'astro:assets';
+import Button from '@/components/starwind/button';
+
+interface Props {
+  bgImage: ImageMetadata;
+  title: string;
+  subtitle?: string;
+}
+
+const {
+  bgImage,
+  title = 'Welcome to Phoenix Moving',
+  subtitle = 'Your trusted partner for stress-free moves.',
+} = Astro.props;
+---
+
+<section
+  class="bg-background text-foreground @container min-h-[80svh] overflow-hidden relative w-full"
+>
+  <Picture
+    src={bgImage}
+    alt={title}
+    title={title}
+    formats={['avif', 'webp']}
+    fallbackFormat="webp"
+    layout="full-width"
+    fit="cover"
+    position="center"
+    quality="mid"
+    priority
+    pictureAttributes={{
+      class:
+        'pointer-events-none absolute inset-0 size-full [&>img]:size-full [&>img]:object-cover',
+    }}
+    class="absolute inset-0 size-full object-cover"
+  />
+  <div
+    class="from-neutral-950/80 to-neutral-950/20 absolute inset-0 bg-linear-to-t"
+    aria-hidden="true"
+  >
+  </div>
+  <!-- <div
+    class="inset-0 absolute bg-linear-to-t from-neutral-950/80 to-transparent via-neutral-950/30"
+  >
+  </div> -->
+  <!-- <div
+    class="absolute inset-0 bg-linear-to-b from-neutral-950/60 via-neutral-950/45 to-neutral-950/60"
+    aria-hidden="true"
+  >
+  </div> -->
+  <div
+    class="flex absolute max-w-7xl mx-auto flex-col @3xl:pb-20 @xl:pb-16 inset-0 justify-end pb-12 px-6"
+  >
+    <div
+      class="flex @xl:flex-row @xl:items-end @xl:justify-between flex-col gap-8 items-start"
+    >
+      <div class="@3xl:max-w-3xl @xl:max-w-2xl max-w-xl">
+        <h1
+          class="tracking-tight font-medium @3xl:text-7xl @xl:text-5xl text-shadow-lg text-4xl text-balance text-neutral-50"
+        >
+          {title}
+        </h1>
+        {
+          subtitle && (
+            <p class="mt-4 @xl:text-lg max-w-lg text-neutral-100 text-pretty text-shadow-lg">
+              {subtitle}
+            </p>
+          )
+        }
+      </div>
+      <div class="flex @xl:flex-col @xl:items-stretch flex-row gap-3 shrink-0">
+        <Button href="/book" variant="outline">Get a Quote</Button>
+      </div>
+    </div>
+  </div>
+</section>
