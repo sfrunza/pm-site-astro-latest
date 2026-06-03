@@ -7,7 +7,7 @@ export interface BusinessAddress {
 export const SITE = {
   title: "Phoenix Moving - Professional Moving Services",
   description: "Professional moving services with experienced movers. Residential and commercial moves, packing services, and storage solutions.",
-  url: "http://localhost:4321", // Update with your actual domain
+  url: "https://pm-site-astro-latest.frunza-sergiu3.workers.dev", // Update with your actual domain
   author: "Phoenix Moving",
   ogImage: "/og-image.jpg",
   logo: "/logo.svg",
@@ -53,7 +53,7 @@ export const SITE = {
     "@type": "MovingCompany",
     "name": "Phoenix Moving",
     "description": "Professional moving services with experienced movers",
-    "url": "http://localhost:4321",
+    "url": "https://pm-site-astro-latest.frunza-sergiu3.workers.dev",
     "telephone": "(508) 315-9458",
     "email": "info@gophoenixmoving.com",
     "address": {

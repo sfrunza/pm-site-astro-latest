@@ -9,7 +9,7 @@ import cloudflare from '@astrojs/cloudflare';
 
 // https://astro.build/config
 export default defineConfig({
-  site: 'http://localhost:4321',
+  site: 'https://pm-site-astro-latest.frunza-sergiu3.workers.dev',
   trailingSlash: 'never',
   integrations: [sitemap(), mdx()],
 
