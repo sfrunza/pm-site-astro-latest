@@ -7,9 +7,8 @@ import mdx from '@astrojs/mdx';
 
 // https://astro.build/config
 export default defineConfig({
-  site: 'https://pm-site-astro-latest.frunza-sergiu3.workers.dev',
+  site: 'http://localhost:4321',
   output: 'static',
-  trailingSlash: 'never',
   integrations: [sitemap(), mdx()],
 
   vite: {
