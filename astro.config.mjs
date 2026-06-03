@@ -1,4 +1,4 @@
-import { defineConfig, fontProviders } from 'astro/config';
+import { defineConfig, fontProviders, sessionDrivers } from 'astro/config';
 
 import tailwindcss from '@tailwindcss/vite';
 
@@ -46,6 +46,12 @@ export default defineConfig({
       ],
     },
   ],
+
+  // No server-side sessions on this site — avoids Cloudflare KV auto-provision
+  // (re-deploy fails if namespace "pm-site-astro-latest-session" already exists).
+  session: {
+    driver: sessionDrivers.memory(),
+  },
 
   adapter: cloudflare(),
 });
