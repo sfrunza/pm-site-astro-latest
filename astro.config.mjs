@@ -5,14 +5,18 @@ import tailwindcss from '@tailwindcss/vite';
 import sitemap from '@astrojs/sitemap';
 import mdx from '@astrojs/mdx';
 
+import cloudflare from '@astrojs/cloudflare';
+
 // https://astro.build/config
 export default defineConfig({
   site: 'http://localhost:4321',
   trailingSlash: 'never',
   integrations: [sitemap(), mdx()],
+
   vite: {
     plugins: [tailwindcss()],
   },
+
   image: {
     remotePatterns: [
       {
@@ -30,6 +34,7 @@ export default defineConfig({
       weights: [100, 200, 300, 400, 500, 600, 700, 800, 900],
     },
   ],
+
   headers: [
     {
       source: '/(.*)',
@@ -41,4 +46,6 @@ export default defineConfig({
       ],
     },
   ],
+
+  adapter: cloudflare(),
 });
