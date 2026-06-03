@@ -7,9 +7,10 @@ import { buildPageSeo } from '@/config/seo';
 const lastUpdated = new Date(2025, 2, 10).toLocaleDateString();
 
 const seo = buildPageSeo(Astro.url, {
-  title: `Terms and Conditions | ${SITE.businessShortName}`,
+  title: `Terms and Conditions | ${SITE.businessName}`,
   description: `Terms and conditions for ${SITE.businessName}. Last updated: ${lastUpdated}`,
-  keywords: 'moving terms, moving contract, Phoenix Moving terms and conditions',
+  keywords:
+    'moving terms, moving contract, Phoenix Moving terms and conditions',
   pathname: Astro.url.pathname,
   breadcrumbs: [
     { name: 'Home', path: '/' },
