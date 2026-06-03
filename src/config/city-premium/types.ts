@@ -1,4 +1,4 @@
-import type { Faq } from '@/blocks/faq/FAQ1.astro';
+import type { Faq } from '@/blocks/faq/faqs';
 import type { MovingStep } from '@/config/moving-howto';
 import type { RelatedLink } from '@/config/service-faqs';
 import type { SvgComponent } from 'astro/types';
