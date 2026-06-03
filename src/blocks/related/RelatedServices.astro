@@ -32,6 +32,7 @@ if (links.length === 0) return;
         links.map((link) => (
           <li class="h-full min-h-0">
             <a
+              aria-label={link.label}
               href={link.href}
               class="bg-muted hover:shadow-lg hover:-translate-y-1 transition-all hover:bg-muted/80 flex h-full min-h-full flex-col rounded-3xl p-6"
             >

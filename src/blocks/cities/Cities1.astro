@@ -39,6 +39,7 @@ const { class: className = '' } = Astro.props;
               return (
                 <a
                   href={`/${city.slug}`}
+                  aria-label={city.fullName}
                   title={city.fullName}
                   class="text-muted-foreground group flex min-h-11 items-center gap-2 rounded-sm px-1 py-2.5 text-sm hover:underline"
                 >

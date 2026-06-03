@@ -1,0 +1,156 @@
+---
+import heroBg from '@/assets/heros/home.webp';
+import featureImage from '@/assets/2-movers-and-truck-opt.jpg';
+import Carousel1 from '@/blocks/carousel/Carousel1.astro';
+import Cities1 from '@/blocks/cities/Cities1.astro';
+import CTA1 from '@/blocks/cta/CTA1.astro';
+import CTA2 from '@/blocks/cta/CTA2.astro';
+import Feature1 from '@/blocks/feature/Feature1.astro';
+import Feature2 from '@/blocks/feature/Feature2.astro';
+import Feature3 from '@/blocks/feature/Feature3.astro';
+import FeatureImageLeft from '@/blocks/feature/FeatureImageLeft.astro';
+import FeatureImageRight from '@/blocks/feature/FeatureImageRight.astro';
+import FeatureSteps from '@/blocks/feature/FeatureSteps.astro';
+import Services1 from '@/blocks/services/Services1.astro';
+import Hero2 from '@/components/Hero2.astro';
+import Layout from '@/layouts/Layout.astro';
+import { SITE } from '@/config/site';
+import { buildPageSeo } from '@/config/seo';
+import { getLcpPreload } from '@/utils/lcp-preload';
+
+const lcpPreload = await getLcpPreload(heroBg);
+const seo = buildPageSeo(Astro.url, {
+  title: 'About Us - Phoenix Moving & Storage',
+  description:
+    'Learn about Phoenix Moving & Storage — a licensed, insured Boston-area moving company offering local and long-distance moves, packing, storage, and piano moving from Natick and Newton, MA.',
+  keywords:
+    'about Phoenix Moving, Boston moving company, Natick movers, licensed movers Massachusetts, moving and storage',
+  pathname: Astro.url.pathname,
+  breadcrumbs: [
+    { name: 'Home', path: '/' },
+    { name: 'About', path: '/about' },
+  ],
+});
+---
+
+<Layout {...seo} lcpPreload={lcpPreload}>
+  <Hero2
+    bgImage={heroBg}
+    title="About Phoenix Moving & Storage"
+    subtitle="Professional movers serving Greater Boston and beyond — fast, reliable, and built around making your move stress-free."
+  />
+
+  <Feature3
+    features={[
+      'Local Moving',
+      'Long-Distance Moving',
+      'Residential & Commercial',
+      'Full Packing Services',
+      'Loading & Unloading',
+      'Short & Long-Term Storage',
+      'Piano Moving',
+      'Licensed & Insured',
+    ]}
+  />
+
+  <FeatureImageRight
+    title="What Makes Us Different."
+    label="Who We Are"
+    image={featureImage}
+    alt="Phoenix Moving crew with truck"
+  >
+    <p>
+      {SITE.businessName} is a professional moving and storage company based in the
+      Boston area. We are dedicated to providing you with the highest quality service
+      and value for your relocation needs.
+    </p>
+    <p>
+      Our experienced team of movers offers local and long-distance moves, as
+      well as packing and unpacking services, loading and unloading, storage
+      solutions, and much more. We take great pride in our commitment to
+      customer satisfaction and strive to make every move as stress-free as
+      possible.
+    </p>
+    <p>
+      With competitive rates, reliable service, and a wide range of solutions
+      for every budget, we are the ideal choice for your next move — whether you
+      are relocating across town or across the country.
+    </p>
+  </FeatureImageRight>
+
+  <FeatureImageLeft
+    title="Licensed, Bonded & Insured."
+    subtitle="Your belongings are protected every step of the way."
+    image={heroBg}
+    alt="Phoenix Moving professional crew"
+  >
+    <p>
+      {SITE.businessName} is fully licensed with the Massachusetts Department of Public
+      Utilities (MDPU #{SITE.businessLicenses.MDPU}) and registered with the
+      Federal Motor Carrier Safety Administration (DOT #
+      {SITE.businessLicenses.DOT}, MC #{SITE.businessLicenses.MC}). We carry
+      Cargo, Motor Vehicle, and General Liability insurance so you can move with
+      confidence.
+    </p>
+    <p>
+      From our headquarters in <b>Natick</b> and our local office in
+      <b> Newton</b>, we serve residential and commercial customers throughout
+      Greater Boston, MetroWest, and Massachusetts — with long-distance coverage
+      across the United States.
+    </p>
+    <ul>
+      <li>
+        <b>Two Massachusetts locations</b> — Natick and Newton for convenient local
+        service.
+      </li>
+      <li>
+        <b>Transparent pricing</b> — detailed upfront estimates with no hidden fees.
+      </li>
+      <li>
+        <b>4.98★ average rating</b> — trusted by hundreds of families and businesses
+        across the region.
+      </li>
+    </ul>
+  </FeatureImageLeft>
+
+  <Feature1
+    title={`Why choose ${SITE.businessShortName}?`}
+    description="We are a professional moving company that provides fast, reliable, and affordable moving services for residential and commercial customers throughout the Boston area and beyond."
+    image={{
+      src: featureImage,
+      alt: 'Phoenix Moving crew loading a truck',
+    }}
+  />
+
+  <Services1
+    label="What We Offer"
+    title="Moving services."
+    subtitle="From local apartment moves to interstate relocations, we provide end-to-end moving solutions tailored to your needs and budget."
+  />
+
+  <Feature2
+    title="The Moving Company That Actually Cares."
+    label="Why Choose Us"
+  />
+
+  <CTA2
+    title="Move with Phoenix Moving Boston."
+    description="Request a free estimate — no credit card required."
+  />
+
+  <FeatureSteps
+    label="How It Works"
+    title="Moving Is Easy With Us — Here's How"
+    subtitle="We've streamlined the moving process so there are no surprises on moving day."
+  />
+
+  <Cities1 />
+
+  <Carousel1 />
+
+  <CTA1
+    title="Ready to Move? Get Your Free Quote Today."
+    description="Join hundreds of happy families who made their move stress-free. No obligation, no pressure — just an honest estimate."
+    secondaryButton={{ text: 'View Pricing', href: '/pricing' }}
+  />
+</Layout>

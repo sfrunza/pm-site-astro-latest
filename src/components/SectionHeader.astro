@@ -71,7 +71,7 @@ const showSubtitle = Boolean(subtitle || hasSubtitleSlot);
       </Badge>
     )
   }
-  <h2 class={titleClass}>{title}</h2>
+  <h2 aria-label={title} class={titleClass}>{title}</h2>
   {
     showSubtitle && (
       <p class={subtitleClass}>

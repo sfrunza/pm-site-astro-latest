@@ -35,6 +35,7 @@ export async function getSitemapTree(): Promise<SitemapNode[]> {
       })),
     },
     { label: 'FAQ', href: '/faq' },
+    { label: 'About', href: '/about' },
     {
       label: "Service Areas",
       children: [

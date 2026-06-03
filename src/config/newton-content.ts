@@ -104,12 +104,12 @@ const newtonServicesCopy = {
 const newtonMovingInNewton = {
   title: 'Planning a move in Newton, Massachusetts',
   subtitle:
-    'Thirteen villages, strong schools, and quick Red Line access to Boston—here is how we tailor moves to Newton’s mix of housing and building rules.',
+    'Thirteen villages, strong schools, and quick Red Line access to Boston—here is how we tailor moves to Newton\'s mix of housing and building rules.',
   paragraphs: [
-    'Newton is one of Greater Boston’s most desirable communities: tree-lined streets, excellent public schools, and a patchwork of villages—Newton Centre, Newtonville, West Newton, Newton Highlands, Auburndale, Chestnut Hill, and more—each with its own personality. Moves here are rarely “generic suburban.” You might be leaving a Victorian with a narrow side entrance, a condo near the Green Line with freight-elevator windows, or a colonial on a sloped lot in Newton Highlands. Phoenix Moving builds plans around your actual access, not a template developed for another town.',
+    'Newton is one of Greater Boston\'s most desirable communities: tree-lined streets, excellent public schools, and a patchwork of villages—Newton Centre, Newtonville, West Newton, Newton Highlands, Auburndale, Chestnut Hill, and more—each with its own personality. Moves here are rarely “generic suburban.” You might be leaving a Victorian with a narrow side entrance, a condo near the Green Line with freight-elevator windows, or a colonial on a sloped lot in Newton Highlands. Phoenix Moving builds plans around your actual access, not a template developed for another town.',
     'Our <strong>Newton office at 174 Adams Street</strong> means local coordinators understand village streets, commuter-rail crossings, and peak traffic on Washington Street and Route 9. Travel time on hourly jobs is prorated from our warehouse and return routing—when crews start closer to your neighborhood, you avoid the inflated travel charges that out-of-area movers sometimes pass through on local estimates.',
     'Many Newton relocations connect to Boston employment, university schedules, or family moves along the Route 128 corridor. We coordinate <a href="/local-moving">local moves</a> within Newton, to neighboring Brookline or Wellesley, and <a href="/interstate-moving">long-distance deliveries</a> nationwide. Add <a href="/packing-services">professional packing</a> or <a href="/storage-solutions">storage</a> when closing dates do not align—one vendor keeps your timeline coherent.',
-    'Building managers in Newton frequently require certificates of insurance, elevator reservations, and padded common areas. Share your property manager’s checklist when you <a href="/book">request a quote</a> so move day matches building rules and avoids fines or denied dock access. Our crews pad hallways, protect elevator cabs, and follow timed freight schedules where required.',
+    'Building managers in Newton frequently require certificates of insurance, elevator reservations, and padded common areas. Share your property manager\'s checklist when you <a href="/book">request a quote</a> so move day matches building rules and avoids fines or denied dock access. Our crews pad hallways, protect elevator cabs, and follow timed freight schedules where required.',
     'Whether you are a first-time renter near Newton Centre or downsizing from a larger home in Oak Hill, you receive the same transparent communication: confirmed arrival windows, crew lead contact, and billing based on the estimate you approved—no surprise fuel surcharges on local Newton jobs.',
   ],
   imageAlt: 'Phoenix Moving — Newton, MA local movers',
@@ -121,10 +121,10 @@ const newtonLocalGuide = {
   subtitle:
     'Parking, villages, and timing—practical notes from crews who work in Newton every week.',
   paragraphs: [
-    'Newton’s village structure matters for truck placement. In Newtonville and West Newton, crews often back down driveways or use street parking with temporary no-parking coordination. Newton Centre and Chestnut Hill buildings may require elevator reservations and loading-dock time slots—book these before you confirm your move date. Hills in Newton Highlands and Oak Hill can affect how we stage dollies and how many trips carry from garage to living level.',
+    'Newton\'s village structure matters for truck placement. In Newtonville and West Newton, crews often back down driveways or use street parking with temporary no-parking coordination. Newton Centre and Chestnut Hill buildings may require elevator reservations and loading-dock time slots—book these before you confirm your move date. Hills in Newton Highlands and Oak Hill can affect how we stage dollies and how many trips carry from garage to living level.',
     'College and academic calendars influence demand. Late August and early September see higher volume near Boston College and surrounding neighborhoods. Planning three to four weeks ahead secures preferred crews. Winter moves are common; crews use floor runners and door jamb protection when salt and slush increase slip risk at entries.',
     'If you are comparing movers, ask how travel time is calculated, whether COI preparation is included, and how overtime is handled after the estimate. Phoenix Moving publishes <a href="/pricing">rate guidance</a> and explains 15-minute billing increments for labor. Long-distance moves from Newton use flat-rate quotes that include mileage, tolls, and insurance—your coordinator walks through line items before you sign.',
-    'Downsizing and estate moves are frequent in Newton’s established neighborhoods. We can combine partial packing, donation drop coordination, and storage for items that will not fit your next home yet. Senior moves benefit from labeled boxes by room and clear pathways—our coordinators send a prep checklist when you book.',
+    'Downsizing and estate moves are frequent in Newton\'s established neighborhoods. We can combine partial packing, donation drop coordination, and storage for items that will not fit your next home yet. Senior moves benefit from labeled boxes by room and clear pathways—our coordinators send a prep checklist when you book.',
     'Commercial relocations along Washington Street, Needham Street, and office parks near the Massachusetts Turnpike require after-hours or weekend slots to limit downtime. We label workstations, protect IT equipment, and stage furniture by floor plan so your team reopens with minimal disruption. Share floor plans and COI requirements early for accurate crew sizing.',
     'Finally, remember that Newton shares borders with Brookline, Wellesley, Weston, and Boston. If your move crosses city lines, tell us both addresses upfront so travel and toll assumptions stay accurate. We serve all of Greater Boston from our Natick headquarters and Newton office—your estimate reflects the full route, not just the Newton leg.',
   ],
@@ -185,7 +185,7 @@ const newtonNeighborhoods = [
       'Border villages with estate homes, apartments near Boston College, and Charles River proximity. We plan routes around Hammond Pond Parkway and local parkways.',
   },
   {
-    name: 'ZIP codes 02458–02468',
+    name: 'ZIP codes 02458-02468',
     description:
       'Newton spans multiple ZIP codes; share your full address when booking so we assign the right crew familiarity and travel routing from our Adams Street office or Natick warehouse.',
   },
@@ -344,7 +344,7 @@ const newtonPrepTips = [
 const newtonFaqs: Faq[] = [
   {
     question: 'How much do Newton movers cost?',
-    answer: `<p>Local Newton moves are billed hourly in 15-minute increments for labor plus prorated travel. Studio and one-bedroom jobs often run a few hours; larger homes and multi-level Victorians take longer. <a href="/pricing">See moving prices</a> or <a href="/book">request a free quote</a> for your inventory and date.</p>`,
+    answer: `<p>Local Newton moves are billed hourly in 15-minute increments for labor plus prorated travel. Studio and one-bedroom jobs often run a few hours; larger homes and multi-level Victorians take longer. <a href="/pricing" aria-label="See moving prices">See moving prices</a> or <a href="/book" aria-label="Request a free quote">request a free quote</a> for your inventory and date.</p>`,
   },
   {
     question: 'Does Phoenix Moving have a Newton office?',
@@ -363,7 +363,7 @@ const newtonFaqs: Faq[] = [
   {
     question: 'Do you offer packing and storage for Newton moves?',
     answer:
-      '<p>Yes. Add <a href="/packing-services">professional packing</a>, supplies, and <a href="/storage-solutions">storage</a> between closings or lease gaps. One coordinator can bundle services on your Newton timeline.</p>',
+      '<p>Yes. Add <a href="/packing-services" aria-label="Professional packing">professional packing</a>, supplies, and <a href="/storage-solutions" aria-label="Storage">storage</a> between closings or lease gaps. One coordinator can bundle services on your Newton timeline.</p>',
   },
   {
     question: 'How far in advance should I book movers in Newton?',
@@ -373,7 +373,7 @@ const newtonFaqs: Faq[] = [
   {
     question: 'Can you move me from Newton to another state?',
     answer:
-      '<p>Yes. <a href="/interstate-moving">Long-distance moves</a> from Newton use flat-rate quotes with fuel, mileage, tolls, and insurance included. Your coordinator confirms delivery windows and inventory before pickup.</p>',
+      '<p>Yes. <a href="/interstate-moving" aria-label="Long-distance moves">Long-distance moves</a> from Newton use flat-rate quotes with fuel, mileage, tolls, and insurance included. Your coordinator confirms delivery windows and inventory before pickup.</p>',
   },
   {
     question: 'What Newton villages do you serve?',

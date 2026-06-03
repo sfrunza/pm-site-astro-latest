@@ -310,7 +310,7 @@ const dedhamFaqs: Faq[] = [
   },
   {
     question: 'Do you offer packing and storage for Dedham moves?',
-    answer: `<p>Yes. Add <a href="/packing-services">professional packing</a>, supplies, and <a href="/storage-solutions">storage</a> between closings or lease gaps. One coordinator can bundle services on your Dedham timeline.</p>`,
+    answer: `<p>Yes. Add <a href="/packing-services" aria-label="Professional packing">professional packing</a>, supplies, and <a href="/storage-solutions" aria-label="Storage">storage</a> between closings or lease gaps. One coordinator can bundle services on your Dedham timeline.</p>`,
   },
   {
     question: 'How far in advance should I book movers in Dedham?',
@@ -322,12 +322,12 @@ const dedhamFaqs: Faq[] = [
   },
   {
     question: 'What areas near Dedham do you also serve?',
-    answer: `<p>Beyond ZIP 02026, we serve Westwood, Norwood, Needham, Canton, Newton, Boston, and all of Greater Boston. Explore our <a href="/local-moving">local moving</a> page or nearby city pages linked from this guide.</p>`,
+    answer: `<p>Beyond ZIP 02026, we serve Westwood, Norwood, Needham, Canton, Newton, Boston, and all of Greater Boston. Explore our <a href="/local-moving" aria-label="Local moving">local moving</a> page or nearby city pages linked from this guide.</p>`,
   },
   {
     question: 'Do you offer senior downsizing or estate moves in Dedham?',
     answer:
-      '<p>Yes. We help Dedham families with downsizing, estate cleanouts, and partial loads—coordinating packing, donation drop-offs, and storage when you need a lighter footprint. Tell us your timeline when you <a href="/book">request a quote</a>.</p>',
+      '<p>Yes. We help Dedham families with downsizing, estate cleanouts, and partial loads—coordinating packing, donation drop-offs, and storage when you need a lighter footprint. Tell us your timeline when you <a href="/book" aria-label="Request a quote">request a quote</a>.</p>',
   },
   {
     question: 'Can Phoenix Moving handle weekend moves in Dedham?',

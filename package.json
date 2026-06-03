@@ -9,6 +9,7 @@
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
+    "warm:prod": "node scripts/warm-pages.mjs --base https://www.insightmoving.com",
     "astro": "astro"
   },
   "dependencies": {

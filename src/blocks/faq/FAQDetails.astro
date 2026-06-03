@@ -33,14 +33,13 @@ const {
         class="col-span-4 col-start-1 md:col-span-10 md:col-start-2 lg:col-span-10 lg:col-start-2"
       >
         <SectionHeader title={title} label={label} />
-        <div class="space-y-3" role="list">
+        <div class="space-y-3">
           {
             items.map((item, index) => (
               <details
                 class="bg-muted group w-full overflow-hidden px-8 py-3"
                 name={groupName}
                 open={index === 0}
-                role="listitem"
               >
                 <summary
                   class={accordionTrigger({
