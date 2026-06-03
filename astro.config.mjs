@@ -5,6 +5,8 @@ import tailwindcss from '@tailwindcss/vite';
 import sitemap from '@astrojs/sitemap';
 import mdx from '@astrojs/mdx';
 
+import cloudflare from '@astrojs/cloudflare';
+
 // https://astro.build/config
 export default defineConfig({
   site: 'https://pm-site-astro-latest.frunza-sergiu3.workers.dev',
@@ -33,4 +35,6 @@ export default defineConfig({
       weights: [100, 200, 300, 400, 500, 600, 700, 800, 900],
     },
   ],
+
+  adapter: cloudflare(),
 });
