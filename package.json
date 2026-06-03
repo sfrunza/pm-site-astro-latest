@@ -9,6 +9,8 @@
     "dev": "astro dev",
     "dev:clean": "rm -rf node_modules/.vite .astro && astro dev",
     "build": "astro build",
+    "deploy": "npm run build && wrangler pages deploy dist --project-name=pm-site-astro-latest",
+    "deploy:pages": "wrangler pages deploy dist --project-name=pm-site-astro-latest",
     "preview": "astro preview",
     "astro": "astro"
   },
@@ -31,7 +33,8 @@
     "@astrojs/ts-plugin": "^1.10.9",
     "@tailwindcss/vite": "^4.3.0",
     "@types/html-escaper": "^3.0.4",
-    "typescript": "^6.0.3"
+    "typescript": "^6.0.3",
+    "wrangler": "^4.97.0"
   },
   "overrides": {
     "vite": "^7"
