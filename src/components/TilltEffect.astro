@@ -1,0 +1,293 @@
+---
+import type { HTMLAttributes } from 'astro/types';
+import { tv } from 'tailwind-variants';
+
+interface Props extends HTMLAttributes<'div'> {
+  /**
+   * Maximum tilt angle in degrees on each axis
+   * @default 12
+   */
+  maxTilt?: number;
+  /**
+   * CSS perspective distance in pixels
+   * @default 1000
+   */
+  perspective?: number;
+  /**
+   * Scale applied while the pointer is over the element
+   * @default 1.02
+   */
+  scale?: number;
+  /**
+   * Show a subtle glare that follows the cursor
+   * @default true
+   */
+  glare?: boolean;
+  /**
+   * Smoothing factor for pointer follow (0–1, higher = snappier)
+   * @default 0.12
+   */
+  easing?: number;
+}
+
+const tiltEffect = tv({
+  base: 'tilt-effect relative [transform-style:preserve-3d]',
+});
+
+const tiltInner = tv({
+  base: 'tilt-effect__inner relative size-full [transform-style:preserve-3d] will-change-transform',
+});
+
+const {
+  maxTilt = 2,
+  perspective = 1000,
+  scale = 1,
+  glare = false,
+  easing = 0.01,
+  class: className,
+  style,
+  ...rest
+} = Astro.props;
+---
+
+<div
+  class={tiltEffect({ class: className })}
+  style={`--tilt-perspective: ${perspective}px; --tilt-scale: ${scale}; ${style ?? ''}`}
+  data-slot="tilt-effect"
+  data-max-tilt={maxTilt}
+  data-scale={scale}
+  data-easing={easing}
+  data-glare={glare ? 'true' : 'false'}
+  {...rest}
+>
+  <div class={tiltInner()} data-tilt-inner>
+    <slot />
+    {
+      glare && (
+        <div
+          class="tilt-effect__glare pointer-events-none absolute inset-0 rounded-[inherit] opacity-0"
+          data-tilt-glare
+          aria-hidden="true"
+        />
+      )
+    }
+  </div>
+</div>
+
+<script>
+  const initialized = new WeakSet<HTMLElement>();
+
+  function readNumber(el: HTMLElement, key: string, fallback: number) {
+    const value = Number(el.dataset[key]);
+    return Number.isFinite(value) ? value : fallback;
+  }
+
+  function isNear(a: number, b: number, epsilon = 0.02) {
+    return Math.abs(a - b) < epsilon;
+  }
+
+  function initTiltEffect(root: HTMLElement) {
+    if (initialized.has(root)) return;
+    initialized.add(root);
+
+    const inner = root.querySelector<HTMLElement>('[data-tilt-inner]');
+    if (!inner) return;
+
+    const glareEl = root.querySelector<HTMLElement>('[data-tilt-glare]');
+    const maxTilt = readNumber(root, 'maxTilt', 12);
+    const hoverScale = readNumber(root, 'scale', 1.02);
+    const easing = Math.min(
+      Math.max(readNumber(root, 'easing', 0.12), 0.04),
+      0.2
+    );
+    const hasGlare = root.dataset.glare === 'true';
+
+    const reducedMotion = window.matchMedia(
+      '(prefers-reduced-motion: reduce)'
+    ).matches;
+    if (reducedMotion) return;
+
+    let frameId = 0;
+    let animating = false;
+    let hovering = false;
+
+    let currentX = 0;
+    let currentY = 0;
+    let currentScale = 1;
+    let targetX = 0;
+    let targetY = 0;
+    let targetScale = 1;
+    let glareX = 50;
+    let glareY = 50;
+    let targetGlareX = 50;
+    let targetGlareY = 50;
+
+    const abort = new AbortController();
+    const { signal } = abort;
+
+    const setGlare = (xPercent: number, yPercent: number) => {
+      if (!hasGlare || !glareEl) return;
+      glareEl.style.setProperty('--glare-x', `${xPercent}%`);
+      glareEl.style.setProperty('--glare-y', `${yPercent}%`);
+    };
+
+    const applyTransform = () => {
+      inner.style.transform = `rotateX(${currentY}deg) rotateY(${currentX}deg) scale3d(${currentScale}, ${currentScale}, ${currentScale})`;
+      setGlare(glareX, glareY);
+    };
+
+    const isPointerInside = (clientX: number, clientY: number) => {
+      const rect = root.getBoundingClientRect();
+      return (
+        clientX >= rect.left &&
+        clientX <= rect.right &&
+        clientY >= rect.top &&
+        clientY <= rect.bottom
+      );
+    };
+
+    const updateTargets = (clientX: number, clientY: number) => {
+      const rect = root.getBoundingClientRect();
+      const x = (clientX - rect.left) / rect.width;
+      const y = (clientY - rect.top) / rect.height;
+
+      targetX = (x - 0.5) * 2 * maxTilt;
+      targetY = -(y - 0.5) * 2 * maxTilt;
+      targetGlareX = x * 100;
+      targetGlareY = y * 100;
+    };
+
+    const enter = (clientX: number, clientY: number) => {
+      hovering = true;
+      targetScale = hoverScale;
+      root.setAttribute('data-tilt-active', '');
+      updateTargets(clientX, clientY);
+      startAnimation();
+    };
+
+    const leave = () => {
+      hovering = false;
+      targetX = 0;
+      targetY = 0;
+      targetScale = 1;
+      targetGlareX = 50;
+      targetGlareY = 50;
+      root.removeAttribute('data-tilt-active');
+      startAnimation();
+    };
+
+    const tick = () => {
+      currentX += (targetX - currentX) * easing;
+      currentY += (targetY - currentY) * easing;
+      currentScale += (targetScale - currentScale) * easing;
+      glareX += (targetGlareX - glareX) * easing;
+      glareY += (targetGlareY - glareY) * easing;
+
+      applyTransform();
+
+      const settled =
+        !hovering &&
+        isNear(currentX, 0) &&
+        isNear(currentY, 0) &&
+        isNear(currentScale, 1) &&
+        isNear(glareX, 50) &&
+        isNear(glareY, 50);
+
+      if (settled) {
+        currentX = 0;
+        currentY = 0;
+        currentScale = 1;
+        glareX = 50;
+        glareY = 50;
+        applyTransform();
+        animating = false;
+        return;
+      }
+
+      frameId = window.requestAnimationFrame(tick);
+    };
+
+    const startAnimation = () => {
+      if (animating) return;
+      animating = true;
+      frameId = window.requestAnimationFrame(tick);
+    };
+
+    const handlePointer = (event: PointerEvent) => {
+      const { clientX, clientY } = event;
+
+      if (!isPointerInside(clientX, clientY)) {
+        if (hovering) leave();
+        return;
+      }
+
+      if (!hovering) enter(clientX, clientY);
+      else updateTargets(clientX, clientY);
+
+      startAnimation();
+    };
+
+    const onPointerLeave = (event: PointerEvent) => {
+      const related = event.relatedTarget;
+      if (related instanceof Node && root.contains(related)) return;
+      if (hovering) leave();
+    };
+
+    root.addEventListener('pointerenter', handlePointer, { signal });
+    root.addEventListener('pointermove', handlePointer, {
+      capture: true,
+      passive: true,
+      signal,
+    });
+    root.addEventListener('pointerleave', onPointerLeave, { signal });
+    root.addEventListener('pointercancel', onPointerLeave, { signal });
+
+    return () => {
+      animating = false;
+      window.cancelAnimationFrame(frameId);
+      abort.abort();
+      inner.style.transform = '';
+    };
+  }
+
+  function initAll() {
+    document
+      .querySelectorAll<HTMLElement>('[data-slot="tilt-effect"]')
+      .forEach((root) => initTiltEffect(root));
+  }
+
+  document.addEventListener('astro:page-load', initAll);
+  if (document.readyState !== 'loading') initAll();
+</script>
+
+<style>
+  .tilt-effect {
+    perspective: var(--tilt-perspective, 1000px);
+  }
+
+  .tilt-effect__glare {
+    background: radial-gradient(
+      circle at var(--glare-x, 50%) var(--glare-y, 50%),
+      color-mix(in oklch, var(--color-white) 28%, transparent),
+      transparent 55%
+    );
+  }
+
+  .tilt-effect__glare {
+    transition: opacity 0.35s ease;
+  }
+
+  .tilt-effect[data-tilt-active] .tilt-effect__glare {
+    opacity: 1;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .tilt-effect__inner {
+      transform: none !important;
+    }
+
+    .tilt-effect__glare {
+      display: none;
+    }
+  }
+</style>

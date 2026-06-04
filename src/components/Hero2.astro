@@ -18,6 +18,7 @@ const {
 <section
   class="bg-background text-foreground @container min-h-[80svh] overflow-hidden relative w-full"
 >
+  <!-- Background -->
   <Picture
     src={bgImage}
     alt={title}
@@ -35,20 +36,15 @@ const {
     }}
     class="absolute inset-0 size-full object-cover"
   />
+
+  <!-- Overlay -->
   <div
     class="from-neutral-950/80 to-neutral-950/20 absolute inset-0 bg-linear-to-t"
     aria-hidden="true"
   >
   </div>
-  <!-- <div
-    class="inset-0 absolute bg-linear-to-t from-neutral-950/80 to-transparent via-neutral-950/30"
-  >
-  </div> -->
-  <!-- <div
-    class="absolute inset-0 bg-linear-to-b from-neutral-950/60 via-neutral-950/45 to-neutral-950/60"
-    aria-hidden="true"
-  >
-  </div> -->
+
+  <!-- Content -->
   <div
     class="flex absolute max-w-7xl mx-auto flex-col @3xl:pb-20 @xl:pb-16 inset-0 justify-end pb-12 px-6"
   >

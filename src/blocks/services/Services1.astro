@@ -13,6 +13,7 @@ import { ChevronLeftIcon } from '@/icons';
 import { services as defaultServices, type Service } from '@/config/site-data';
 import Container from '@/components/Container.astro';
 import { tv } from 'tailwind-variants';
+import MouseRepelParticles from '@/components/MouseRepelParticles.astro';
 
 type Props = {
   class?: string;
@@ -23,7 +24,7 @@ type Props = {
 };
 
 const services1 = tv({
-  base: 'py-16 bg-muted',
+  base: 'py-16 bg-muted relative isolate overflow-hidden',
 });
 
 const {
@@ -36,6 +37,7 @@ const {
 ---
 
 <Section id="services" class={services1({ class: className })}>
+  <MouseRepelParticles />
   <Container>
     <SectionHeader label={label} title={title} subtitle={subtitle} />
     <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">

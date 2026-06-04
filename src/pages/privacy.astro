@@ -19,9 +19,16 @@ const seo = buildPageSeo(Astro.url, {
 ---
 
 <Layout {...seo}>
-  <Prose class="mx-auto max-md:px-4 max-w-4xl custom-prose my-10 pt-20">
-    <h1>Privacy Policy</h1>
-    <p>Last updated: {lastUpdated}</p>
+  <Prose
+    class="mx-auto max-md:px-4 max-w-4xl custom-prose my-10 pt-16 sm:pt-20"
+  >
+    <div class="border rounded-3xl p-6 bg-card mb-10">
+      <h1>Privacy Policy</h1>
+
+      <div class="flex items-center text-muted-foreground gap-1.5 text-sm">
+        <span>Updated <time datetime={lastUpdated}>{lastUpdated}</time></span>
+      </div>
+    </div>
 
     <p>
       Phoenix Moving Inc. (&quot;Company&quot;, &quot;we&quot;, &quot;our&quot;,

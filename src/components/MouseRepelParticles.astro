@@ -1,0 +1,318 @@
+---
+import type { HTMLAttributes } from 'astro/types';
+import { tv } from 'tailwind-variants';
+
+interface Props extends HTMLAttributes<'div'> {
+  /**
+   * Spacing between particles in CSS pixels
+   * @default 32
+   */
+  gap?: number;
+  /**
+   * Radius around the cursor where particles are repelled
+   * @default 120
+   */
+  repelRadius?: number;
+  /**
+   * Strength of the repulsion force
+   * @default 4
+   */
+  repelStrength?: number;
+  /**
+   * Spring force pulling particles back to their grid position (0–1)
+   * @default 0.06
+   */
+  spring?: number;
+  /**
+   * Velocity damping per frame (0–1)
+   * @default 0.88
+   */
+  friction?: number;
+  /**
+   * Particle dot radius in CSS pixels
+   * @default 1.25
+   */
+  dotRadius?: number;
+  /**
+   * Particle fill color (CSS color value)
+   * @default theme muted foreground at 35% opacity
+   */
+  color?: string;
+}
+
+const mouseRepel = tv({
+  base: 'mouse-repel-particles pointer-events-none absolute inset-0 -z-10 size-full overflow-hidden',
+});
+
+const {
+  gap = 64,
+  repelRadius = 120,
+  repelStrength = 4,
+  spring = 0.01,
+  friction = 0.88,
+  dotRadius = 1.25,
+  color = 'color-mix(in oklch, var(--foreground) 25%, transparent)',
+  class: className,
+  style,
+  ...rest
+} = Astro.props;
+---
+
+<div
+  class={mouseRepel({ class: className })}
+  style={`--mouse-repel-color: ${color}; ${style ?? ''}`}
+  data-slot="mouse-repel-particles"
+  data-gap={gap}
+  data-repel-radius={repelRadius}
+  data-repel-strength={repelStrength}
+  data-spring={spring}
+  data-friction={friction}
+  data-dot-radius={dotRadius}
+  aria-hidden="true"
+  {...rest}
+>
+  <canvas class="block size-full"></canvas>
+</div>
+
+<script>
+  interface Particle {
+    homeX: number;
+    homeY: number;
+    x: number;
+    y: number;
+    vx: number;
+    vy: number;
+  }
+
+  const initialized = new WeakSet<HTMLElement>();
+
+  function readNumber(el: HTMLElement, key: string, fallback: number) {
+    const value = Number(el.dataset[key]);
+    return Number.isFinite(value) ? value : fallback;
+  }
+
+  function buildGrid(width: number, height: number, gap: number): Particle[] {
+    const particles: Particle[] = [];
+    const offsetX = (width % gap) / 2;
+    const offsetY = (height % gap) / 2;
+
+    for (let y = offsetY; y < height; y += gap) {
+      for (let x = offsetX; x < width; x += gap) {
+        particles.push({
+          homeX: x,
+          homeY: y,
+          x,
+          y,
+          vx: 0,
+          vy: 0,
+        });
+      }
+    }
+
+    return particles;
+  }
+
+  function initMouseRepel(root: HTMLElement) {
+    if (initialized.has(root)) return;
+    initialized.add(root);
+
+    const canvas = root.querySelector('canvas');
+    if (!canvas) return;
+
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return;
+
+    const gap = readNumber(root, 'gap', 32);
+    const repelRadius = readNumber(root, 'repelRadius', 120);
+    const repelStrength = readNumber(root, 'repelStrength', 4);
+    const spring = readNumber(root, 'spring', 0.06);
+    const friction = readNumber(root, 'friction', 0.88);
+    const dotRadius = readNumber(root, 'dotRadius', 1.25);
+
+    const reducedMotion = window.matchMedia(
+      '(prefers-reduced-motion: reduce)'
+    ).matches;
+
+    let particles: Particle[] = [];
+    let width = 0;
+    let height = 0;
+    let dpr = 1;
+    let frameId = 0;
+    let running = false;
+    let visible = true;
+
+    const mouse = { x: 0, y: 0, active: false };
+    const abort = new AbortController();
+    const { signal } = abort;
+
+    const getColor = () =>
+      getComputedStyle(root).getPropertyValue('--mouse-repel-color').trim() ||
+      'color-mix(in oklch, canvastext 35%, transparent)';
+
+    const resize = () => {
+      const rect = root.getBoundingClientRect();
+      width = Math.max(1, Math.floor(rect.width));
+      height = Math.max(1, Math.floor(rect.height));
+      dpr = Math.min(window.devicePixelRatio || 1, 2);
+
+      canvas.width = Math.floor(width * dpr);
+      canvas.height = Math.floor(height * dpr);
+      canvas.style.width = `${width}px`;
+      canvas.style.height = `${height}px`;
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+
+      particles = buildGrid(width, height, gap);
+      if (reducedMotion) drawStatic();
+    };
+
+    const drawStatic = () => {
+      ctx.clearRect(0, 0, width, height);
+      ctx.fillStyle = getColor();
+      for (const p of particles) {
+        ctx.beginPath();
+        ctx.arc(p.homeX, p.homeY, dotRadius, 0, Math.PI * 2);
+        ctx.fill();
+      }
+    };
+
+    const step = () => {
+      ctx.clearRect(0, 0, width, height);
+      ctx.fillStyle = getColor();
+
+      for (const p of particles) {
+        let fx = (p.homeX - p.x) * spring;
+        let fy = (p.homeY - p.y) * spring;
+
+        if (mouse.active) {
+          const dx = p.x - mouse.x;
+          const dy = p.y - mouse.y;
+          const dist = Math.hypot(dx, dy);
+
+          if (dist < repelRadius && dist > 0) {
+            const force = ((repelRadius - dist) / repelRadius) * repelStrength;
+            fx += (dx / dist) * force;
+            fy += (dy / dist) * force;
+          }
+        }
+
+        p.vx += fx;
+        p.vy += fy;
+        p.vx *= friction;
+        p.vy *= friction;
+        p.x += p.vx;
+        p.y += p.vy;
+
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, dotRadius, 0, Math.PI * 2);
+        ctx.fill();
+      }
+    };
+
+    const loop = () => {
+      if (!running) return;
+      step();
+      frameId = window.requestAnimationFrame(loop);
+    };
+
+    const start = () => {
+      if (reducedMotion || running || !visible) return;
+      running = true;
+      frameId = window.requestAnimationFrame(loop);
+    };
+
+    const stop = () => {
+      running = false;
+      window.cancelAnimationFrame(frameId);
+    };
+
+    const updatePointer = (clientX: number, clientY: number) => {
+      const rect = root.getBoundingClientRect();
+      const inside =
+        clientX >= rect.left &&
+        clientX <= rect.right &&
+        clientY >= rect.top &&
+        clientY <= rect.bottom;
+
+      mouse.active = inside;
+      if (!inside) return;
+
+      mouse.x = clientX - rect.left;
+      mouse.y = clientY - rect.top;
+    };
+
+    const onPointerMove = (event: PointerEvent) => {
+      updatePointer(event.clientX, event.clientY);
+    };
+
+    const intersection = new IntersectionObserver(
+      (entries) => {
+        visible = entries.some((entry) => entry.isIntersecting);
+        if (visible) start();
+        else stop();
+      },
+      { root: null, threshold: 0 }
+    );
+
+    root.addEventListener(
+      'contentvisibilityautostatechange',
+      (event) => {
+        const skipped = (event as ContentVisibilityAutoStateChangeEvent)
+          .skipped;
+        if (skipped) stop();
+        else if (visible) start();
+      },
+      { signal }
+    );
+
+    window.addEventListener('pointermove', onPointerMove, {
+      passive: true,
+      signal,
+    });
+    window.addEventListener(
+      'resize',
+      () => {
+        resize();
+        if (reducedMotion) drawStatic();
+      },
+      { signal }
+    );
+
+    const resizeObserver = new ResizeObserver(() => {
+      resize();
+      if (reducedMotion) drawStatic();
+    });
+    resizeObserver.observe(root);
+
+    intersection.observe(root);
+    resize();
+
+    if (reducedMotion) return;
+
+    start();
+
+    return () => {
+      stop();
+      abort.abort();
+      resizeObserver.disconnect();
+      intersection.disconnect();
+    };
+  }
+
+  function initAll() {
+    document
+      .querySelectorAll<HTMLElement>('[data-slot="mouse-repel-particles"]')
+      .forEach((root) => initMouseRepel(root));
+  }
+
+  document.addEventListener('astro:page-load', initAll);
+  if (document.readyState !== 'loading') initAll();
+</script>
+
+<style>
+  @media (prefers-reduced-motion: no-preference) {
+    .mouse-repel-particles {
+      content-visibility: auto;
+      contain-intrinsic-size: auto none auto 24rem;
+    }
+  }
+</style>
