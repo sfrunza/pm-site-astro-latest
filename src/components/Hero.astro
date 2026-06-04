@@ -1,9 +1,11 @@
 ---
-import { Picture } from 'astro:assets';
 import heroBg from '@/assets/heros/home.webp';
 import Button from '@/components/starwind/button';
 import { SITE } from '@/config/site';
 import { ArrowRight, SparklesIcon } from '@/icons';
+import { buildHeroResponsiveImage } from '@/utils/hero-responsive-image';
+
+const heroImage = await buildHeroResponsiveImage(heroBg);
 
 interface Props {
   badge?: string;
@@ -26,23 +28,37 @@ const stats = [
 ];
 ---
 
-<section class="relative isolate flex min-h-dvh flex-col overflow-hidden">
-  <Picture
-    src={heroBg}
-    alt=""
-    formats={['avif', 'webp']}
-    fallbackFormat="webp"
-    layout="full-width"
-    fit="cover"
-    position="center"
-    quality="mid"
-    priority
-    pictureAttributes={{
-      class:
-        'pointer-events-none absolute inset-0 -z-20 h-full min-h-full w-full [&>img]:h-full [&>img]:w-full [&>img]:object-cover',
-    }}
-    class="h-full w-full object-cover"
+<Fragment slot="head">
+  <link
+    rel="preload"
+    as="image"
+    href={heroImage.avif.href}
+    imagesrcset={heroImage.avif.srcset}
+    imagesizes="100vw"
+    fetchpriority="high"
+    type="image/avif"
   />
+</Fragment>
+
+<section class="relative isolate flex min-h-dvh flex-col overflow-hidden">
+  <picture
+    class="pointer-events-none absolute inset-0 -z-20 h-full min-h-full w-full [&>img]:h-full [&>img]:w-full [&>img]:object-cover"
+  >
+    <source srcset={heroImage.avif.srcset} type="image/avif" />
+    <source srcset={heroImage.webp.srcset} type="image/webp" />
+    <img
+      src={heroImage.webp.href}
+      srcset={heroImage.webp.srcset}
+      alt=""
+      width={heroImage.width}
+      height={heroImage.height}
+      loading="eager"
+      decoding="sync"
+      fetchpriority="high"
+      sizes="100vw"
+      class="h-full w-full object-cover"
+    />
+  </picture>
 
   <!-- Background overlay -->
   <div
@@ -114,7 +130,9 @@ const stats = [
         {
           stats.map((stat) => (
             <div class="space-y-1">
-              <dt class="text-sm font-medium text-white/70">{stat.label}</dt>
+              <dt class="text-sm font-medium text-white/70 max-sm:max-w-24">
+                {stat.label}
+              </dt>
               <dd class="text-2xl font-bold tracking-tight text-white sm:text-3xl font-[system-ui]">
                 {stat.value}
               </dd>

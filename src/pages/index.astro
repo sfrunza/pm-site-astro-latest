@@ -10,18 +10,13 @@ import RelatedServices from '@/blocks/related/RelatedServices.astro';
 import { getRelatedLinks } from '@/config/service-faqs';
 import feature1Image from '@/assets/2-movers-and-truck-opt.jpg';
 import { homeSeo } from '@/config/seo';
-import heroBg from '@/assets/heros/home.webp';
-import { getLcpPreload } from '@/utils/lcp-preload';
-
 const seo = homeSeo(Astro.url);
-const lcpPreload = await getLcpPreload(heroBg);
 ---
 
-<Layout {...seo} lcpPreload={lcpPreload}>
+<Layout {...seo}>
   <Hero />
   <Services1 />
   <Pricing1 class="defer-section" />
-
   <Feature1
     image={{
       src: feature1Image,

@@ -10,7 +10,7 @@ import {
 } from '@/components/starwind/card';
 import { Button } from '@/components/starwind/button';
 import { ChevronLeftIcon } from '@/icons';
-import { services as defaultServices, type Service } from '@/config/site-data';
+import { services as defaultServices, type Service } from '@/config/services';
 import Container from '@/components/Container.astro';
 import { tv } from 'tailwind-variants';
 import MouseRepelParticles from '@/components/MouseRepelParticles.astro';
@@ -24,7 +24,7 @@ type Props = {
 };
 
 const services1 = tv({
-  base: 'py-16 bg-muted relative isolate overflow-hidden',
+  base: 'py-16 bg-muted/50 relative isolate overflow-hidden',
 });
 
 const {

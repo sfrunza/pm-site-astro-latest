@@ -36,7 +36,7 @@ export default defineConfig({
       provider: fontProviders.google(),
       name: 'Maven Pro',
       cssVariable: '--font-sans',
-      weights: [100, 200, 300, 400, 500, 600, 700, 800, 900],
+      weights: [400, 500, 600, 700],
     },
   ],
 });

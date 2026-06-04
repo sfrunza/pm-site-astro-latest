@@ -19,6 +19,7 @@ import {
 import { Image } from '@/components/starwind/image';
 import Prose from '@/components/starwind/prose';
 import Layout from '@/layouts/Layout.astro';
+import MoveSuppliesCalculator1 from '@/blocks/calculator/MoveSuppliesCalculator1.astro';
 import Packages from '@/blocks/packages/Packages.astro';
 import RelatedServices from '@/blocks/related/RelatedServices.astro';
 import { buildPageSeo } from '@/config/seo';
@@ -69,7 +70,7 @@ const seo = buildPageSeo(Astro.url, {
       <div class="grid @2xl:grid-cols-2 @4xl:grid-cols-3 gap-6">
         <!-- 1st card -->
         <Card
-          class="group p-0 @2xl:col-span-2 @4xl:row-span-2 bg-muted overflow-hidden relative"
+          class="group p-0 @2xl:col-span-2 @4xl:row-span-2 bg-muted/50 overflow-hidden relative"
         >
           <div class="grid @xl:grid-cols-2 h-full">
             <div class="relative w-full pb-[100%]">
@@ -156,8 +157,9 @@ const seo = buildPageSeo(Astro.url, {
               as boxes, packing tape, and bubble wrap. You pay only for the
               boxes you use, and we will collect any unused boxes on the day of
               your move. Don&apos;t know how many boxes you need for your move
-              size? Check our
-              <a href="#packages">Packages section</a>.
+              size? Use our
+              <a href="#packing-calculator">packing calculator</a> or browse
+              <a href="#packages">package tables</a>.
             </Prose>
           </CardContent>
         </Card>
@@ -165,6 +167,7 @@ const seo = buildPageSeo(Astro.url, {
     </Container>
   </Section>
   <Carousel2 />
+  <MoveSuppliesCalculator1 />
   <Packages />
   <Feature2 title="Why Choose Us As Your Packing Services?" />
   <CTA2 />

@@ -24,6 +24,7 @@ import type {
 } from '@/config/city-premium/types';
 import { SITE } from '@/config/site';
 import type { ImageMetadata } from 'astro';
+import MouseRepelParticles from '../MouseRepelParticles.astro';
 
 interface Props {
   id: CityPremiumSectionId;
@@ -159,7 +160,7 @@ const { id, content: c, cityHero, phoneTel } = Astro.props;
               <li>
                 <a
                   href={town.href}
-                  class="bg-muted hover:bg-muted/80 inline-flex rounded-full px-4 py-2 text-sm font-medium transition-colors"
+                  class="bg-muted/50 hover:bg-muted/80 inline-flex rounded-full px-4 py-2 text-sm font-medium transition-colors"
                 >
                   {town.label}
                 </a>
@@ -185,7 +186,8 @@ const { id, content: c, cityHero, phoneTel } = Astro.props;
 
 {
   id === 'pricing' && (
-    <Section class="bg-muted/40 py-12">
+    <Section class="bg-muted/30 relative isolate overflow-hidden py-12">
+      <MouseRepelParticles />
       <Container class="@container">
         <SectionHeader
           label={c.pricing.label}
@@ -291,7 +293,7 @@ const { id, content: c, cityHero, phoneTel } = Astro.props;
         />
         <ul class="mx-auto mt-10 max-w-2xl space-y-4">
           {c.prepTips.tips.map((tip) => (
-            <li class="bg-muted flex gap-3 rounded-2xl px-6 py-4 text-pretty">
+            <li class="bg-muted/50 flex gap-3 rounded-2xl px-6 py-4 text-pretty">
               <span
                 class="text-primary shrink-0 font-semibold"
                 aria-hidden="true"

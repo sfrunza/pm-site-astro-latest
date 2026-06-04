@@ -2,12 +2,12 @@ import type { ImageMetadata } from 'astro';
 import type { CityPremiumContent } from '@/config/city-premium/types';
 import { getSocialImageUrl } from '@/utils/blog-image-url';
 import { getCityHeroImage, getCityLogoImage } from '@/utils/city-image';
-import { getLcpPreload } from '@/utils/lcp-preload';
+import { getLcpPreload, type LcpPreloadLink } from '@/utils/lcp-preload';
 
 export type CityPremiumAssets = {
   cityHero: ImageMetadata;
   cityLogo: ImageMetadata;
-  lcpPreload: string;
+  lcpPreload: LcpPreloadLink;
   socialImageUrl?: string;
 };
 

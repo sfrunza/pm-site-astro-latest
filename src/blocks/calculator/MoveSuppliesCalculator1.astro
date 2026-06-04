@@ -1,0 +1,481 @@
+---
+import Section from '@/components/Section.astro';
+import Container from '@/components/Container.astro';
+import SectionHeader from '@/components/SectionHeader.astro';
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+} from '@/components/starwind/card';
+import Button from '@/components/starwind/button';
+import Label from '@/components/starwind/label';
+import {
+  MOVE_SUPPLY_PROFILES,
+  SUPPLY_EXTRAS,
+  SUPPLY_DISPLAY_ORDER,
+  SUPPLY_HINTS,
+  SUPPLY_UNIT_PRICES,
+  getSupplyTotal,
+  type SupplyKey,
+} from '@/config/moving-supplies';
+import BuildingIcon from '@tabler/icons/outline/building.svg';
+import HomeIcon from '@tabler/icons/outline/home.svg';
+import PackageIcon from '@tabler/icons/outline/package.svg';
+import { tv } from 'tailwind-variants';
+
+type Props = {
+  class?: string;
+  label?: string;
+  title?: string;
+  subtitle?: string;
+};
+
+const calculatorSection = tv({
+  base: 'py-16 bg-muted/50 relative isolate overflow-hidden',
+});
+
+const {
+  class: className = '',
+  label = 'Packing planner',
+  title = 'How many boxes do you need?',
+  subtitle = 'Pick your home type and size to get a suggested packing list with estimated supply costs. Adjust the options below if you have extra closets, a big kitchen, or a home office.',
+} = Astro.props;
+
+const apartmentProfiles = MOVE_SUPPLY_PROFILES.filter(
+  (p) => p.propertyType === 'apartment'
+);
+const houseProfiles = MOVE_SUPPLY_PROFILES.filter(
+  (p) => p.propertyType === 'house'
+);
+
+const defaultProfileId = apartmentProfiles[1]?.id ?? MOVE_SUPPLY_PROFILES[0].id;
+const defaultProfile =
+  MOVE_SUPPLY_PROFILES.find((p) => p.id === defaultProfileId) ??
+  MOVE_SUPPLY_PROFILES[0];
+const defaultTotal = getSupplyTotal(defaultProfile.items);
+
+function formatSupplyMoney(amount: number) {
+  return `$${amount.toFixed(2)}`;
+}
+---
+
+<Section
+  id="packing-calculator"
+  class={calculatorSection({ class: className })}
+>
+  <Container>
+    <SectionHeader {label} {title} {subtitle} />
+
+    <div
+      id="msc-root"
+      class="grid gap-8 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.1fr)] lg:items-start"
+      data-default-profile={defaultProfileId}
+    >
+      <Card class="p-0 overflow-hidden">
+        <CardHeader class="border-b bg-background/80 px-6 py-5">
+          <CardTitle class="text-lg">Tell us about your home</CardTitle>
+        </CardHeader>
+        <CardContent class="space-y-8 px-6 py-6">
+          <fieldset class="flex flex-col gap-3">
+            <legend class="sr-only">Property type</legend>
+            <Label size="sm">Property type</Label>
+            <div class="grid grid-cols-2 gap-3">
+              <label class="msc-option group cursor-pointer">
+                <input
+                  type="radio"
+                  name="mscPropertyType"
+                  value="apartment"
+                  class="sr-only"
+                  checked
+                />
+                <span
+                  class="border-border text-foreground group-has-checked:border-primary group-has-checked:bg-primary/5 group-has-checked:text-primary flex flex-col items-center gap-2 rounded-2xl border px-4 py-5 text-sm font-medium transition-colors"
+                >
+                  <BuildingIcon class="size-7 opacity-80" aria-hidden="true" />
+                  Apartment
+                </span>
+              </label>
+              <label class="msc-option group cursor-pointer">
+                <input
+                  type="radio"
+                  name="mscPropertyType"
+                  value="house"
+                  class="sr-only"
+                />
+                <span
+                  class="border-border text-foreground group-has-checked:border-primary group-has-checked:bg-primary/5 group-has-checked:text-primary flex flex-col items-center gap-2 rounded-2xl border px-4 py-5 text-sm font-medium transition-colors"
+                >
+                  <HomeIcon class="size-7 opacity-80" aria-hidden="true" />
+                  House
+                </span>
+              </label>
+            </div>
+          </fieldset>
+
+          <fieldset class="flex flex-col gap-3" id="msc-size-fieldset">
+            <legend class="sr-only">Home size</legend>
+            <Label size="sm" id="msc-size-label">Apartment size</Label>
+            <div
+              class="grid grid-cols-1 gap-2 sm:grid-cols-2"
+              id="msc-size-options"
+              role="radiogroup"
+              aria-labelledby="msc-size-label"
+            >
+              {
+                apartmentProfiles.map((profile) => (
+                  <label
+                    class="msc-option msc-size-option group cursor-pointer"
+                    data-property-type="apartment"
+                  >
+                    <input
+                      type="radio"
+                      name="mscSize"
+                      value={profile.id}
+                      class="sr-only"
+                      checked={profile.id === defaultProfileId}
+                    />
+                    <span class="border-border text-foreground group-has-checked:border-primary group-has-checked:bg-primary/5 group-has-checked:text-primary flex items-center justify-center rounded-xl border px-3 py-3 text-sm font-medium transition-colors">
+                      {profile.label}
+                    </span>
+                  </label>
+                ))
+              }
+              {
+                houseProfiles.map((profile) => (
+                  <label
+                    class="msc-option msc-size-option group cursor-pointer hidden"
+                    data-property-type="house"
+                  >
+                    <input
+                      type="radio"
+                      name="mscSize"
+                      value={profile.id}
+                      class="sr-only"
+                    />
+                    <span class="border-border text-foreground group-has-checked:border-primary group-has-checked:bg-primary/5 group-has-checked:text-primary flex items-center justify-center rounded-xl border px-3 py-3 text-sm font-medium transition-colors">
+                      {profile.label}
+                    </span>
+                  </label>
+                ))
+              }
+            </div>
+            <p
+              class="text-muted-foreground text-sm leading-relaxed"
+              id="msc-size-description"
+            >
+              {
+                MOVE_SUPPLY_PROFILES.find((p) => p.id === defaultProfileId)
+                  ?.description
+              }
+            </p>
+          </fieldset>
+
+          <fieldset class="space-y-3">
+            <legend class="sr-only">Optional extras</legend>
+            <Label size="sm">Anything extra to pack?</Label>
+            <p class="text-muted-foreground text-sm -mt-1">
+              Optional — we'll add a few more supplies to your list.
+            </p>
+            <div class="flex flex-col gap-2">
+              {
+                SUPPLY_EXTRAS.map((extra) => (
+                  <label class="msc-extra group flex cursor-pointer items-start gap-3 rounded-xl border px-4 py-3 transition-colors has-checked:border-primary has-checked:bg-primary/5">
+                    <input
+                      type="checkbox"
+                      name="mscExtra"
+                      value={extra.id}
+                      class="border-input text-primary mt-1 size-4 shrink-0 rounded"
+                    />
+                    <span class="min-w-0">
+                      <span class="text-foreground block text-sm font-medium">
+                        {extra.label}
+                      </span>
+                      <span class="text-muted-foreground block text-sm">
+                        {extra.description}
+                      </span>
+                    </span>
+                  </label>
+                ))
+              }
+            </div>
+          </fieldset>
+        </CardContent>
+      </Card>
+
+      <Card class="p-0 overflow-hidden lg:sticky lg:top-24">
+        <CardHeader class="border-b bg-background/80 px-6 py-5">
+          <div class="flex items-start gap-3">
+            <div class="bg-primary/10 rounded-xl p-2.5">
+              <PackageIcon class="text-primary size-6" aria-hidden="true" />
+            </div>
+            <div>
+              <CardTitle class="text-lg" id="msc-result-title">
+                {defaultProfile.label}
+                {
+                  defaultProfile.propertyType === 'house'
+                    ? 'house'
+                    : 'apartment'
+                } — packing list
+              </CardTitle>
+              <p
+                class="text-muted-foreground mt-1 text-sm"
+                id="msc-result-subtitle"
+              >
+                Based on a typical move — estimates only.
+              </p>
+            </div>
+          </div>
+        </CardHeader>
+        <CardContent class="px-0 py-0">
+          <div class="max-h-[64vh] overflow-y-auto">
+            <table class="w-full text-sm">
+              <thead class="bg-muted/60 sticky top-0 z-10">
+                <tr>
+                  <th scope="col" class="px-6 py-3 text-left font-semibold">
+                    Supply
+                  </th>
+                  <th scope="col" class="px-4 py-3 text-right font-semibold">
+                    Qty
+                  </th>
+                </tr>
+              </thead>
+              <tbody id="msc-supply-rows" class="divide-y">
+                {
+                  SUPPLY_DISPLAY_ORDER.map((key) => {
+                    const qty = defaultProfile.items[key as SupplyKey];
+                    if (!qty) return null;
+                    const hint = SUPPLY_HINTS[key as SupplyKey];
+                    return (
+                      <tr class="hover:bg-muted/20">
+                        <td class="px-6 py-3 align-top">
+                          <div class="text-foreground font-medium">{key}</div>
+                          {hint && (
+                            <p class="text-muted-foreground mt-0.5 text-xs">
+                              {hint}
+                            </p>
+                          )}
+                        </td>
+                        <td class="text-muted-foreground px-4 py-3 text-right align-top font-medium tabular-nums">
+                          {qty}
+                        </td>
+                      </tr>
+                    );
+                  })
+                }
+              </tbody>
+              <tfoot class="border-t bg-muted/30">
+                <tr>
+                  <th
+                    scope="row"
+                    class="text-muted-foreground px-6 py-4 text-left font-normal"
+                  >
+                    Estimated supply cost
+                  </th>
+                  <td
+                    class="text-foreground px-4 py-4 text-right text-lg font-bold tabular-nums"
+                    id="msc-total"
+                  >
+                    {formatSupplyMoney(defaultTotal)}
+                  </td>
+                </tr>
+              </tfoot>
+            </table>
+          </div>
+          <div class="space-y-3 border-t px-6 py-5">
+            <p class="text-muted-foreground text-xs leading-relaxed">
+              You only pay for boxes you use on move day — unused boxes are
+              collected. Prefer full-service packing?
+              <a href="/book" class="text-primary font-medium hover:underline">
+                Get a free quote
+              </a>.
+            </p>
+            <div class="flex flex-wrap gap-3">
+              <Button variant="primary" href="/book"> Get a Free Quote </Button>
+              <Button variant="outline" href="/pricing"> View pricing </Button>
+            </div>
+          </div>
+        </CardContent>
+      </Card>
+    </div>
+  </Container>
+</Section>
+
+<script
+  is:inline
+  define:vars={{
+    profiles: MOVE_SUPPLY_PROFILES,
+    extras: SUPPLY_EXTRAS,
+    displayOrder: SUPPLY_DISPLAY_ORDER,
+    hints: SUPPLY_HINTS,
+    prices: SUPPLY_UNIT_PRICES,
+  }}
+>
+  function mergeItems(base, ...additions) {
+    const merged = { ...base };
+    for (const extra of additions) {
+      for (const [key, qty] of Object.entries(extra)) {
+        merged[key] = (merged[key] ?? 0) + (qty ?? 0);
+      }
+    }
+    return merged;
+  }
+
+  function getTotal(items) {
+    let total = 0;
+    for (const [key, qty] of Object.entries(items)) {
+      const price = prices[key];
+      if (price && qty) total += price * qty;
+    }
+    return total;
+  }
+
+  function formatMoney(amount) {
+    return `$${amount.toFixed(2)}`;
+  }
+
+  function getProfile(id) {
+    return profiles.find((p) => p.id === id);
+  }
+
+  function getSelectedExtras(root) {
+    const selected = [];
+    root.querySelectorAll('input[name="mscExtra"]:checked').forEach((el) => {
+      const match = extras.find((e) => e.id === el.value);
+      if (match) selected.push(match.items);
+    });
+    return selected;
+  }
+
+  function getPropertyType(root) {
+    const checked = root.querySelector('input[name="mscPropertyType"]:checked');
+    return checked?.value === 'house' ? 'house' : 'apartment';
+  }
+
+  function getSelectedProfileId(root) {
+    const checked = root.querySelector('input[name="mscSize"]:checked');
+    return checked?.value ?? root.dataset.defaultProfile;
+  }
+
+  function updateSizeVisibility(root) {
+    const propertyType = getPropertyType(root);
+    const sizeLabel = root.querySelector('#msc-size-label');
+    const options = root.querySelectorAll('.msc-size-option');
+    let firstVisible = null;
+
+    options.forEach((label) => {
+      const match = label.dataset.propertyType === propertyType;
+      label.classList.toggle('hidden', !match);
+      if (match && !firstVisible) firstVisible = label;
+    });
+
+    if (sizeLabel) {
+      sizeLabel.textContent =
+        propertyType === 'house' ? 'House size' : 'Apartment size';
+    }
+
+    const checked = root.querySelector('input[name="mscSize"]:checked');
+    const checkedVisible =
+      checked &&
+      checked.closest('.msc-size-option') &&
+      !checked.closest('.msc-size-option').classList.contains('hidden');
+
+    if (!checkedVisible && firstVisible) {
+      const input = firstVisible.querySelector('input[name="mscSize"]');
+      if (input) input.checked = true;
+    }
+  }
+
+  function renderResults(root) {
+    const profileId = getSelectedProfileId(root);
+    const profile = getProfile(profileId);
+    const rowsEl = root.querySelector('#msc-supply-rows');
+    const totalEl = root.querySelector('#msc-total');
+    const titleEl = root.querySelector('#msc-result-title');
+    const descEl = root.querySelector('#msc-size-description');
+
+    if (!profile || !rowsEl || !totalEl) return;
+
+    const items = mergeItems(profile.items, ...getSelectedExtras(root));
+    const total = getTotal(items);
+
+    if (titleEl) {
+      const typeLabel =
+        profile.propertyType === 'house' ? 'house' : 'apartment';
+      titleEl.textContent = `${profile.label} ${typeLabel} — packing list`;
+    }
+
+    if (descEl) descEl.textContent = profile.description;
+
+    const fragment = document.createDocumentFragment();
+
+    for (const key of displayOrder) {
+      const qty = items[key];
+      if (!qty) continue;
+
+      const tr = document.createElement('tr');
+      tr.className = 'hover:bg-muted/20';
+
+      const nameTd = document.createElement('td');
+      nameTd.className = 'px-6 py-3 align-top';
+      const nameStrong = document.createElement('div');
+      nameStrong.className = 'text-foreground font-medium';
+      nameStrong.textContent = key;
+      nameTd.appendChild(nameStrong);
+
+      const hint = hints[key];
+      if (hint) {
+        const hintP = document.createElement('p');
+        hintP.className = 'text-muted-foreground mt-0.5 text-xs';
+        hintP.textContent = hint;
+        nameTd.appendChild(hintP);
+      }
+
+      const qtyTd = document.createElement('td');
+      qtyTd.className =
+        'text-muted-foreground px-4 py-3 text-right align-top tabular-nums font-medium';
+      qtyTd.textContent = String(qty);
+
+      tr.append(nameTd, qtyTd);
+      fragment.appendChild(tr);
+    }
+
+    rowsEl.replaceChildren(fragment);
+    totalEl.textContent = formatMoney(total);
+    totalEl.setAttribute('aria-live', 'polite');
+  }
+
+  function bindCalculator(root) {
+    if (root.dataset.mscBound === 'true') return;
+    root.dataset.mscBound = 'true';
+
+    const onChange = () => {
+      updateSizeVisibility(root);
+      renderResults(root);
+    };
+
+    root.addEventListener('change', (event) => {
+      const target = event.target;
+      if (!(target instanceof HTMLInputElement)) return;
+      if (
+        target.name === 'mscPropertyType' ||
+        target.name === 'mscSize' ||
+        target.name === 'mscExtra'
+      ) {
+        onChange();
+      }
+    });
+
+    onChange();
+  }
+
+  function init() {
+    const root = document.getElementById('msc-root');
+    if (!root) return;
+    bindCalculator(root);
+  }
+
+  document.addEventListener('astro:page-load', init);
+  document.addEventListener('DOMContentLoaded', init);
+  init();
+</script>

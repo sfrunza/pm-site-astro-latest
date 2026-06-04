@@ -1,5 +1,5 @@
 import type { AstroSeoProps } from '@/types/seo';
-import { services } from '@/config/site-data';
+import { services } from '@/config/services';
 import { SITE } from '@/config/site';
 
 const OG_IMAGE = new URL(SITE.ogImage, SITE.url).href;

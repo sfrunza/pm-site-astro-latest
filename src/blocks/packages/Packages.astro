@@ -10,123 +10,10 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from '@/components/starwind/carousel';
-
-const prices = [4, 6, 8, 30, 4.5];
-
-const getTotal = (items: { [key: string]: number }) => {
-  let total = 0;
-
-  Object.entries(items).map((item: [string, number], i: number) => {
-    let price = prices[i];
-
-    if (item[0] === 'Packing paper 10lb') {
-      price = prices[i] / 2;
-    }
-
-    total += (item[1] * price) as number;
-  });
-
-  return total;
-};
-
-type Item = {
-  apt: string;
-  total: number;
-  items: {
-    [key: string]: number;
-  };
-};
-
-const data: Item[] = [
-  {
-    apt: 'Studio apt.',
-    total: 123,
-    items: {
-      'Small boxes': 10,
-      'Medium boxes': 5,
-      'Large boxes': 3,
-      'Packing paper 10lb': 1,
-      Tape: 2,
-    },
-  },
-  {
-    apt: '1 Bedroom apt.',
-    total: 123,
-    items: {
-      'Small boxes': 13,
-      'Medium boxes': 10,
-      'Large boxes': 5,
-      'Packing paper 10lb': 2,
-      Tape: 2,
-    },
-  },
-  {
-    apt: '2 Bedroom apt.',
-    total: 123,
-    items: {
-      'Small boxes': 17,
-      'Medium boxes': 13,
-      'Large boxes': 8,
-      'Packing paper 25lb': 2,
-      Tape: 3,
-    },
-  },
-  {
-    apt: '3 Bedroom apt.',
-    total: 123,
-    items: {
-      'Small boxes': 25,
-      'Medium boxes': 16,
-      'Large boxes': 12,
-      'Packing paper 25lb': 2,
-      Tape: 4,
-    },
-  },
-  {
-    apt: '3+ Bedroom apt.',
-    total: 123,
-    items: {
-      'Small boxes': 30,
-      'Medium boxes': 20,
-      'Large boxes': 15,
-      'Packing paper 25lb': 3,
-      Tape: 6,
-    },
-  },
-  {
-    apt: '2 Bedroom house',
-    total: 123,
-    items: {
-      'Small boxes': 40,
-      'Medium boxes': 30,
-      'Large boxes': 20,
-      'Packing paper 25lb': 2,
-      Tape: 8,
-    },
-  },
-  {
-    apt: '3 Bedroom house',
-    total: 123,
-    items: {
-      'Small boxes': 50,
-      'Medium boxes': 40,
-      'Large boxes': 20,
-      'Packing paper 25lb': 3,
-      Tape: 10,
-    },
-  },
-  {
-    apt: '4 Bedroom house',
-    total: 123,
-    items: {
-      'Small boxes': 60,
-      'Medium boxes': 50,
-      'Large boxes': 30,
-      'Packing paper 25lb': 4,
-      Tape: 12,
-    },
-  },
-];
+import {
+  MOVE_SUPPLY_PROFILES,
+  getSupplyTotal,
+} from '@/config/moving-supplies';
 ---
 
 <Section id="packages" class="py-16">
@@ -135,14 +22,16 @@ const data: Item[] = [
     <Carousel opts={{ align: 'start' }}>
       <CarouselContent class="py-4 px-2">
         {
-          data.map((houseSize, i) => (
+          MOVE_SUPPLY_PROFILES.map((houseSize) => (
             <CarouselItem class="pl-4 basis-[75%] sm:basis-[40%] lg:basis-[28.5%] xl:basis-[22.22%]">
               <Card class="p-0 overflow-hidden hover:-translate-y-1 transition-transform hover:shadow-lg">
                 <table class="divide-y">
                   <thead>
                     <tr class="bg-muted">
                       <th scope="col" class="pl-6 py-2 text-left font-bold">
-                        {houseSize.apt}
+                        {houseSize.propertyType === 'house'
+                          ? `${houseSize.label} house`
+                          : `${houseSize.label} apt.`}
                       </th>
                       <th
                         scope="col"
@@ -153,19 +42,16 @@ const data: Item[] = [
                     </tr>
                   </thead>
                   <tbody>
-                    {Object.entries(houseSize.items).map((material, i) => {
-                      // getTotal(houseSize.items);
-                      return (
-                        <tr class="border-b">
-                          <td class="text-left pl-4 py-2 font-medium">
-                            {material[0]}
-                          </td>
-                          <td class="text-right text-muted-foreground pr-4 py-2">
-                            {material[1]}
-                          </td>
-                        </tr>
-                      );
-                    })}
+                    {Object.entries(houseSize.items).map((material) => (
+                      <tr class="border-b">
+                        <td class="text-left pl-4 py-2 font-medium">
+                          {material[0]}
+                        </td>
+                        <td class="text-right text-muted-foreground pr-4 py-2">
+                          {material[1]}
+                        </td>
+                      </tr>
+                    ))}
                   </tbody>
                   <tfoot>
                     <tr>
@@ -176,8 +62,7 @@ const data: Item[] = [
                         Total price
                       </th>
                       <td class="pr-4 py-4 text-right text-muted-foreground">
-                        {/* ${houseSize.total}.00 */}$
-                        {getTotal(houseSize.items).toFixed(2)}
+                        ${getSupplyTotal(houseSize.items).toFixed(2)}
                       </td>
                     </tr>
                   </tfoot>

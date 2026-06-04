@@ -10,7 +10,7 @@ export const SITE = {
   url: "https://www.insightmoving.com", // Update with your actual domain
   author: "Phoenix Moving",
   ogImage: "/og-image.jpg",
-  logo: "/favicon.svg",
+  logo: "/logo.png",
   twitterHandle: "@phoenixmoving",
   keywords: "moving services, professional movers, residential moving, commercial moving, packing services",
   language: "en",

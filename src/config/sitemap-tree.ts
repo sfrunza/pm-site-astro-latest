@@ -1,7 +1,7 @@
 import { getPublishedPosts } from '@/config/blog';
 import { cities } from '@/config/cities-data';
 import { getPremiumSitemapEntries } from '@/config/city-premium/registry';
-import { services } from '@/config/site-data';
+import { services } from '@/config/services';
 
 export type SitemapNode = {
   label: string;
