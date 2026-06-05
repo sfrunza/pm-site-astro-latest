@@ -1,0 +1,31 @@
+---
+import logoSrc from '@/assets/logo-white.png';
+import { Image } from '@/components/starwind/image';
+import { SITE } from '@/config/site';
+
+interface Props {
+  class?: string;
+}
+
+const { class: className } = Astro.props;
+
+/** Navbar/footer display ~138×40 CSS px; 276w covers 2× retina. */
+const LOGO_WIDTH = 138;
+const LOGO_HEIGHT = 40;
+const logoWidths = [138, 276] as const;
+const logoSizes = `${LOGO_WIDTH}px`;
+---
+
+<Image
+  src={logoSrc}
+  alt={SITE.businessShortName}
+  width={LOGO_WIDTH}
+  height={LOGO_HEIGHT}
+  widths={[...logoWidths]}
+  sizes={logoSizes}
+  quality={85}
+  loading="lazy"
+  decoding="async"
+  fetchpriority="low"
+  class={className}
+/>

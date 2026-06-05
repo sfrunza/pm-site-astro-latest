@@ -4,6 +4,8 @@ import Section from '@/components/Section.astro';
 import SectionHeader from '@/components/SectionHeader.astro';
 import Button from '@/components/starwind/button';
 import { ArrowRight } from '@/icons';
+import { Image } from 'astro:assets';
+import artur from '@/assets/artur.png';
 
 import type { HTMLAttributes } from 'astro/types';
 import { tv } from 'tailwind-variants';
@@ -41,26 +43,47 @@ const {
 <Section class={cta1({ class: className })} {...rest}>
   <Container>
     <div
-      class="bg-primary rounded-3xl px-8 py-24 flex flex-col items-center justify-center"
+      class="bg-primary relative overflow-hidden rounded-3xl px-8 py-24 flex flex-col items-center justify-center"
     >
-      <SectionHeader
-        title={title}
-        subtitle={description}
-        titleClass="text-primary-foreground"
-        subtitleClass="text-primary-foreground/90"
+      <Image
+        alt="Premium Movers team member"
+        title="Premium Movers team member"
+        src={artur}
+        width={460}
+        height={780}
+        loading="lazy"
+        decoding="async"
+        class="pointer-events-none absolute bottom-[-25%] right-0 hidden h-[120%] w-auto select-none object-contain lg:block"
       />
-      <div class="flex flex-wrap items-center justify-center gap-4">
-        <Button variant="secondary" href={primaryButton.href}>
-          {primaryButton.text}
-        </Button>
-        {
-          secondaryButton && (
-            <Button variant="outline" class="group" href={secondaryButton.href}>
-              {secondaryButton.text}
-              <ArrowRight class="transition-transform group-hover:translate-x-1" />
-            </Button>
-          )
-        }
+      <div class="relative z-10 flex flex-col items-center justify-center">
+        <SectionHeader
+          title={title}
+          subtitle={description}
+          titleClass="text-primary-foreground"
+          subtitleClass="text-primary-foreground/90"
+        />
+        <div class="flex flex-wrap items-center justify-center gap-4">
+          <Button
+            variant="secondary"
+            href={primaryButton.href}
+            aria-label={primaryButton.text}
+          >
+            {primaryButton.text}
+          </Button>
+          {
+            secondaryButton && (
+              <Button
+                variant="outline"
+                class="group"
+                href={secondaryButton.href}
+                aria-label={secondaryButton.text ?? 'Contact Sales'}
+              >
+                {secondaryButton.text}
+                <ArrowRight class="transition-transform group-hover:translate-x-1" />
+              </Button>
+            )
+          }
+        </div>
       </div>
     </div>
   </Container>

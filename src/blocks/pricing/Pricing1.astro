@@ -98,7 +98,7 @@ const { class: className = '' } = Astro.props;
         tiers.map((tier) => (
           <Card class="relative overflow-visible gap-2 hover:shadow-lg hover:-translate-y-1 transition-all">
             {tier.isPopular && (
-              <div class="bg-secondary rounded-full text-secondary-foreground absolute -top-[12px] right-0 left-0 mx-auto w-fit px-4 py-1 text-center text-xs font-medium shadow-sm">
+              <div class="bg-secondary rounded-full text-secondary-foreground absolute top-[-12px] right-0 left-0 mx-auto w-fit px-4 py-1 text-center text-xs font-medium shadow-sm">
                 MOST POPULAR
               </div>
             )}
@@ -122,6 +122,7 @@ const { class: className = '' } = Astro.props;
                 class="w-full"
                 title="Get a Quote"
                 href={tier.href}
+                aria-label="Get a Quote"
               >
                 Get a Quote
               </Button>
@@ -148,7 +149,7 @@ const { class: className = '' } = Astro.props;
           class="grow gap-2 hover:shadow-lg hover:-translate-y-1 transition-all"
         >
           <CardHeader>
-            <CardTitle class="text-lg font-bold"> Additional mover </CardTitle>
+            <CardTitle class="text-lg font-bold">Additional mover</CardTitle>
           </CardHeader>
           <CardContent>
             <p class="mt-4">
@@ -173,7 +174,7 @@ const { class: className = '' } = Astro.props;
           class="grow gap-2 hover:shadow-lg hover:-translate-y-1 transition-all"
         >
           <CardHeader>
-            <CardTitle class="text-lg font-bold"> Additional truck </CardTitle>
+            <CardTitle class="text-lg font-bold">Additional truck</CardTitle>
           </CardHeader>
           <CardContent>
             <p class="mt-4">
@@ -197,7 +198,9 @@ const { class: className = '' } = Astro.props;
       </div>
     </div>
     <div class="col-span-12 flex flex-col p-8 text-center">
-      <h3 class="mb-2 text-2xl font-bold">Need a Custom Solution?</h3>
+      <h3 class="mb-2 text-2xl font-bold" aria-label="Need a Custom Solution?">
+        Need a Custom Solution?
+      </h3>
       <p class="mb-4 text-lg">
         Contact us for a personalized quote tailored to your specific moving
         needs.
@@ -207,6 +210,7 @@ const { class: className = '' } = Astro.props;
         class="self-center"
         title="Contact Sales"
         href={`tel:${SITE.contactPhone}`}
+        aria-label="Contact Sales"
       >
         <PhoneIcon />
         Contact Sales

@@ -10,6 +10,14 @@ import RelatedServices from '@/blocks/related/RelatedServices.astro';
 import { getRelatedLinks } from '@/config/service-faqs';
 import feature1Image from '@/assets/2-movers-and-truck-opt.jpg';
 import { homeSeo } from '@/config/seo';
+import ImageCompareSlider from '@/components/ImageCompareSlider.astro';
+import Section from '@/components/Section.astro';
+import Container from '@/components/Container.astro';
+import SectionHeader from '@/components/SectionHeader.astro';
+import shkafBefore from '@/assets/shkaf-before.jpeg';
+import shkafAfter from '@/assets/shkaf-after.jpeg';
+import medicalChairBefore from '@/assets/medical-chair-before.jpeg';
+import medicalChairAfter from '@/assets/medical-chair-after.jpeg';
 const seo = homeSeo(Astro.url);
 ---
 
@@ -17,6 +25,37 @@ const seo = homeSeo(Astro.url);
   <Hero />
   <Services1 />
   <Pricing1 class="defer-section" />
+
+  <Section class="py-16 defer-section bg-muted/50">
+    <Container>
+      <SectionHeader
+        label="Protection That Shows"
+        title="Expert Furniture Wrapping"
+        subtitle="Every piece of furniture is professionally wrapped and protected before transport. See the difference our meticulous packing makes."
+      />
+      <div
+        class="flex flex-col sm:flex-row justify-center items-center gap-12 sm:gap-24 max-w-3xl mx-auto"
+      >
+        <ImageCompareSlider
+          beforeSrc={shkafBefore}
+          afterSrc={shkafAfter}
+          beforeLabel="Before"
+          afterLabel="After"
+          startPos={70}
+          alt="Shkaf before and after"
+        />
+        <ImageCompareSlider
+          beforeSrc={medicalChairBefore}
+          afterSrc={medicalChairAfter}
+          beforeLabel="Before"
+          afterLabel="After"
+          startPos={70}
+          alt="Medical chair before and after"
+        />
+      </div>
+    </Container>
+  </Section>
+
   <Feature1
     image={{
       src: feature1Image,

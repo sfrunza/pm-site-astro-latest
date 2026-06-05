@@ -1,7 +1,7 @@
 ---
-import Logo from '@/components/Logo.astro';
 import { SITE } from '@/config/site';
 import { services as siteServices } from '@/config/services';
+import LogoWhite from './LogoWhite.astro';
 
 const year = new Date().getFullYear();
 
@@ -83,7 +83,7 @@ const allLinks: Record<string, NavigationItem[]> = {
             class="inline-block transition-opacity hover:opacity-90"
           >
             <h2 class="sr-only">{SITE.businessName}</h2>
-            <Logo class="h-10 w-auto" />
+            <LogoWhite class="h-10 w-auto" />
           </a>
 
           {/* Company description */}

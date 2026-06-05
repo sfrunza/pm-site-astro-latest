@@ -160,7 +160,7 @@ const { id, content: c, cityHero, phoneTel } = Astro.props;
               <li>
                 <a
                   href={town.href}
-                  class="bg-muted/50 hover:bg-muted/80 inline-flex rounded-full px-4 py-2 text-sm font-medium transition-colors"
+                  class="bg-muted/50 hover:bg-muted hover:shadow-lg hover:-translate-y-1 transition-all inline-flex rounded-full px-4 py-2 text-sm font-medium border"
                 >
                   {town.label}
                 </a>
@@ -186,7 +186,7 @@ const { id, content: c, cityHero, phoneTel } = Astro.props;
 
 {
   id === 'pricing' && (
-    <Section class="bg-muted/30 relative isolate overflow-hidden py-12">
+    <Section class="bg-muted/50 relative isolate overflow-hidden py-12">
       <MouseRepelParticles />
       <Container class="@container">
         <SectionHeader

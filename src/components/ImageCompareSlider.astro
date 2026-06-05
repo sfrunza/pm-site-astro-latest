@@ -1,0 +1,325 @@
+---
+import { Picture } from 'astro:assets';
+
+/**
+ * ImageCompare.astro
+ * A drag-to-reveal image comparison slider — no external libraries.
+ *
+ * Props:
+ *   beforeSrc   — URL of the "before" image  (required)
+ *   afterSrc    — URL of the "after" image   (required)
+ *   beforeLabel — label shown on the left    (default: "Before")
+ *   afterLabel  — label shown on the right   (default: "After")
+ *   startPos    — initial split position 0–100 (default: 50)
+ *   aspectRatio — CSS aspect-ratio value     (default: "16/9")
+ *   alt         — shared alt-text base       (default: "")
+ */
+
+interface Props {
+  beforeSrc: ImageMetadata;
+  afterSrc: ImageMetadata;
+  beforeLabel?: string;
+  afterLabel?: string;
+  startPos?: number;
+  aspectRatio?: string;
+  alt?: string;
+}
+
+const {
+  beforeSrc,
+  afterSrc,
+  beforeLabel = 'Before',
+  afterLabel = 'After',
+  startPos = 50,
+  aspectRatio = '3/4',
+  alt = '',
+} = Astro.props;
+
+const id = `sic-${Math.random().toString(36).slice(2, 9)}`;
+---
+
+<div
+  class="sic-root border bg-muted/50 rounded-3xl"
+  id={id}
+  data-start={startPos}
+  style={`--sic-pos:${startPos}%; aspect-ratio:${aspectRatio};`}
+  role="img"
+  aria-label={`Image comparison: ${beforeLabel} vs ${afterLabel}`}
+>
+  <!-- AFTER (bottom layer, full width) -->
+  <Picture
+    src={afterSrc}
+    alt={`${alt} — ${afterLabel}`}
+    formats={['avif', 'webp']}
+    fallbackFormat="webp"
+    layout="full-width"
+    fit="cover"
+    position="center"
+    quality="mid"
+    loading="lazy"
+    pictureAttributes={{
+      class: 'sic-img sic-after',
+    }}
+    class="absolute inset-0 size-full object-cover"
+  />
+
+  <!-- BEFORE (top layer, clipped to left of slider) -->
+  <div class="sic-before-wrap">
+    <Picture
+      src={beforeSrc}
+      alt={`${alt} — ${beforeLabel}`}
+      formats={['avif', 'webp']}
+      fallbackFormat="webp"
+      layout="full-width"
+      fit="cover"
+      position="center"
+      quality="mid"
+      loading="lazy"
+      pictureAttributes={{
+        class: 'sic-img sic-before',
+      }}
+      class="absolute inset-0 size-full object-cover"
+    />
+  </div>
+
+  <!-- Divider line + handle -->
+  <div class="sic-divider" aria-hidden="true">
+    <div class="sic-handle">
+      <svg
+        class="sic-arrow sic-arrow-left"
+        viewBox="0 0 10 16"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M8 2L2 8L8 14"
+          stroke="currentColor"
+          stroke-width="2.2"
+          stroke-linecap="round"
+          stroke-linejoin="round"></path>
+      </svg>
+      <svg
+        class="sic-arrow sic-arrow-right"
+        viewBox="0 0 10 16"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M2 2L8 8L2 14"
+          stroke="currentColor"
+          stroke-width="2.2"
+          stroke-linecap="round"
+          stroke-linejoin="round"></path>
+      </svg>
+    </div>
+  </div>
+
+  <!-- Accessible range input for keyboard control -->
+  <input
+    class="sic-range"
+    type="range"
+    min="0"
+    max="100"
+    value={startPos}
+    step="0.1"
+    aria-label={`Adjust comparison between ${beforeLabel} and ${afterLabel}`}
+  />
+</div>
+
+<style>
+  /* ── Root ──────────────────────────────────────────────── */
+  .sic-root {
+    --sic-handle-size: 48px;
+
+    position: relative;
+    display: block;
+    width: 100%;
+    height: auto;
+    overflow: hidden;
+    cursor: col-resize;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: pan-y;
+    container-type: inline-size;
+  }
+
+  /* ── Images ────────────────────────────────────────────── */
+  .sic-img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    pointer-events: none;
+  }
+
+  .sic-before-wrap {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    width: var(--sic-pos);
+    will-change: width;
+  }
+
+  .sic-before-wrap .sic-before {
+    /* Use container query units to reference root container width */
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100cqw;
+    height: 100%;
+    object-fit: contain;
+    max-width: none;
+  }
+
+  /* ── Labels ────────────────────────────────────────────── */
+  .sic-label {
+    position: absolute;
+    top: 14px;
+    padding: 4px 10px 4px 10px;
+    background: var(--sic-label-bg);
+    color: var(--sic-label-color);
+    font: 600 11px/1.4 var(--sic-label-font);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    border-radius: 3px;
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    pointer-events: none;
+    transition: opacity 0.2s;
+  }
+
+  .sic-label-before {
+    left: 14px;
+  }
+  .sic-label-after {
+    right: 14px;
+  }
+
+  /* ── Divider ───────────────────────────────────────────── */
+  .sic-divider {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: var(--sic-pos);
+    transform: translateX(-50%);
+    width: 2px;
+    background: var(--sic-line-color);
+    will-change: left;
+    pointer-events: none;
+  }
+
+  /* ── Handle ────────────────────────────────────────────── */
+  .sic-handle {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: var(--sic-handle-size);
+    height: var(--sic-handle-size);
+    border-radius: 50%;
+    background: #fff;
+    box-shadow:
+      0 2px 12px rgba(0, 0, 0, 0.4),
+      0 0 0 2px rgba(255, 255, 255, 0.6);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 2px;
+    transition:
+      transform 0.15s ease,
+      box-shadow 0.15s ease;
+  }
+
+  .sic-root:hover .sic-handle,
+  .sic-root.sic-dragging .sic-handle {
+    transform: translate(-50%, -50%) scale(1.1);
+    box-shadow:
+      0 4px 18px rgba(0, 0, 0, 0.5),
+      0 0 0 3px rgba(255, 255, 255, 0.7);
+  }
+
+  .sic-arrow {
+    width: 10px;
+    height: 16px;
+    color: #222;
+    flex-shrink: 0;
+  }
+
+  /* ── Range (keyboard / a11y) ───────────────────────────── */
+  .sic-range {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    cursor: col-resize;
+    margin: 0;
+    padding: 0;
+    /* Must sit on top for pointer events on desktop too,
+       but we override with JS for smooth drag */
+  }
+</style>
+
+<script is:inline define:vars={{ id, startPos }}>
+  (function () {
+    const root = document.getElementById(id);
+    if (!root) return;
+
+    // const beforeWrap = root.querySelector('.sic-before-wrap');
+    // const divider = root.querySelector('.sic-divider');
+    const rangeInput = root.querySelector('.sic-range');
+
+    let pos = startPos; // 0–100
+
+    function setPos(pct) {
+      pos = Math.min(100, Math.max(0, pct));
+      const css = pos.toFixed(2) + '%';
+      root.style.setProperty('--sic-pos', css);
+    }
+
+    function posFromEvent(e) {
+      const rect = root.getBoundingClientRect();
+      const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+      return ((clientX - rect.left) / rect.width) * 100;
+    }
+
+    // ── Pointer drag ─────────────────────────────────────────
+    let dragging = false;
+
+    function onStart(e) {
+      // Only start drag on the divider/handle or root (not on range input)
+      if (e.target === rangeInput) return;
+      e.preventDefault();
+      dragging = true;
+      root.classList.add('sic-dragging');
+      setPos(posFromEvent(e));
+    }
+
+    function onMove(e) {
+      if (!dragging) return;
+      e.preventDefault();
+      setPos(posFromEvent(e));
+      rangeInput.value = pos;
+    }
+
+    function onEnd() {
+      if (!dragging) return;
+      dragging = false;
+      root.classList.remove('sic-dragging');
+    }
+
+    root.addEventListener('mousedown', onStart, { passive: false });
+    root.addEventListener('touchstart', onStart, { passive: false });
+    window.addEventListener('mousemove', onMove, { passive: false });
+    window.addEventListener('touchmove', onMove, { passive: false });
+    window.addEventListener('mouseup', onEnd);
+    window.addEventListener('touchend', onEnd);
+
+    // ── Range input (keyboard / a11y) ────────────────────────
+    rangeInput.addEventListener('input', () => {
+      setPos(parseFloat(rangeInput.value));
+    });
+  })();
+</script>
