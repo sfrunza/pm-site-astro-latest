@@ -10,7 +10,7 @@ import { SITE } from '@/config/site';
 import RelatedServices from '@/blocks/related/RelatedServices.astro';
 import { fetchPageSeo } from '@/seo';
 import { getRelatedLinks, getServiceFaqs } from '@/config/service-faqs';
-import { servicePageJsonLd } from '@/seo';
+import { servicePageJsonLd } from '@/seo/service-page-schema';
 import SectionHeader from '@/components/SectionHeader.astro';
 
 const pathname = Astro.url.pathname;

@@ -9,7 +9,7 @@ import RelatedServices from '@/blocks/related/RelatedServices.astro';
 import FAQ1 from '@/blocks/faq/FAQ1.astro';
 import { fetchPageSeo } from '@/seo';
 import { getRelatedLinks, getServiceFaqs } from '@/config/service-faqs';
-import { servicePageJsonLd } from '@/seo';
+import { servicePageJsonLd } from '@/seo/service-page-schema';
 
 const pathname = Astro.url.pathname;
 const pageFaqs = getServiceFaqs(pathname);

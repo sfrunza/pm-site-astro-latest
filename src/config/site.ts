@@ -1,4 +1,4 @@
-const appUrl = import.meta.env.PUBLIC_APP_URL;
+const appUrl = 'https://www.insightmoving.com';
 
 export interface BusinessAddress {
   address: string;

@@ -21,7 +21,7 @@ import CTA2 from '@/blocks/cta/CTA2.astro';
 import RelatedServices from '@/blocks/related/RelatedServices.astro';
 import { fetchPageSeo, getSocialImageUrl } from '@/seo';
 import { getRelatedLinks, getServiceFaqs } from '@/config/service-faqs';
-import { servicePageJsonLd } from '@/seo';
+import { servicePageJsonLd } from '@/seo/service-page-schema';
 
 const pathname = Astro.url.pathname;
 const pageFaqs = getServiceFaqs(pathname);

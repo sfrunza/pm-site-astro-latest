@@ -7,7 +7,7 @@ import mdx from '@astrojs/mdx';
 
 // https://astro.build/config
 export default defineConfig({
-  site: import.meta.env.PUBLIC_APP_URL,
+  site: 'https://www.insightmoving.com',
   output: 'static',
   trailingSlash: 'never',
   build: {
