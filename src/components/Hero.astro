@@ -4,8 +4,19 @@ import Button from '@/components/starwind/button';
 import { SITE } from '@/config/site';
 import { ArrowRight, SparklesIcon } from '@/icons';
 import { buildHeroResponsiveImage } from '@/utils/hero-responsive-image';
+import type { LcpPreloadLink } from '@/utils/lcp-preload';
 
 const heroImage = await buildHeroResponsiveImage(heroBg);
+
+/** Pair with `<Layout lcpPreload={await getHomeHeroLcpPreload()} />`. */
+export async function getHomeHeroLcpPreload(): Promise<LcpPreloadLink> {
+  const image = await buildHeroResponsiveImage(heroBg);
+  return {
+    href: image.avif.href,
+    srcset: image.avif.srcset,
+    type: 'image/avif',
+  };
+}
 
 interface Props {
   badge?: string;
@@ -27,18 +38,6 @@ const stats = [
   { value: '100%', label: 'On-time guarantee' },
 ];
 ---
-
-<Fragment slot="head">
-  <link
-    rel="preload"
-    as="image"
-    href={heroImage.avif.href}
-    imagesrcset={heroImage.avif.srcset}
-    imagesizes="100vw"
-    fetchpriority="high"
-    type="image/avif"
-  />
-</Fragment>
 
 <section class="relative isolate flex min-h-dvh flex-col overflow-hidden">
   <picture

@@ -5,7 +5,7 @@ import FAQ1 from '@/blocks/faq/FAQ1.astro';
 import RelatedServices from '@/blocks/related/RelatedServices.astro';
 import ArticleMeta from '@/components/blog/ArticleMeta.astro';
 import AuthorBio from '@/components/blog/AuthorBio.astro';
-import BlogHero from '@/components/blog/BlogHero.astro';
+import BlogHero, { getBlogHeroLcpPreload } from '@/components/blog/BlogHero.astro';
 import KeyTakeaways from '@/components/blog/KeyTakeaways.astro';
 import RelatedPosts from '@/components/blog/RelatedPosts.astro';
 import TableOfContents from '@/components/blog/TableOfContents.astro';
@@ -22,9 +22,7 @@ import {
 } from '@/config/blog';
 import { getBlogRelatedServices } from '@/config/blog-related-services';
 import Layout from '@/layouts/Layout.astro';
-import { buildBlogPostSeo } from '@/config/seo';
-import { getBlogImageUrl } from '@/utils/blog-image-url';
-import { getLcpPreload } from '@/utils/lcp-preload';
+import { fetchBlogPostSeo, getBlogImageUrl } from '@/seo';
 import CTA2 from '@/blocks/cta/CTA2.astro';
 
 export async function getStaticPaths() {
@@ -53,11 +51,9 @@ const faqItems =
   })) ?? [];
 
 const blogImageUrl = await getBlogImageUrl(data.image, Astro.site);
-const lcpPreload = data.image
-  ? await getLcpPreload(data.image, { width: 896, quality: 80 })
-  : undefined;
+const lcpPreload = await getBlogHeroLcpPreload(data.image);
 
-const seo = buildBlogPostSeo(
+const seo = await fetchBlogPostSeo(
   Astro.url,
   {
     title: data.title,
@@ -111,7 +107,6 @@ const relatedServices = getBlogRelatedServices();
         title={data.title}
         categoryLabel={category.label}
         image={data.image}
-        lcpPreload
       />
     </Container>
   </Section>

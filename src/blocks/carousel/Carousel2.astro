@@ -23,6 +23,7 @@ import {
   CarouselPrevious,
 } from '@/components/starwind/carousel';
 import { Image } from '@/components/starwind/image';
+import { tv } from 'tailwind-variants';
 
 interface Item {
   img: ImageMetadata;
@@ -78,12 +79,17 @@ const items: Item[] = [
 
 interface Props {
   id?: string;
+  class?: string;
 }
 
-const { id } = Astro.props;
+const carousel2Styles = tv({
+  base: 'py-16',
+});
+
+const { id, class: className } = Astro.props;
 ---
 
-<Section class="py-16" id={id}>
+<Section class={carousel2Styles({ class: className })} id={id}>
   <Container class="relative">
     <SectionHeader title="Packing Supplies." />
     <Carousel opts={{ align: 'start' }}>

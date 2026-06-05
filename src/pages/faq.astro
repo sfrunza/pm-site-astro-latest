@@ -1,17 +1,23 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import Hero2 from '@/components/Hero2.astro';
+import Hero2, { getHero2LcpPreload } from '@/components/Hero2.astro';
 import FAQ1 from '@/blocks/faq/FAQ1.astro';
 import { faqs } from '@/blocks/faq/faqs';
 import CTA1 from '@/blocks/cta/CTA1.astro';
 import heroBg from '@/assets/heros/faq.jpg';
 import RelatedServices from '@/blocks/related/RelatedServices.astro';
-import { buildFaqJsonLd, buildPageSeo, stripHtmlForSchema } from '@/config/seo';
+import {
+  buildFaqJsonLd,
+  fetchPageSeo,
+  getSocialImageUrl,
+  stripHtmlForSchema,
+} from '@/seo';
 import { getRelatedLinks } from '@/config/service-faqs';
-import { getLcpPreload } from '@/utils/lcp-preload';
 
-const lcpPreload = await getLcpPreload(heroBg);
-const seo = buildPageSeo(Astro.url, {
+const lcpPreload = await getHero2LcpPreload(heroBg);
+const socialImageUrl = await getSocialImageUrl(heroBg);
+
+const seo = await fetchPageSeo(Astro.url, {
   title: 'Frequently Asked Questions - Phoenix Moving Boston',
   description:
     'Frequently asked questions about Phoenix Moving services, pricing, licensing, payments, and what to expect on moving day.',
@@ -22,6 +28,7 @@ const seo = buildPageSeo(Astro.url, {
     { name: 'Home', path: '/' },
     { name: 'FAQ', path: '/faq' },
   ],
+  ogImage: socialImageUrl,
   jsonLdExtra: [
     buildFaqJsonLd(
       Astro.url.pathname,
@@ -41,6 +48,9 @@ const seo = buildPageSeo(Astro.url, {
     subtitle="Answers to your questions about our moving services."
   />
   <FAQ1 />
-  <RelatedServices links={getRelatedLinks(Astro.url.pathname)} />
-  <CTA1 />
+  <RelatedServices
+    links={getRelatedLinks(Astro.url.pathname)}
+    class="defer-section"
+  />
+  <CTA1 class="defer-section" />
 </Layout>

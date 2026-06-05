@@ -9,27 +9,31 @@ import {
   CardTitle,
 } from '@/components/starwind/card';
 
-import {
-  movingHowToSteps,
-  type MovingStep,
-} from '@/config/moving-howto';
+import { movingHowToSteps, type MovingStep } from '@/config/moving-howto';
+import { tv } from 'tailwind-variants';
 
 interface Props {
   steps?: MovingStep[];
   label?: string;
   title?: string;
   subtitle?: string;
+  class?: string;
 }
+
+const featureSteps = tv({
+  base: 'py-16',
+});
 
 const {
   steps = movingHowToSteps,
   label = 'The Process',
   title = "Moving Is Easy With Us — Here's How",
   subtitle = "We've streamlined the moving process so there are no surprises on moving day.",
+  class: className = '',
 } = Astro.props;
 ---
 
-<Section class="py-16">
+<Section class={featureSteps({ class: className })}>
   <Container class="@container">
     <SectionHeader label={label} title={title} subtitle={subtitle} />
     <div class="grid @5xl:grid-cols-4 @md:grid-cols-2 gap-4 mt-16">

@@ -4,6 +4,7 @@ import Section from '@/components/Section.astro';
 import SectionHeader from '@/components/SectionHeader.astro';
 import Prose from '@/components/starwind/prose';
 import { Image } from 'astro:assets';
+import { tv } from 'tailwind-variants';
 
 type Props = {
   title: string;
@@ -12,12 +13,25 @@ type Props = {
   position?: 'left' | 'right' | 'center';
   image: ImageMetadata;
   alt: string;
+  class?: string;
 };
 
-const { title, subtitle, image, alt, position = 'center', label } = Astro.props;
+const featureImageRight = tv({
+  base: 'py-16',
+});
+
+const {
+  title,
+  subtitle,
+  image,
+  alt,
+  position = 'center',
+  label,
+  class: className = '',
+} = Astro.props;
 ---
 
-<Section class="py-16">
+<Section class={featureImageRight({ class: className })}>
   <Container>
     <SectionHeader
       title={title}

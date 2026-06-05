@@ -1,15 +1,12 @@
 ---
 import Feature3 from '@/blocks/feature/Feature3.astro';
 import Layout from '../layouts/Layout.astro';
-import Hero2 from '@/components/Hero2.astro';
+import Hero2, { getHero2LcpPreload } from '@/components/Hero2.astro';
 import heroBg from '@/assets/heros/interstate-moving.jpeg';
-import Feature1 from '@/blocks/feature/Feature1.astro';
 import FAQ1 from '@/blocks/faq/FAQ1.astro';
 import CTA1 from '@/blocks/cta/CTA1.astro';
 import Section from '@/components/Section.astro';
 import Container from '@/components/Container.astro';
-import SectionHeader from '@/components/SectionHeader.astro';
-import Prose from '@/components/starwind/prose';
 import { Image } from '@/components/starwind/image';
 import {
   Card,
@@ -19,19 +16,19 @@ import {
 } from '@/components/starwind/card';
 import Button from '@/components/starwind/button';
 import Feature2 from '@/blocks/feature/Feature2.astro';
-import Carousel2 from '@/blocks/carousel/Carousel2.astro';
 import Carousel1 from '@/blocks/carousel/Carousel1.astro';
 import CTA2 from '@/blocks/cta/CTA2.astro';
 import RelatedServices from '@/blocks/related/RelatedServices.astro';
-import { buildPageSeo } from '@/config/seo';
+import { fetchPageSeo, getSocialImageUrl } from '@/seo';
 import { getRelatedLinks, getServiceFaqs } from '@/config/service-faqs';
-import { getLcpPreload } from '@/utils/lcp-preload';
-import { servicePageJsonLd } from '@/utils/page-schema';
+import { servicePageJsonLd } from '@/seo';
 
 const pathname = Astro.url.pathname;
 const pageFaqs = getServiceFaqs(pathname);
-const lcpPreload = await getLcpPreload(heroBg);
-const seo = buildPageSeo(Astro.url, {
+const lcpPreload = await getHero2LcpPreload(heroBg);
+const socialImageUrl = await getSocialImageUrl(heroBg);
+
+const seo = await fetchPageSeo(Astro.url, {
   title: 'Interstate Moving - Phoenix Moving Boston (Free Estimate)',
   description:
     'Interstate and long-distance moving with licensed, insured crews. Flat-rate pricing includes gas, mileage, tolls, and insurance.',
@@ -47,6 +44,7 @@ const seo = buildPageSeo(Astro.url, {
     description:
       'Long-distance and interstate relocation services for residential and commercial moves across the United States.',
   },
+  ogImage: socialImageUrl,
   jsonLdExtra: servicePageJsonLd(pathname),
 });
 ---

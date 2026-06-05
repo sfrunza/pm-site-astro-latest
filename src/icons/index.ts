@@ -19,6 +19,7 @@ import SparklesIcon from '@tabler/icons/outline/sparkles.svg';
 import IconStar from '@tabler/icons/outline/star.svg';
 import PlusIcon from '@tabler/icons/outline/plus.svg';
 import PercentageIcon from '@tabler/icons/outline/percentage.svg';
+import ExternalLinkIcon from '@tabler/icons/outline/external-link.svg';
 
 export {
   PhoneIcon,
@@ -41,5 +42,6 @@ export {
   SparklesIcon,
   IconStar,
   PlusIcon,
-  PercentageIcon
+  PercentageIcon,
+  ExternalLinkIcon,
 };

@@ -262,33 +262,6 @@ const newtonRelatedLinks: RelatedLink[] = [
   },
 ];
 
-const newtonReviews = [
-  {
-    author: 'Rachel T.',
-    location: 'Newton Centre',
-    rating: 5,
-    text: 'Elevator COI handled smoothly and crew finished ahead of schedule. Clear pricing matched the estimate—best Newton move we have had.',
-  },
-  {
-    author: 'Mark D.',
-    location: 'Newtonville',
-    rating: 5,
-    text: 'Tight driveway but they navigated it without damage. Professional wrapping on our antique dining set.',
-  },
-  {
-    author: 'Elena V.',
-    location: 'Newton Highlands',
-    rating: 5,
-    text: 'Hilly lot meant extra care on the stairs—they padded everything and communicated well with our building manager.',
-  },
-  {
-    author: 'James L.',
-    location: 'Chestnut Hill',
-    rating: 5,
-    text: 'Office relocation over a weekend—desks labeled and IT equipment treated carefully. Back online Monday morning.',
-  },
-];
-
 const newtonPricingFactors = [
   {
     title: 'Inventory & home layout',
@@ -529,13 +502,7 @@ export const newtonPremium: CityPremiumContent = {
       'Six steps that keep Newton building managers, crews, and your family aligned before the truck arrives.',
     tips: newtonPrepTips,
   },
-  reviews: {
-    label: 'Customer reviews',
-    title: 'What Newton customers say',
-    subtitle:
-      '4.98★ average from 243+ verified reviews—Newton and MetroWest clients trust Phoenix Moving for careful, on-time crews.',
-    items: newtonReviews,
-  },
+  reviews: true,
   faq: {
     title: 'Newton moving FAQ',
     label: 'Questions about Newton moves',

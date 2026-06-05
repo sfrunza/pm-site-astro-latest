@@ -1,6 +1,8 @@
 ---
 import { Picture } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
 import Button from '@/components/starwind/button';
+import { getLcpPreload, type LcpPreloadLink } from '@/utils/lcp-preload';
 
 interface Props {
   bgImage: ImageMetadata;
@@ -13,6 +15,13 @@ const {
   title = 'Welcome to Phoenix Moving',
   subtitle = 'Your trusted partner for stress-free moves.',
 } = Astro.props;
+
+/** Pair with `<Layout lcpPreload={await getHero2LcpPreload(bgImage)} />`. */
+export async function getHero2LcpPreload(
+  src: ImageMetadata,
+): Promise<LcpPreloadLink> {
+  return getLcpPreload(src);
+}
 ---
 
 <section

@@ -167,12 +167,7 @@ export type CityPremiumContent = {
     subtitle?: string;
     paragraphs: string[];
   };
-  reviews: {
-    label: string;
-    title: string;
-    subtitle: string;
-    items: CityPremiumReview[];
-  };
+  reviews: boolean;
   faq: {
     title: string;
     label: string;

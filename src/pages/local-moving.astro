@@ -10,7 +10,7 @@ import Feature3 from '@/blocks/feature/Feature3.astro';
 import FeatureImageRight from '@/blocks/feature/FeatureImageRight.astro';
 import FeatureSteps from '@/blocks/feature/FeatureSteps.astro';
 import Container from '@/components/Container.astro';
-import Hero2 from '@/components/Hero2.astro';
+import Hero2, { getHero2LcpPreload } from '@/components/Hero2.astro';
 import Section from '@/components/Section.astro';
 import Button from '@/components/starwind/button';
 import {
@@ -22,15 +22,16 @@ import {
 import { Image } from '@/components/starwind/image';
 import RelatedServices from '@/blocks/related/RelatedServices.astro';
 import Layout from '@/layouts/Layout.astro';
-import { buildPageSeo } from '@/config/seo';
+import { fetchPageSeo, getSocialImageUrl } from '@/seo';
 import { getRelatedLinks, getServiceFaqs } from '@/config/service-faqs';
-import { getLcpPreload } from '@/utils/lcp-preload';
-import { servicePageJsonLd } from '@/utils/page-schema';
+import { servicePageJsonLd } from '@/seo';
 
 const pathname = Astro.url.pathname;
 const pageFaqs = getServiceFaqs(pathname);
-const lcpPreload = await getLcpPreload(heroBg);
-const seo = buildPageSeo(Astro.url, {
+const lcpPreload = await getHero2LcpPreload(heroBg);
+const socialImageUrl = await getSocialImageUrl(heroBg);
+
+const seo = await fetchPageSeo(Astro.url, {
   title: 'Local Moving - Phoenix Moving (Free Estimate)',
   description:
     'Boston local movers for residential and commercial moves. Our crews pack, load, and relocate your belongings quickly and safely throughout Greater Boston.',
@@ -46,6 +47,7 @@ const seo = buildPageSeo(Astro.url, {
     description:
       'Professional local moving services in Boston and surrounding areas for residential and commercial customers.',
   },
+  ogImage: socialImageUrl,
   jsonLdExtra: servicePageJsonLd(pathname, {
     name: 'How to move with Phoenix Moving in Boston',
     description:

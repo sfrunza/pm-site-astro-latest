@@ -10,7 +10,7 @@ import Feature3 from '@/blocks/feature/Feature3.astro';
 import FeatureImageRight from '@/blocks/feature/FeatureImageRight.astro';
 import FeatureSteps from '@/blocks/feature/FeatureSteps.astro';
 import Container from '@/components/Container.astro';
-import Hero2 from '@/components/Hero2.astro';
+import Hero2, { getHero2LcpPreload } from '@/components/Hero2.astro';
 import Section from '@/components/Section.astro';
 import SectionHeader from '@/components/SectionHeader.astro';
 import Button from '@/components/starwind/button';
@@ -23,15 +23,16 @@ import {
 import { Image } from '@/components/starwind/image';
 import Layout from '@/layouts/Layout.astro';
 import RelatedServices from '@/blocks/related/RelatedServices.astro';
-import { buildPageSeo } from '@/config/seo';
+import { fetchPageSeo, getSocialImageUrl } from '@/seo';
 import { getRelatedLinks, getServiceFaqs } from '@/config/service-faqs';
-import { getLcpPreload } from '@/utils/lcp-preload';
-import { servicePageJsonLd } from '@/utils/page-schema';
+import { servicePageJsonLd } from '@/seo';
 
 const pathname = Astro.url.pathname;
 const pageFaqs = getServiceFaqs(pathname);
-const lcpPreload = await getLcpPreload(heroBg);
-const seo = buildPageSeo(Astro.url, {
+const lcpPreload = await getHero2LcpPreload(heroBg);
+const socialImageUrl = await getSocialImageUrl(heroBg);
+
+const seo = await fetchPageSeo(Astro.url, {
   title: 'Piano Moving - Phoenix Moving (Free Estimate)',
   description:
     'Professional piano movers in Boston and Greater Massachusetts. Upright, baby grand, and grand piano moving with proper equipment, licensed and insured',
@@ -47,6 +48,7 @@ const seo = buildPageSeo(Astro.url, {
     description:
       'Specialized piano moving with professional equipment and trained crews for upright, baby grand, and grand pianos in the Boston area.',
   },
+  ogImage: socialImageUrl,
   jsonLdExtra: servicePageJsonLd(pathname, {
     name: 'How to move a piano with professional movers',
     description:

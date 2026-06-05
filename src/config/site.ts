@@ -1,3 +1,5 @@
+const appUrl = import.meta.env.PUBLIC_APP_URL;
+
 export interface BusinessAddress {
   address: string;
   city: string;
@@ -7,7 +9,7 @@ export interface BusinessAddress {
 export const SITE = {
   title: "Phoenix Moving - Professional Moving Services",
   description: "Professional moving services with experienced movers. Residential and commercial moves, packing services, and storage solutions.",
-  url: "https://www.insightmoving.com", // Update with your actual domain
+  url: appUrl, // Update with your actual domain
   author: "Phoenix Moving",
   ogImage: "/og-image.jpg",
   logo: "/favicon.svg",
@@ -53,7 +55,7 @@ export const SITE = {
     "@type": "MovingCompany",
     "name": "Phoenix Moving",
     "description": "Professional moving services with experienced movers",
-    "url": "https://www.insightmoving.com",
+    "url": appUrl,
     "telephone": "(508) 315-9458",
     "email": "info@gophoenixmoving.com",
     "address": {

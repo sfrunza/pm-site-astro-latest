@@ -25,6 +25,7 @@ import type {
 import { SITE } from '@/config/site';
 import type { ImageMetadata } from 'astro';
 import MouseRepelParticles from '../MouseRepelParticles.astro';
+import Reviews1 from '@/blocks/reviews/Reviews1.astro';
 
 interface Props {
   id: CityPremiumSectionId;
@@ -310,53 +311,8 @@ const { id, content: c, cityHero, phoneTel } = Astro.props;
 }
 
 {
-  id === 'reviews' && (
-    <Section class="defer-section py-12">
-      <Container>
-        <SectionHeader
-          label={c.reviews.label}
-          title={c.reviews.title}
-          subtitle={c.reviews.subtitle}
-          position="center"
-        />
-        <ul class="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-          {c.reviews.items.map((review) => (
-            <li>
-              <Card class="h-full">
-                <CardHeader>
-                  <CardTitle class="text-base font-semibold">
-                    {review.author}
-                  </CardTitle>
-                  <p class="text-muted-foreground text-sm">{review.location}</p>
-                </CardHeader>
-                <CardContent>
-                  <p
-                    class="text-yellow-500 mb-2 text-sm"
-                    aria-label={`${review.rating} out of 5 stars`}
-                  >
-                    {'★'.repeat(review.rating)}
-                  </p>
-                  <p class="text-pretty">{review.text}</p>
-                </CardContent>
-              </Card>
-            </li>
-          ))}
-        </ul>
-        <p class="text-muted-foreground mt-8 text-center text-sm">
-          Read more on{' '}
-          <a
-            href="https://www.yelp.com/biz/phoenix-moving-natick-6"
-            rel="noopener noreferrer"
-            target="_blank"
-            class="text-red-700 underline underline-offset-2 hover:text-red-700/80 transition-colors font-medium"
-            aria-label="Yelp reviews"
-          >
-            Yelp
-          </a>
-          .
-        </p>
-      </Container>
-    </Section>
+  id === 'reviews' && c.reviews && (
+    <Reviews1 class="defer-section" />
   )
 }
 

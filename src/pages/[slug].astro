@@ -2,7 +2,7 @@
 import CTA1 from '@/blocks/cta/CTA1.astro';
 import FeatureImageRight from '@/blocks/feature/FeatureImageRight.astro';
 import RelatedServices from '@/blocks/related/RelatedServices.astro';
-import Hero2 from '@/components/Hero2.astro';
+import Hero2, { getHero2LcpPreload } from '@/components/Hero2.astro';
 import Button from '@/components/starwind/button';
 import { cities, type City } from '@/config/cities-data';
 import {
@@ -11,14 +11,15 @@ import {
   getDefaultCityHeroImage,
   getDefaultCityLogoImage,
 } from '@/utils/city-image';
-import { buildFaqJsonLd, buildPageSeo, stripHtmlForSchema } from '@/config/seo';
+import { buildFaqJsonLd, fetchPageSeo, stripHtmlForSchema } from '@/seo';
 import { SITE } from '@/config/site';
 import type { RelatedLink } from '@/config/service-faqs';
 import Layout from '@/layouts/Layout.astro';
-import { getLcpPreload } from '@/utils/lcp-preload';
 import Services1 from '@/blocks/services/Services1.astro';
 import { ArrowRight } from '@/icons';
 import CTA2 from '@/blocks/cta/CTA2.astro';
+import Reviews1 from '@/blocks/reviews/Reviews1.astro';
+import FAQ1 from '@/blocks/faq/FAQ1.astro';
 
 export function getStaticPaths() {
   return cities.map((city) => ({
@@ -35,7 +36,7 @@ const { city } = Astro.props;
 const pathname = `/${city.slug}`;
 const cityHero = getCityHeroImage(city.slug) ?? getDefaultCityHeroImage();
 const cityLogo = getCityLogoImage(city.slug) ?? getDefaultCityLogoImage();
-const lcpPreload = await getLcpPreload(cityHero);
+const lcpPreload = await getHero2LcpPreload(cityHero);
 
 const lead =
   city.intro ??
@@ -102,17 +103,11 @@ const keywords = [
   `${city.name} Massachusetts movers`,
 ].join(', ');
 
-// const isLegacyNatick = city.slug === 'natick-movers';
-// const canonicalUrl = isLegacyNatick
-//   ? new URL(natickPremium.path, SITE.url).href
-//   : undefined;
-
-const seo = buildPageSeo(Astro.url, {
+const seo = await fetchPageSeo(Astro.url, {
   title: `${city.name}, ${city.state} Movers - Phoenix Moving (Free Estimate)`,
   description,
   keywords,
   pathname,
-  // canonical: canonicalUrl,
   breadcrumbs: [
     { name: 'Home', path: '/' },
     { name: 'Local Moving', path: '/local-moving' },
@@ -122,6 +117,8 @@ const seo = buildPageSeo(Astro.url, {
     name: `${city.name}, ${city.state} Moving Services`,
     description: city.description,
   },
+  includeReviewSchema: true,
+  reviewSchemaCityName: city.name,
   jsonLdExtra: [
     buildFaqJsonLd(
       pathname,
@@ -152,6 +149,7 @@ const seo = buildPageSeo(Astro.url, {
     position="left"
     image={cityLogo}
     alt={`${city.name}, ${city.state} city logo`}
+    class="defer-section"
   >
     <p>
       <b>{city.fullName}</b> — {lead}
@@ -177,6 +175,9 @@ const seo = buildPageSeo(Astro.url, {
   <RelatedServices
     links={relatedLinks}
     title={`Moving services for ${city.name}, ${city.state} residents`}
+    class="defer-section"
   />
+  <Reviews1 class="defer-section" />
+  <FAQ1 items={cityFaqs} class="defer-section" />
   <CTA2 title={`Ready to move in or out of ${city.name}, ${city.state}?`} />
 </Layout>

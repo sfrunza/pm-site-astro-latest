@@ -272,33 +272,6 @@ const dedhamRelatedLinks: RelatedLink[] = [
   },
 ];
 
-const dedhamReviews = [
-  {
-    author: 'Lisa H.',
-    location: 'Dedham Square',
-    rating: 5,
-    text: 'On-time crew, careful with our downtown condo elevator, and clear pricing. Would hire again for a Dedham move.',
-  },
-  {
-    author: 'David P.',
-    location: 'Oakdale',
-    rating: 5,
-    text: 'They handled our colonial stairs and driveway load without damage. Professional from quote to walkthrough.',
-  },
-  {
-    author: 'Anita S.',
-    location: 'East Dedham',
-    rating: 5,
-    text: 'COI handled for our building and move day went smoothly. Great communication with the coordinator.',
-  },
-  {
-    author: 'Chris W.',
-    location: 'Westwood → Dedham',
-    rating: 5,
-    text: 'Short local job done right—furniture placed where we asked. Transparent hourly billing matched the estimate.',
-  },
-];
-
 const dedhamFaqs: Faq[] = [
   {
     question: 'How much do Dedham movers cost?',
@@ -471,13 +444,7 @@ export const dedhamPremium: CityPremiumContent = {
       'A short checklist helps crews stay on schedule and protects your building.',
     tips: dedhamPrepTips,
   },
-  reviews: {
-    label: 'Reviews',
-    title: 'What Dedham-area customers say',
-    subtitle:
-      '4.98★ average from 243+ verified reviews—Norfolk County homeowners trust Phoenix Moving for careful, on-time crews.',
-    items: dedhamReviews,
-  },
+  reviews: true,
   faq: {
     title: 'Dedham moving FAQ',
     label: 'Questions about Dedham moves',

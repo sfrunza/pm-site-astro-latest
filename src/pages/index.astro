@@ -1,6 +1,6 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import Hero from '@/components/Hero.astro';
+import Hero, { getHomeHeroLcpPreload } from '@/components/Hero.astro';
 import Pricing1 from '@/blocks/pricing/Pricing1.astro';
 import Services1 from '@/blocks/services/Services1.astro';
 import Feature1 from '@/blocks/feature/Feature1.astro';
@@ -9,7 +9,7 @@ import Cities1 from '@/blocks/cities/Cities1.astro';
 import RelatedServices from '@/blocks/related/RelatedServices.astro';
 import { getRelatedLinks } from '@/config/service-faqs';
 import feature1Image from '@/assets/2-movers-and-truck-opt.jpg';
-import { homeSeo } from '@/config/seo';
+import { fetchHomeSeo } from '@/seo';
 import ImageCompareSlider from '@/components/ImageCompareSlider.astro';
 import Section from '@/components/Section.astro';
 import Container from '@/components/Container.astro';
@@ -18,10 +18,16 @@ import shkafBefore from '@/assets/shkaf-before.jpeg';
 import shkafAfter from '@/assets/shkaf-after.jpeg';
 import medicalChairBefore from '@/assets/medical-chair-before.jpeg';
 import medicalChairAfter from '@/assets/medical-chair-after.jpeg';
-const seo = homeSeo(Astro.url);
+import Reviews1 from '@/blocks/reviews/Reviews1.astro';
+
+const [seo, lcpPreload] = await Promise.all([
+  fetchHomeSeo(Astro.url),
+  getHomeHeroLcpPreload(),
+]);
+
 ---
 
-<Layout {...seo}>
+<Layout {...seo} lcpPreload={lcpPreload}>
   <Hero />
   <Services1 />
   <Pricing1 class="defer-section" />
@@ -63,6 +69,7 @@ const seo = homeSeo(Astro.url);
     }}
     class="defer-section"
   />
+  <Reviews1 class="defer-section" />
   <Cities1 class="defer-section" />
   <RelatedServices links={getRelatedLinks('/')} class="defer-section" />
   <CTA1 class="defer-section" />

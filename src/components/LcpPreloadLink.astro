@@ -1,0 +1,19 @@
+---
+import type { LcpPreloadLink } from '@/utils/lcp-preload';
+
+interface Props extends LcpPreloadLink {
+  imagesizes?: string;
+}
+
+const { href, srcset, type, imagesizes = '100vw' } = Astro.props;
+---
+
+<link
+  rel="preload"
+  as="image"
+  href={href}
+  imagesrcset={srcset}
+  imagesizes={imagesizes}
+  fetchpriority="high"
+  type={type}
+/>

@@ -2,11 +2,11 @@
 import Prose from '@/components/starwind/prose';
 import Layout from '../layouts/Layout.astro';
 import { SITE } from '@/config/site';
-import { buildPageSeo } from '@/config/seo';
+import { fetchPageSeo } from '@/seo';
 
 const lastUpdated = new Date(2025, 2, 10).toLocaleDateString();
 
-const seo = buildPageSeo(Astro.url, {
+const seo = await fetchPageSeo(Astro.url, {
   title: `Terms and Conditions | ${SITE.businessName}`,
   description: `Terms and Conditions for ${SITE.businessName}. Last updated: ${lastUpdated}`,
   keywords:

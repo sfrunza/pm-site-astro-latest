@@ -10,15 +10,21 @@ import Section from '@/components/Section.astro';
 import SectionHeader from '@/components/SectionHeader.astro';
 import Container from '@/components/Container.astro';
 import { faqs, type Faq } from '@/blocks/faq/faqs';
+import { tv } from 'tailwind-variants';
 
 interface Props {
   items?: Faq[];
+  class?: string;
 }
 
-const { items = faqs } = Astro.props;
+const faq1 = tv({
+  base: 'py-16',
+});
+
+const { items = faqs, class: className = '' } = Astro.props;
 ---
 
-<Section>
+<Section class={faq1({ class: className })}>
   <Container>
     <div class="grid w-full grid-cols-4 gap-4 py-12 md:grid-cols-12">
       <div

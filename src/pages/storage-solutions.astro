@@ -7,7 +7,7 @@ import FAQ1 from '@/blocks/faq/FAQ1.astro';
 import Feature2 from '@/blocks/feature/Feature2.astro';
 import Feature3 from '@/blocks/feature/Feature3.astro';
 import FeatureImageLeft from '@/blocks/feature/FeatureImageLeft.astro';
-import Hero2 from '@/components/Hero2.astro';
+import Hero2, { getHero2LcpPreload } from '@/components/Hero2.astro';
 import {
   CalendarTimeIcon,
   ClockShieldIcon,
@@ -17,15 +17,16 @@ import {
 } from '@/icons';
 import Layout from '@/layouts/Layout.astro';
 import RelatedServices from '@/blocks/related/RelatedServices.astro';
-import { buildPageSeo } from '@/config/seo';
+import { fetchPageSeo, getSocialImageUrl } from '@/seo';
 import { getRelatedLinks, getServiceFaqs } from '@/config/service-faqs';
-import { getLcpPreload } from '@/utils/lcp-preload';
-import { servicePageJsonLd } from '@/utils/page-schema';
+import { servicePageJsonLd } from '@/seo';
 
 const pathname = Astro.url.pathname;
 const pageFaqs = getServiceFaqs(pathname);
-const lcpPreload = await getLcpPreload(heroBg);
-const seo = buildPageSeo(Astro.url, {
+const lcpPreload = await getHero2LcpPreload(heroBg);
+const socialImageUrl = await getSocialImageUrl(heroBg);
+
+const seo = await fetchPageSeo(Astro.url, {
   title: 'Storage Solutions - Phoenix Moving Boston (Free Estimate)',
   description:
     'Secure, flexible storage solutions for your move — short-term, long-term, and overnight options with licensed and insured Phoenix Moving.',
@@ -41,6 +42,7 @@ const seo = buildPageSeo(Astro.url, {
     description:
       'Temperature-controlled and secure storage options for moves in the Greater Boston area.',
   },
+  ogImage: socialImageUrl,
   jsonLdExtra: servicePageJsonLd(pathname),
 });
 

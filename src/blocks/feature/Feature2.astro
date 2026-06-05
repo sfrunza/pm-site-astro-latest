@@ -17,6 +17,7 @@ import {
   ClockShieldIcon,
 } from '@/icons';
 import type { SvgComponent } from 'astro/types';
+import { tv } from 'tailwind-variants';
 
 interface Props {
   title?: string;
@@ -24,6 +25,7 @@ interface Props {
   label?: string;
   position?: 'left' | 'center' | 'right';
   features?: Feature[];
+  class?: string;
 }
 
 type Feature = {
@@ -77,10 +79,15 @@ const {
   label = 'Why Choose Us',
   position = 'center',
   features = defaultFeatures,
+  class: className = '',
 } = Astro.props;
+
+const feature2 = tv({
+  base: 'py-16',
+});
 ---
 
-<Section class="py-16">
+<Section class={feature2({ class: className })}>
   <Container class="@container">
     <SectionHeader
       title={title}

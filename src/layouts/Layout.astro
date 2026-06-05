@@ -5,18 +5,20 @@ import PageGrid from '@/components/PageGrid.astro';
 import { SITE } from '@/config/site';
 import '@/styles/starwind.css';
 import { Font } from 'astro:assets';
-import AstroSeo from '@/components/AstroSeo.astro';
-import type { AstroSeoProps } from '@/types/seo';
+import AstroSeo from '@/seo/AstroSeo.astro';
+import LcpPreloadLink from '@/components/LcpPreloadLink.astro';
 import Analytics from '@/components/Analytics.astro';
 import Contact1 from '@/blocks/contact/Contact1.astro';
+import type { AstroSeoProps } from '@/seo';
+import type { LcpPreloadLink as LcpPreloadData } from '@/utils/lcp-preload';
 Astro.response.headers.set('X-Robots-Tag', 'index, follow');
 
 interface Props extends AstroSeoProps {
-  /** @deprecated Layout no longer emits image preload; heroes use `slot="head"`. */
-  lcpPreload?: unknown;
+  /** Hero LCP image preload — must be a direct Layout prop to land in `<head>`. */
+  lcpPreload?: LcpPreloadData & { imagesizes?: string };
 }
 
-const { lcpPreload: _unusedLcpPreload, ...seoProps } = Astro.props;
+const { lcpPreload, ...seoProps } = Astro.props;
 ---
 
 <!doctype html>
@@ -40,6 +42,17 @@ const { lcpPreload: _unusedLcpPreload, ...seoProps } = Astro.props;
 
     <!-- PWA -->
     <link rel="manifest" href="/site.webmanifest" />
+
+    {
+      lcpPreload && (
+        <LcpPreloadLink
+          href={lcpPreload.href}
+          srcset={lcpPreload.srcset}
+          type={lcpPreload.type}
+          imagesizes={lcpPreload.imagesizes}
+        />
+      )
+    }
 
     <!-- Performance: avoid font preload — it competes with the LCP image -->
     <Font cssVariable="--font-sans" />

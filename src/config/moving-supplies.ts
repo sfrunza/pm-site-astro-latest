@@ -5,8 +5,6 @@ export type SupplyKey =
   | 'Medium boxes'
   | 'Large boxes'
   | 'Wardrobe boxes'
-  | 'Dish pack boxes'
-  | 'Bubble wrap'
   | 'Packing paper 10lb'
   | 'Packing paper 25lb'
   | 'Tape';
@@ -16,8 +14,6 @@ export const SUPPLY_UNIT_PRICES: Record<SupplyKey, number> = {
   'Medium boxes': 6,
   'Large boxes': 8,
   'Wardrobe boxes': 12,
-  'Dish pack boxes': 6,
-  'Bubble wrap': 8,
   'Packing paper 10lb': 15,
   'Packing paper 25lb': 30,
   Tape: 4.5,
@@ -28,8 +24,6 @@ export const SUPPLY_HINTS: Partial<Record<SupplyKey, string>> = {
   'Medium boxes': 'Clothes, toys, office supplies',
   'Large boxes': 'Linens, lamps, bulky items',
   'Wardrobe boxes': 'Hanging clothes — suits, dresses, coats',
-  'Dish pack boxes': 'Plates, glasses, and kitchenware',
-  'Bubble wrap': 'Fragile items and electronics',
   'Packing paper 10lb': 'Wrapping dishes and filling gaps',
   'Packing paper 25lb': 'Wrapping dishes and filling gaps',
   Tape: 'Seal boxes and reinforce bottoms',
@@ -68,8 +62,6 @@ export const MOVE_SUPPLY_PROFILES: MoveSupplyProfile[] = [
       'Medium boxes': 10,
       'Large boxes': 5,
       'Wardrobe boxes': 2,
-      'Dish pack boxes': 3,
-      'Bubble wrap': 2,
       'Packing paper 10lb': 2,
       Tape: 2,
     },
@@ -84,8 +76,6 @@ export const MOVE_SUPPLY_PROFILES: MoveSupplyProfile[] = [
       'Medium boxes': 13,
       'Large boxes': 8,
       'Wardrobe boxes': 3,
-      'Dish pack boxes': 4,
-      'Bubble wrap': 2,
       'Packing paper 25lb': 2,
       Tape: 3,
     },
@@ -100,8 +90,6 @@ export const MOVE_SUPPLY_PROFILES: MoveSupplyProfile[] = [
       'Medium boxes': 16,
       'Large boxes': 12,
       'Wardrobe boxes': 4,
-      'Dish pack boxes': 5,
-      'Bubble wrap': 3,
       'Packing paper 25lb': 2,
       Tape: 4,
     },
@@ -116,8 +104,6 @@ export const MOVE_SUPPLY_PROFILES: MoveSupplyProfile[] = [
       'Medium boxes': 20,
       'Large boxes': 15,
       'Wardrobe boxes': 5,
-      'Dish pack boxes': 6,
-      'Bubble wrap': 4,
       'Packing paper 25lb': 3,
       Tape: 6,
     },
@@ -132,8 +118,6 @@ export const MOVE_SUPPLY_PROFILES: MoveSupplyProfile[] = [
       'Medium boxes': 30,
       'Large boxes': 20,
       'Wardrobe boxes': 4,
-      'Dish pack boxes': 6,
-      'Bubble wrap': 4,
       'Packing paper 25lb': 2,
       Tape: 8,
     },
@@ -148,8 +132,6 @@ export const MOVE_SUPPLY_PROFILES: MoveSupplyProfile[] = [
       'Medium boxes': 40,
       'Large boxes': 20,
       'Wardrobe boxes': 6,
-      'Dish pack boxes': 8,
-      'Bubble wrap': 5,
       'Packing paper 25lb': 3,
       Tape: 10,
     },
@@ -164,8 +146,6 @@ export const MOVE_SUPPLY_PROFILES: MoveSupplyProfile[] = [
       'Medium boxes': 50,
       'Large boxes': 30,
       'Wardrobe boxes': 8,
-      'Dish pack boxes': 10,
-      'Bubble wrap': 6,
       'Packing paper 25lb': 4,
       Tape: 12,
     },
@@ -184,7 +164,7 @@ export const SUPPLY_EXTRAS: {
       id: 'kitchen',
       label: 'Big kitchen',
       description: 'Extra dishes, small appliances, pantry',
-      items: { 'Dish pack boxes': 2, 'Bubble wrap': 1, 'Packing paper 10lb': 1 },
+      items: { 'Packing paper 10lb': 1 },
     },
     {
       id: 'closet',
@@ -196,7 +176,7 @@ export const SUPPLY_EXTRAS: {
       id: 'office',
       label: 'Home office',
       description: 'Desk, files, monitors, and cables',
-      items: { 'Small boxes': 4, 'Medium boxes': 2, 'Bubble wrap': 1 },
+      items: { 'Small boxes': 4, 'Medium boxes': 2 },
     },
   ];
 
@@ -228,8 +208,6 @@ export const SUPPLY_DISPLAY_ORDER: SupplyKey[] = [
   'Medium boxes',
   'Large boxes',
   'Wardrobe boxes',
-  'Dish pack boxes',
-  'Bubble wrap',
   'Packing paper 10lb',
   'Packing paper 25lb',
   'Tape',

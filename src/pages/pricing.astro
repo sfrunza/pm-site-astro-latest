@@ -7,15 +7,13 @@ import heroBg from '@/assets/heros/pricing.jpg';
 import CTA1 from '@/blocks/cta/CTA1.astro';
 import RelatedServices from '@/blocks/related/RelatedServices.astro';
 import FAQ1 from '@/blocks/faq/FAQ1.astro';
-import { buildPageSeo } from '@/config/seo';
+import { fetchPageSeo } from '@/seo';
 import { getRelatedLinks, getServiceFaqs } from '@/config/service-faqs';
-import { getLcpPreload } from '@/utils/lcp-preload';
-import { servicePageJsonLd } from '@/utils/page-schema';
+import { servicePageJsonLd } from '@/seo';
 
 const pathname = Astro.url.pathname;
 const pageFaqs = getServiceFaqs(pathname);
-const lcpPreload = await getLcpPreload(heroBg);
-const seo = buildPageSeo(Astro.url, {
+const seo = await fetchPageSeo(Astro.url, {
   title: 'Boston Moving Prices & Rates - Phoenix Moving (Free Estimate)',
   description:
     'Boston moving prices and transparent rates for local, long-distance, packing, and storage. Get a free quote from our licensed and insured moving team.',
@@ -29,7 +27,7 @@ const seo = buildPageSeo(Astro.url, {
 });
 ---
 
-<Layout {...seo} lcpPreload={lcpPreload}>
+<Layout {...seo}>
   <Hero2
     bgImage={heroBg}
     title="Moving Prices & Rates"

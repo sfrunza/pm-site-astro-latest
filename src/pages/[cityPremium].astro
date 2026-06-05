@@ -6,9 +6,10 @@ import {
 } from '@/config/city-premium/registry';
 import type { CityPremiumContent } from '@/config/city-premium/types';
 import { SITE } from '@/config/site';
+import { getHero2LcpPreload } from '@/components/Hero2.astro';
 import Layout from '@/layouts/Layout.astro';
 import { resolveCityPremiumAssets } from '@/utils/city-premium-assets';
-import { buildCityPremiumPageSeo } from '@/utils/city-premium-seo';
+import { fetchCityPremiumPageSeo } from '@/seo';
 
 export function getStaticPaths() {
   return getPremiumCityPaths().map((slug) => {
@@ -27,14 +28,15 @@ interface Props {
 const { content } = Astro.props;
 const siteBase = Astro.site?.href ?? SITE.url;
 const assets = await resolveCityPremiumAssets(content, siteBase);
-const seo = buildCityPremiumPageSeo(
+const lcpPreload = await getHero2LcpPreload(assets.cityHero);
+const seo = await fetchCityPremiumPageSeo(
   content,
   Astro.url,
-  assets.socialImageUrl,
+  assets.socialImageUrl
 );
 ---
 
-<Layout {...seo} lcpPreload={assets.lcpPreload}>
+<Layout {...seo} lcpPreload={lcpPreload}>
   <CityPremiumLanding
     content={content}
     cityHero={assets.cityHero}

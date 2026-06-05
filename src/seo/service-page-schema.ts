@@ -4,7 +4,7 @@ import {
   buildFaqJsonLd,
   buildHowToJsonLd,
   stripHtmlForSchema,
-} from '@/config/seo';
+} from '@/seo/json-ld';
 
 type HowToInput = {
   name: string;

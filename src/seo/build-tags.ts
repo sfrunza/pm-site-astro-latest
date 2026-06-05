@@ -1,5 +1,5 @@
 import { escape } from "html-escaper";
-import type { AstroSeoProps, OpenGraphMedia } from "@/types/seo";
+import type { AstroSeoProps, OpenGraphMedia } from '@/seo/types';
 
 const createMetaTag = (attributes: Record<string, string>): string => {
   const attrs = Object.entries(attributes)

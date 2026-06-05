@@ -294,7 +294,7 @@ export const relatedLinksByPath: Record<string, RelatedLink[]> = {
   ],
 };
 
-import { normalizeCanonicalPath } from '@/config/seo';
+import { normalizeCanonicalPath } from '@/seo';
 
 /** Strip trailing slashes so lookups work in dev and directory-format production builds. */
 export function normalizePathKey(pathname: string): string {

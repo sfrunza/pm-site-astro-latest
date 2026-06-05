@@ -12,14 +12,15 @@ import FeatureImageLeft from '@/blocks/feature/FeatureImageLeft.astro';
 import FeatureImageRight from '@/blocks/feature/FeatureImageRight.astro';
 import FeatureSteps from '@/blocks/feature/FeatureSteps.astro';
 import Services1 from '@/blocks/services/Services1.astro';
-import Hero2 from '@/components/Hero2.astro';
+import Hero2, { getHero2LcpPreload } from '@/components/Hero2.astro';
 import Layout from '@/layouts/Layout.astro';
 import { SITE } from '@/config/site';
-import { buildPageSeo } from '@/config/seo';
-import { getLcpPreload } from '@/utils/lcp-preload';
+import { fetchPageSeo, getSocialImageUrl } from '@/seo';
 
-const lcpPreload = await getLcpPreload(heroBg);
-const seo = buildPageSeo(Astro.url, {
+const lcpPreload = await getHero2LcpPreload(heroBg);
+const socialImageUrl = await getSocialImageUrl(heroBg);
+
+const seo = await fetchPageSeo(Astro.url, {
   title: 'About our company - Phoenix Moving & Storage',
   description:
     'Learn about Phoenix Moving & Storage — a licensed, insured Boston-area moving company offering local and long-distance moves, packing and storage.',
@@ -30,6 +31,7 @@ const seo = buildPageSeo(Astro.url, {
     { name: 'Home', path: '/' },
     { name: 'About', path: '/about' },
   ],
+  ogImage: socialImageUrl,
 });
 ---
 
@@ -58,6 +60,7 @@ const seo = buildPageSeo(Astro.url, {
     label="Who We Are"
     image={featureImage}
     alt="Phoenix Moving crew with truck"
+    class="defer-section"
   >
     <p>
       {SITE.businessName} is a professional moving and storage company based in the
@@ -83,6 +86,7 @@ const seo = buildPageSeo(Astro.url, {
     subtitle="Your belongings are protected every step of the way."
     image={heroBg}
     alt="Phoenix Moving professional crew"
+    class="defer-section"
   >
     <p>
       {SITE.businessName} is fully licensed with the Massachusetts Department of Public
@@ -120,37 +124,43 @@ const seo = buildPageSeo(Astro.url, {
       src: featureImage,
       alt: 'Phoenix Moving crew loading a truck',
     }}
+    class="defer-section"
   />
 
   <Services1
     label="What We Offer"
     title="Moving services."
     subtitle="From local apartment moves to interstate relocations, we provide end-to-end moving solutions tailored to your needs and budget."
+    class="defer-section"
   />
 
   <Feature2
     title="The Moving Company That Actually Cares."
     label="Why Choose Us"
+    class="defer-section"
   />
 
   <CTA2
     title="Move with Phoenix Moving Boston."
     description="Request a free estimate — no credit card required."
+    class="defer-section"
   />
 
   <FeatureSteps
     label="How It Works"
     title="Moving Is Easy With Us — Here's How"
     subtitle="We've streamlined the moving process so there are no surprises on moving day."
+    class="defer-section"
   />
 
-  <Cities1 />
+  <Cities1 class="defer-section" />
 
-  <Carousel1 />
+  <Carousel1 class="defer-section" />
 
   <CTA1
     title="Ready to Move? Get Your Free Quote Today."
     description="Join hundreds of happy families who made their move stress-free. No obligation, no pressure — just an honest estimate."
     secondaryButton={{ text: 'View Pricing', href: '/pricing' }}
+    class="defer-section"
   />
 </Layout>

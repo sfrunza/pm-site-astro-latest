@@ -7,7 +7,7 @@ import FAQ1 from '@/blocks/faq/FAQ1.astro';
 import Feature2 from '@/blocks/feature/Feature2.astro';
 import Feature3 from '@/blocks/feature/Feature3.astro';
 import Container from '@/components/Container.astro';
-import Hero2 from '@/components/Hero2.astro';
+import Hero2, { getHero2LcpPreload } from '@/components/Hero2.astro';
 import Section from '@/components/Section.astro';
 import Button from '@/components/starwind/button';
 import {
@@ -20,17 +20,18 @@ import { Image } from '@/components/starwind/image';
 import Prose from '@/components/starwind/prose';
 import Layout from '@/layouts/Layout.astro';
 import MoveSuppliesCalculator1 from '@/blocks/calculator/MoveSuppliesCalculator1.astro';
-import Packages from '@/blocks/packages/Packages.astro';
 import RelatedServices from '@/blocks/related/RelatedServices.astro';
-import { buildPageSeo } from '@/config/seo';
+import { fetchPageSeo, getSocialImageUrl } from '@/seo';
 import { getRelatedLinks, getServiceFaqs } from '@/config/service-faqs';
-import { getLcpPreload } from '@/utils/lcp-preload';
-import { servicePageJsonLd } from '@/utils/page-schema';
+import { servicePageJsonLd } from '@/seo';
+import Packages from '@/blocks/packages/Packages.astro';
 
 const pathname = Astro.url.pathname;
 const pageFaqs = getServiceFaqs(pathname);
-const lcpPreload = await getLcpPreload(heroBg);
-const seo = buildPageSeo(Astro.url, {
+const lcpPreload = await getHero2LcpPreload(heroBg);
+const socialImageUrl = await getSocialImageUrl(heroBg);
+
+const seo = await fetchPageSeo(Astro.url, {
   title: 'Packing Services - Phoenix Moving Boston',
   description:
     'Professional packing and unpacking services plus moving boxes and supplies. Our experienced team protects your belongings for a stress-free move.',
@@ -46,6 +47,7 @@ const seo = buildPageSeo(Astro.url, {
     description:
       'Full and partial packing services with quality materials for residential and commercial moves in the Boston area.',
   },
+  ogImage: socialImageUrl,
   jsonLdExtra: servicePageJsonLd(pathname),
 });
 ---
@@ -65,7 +67,7 @@ const seo = buildPageSeo(Astro.url, {
     ]}
   />
 
-  <Section class="py-16">
+  <Section class="py-16 defer-section">
     <Container class="@container">
       <div class="grid @2xl:grid-cols-2 @4xl:grid-cols-3 gap-6">
         <!-- 1st card -->
@@ -166,12 +168,15 @@ const seo = buildPageSeo(Astro.url, {
       </div>
     </Container>
   </Section>
-  <Carousel2 />
-  <MoveSuppliesCalculator1 />
-  <Packages />
-  <Feature2 title="Why Choose Us As Your Packing Services?" />
-  <CTA2 />
-  <RelatedServices links={getRelatedLinks(pathname)} />
-  <FAQ1 items={pageFaqs} />
-  <CTA1 />
+  <Carousel2 class="defer-section" />
+  <MoveSuppliesCalculator1 class="defer-section" />
+  <Packages class="defer-section" />
+  <Feature2
+    title="Why Choose Us As Your Packing Services?"
+    class="defer-section"
+  />
+  <CTA2 class="defer-section" />
+  <RelatedServices links={getRelatedLinks(pathname)} class="defer-section" />
+  <FAQ1 items={pageFaqs} class="defer-section" />
+  <CTA1 class="defer-section" />
 </Layout>

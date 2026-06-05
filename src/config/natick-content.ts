@@ -181,33 +181,6 @@ const natickRelatedLinks: RelatedLink[] = [
   },
 ];
 
-const natickReviews = [
-  {
-    author: 'Sarah M.',
-    location: 'Natick Center',
-    rating: 5,
-    text: 'Crew was on time, careful with our condo elevator, and finished faster than quoted. Highly recommend for Natick moves.',
-  },
-  {
-    author: 'James T.',
-    location: 'West Natick',
-    rating: 5,
-    text: 'Transparent pricing and professional packing. They handled our Route 9 townhome without a scratch.',
-  },
-  {
-    author: 'Priya K.',
-    location: 'South Natick',
-    rating: 5,
-    text: 'Phoenix Moving coordinated COI for our building and made move day stress-free. Great communication start to finish.',
-  },
-  {
-    author: 'Michael R.',
-    location: 'Framingham → Natick',
-    rating: 5,
-    text: 'Interstate-style care on a local job. Furniture placed exactly where we wanted. Will use again.',
-  },
-];
-
 const natickFaqs: Faq[] = [
   {
     question: 'How much do Natick movers cost?',
@@ -330,13 +303,7 @@ export const natickPremium: CityPremiumContent = {
     subtitle:
       'Local moves are billed hourly with prorated travel from our Natick warehouse. Long-distance jobs use flat-rate quotes with fuel and tolls included.',
   },
-  reviews: {
-    label: 'Reviews',
-    title: 'What Natick customers say',
-    subtitle:
-      '4.98★ average from 243+ verified reviews—MetroWest homeowners trust Phoenix Moving for careful, on-time crews.',
-    items: natickReviews,
-  },
+  reviews: true,
   faq: {
     title: 'Natick moving FAQ',
     label: 'Questions about Natick moves',

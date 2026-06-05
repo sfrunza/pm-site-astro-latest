@@ -1,17 +1,29 @@
 import type { CityPremiumContent } from '@/config/city-premium/types';
-import type { AstroSeoProps } from '@/types/seo';
+import { getGoogleReviews } from '@/lib/google-reviews';
 import {
   buildFaqJsonLd,
   buildHowToJsonLd,
   buildLocalMoverJsonLd,
-  buildPageSeo,
   stripHtmlForSchema,
-} from '@/config/seo';
+} from '@/seo/json-ld';
+import { buildPageSeo } from '@/seo/page-seo';
+import type { AstroSeoProps } from '@/seo/types';
 
-export function buildCityPremiumPageSeo(
+/** Fetches reviews once (cached per build) and builds city premium SEO. */
+export async function fetchCityPremiumPageSeo(
   content: CityPremiumContent,
   pageUrl: URL,
   socialImageUrl?: string,
+): Promise<AstroSeoProps> {
+  const reviewsData = await getGoogleReviews();
+  return buildCityPremiumPageSeo(content, pageUrl, socialImageUrl, reviewsData);
+}
+
+function buildCityPremiumPageSeo(
+  content: CityPremiumContent,
+  pageUrl: URL,
+  socialImageUrl: string | undefined,
+  reviewsData: Awaited<ReturnType<typeof getGoogleReviews>>,
 ): AstroSeoProps {
   const pathname = content.path;
 
@@ -26,6 +38,8 @@ export function buildCityPremiumPageSeo(
         { '@type': 'State', name: 'Massachusetts' },
       ],
       geo: content.schema.geo,
+      reviewsData,
+      includeReviews: content.reviews,
     }),
     buildFaqJsonLd(
       pathname,
@@ -61,6 +75,7 @@ export function buildCityPremiumPageSeo(
     },
     ogImage: socialImageUrl,
     ogImageAlt: content.ogImageAlt,
+    reviewsData,
     jsonLdExtra,
   });
 }
