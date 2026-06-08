@@ -1,42 +1,44 @@
 ---
+import heroBg from '@/assets/heros/home.webp';
 import Container from '@/components/Container.astro';
 import Section from '@/components/Section.astro';
+import SectionHeader from '@/components/SectionHeader.astro';
 import { Card } from '@/components/starwind/card';
-import {
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-  CarouselNext,
-  CarouselPrevious,
-} from '@/components/starwind/carousel';
 import { Image } from '@/components/starwind/image';
-import heroBg from '@/assets/heros/home.webp';
 ---
 
-<Section class="py-16">
-  <Container class="relative">
-    <Carousel opts={{ align: 'start', loop: true }}>
-      <CarouselContent>
-        {
-          Array.from({ length: 5 }).map((_, index) => (
-            <CarouselItem class="pl-4 basis-[80%] sm:basis-[40%] md:basis-[28.5%] lg:basis-[22.22%]">
-              <div class="p-1">
-                <Card class="aspect-square p-0 overflow-hidden">
-                  <Image
-                    src={heroBg}
-                    alt="gallery image"
-                    class="size-full object-cover"
-                    loading="lazy"
-                    title="Phoenix Moving Gallery"
-                  />
-                </Card>
-              </div>
-            </CarouselItem>
-          ))
-        }
-      </CarouselContent>
-      <CarouselPrevious />
-      <CarouselNext />
-    </Carousel>
+<Section class="overflow-visible py-16">
+  <Container>
+    <SectionHeader
+      title="Phoenix Moving Gallery."
+      position="left"
+      class="mb-6"
+    />
   </Container>
+  <div class="carousel-breakout">
+    <ul
+      class="carousel-scroller"
+      tabindex="0"
+      aria-label="Phoenix Moving Gallery"
+    >
+      {
+        Array.from({ length: 5 }).map((_, index) => (
+          <li class="carousel-item w-72">
+            <div class="p-1">
+              <Card class="aspect-square overflow-hidden p-0 ring-0 shadow-md">
+                <Image
+                  src={heroBg}
+                  alt={`Phoenix Moving Gallery ${index}`}
+                  title={`Phoenix Moving Gallery ${index}`}
+                  class="size-full object-cover"
+                  loading="lazy"
+                  fetchpriority="low"
+                />
+              </Card>
+            </div>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
 </Section>

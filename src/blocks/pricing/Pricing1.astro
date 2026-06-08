@@ -13,6 +13,7 @@ import Section from '@/components/Section.astro';
 import SectionHeader from '@/components/SectionHeader.astro';
 import Container from '@/components/Container.astro';
 import { tv } from 'tailwind-variants';
+import RotatingGradientBorder from '@/components/RotatingGradientBorder.astro';
 
 type Price = {
   two_men: [number, number];
@@ -95,54 +96,108 @@ const { class: className = '' } = Astro.props;
     />
     <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
       {
-        tiers.map((tier) => (
-          <Card class="relative overflow-visible gap-2 hover:shadow-lg hover:-translate-y-1 transition-all">
-            {tier.isPopular && (
-              <div class="bg-secondary rounded-full text-secondary-foreground absolute top-[-12px] right-0 left-0 mx-auto w-fit px-4 py-1 text-center text-xs font-medium shadow-sm">
-                MOST POPULAR
-              </div>
-            )}
-            <CardHeader class="gap-0">
-              <CardTitle class="text-lg font-bold">{tier.name}</CardTitle>
-              <CardDescription>& Truck</CardDescription>
-            </CardHeader>
-            <CardContent>
-              <p class="text-muted-foreground mt-4 text-sm">
-                {tier.description}
-              </p>
-              <p class="text-4xl font-semibold tracking-tight">
-                ${tier.priceMonthly}
-                <span class="text-muted-foreground ml-1 text-sm font-normal tracking-normal">
-                  per hour
-                </span>
-              </p>
-              <p class="my-8 font-semibold">{tier.sizes}</p>
-              <Button
-                variant="primary"
-                class="w-full"
-                title="Get a Quote"
-                href={tier.href}
-                aria-label="Get a Quote"
-              >
-                Get a Quote
-              </Button>
-              <div class="mt-6">
-                <p class="font-semibold">What&apos;s included</p>
-                <ul class="mt-6 space-y-4">
-                  {tier.includedFeatures.map((feature) => (
-                    <li class="flex space-x-3">
-                      <CircleCheckIcon
-                        class="size-5 shrink-0 mt-[3px] text-green-600"
-                        aria-hidden="true"
-                      />
-                      <span>{feature}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </CardContent>
-          </Card>
-        ))
+        tiers.map((tier) => {
+          const isPopular = tier.isPopular;
+
+          if (isPopular) {
+            return (
+              <RotatingGradientBorder class="text-card-foreground group/card ring-border flex flex-col rounded-3xl bg-card py-6 relative overflow-visible gap-6 hover:shadow-lg hover:-translate-y-1 transition-all">
+                {tier.isPopular && (
+                  <div class="bg-secondary rounded-full text-secondary-foreground absolute top-[-12px] right-0 left-0 mx-auto w-fit px-4 py-1 text-center text-xs font-medium shadow-sm">
+                    MOST POPULAR
+                  </div>
+                )}
+                <CardHeader class="gap-0">
+                  <CardTitle class="text-lg font-bold">{tier.name}</CardTitle>
+                  <CardDescription>& Truck</CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <p class="text-muted-foreground mt-4 text-sm">
+                    {tier.description}
+                  </p>
+                  <p class="text-4xl font-semibold tracking-tight">
+                    ${tier.priceMonthly}
+                    <span class="text-muted-foreground ml-1 text-sm font-normal tracking-normal">
+                      per hour
+                    </span>
+                  </p>
+                  <p class="my-8 font-semibold">{tier.sizes}</p>
+                  <Button
+                    variant="primary"
+                    class="w-full"
+                    title="Get a Quote"
+                    href={tier.href}
+                    aria-label="Get a Quote"
+                  >
+                    Get a Quote
+                  </Button>
+                  <div class="mt-6">
+                    <p class="font-semibold">What&apos;s included</p>
+                    <ul class="mt-6 space-y-4">
+                      {tier.includedFeatures.map((feature) => (
+                        <li class="flex space-x-3">
+                          <CircleCheckIcon
+                            class="size-5 shrink-0 mt-[3px] text-green-600"
+                            aria-hidden="true"
+                          />
+                          <span>{feature}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                </CardContent>
+              </RotatingGradientBorder>
+            );
+          }
+          return (
+            <Card class="hover:shadow-lg hover:-translate-y-1 transition-all">
+              {tier.isPopular && (
+                <div class="bg-secondary rounded-full text-secondary-foreground absolute top-[-12px] right-0 left-0 mx-auto w-fit px-4 py-1 text-center text-xs font-medium shadow-sm">
+                  MOST POPULAR
+                </div>
+              )}
+              <CardHeader class="gap-0">
+                <CardTitle class="text-lg font-bold">{tier.name}</CardTitle>
+                <CardDescription>& Truck</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <p class="text-muted-foreground mt-4 text-sm">
+                  {tier.description}
+                </p>
+                <p class="text-4xl font-semibold tracking-tight">
+                  ${tier.priceMonthly}
+                  <span class="text-muted-foreground ml-1 text-sm font-normal tracking-normal">
+                    per hour
+                  </span>
+                </p>
+                <p class="my-8 font-semibold">{tier.sizes}</p>
+                <Button
+                  variant="primary"
+                  class="w-full"
+                  title="Get a Quote"
+                  href={tier.href}
+                  aria-label="Get a Quote"
+                >
+                  Get a Quote
+                </Button>
+                <div class="mt-6">
+                  <p class="font-semibold">What&apos;s included</p>
+                  <ul class="mt-6 space-y-4">
+                    {tier.includedFeatures.map((feature) => (
+                      <li class="flex space-x-3">
+                        <CircleCheckIcon
+                          class="size-5 shrink-0 mt-[3px] text-green-600"
+                          aria-hidden="true"
+                        />
+                        <span>{feature}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </CardContent>
+            </Card>
+          );
+        })
       }
       <div class="flex flex-col justify-between gap-6">
         <Card

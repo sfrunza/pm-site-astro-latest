@@ -1,0 +1,63 @@
+---
+/** Persists UTM / referral params in sessionStorage and exposes them to the CRM booking widget. */
+---
+
+<script is:inline>
+  (function () {
+    var STORAGE_KEY = 'pm_attribution';
+    var PARAM_KEYS = [
+      'utm_source',
+      'utm_medium',
+      'utm_campaign',
+      'utm_content',
+      'utm_term',
+      'source',
+      'gclid',
+      'fbclid',
+      'msclkid',
+    ];
+
+    function readFromUrl() {
+      var params = new URLSearchParams(window.location.search);
+      var data = {};
+      PARAM_KEYS.forEach(function (key) {
+        var value = params.get(key);
+        if (value) data[key] = value;
+      });
+      return Object.keys(data).length ? data : null;
+    }
+
+    function readStored() {
+      try {
+        var raw = sessionStorage.getItem(STORAGE_KEY);
+        return raw ? JSON.parse(raw) : null;
+      } catch {
+        return null;
+      }
+    }
+
+    function save(data) {
+      try {
+        sessionStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+      } catch {}
+    }
+
+    function applyAttribution() {
+      var fromUrl = readFromUrl();
+      var stored = readStored();
+      var attribution = fromUrl ? Object.assign({}, stored, fromUrl) : stored;
+
+      if (fromUrl && attribution) save(attribution);
+      if (!attribution) return;
+
+      window.__BOOKING_WIDGET_CONFIG__ = Object.assign(
+        {},
+        window.__BOOKING_WIDGET_CONFIG__ || {},
+        { attribution: attribution },
+      );
+    }
+
+    applyAttribution();
+    document.addEventListener('astro:page-load', applyAttribution);
+  })();
+</script>

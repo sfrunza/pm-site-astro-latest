@@ -19,7 +19,7 @@ const heroWidths = [480, 640, 768, 896, 1024, 1280];
 
 /** Pair with `<Layout lcpPreload={await getBlogHeroLcpPreload(image)} />`. */
 export async function getBlogHeroLcpPreload(
-  src: ImageMetadata | undefined,
+  src: ImageMetadata | undefined
 ): Promise<(LcpPreloadLink & { imagesizes: string }) | undefined> {
   if (!src) return undefined;
 

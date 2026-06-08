@@ -27,28 +27,6 @@
 }
 
 @layer utilities {
-  .skip-link {
-    position: absolute;
-    left: 1rem;
-    top: 1rem;
-    z-index: 100;
-    border-radius: 9999px;
-    background-color: var(--color-primary);
-    color: var(--color-primary-foreground);
-    padding: 0.5rem 1rem;
-    font-size: 0.875rem;
-    font-weight: 600;
-    text-decoration: none;
-    transform: translateY(-200%);
-    transition: transform 0.2s ease;
-  }
-
-  .skip-link:focus {
-    transform: translateY(0);
-    outline: 3px solid var(--color-secondary);
-    outline-offset: 2px;
-  }
-
   .text-outline-muted {
     text-shadow:
       -1px -1px 0 var(--color-neutral-400),
@@ -61,10 +39,104 @@
       0 1px 0 var(--color-neutral-400);
   }
 
-  /** Below-fold sections: defer layout/paint until near viewport (modern-web-guidance). */
   .defer-section {
     content-visibility: auto;
     contain-intrinsic-size: auto none auto 28rem;
+  }
+
+  /**
+   * Breakout shell: aligns to Container on the left, clips on the right.
+   * Pair with `.carousel-scroller` (carousel-snap-highlights / carousel-slide-effects).
+   */
+  .carousel-breakout {
+    --container-max: 83rem;
+    --container-padding: 1rem;
+    --container-inset: max(
+      var(--container-padding),
+      calc((100vw - var(--container-max)) / 2 + var(--container-padding))
+    );
+
+    position: relative;
+    z-index: 10;
+    overflow-x: clip;
+    overflow-y: visible;
+  }
+
+  /**
+   * Native scroll-snap carousel scroller (carousel-slide-effects).
+   * Also a scroll-state container for affordance queries (scrollability-affordance-hints).
+   */
+  .carousel-scroller {
+    display: flex;
+    gap: 1rem;
+    margin: 0;
+    list-style: none;
+    position: relative;
+    container-type: scroll-state;
+    overflow-x: auto;
+    overflow-y: clip;
+    overscroll-behavior-x: contain;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+    padding-block: 1rem;
+    padding-inline-start: var(--container-inset);
+    scroll-padding-inline-start: var(--container-inset);
+    padding-inline-end: var(--container-padding);
+  }
+
+  /** Snap target + scroll-state query container (carousel-snap-highlights). */
+  .carousel-item {
+    flex-shrink: 0;
+    scroll-snap-align: start;
+    container-type: scroll-state;
+  }
+
+  @supports (container-type: scroll-state) {
+    @media (prefers-reduced-motion: no-preference) {
+      @container scroll-state(snapped: x) {
+        .carousel-card {
+          scale: 1.02;
+          box-shadow: 0 10px 25px
+            color-mix(in oklch, var(--color-primary) 18%, transparent);
+        }
+      }
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .carousel-card {
+      transition: none !important;
+      scale: 1 !important;
+    }
+  }
+
+  .parallax-bg {
+    top: calc(-1 * var(--parallax-shift, 12%) - 8%);
+    height: calc(100% + var(--parallax-shift, 12%) * 2 + 16%);
+  }
+
+  @supports ((animation-timeline: view()) and (animation-range: entry)) {
+    @media (prefers-reduced-motion: no-preference) {
+      .parallax {
+        view-timeline-name: --parallax;
+        view-timeline-axis: block;
+      }
+
+      .parallax-bg {
+        animation: parallax-scroll linear both;
+        animation-timeline: --parallax;
+        animation-range: cover;
+      }
+    }
+  }
+}
+
+@keyframes parallax-scroll {
+  from {
+    transform: translateY(calc(-1 * var(--parallax-shift, 12%)));
+  }
+  to {
+    transform: translateY(var(--parallax-shift, 12%));
   }
 }
 

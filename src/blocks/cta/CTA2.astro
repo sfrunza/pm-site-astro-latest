@@ -1,5 +1,5 @@
 ---
-import { ArrowRight } from '@/icons';
+import { ArrowRight, Receipt2Icon } from '@/icons';
 import type { HTMLAttributes } from 'astro/types';
 import { tv } from 'tailwind-variants';
 
@@ -8,6 +8,7 @@ import Section from '@/components/Section.astro';
 import Container from '@/components/Container.astro';
 import SectionHeader from '@/components/SectionHeader.astro';
 import RotatingGradientBorder from '@/components/RotatingGradientBorder.astro';
+import { SITE } from '@/config/site';
 
 export interface ButtonConfig {
   text: string;
@@ -30,8 +31,8 @@ const cta2Styles = tv({
 });
 
 const {
-  title = 'Move with Phoenix Moving Boston.',
-  description = 'No credit card required.',
+  title = `Move with ${SITE.businessShortName} Boston.`,
+  description = '',
   primaryButton = { text: 'Request Free Estimate Online', href: '/book' },
   secondaryButton,
   class: className,
@@ -43,24 +44,44 @@ const {
   <Container class="text-center">
     <RotatingGradientBorder class="rounded-3xl bg-card px-8 py-24">
       <SectionHeader title={title} subtitle={description} />
-      <div
-        class="flex
-      flex-wrap
-      items-center
-      justify-center
-      gap-4"
-      >
-        <Button variant="primary" href={primaryButton.href}>
-          {primaryButton.text}
-        </Button>
-        {
-          secondaryButton && (
-            <Button variant="outline" class="group" href={secondaryButton.href}>
-              {secondaryButton.text}
-              <ArrowRight class="transition-transform group-hover:translate-x-1" />
-            </Button>
-          )
-        }
+      <div class="group/cta -mt-6 flex flex-col items-center">
+        <p
+          class="mb-8 inline-flex w-fit -rotate-1 items-center gap-2.5 rounded-lg border border-dashed border-primary/25 bg-background/60 px-4 py-2 text-sm text-muted-foreground shadow-[3px_3px_0_0] shadow-primary/10 backdrop-blur-xs transition-transform duration-300 group-hover/cta:rotate-0"
+          aria-label="Pricing transparency guarantee"
+        >
+          <span
+            class="bg-primary/10 text-primary flex size-7 shrink-0 items-center justify-center rounded-full"
+            aria-hidden="true"
+          >
+            <Receipt2Icon class="size-4" />
+          </span>
+          <span>
+            We never have
+            <span class="text-foreground font-semibold"> hidden fees</span>
+          </span>
+        </p>
+        <div class="flex flex-wrap items-center justify-center gap-4">
+          <Button
+            variant="primary"
+            aria-label={primaryButton.text}
+            href={primaryButton.href}
+          >
+            {primaryButton.text}
+          </Button>
+          {
+            secondaryButton && (
+              <Button
+                variant="outline"
+                class="group"
+                aria-label={secondaryButton.text}
+                href={secondaryButton.href}
+              >
+                {secondaryButton.text}
+                <ArrowRight class="transition-transform group-hover:translate-x-1" />
+              </Button>
+            )
+          }
+        </div>
       </div>
     </RotatingGradientBorder>
   </Container>

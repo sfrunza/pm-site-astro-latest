@@ -6,6 +6,7 @@ import { tv } from 'tailwind-variants';
 import { ExternalLinkIcon } from '@/icons';
 import MouseRepelParticles from '@/components/MouseRepelParticles.astro';
 import { getGoogleReviews } from '@/lib/google-reviews';
+import SectionHeader from '@/components/SectionHeader.astro';
 
 interface Props {
   title?: string;
@@ -40,14 +41,14 @@ const reviews1 = tv({
 <Section class={reviews1({ class: className })}>
   <MouseRepelParticles />
   <Container>
-    <div class="text-center mb-12">
-      <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold mb-4">
-        {title}
+    <SectionHeader label="Reviews" title={title} subtitle={subtitle} />
+    <!-- <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold mb-4">
+      {title}
       </h2>
       <p class="text-lg text-muted-foreground mb-6 max-w-2xl mx-auto">
         {subtitle}
-      </p>
-
+        </p> -->
+    <div class="text-center mb-12">
       {
         averageRating > 0 && (
           <div class="flex items-center justify-center gap-4 mb-6">

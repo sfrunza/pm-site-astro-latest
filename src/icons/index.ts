@@ -2,6 +2,7 @@ import PhoneIcon from '@tabler/icons/outline/phone.svg';
 import UserIcon from '@tabler/icons/outline/user.svg';
 import ChevronDownIcon from '@tabler/icons/outline/chevron-down.svg';
 import ChevronLeftIcon from '@tabler/icons/outline/chevron-left.svg';
+import ChevronRightIcon from '@tabler/icons/outline/chevron-right.svg';
 import MailIcon from '@tabler/icons/outline/mail.svg';
 import MenuIcon from '@tabler/icons/outline/menu.svg';
 import CheckIcon from '@tabler/icons/outline/check.svg';
@@ -26,6 +27,7 @@ export {
   UserIcon,
   ChevronDownIcon,
   ChevronLeftIcon,
+  ChevronRightIcon,
   MailIcon,
   MenuIcon,
   CheckIcon,

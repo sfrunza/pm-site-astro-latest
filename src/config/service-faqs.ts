@@ -48,7 +48,7 @@ export const serviceFaqsByPath: Record<string, ServiceFaq[]> = {
     {
       question: 'Do you provide boxes and packing materials?',
       answer:
-        '<p>Yes. We supply boxes, wardrobe cartons, dish packs, and protective materials. Ask about supply bundles when you <a href="/book">book your move</a>.</p>',
+        '<p>Yes. We supply boxes, wardrobe cartons, dish packs, and protective materials. Ask about supply bundles when you <a href="/book" aria-label="Book your move">book your move</a>.</p>',
     },
     {
       question: 'What is full-service packing?',

@@ -19,7 +19,7 @@ import {
 import { Image } from '@/components/starwind/image';
 import Prose from '@/components/starwind/prose';
 import Layout from '@/layouts/Layout.astro';
-import MoveSuppliesCalculator1 from '@/blocks/calculator/MoveSuppliesCalculator1.astro';
+// import MoveSuppliesCalculator1 from '@/blocks/calculator/MoveSuppliesCalculator1.astro';
 import RelatedServices from '@/blocks/related/RelatedServices.astro';
 import { fetchPageSeo, getSocialImageUrl } from '@/seo';
 import { getRelatedLinks, getServiceFaqs } from '@/config/service-faqs';
@@ -88,7 +88,10 @@ const seo = await fetchPageSeo(Astro.url, {
             <CardContent
               class="flex justify-between gap-6 @xl:p-8 flex-col p-6"
             >
-              <h2 class="text-2xl font-bold">
+              <h2
+                class="text-2xl font-bold"
+                aria-label="Packing and unpacking services"
+              >
                 Packing and unpacking services.
               </h2>
               <Prose>
@@ -103,10 +106,15 @@ const seo = await fetchPageSeo(Astro.url, {
                 as finding a new home or making travel arrangements. With our
                 packing service, you can rest assured that your items will be
                 securely and safely transported to your new home.
-                <a href="/pricing">View pricing page</a>.
+                <a href="/pricing" aria-label="View pricing page"
+                  >View pricing page</a
+                >.
               </Prose>
-              <Button class="mr-auto" variant="primary" href="/book"
-                >Get a Free Quote</Button
+              <Button
+                class="mr-auto"
+                variant="primary"
+                href="/book"
+                aria-label="Get a free quote">Get a Free Quote</Button
               >
             </CardContent>
           </div>
@@ -159,9 +167,9 @@ const seo = await fetchPageSeo(Astro.url, {
               as boxes, packing tape, and bubble wrap. You pay only for the
               boxes you use, and we will collect any unused boxes on the day of
               your move. Don&apos;t know how many boxes you need for your move
-              size? Use our
-              <a href="#packing-calculator">packing calculator</a> or browse
-              <a href="#packages">package tables</a>.
+              size? Browse our
+              <a href="#packages" aria-label="Package tables">package tables</a
+              >.
             </Prose>
           </CardContent>
         </Card>
@@ -169,7 +177,7 @@ const seo = await fetchPageSeo(Astro.url, {
     </Container>
   </Section>
   <Carousel2 class="defer-section" />
-  <MoveSuppliesCalculator1 class="defer-section" />
+  <!-- <MoveSuppliesCalculator1 class="defer-section" /> -->
   <Packages class="defer-section" />
   <Feature2
     title="Why Choose Us As Your Packing Services?"

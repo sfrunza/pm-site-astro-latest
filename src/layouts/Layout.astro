@@ -8,6 +8,7 @@ import { Font } from 'astro:assets';
 import AstroSeo from '@/seo/AstroSeo.astro';
 import LcpPreloadLink from '@/components/LcpPreloadLink.astro';
 import Analytics from '@/components/Analytics.astro';
+import AttributionCapture from '@/components/AttributionCapture.astro';
 import Contact1 from '@/blocks/contact/Contact1.astro';
 import type { AstroSeoProps } from '@/seo';
 import type { LcpPreloadLink as LcpPreloadData } from '@/utils/lcp-preload';
@@ -73,6 +74,7 @@ const { lcpPreload, ...seoProps } = Astro.props;
       googleAnalyticsId={SITE.googleAnalyticsId}
       googleTagManagerId={SITE.googleTagManagerId}
     />
+    <AttributionCapture />
   </head>
   <body class="flex min-h-screen flex-col overflow-x-hidden bg-violet-50/30">
     <PageGrid />

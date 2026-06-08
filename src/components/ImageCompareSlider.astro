@@ -1,5 +1,7 @@
 ---
+import { ChevronRightIcon, ChevronLeftIcon } from '@/icons';
 import { Picture } from 'astro:assets';
+import Button from './starwind/button';
 
 /**
  * ImageCompare.astro
@@ -39,7 +41,7 @@ const id = `sic-${Math.random().toString(36).slice(2, 9)}`;
 ---
 
 <div
-  class="sic-root border bg-muted/50 rounded-3xl"
+  class="sic-root group border bg-muted/50 rounded-3xl"
   id={id}
   data-start={startPos}
   style={`--sic-pos:${startPos}%; aspect-ratio:${aspectRatio};`}
@@ -84,34 +86,15 @@ const id = `sic-${Math.random().toString(36).slice(2, 9)}`;
 
   <!-- Divider line + handle -->
   <div class="sic-divider" aria-hidden="true">
-    <div class="sic-handle">
-      <svg
-        class="sic-arrow sic-arrow-left"
-        viewBox="0 0 10 16"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <path
-          d="M8 2L2 8L8 14"
-          stroke="currentColor"
-          stroke-width="2.2"
-          stroke-linecap="round"
-          stroke-linejoin="round"></path>
-      </svg>
-      <svg
-        class="sic-arrow sic-arrow-right"
-        viewBox="0 0 10 16"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <path
-          d="M2 2L8 8L2 14"
-          stroke="currentColor"
-          stroke-width="2.2"
-          stroke-linecap="round"
-          stroke-linejoin="round"></path>
-      </svg>
-    </div>
+    <Button
+      variant="ghost"
+      size="icon-lg"
+      tabindex="-1"
+      class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 border border-white/35 bg-white/20 text-white shadow-lg shadow-black/25 backdrop-blur-xs backdrop-saturate-150 transition-[transform,colors,box-shadow] hover:border-white/45 hover:bg-white/30 hover:text-white group-hover:scale-105 group-[.sic-dragging]:scale-105"
+    >
+      <ChevronLeftIcon stroke-width={2.5} />
+      <ChevronRightIcon stroke-width={2.5} />
+    </Button>
   </div>
 
   <!-- Accessible range input for keyboard control -->
@@ -129,8 +112,6 @@ const id = `sic-${Math.random().toString(36).slice(2, 9)}`;
 <style>
   /* ── Root ──────────────────────────────────────────────── */
   .sic-root {
-    --sic-handle-size: 48px;
-
     position: relative;
     display: block;
     width: 100%;
@@ -208,43 +189,6 @@ const id = `sic-${Math.random().toString(36).slice(2, 9)}`;
     background: var(--sic-line-color);
     will-change: left;
     pointer-events: none;
-  }
-
-  /* ── Handle ────────────────────────────────────────────── */
-  .sic-handle {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: var(--sic-handle-size);
-    height: var(--sic-handle-size);
-    border-radius: 50%;
-    background: #fff;
-    box-shadow:
-      0 2px 12px rgba(0, 0, 0, 0.4),
-      0 0 0 2px rgba(255, 255, 255, 0.6);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 2px;
-    transition:
-      transform 0.15s ease,
-      box-shadow 0.15s ease;
-  }
-
-  .sic-root:hover .sic-handle,
-  .sic-root.sic-dragging .sic-handle {
-    transform: translate(-50%, -50%) scale(1.1);
-    box-shadow:
-      0 4px 18px rgba(0, 0, 0, 0.5),
-      0 0 0 3px rgba(255, 255, 255, 0.7);
-  }
-
-  .sic-arrow {
-    width: 10px;
-    height: 16px;
-    color: #222;
-    flex-shrink: 0;
   }
 
   /* ── Range (keyboard / a11y) ───────────────────────────── */
