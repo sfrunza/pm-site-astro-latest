@@ -67,7 +67,7 @@ const seo = await fetchPageSeo(Astro.url, {
       'Safety and Security',
     ]}
   />
-  <Section class="py-16">
+  <Section>
     <Container class="@container">
       <div class="grid @2xl:grid-cols-2 @4xl:grid-cols-3 gap-6">
         <!-- 1st card -->
@@ -80,8 +80,10 @@ const seo = await fetchPageSeo(Astro.url, {
                 <Image
                   src={heroBg}
                   alt="Two movers packing dishes"
-                  class="object-cover size-full starwind-image"
+                  class="object-cover size-full"
                   loading="lazy"
+                  fetchpriority="low"
+                  quality={50}
                 />
               </div>
             </div>

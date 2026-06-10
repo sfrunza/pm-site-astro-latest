@@ -17,7 +17,7 @@ type Props = {
 };
 
 const featureImageRight = tv({
-  base: 'py-16',
+  base: '',
 });
 
 const {
@@ -62,14 +62,15 @@ const {
           <Image
             alt={alt}
             title={alt}
-            class="starwind-image mx-auto max-h-[min(28rem,70dvh)] w-auto max-w-full object-contain"
+            src={image}
+            class="mx-auto max-h-[min(28rem,70dvh)] w-auto max-w-full object-contain"
             data-slot="image"
             decoding="async"
-            fetchpriority="auto"
-            height={450}
+            fetchpriority="low"
             loading="lazy"
-            src={image}
+            height={450}
             width={700}
+            quality={50}
           />
         </div>
       </div>

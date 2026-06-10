@@ -113,7 +113,7 @@ const seo = await fetchPageSeo(Astro.url, {
     </p>
   </FeatureImageRight>
 
-  <Section class="py-16">
+  <Section>
     <Container class="@container">
       <SectionHeader
         position="left"
@@ -131,9 +131,11 @@ const seo = await fetchPageSeo(Astro.url, {
                 <Image
                   src={heroBg}
                   alt="Moving team using equipment to transport heavy items safely"
-                  class="starwind-image size-full object-cover"
+                  class="size-full object-cover"
                   loading="lazy"
                   decoding="async"
+                  fetchpriority="low"
+                  quality={50}
                 />
               </div>
             </div>
@@ -218,7 +220,7 @@ const seo = await fetchPageSeo(Astro.url, {
     </Container>
   </Section>
 
-  <Section class="border-y bg-muted/50 py-16">
+  <Section class="border-y bg-muted/50">
     <Container>
       <SectionHeader
         title="What's included in a piano move"

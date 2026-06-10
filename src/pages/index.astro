@@ -19,20 +19,23 @@ import shkafAfter from '@/assets/shkaf-after.jpeg';
 import medicalChairBefore from '@/assets/medical-chair-before.jpeg';
 import medicalChairAfter from '@/assets/medical-chair-after.jpeg';
 import Reviews1 from '@/blocks/reviews/Reviews1.astro';
+import Partners1 from '@/blocks/partners/Partners1.astro';
 
 const [seo, lcpPreload] = await Promise.all([
   fetchHomeSeo(Astro.url),
   getHomeHeroLcpPreload(),
 ]);
-
 ---
 
 <Layout {...seo} lcpPreload={lcpPreload}>
   <Hero />
-  <Services1 />
+  <Partners1
+    class="bg-linear-to-t from-muted/50 to-transparent defer-section"
+  />
+  <Services1 class="defer-section" />
   <Pricing1 class="defer-section" />
 
-  <Section class="py-16 defer-section bg-muted/50">
+  <Section class="defer-section bg-muted/50">
     <Container>
       <SectionHeader
         label="Protection That Shows"

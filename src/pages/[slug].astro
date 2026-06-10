@@ -51,7 +51,7 @@ const cityFaqs = [
   },
   {
     question: `How do I get a moving quote in ${city.name}?`,
-    answer: `<p><a href="/book">Book online</a> or call us for a free, no-obligation estimate tailored to your ${city.name} move.</p>`,
+    answer: `<p><a href="/book" aria-label="Book online">Book online</a> or call us for a free, no-obligation estimate tailored to your ${city.name} move.</p>`,
   },
   {
     question: `Are your ${city.name} movers licensed and insured?`,
@@ -156,16 +156,26 @@ const seo = await fetchPageSeo(Astro.url, {
     </p>
     <p>{city.description}</p>
     <p>
-      Ready to move in or out of {city.name}? Compare our <a href="/pricing"
-        >moving prices</a
-      >, explore <a href="/local-moving">local moving services</a>, or <a
-        href="/book">book your free quote</a
+      Ready to move in or out of {city.name}? Compare our <a
+        href="/pricing"
+        aria-label="Moving prices">moving prices</a
+      >, explore <a href="/local-moving" aria-label="Local moving services"
+        >local moving services</a
+      >, or <a href="/book" aria-label="Book your free quote"
+        >book your free quote</a
       > today.
     </p>
 
     <Fragment slot="actions">
-      <Button variant="primary" href="/book">Get a free quote</Button>
-      <Button variant="outline" class="group" href="/pricing">
+      <Button variant="primary" href="/book" aria-label="Get a free quote"
+        >Get a free quote</Button
+      >
+      <Button
+        variant="outline"
+        class="group"
+        href="/pricing"
+        aria-label="View hourly rates"
+      >
         View hourly rates
         <ArrowRight class="transition-transform group-hover:translate-x-1" />
       </Button>

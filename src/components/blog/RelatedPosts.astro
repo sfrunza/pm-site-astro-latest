@@ -14,7 +14,7 @@ const { posts } = Astro.props;
 if (posts.length === 0) return;
 ---
 
-<Section class="py-12">
+<Section>
   <Container>
     <SectionHeader
       position="left"
@@ -22,9 +22,7 @@ if (posts.length === 0) return;
       label="Keep reading"
     />
     <div class="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-      {posts.map((post) => (
-        <BlogCard post={post} />
-      ))}
+      {posts.map((post) => <BlogCard post={post} />)}
     </div>
   </Container>
 </Section>

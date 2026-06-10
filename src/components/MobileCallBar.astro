@@ -1,0 +1,94 @@
+---
+import { SITE } from '@/config/site';
+import { PhoneIcon, IconStar } from '@/icons';
+
+/** Sticky, mobile-only call/quote bar. Hidden from `lg` up. */
+const telHref = `tel:${SITE.contactPhone.replace(/[^+\d]/g, '')}`;
+---
+
+<div
+  class="pointer-events-none fixed inset-x-0 bottom-0 z-40 md:hidden"
+  aria-label="Quick contact"
+>
+  <!-- Soft fade so the bar reads cleanly over any content -->
+  <!-- class="pointer-events-none bg-background/10 absolute inset-x-0 bottom-0 -z-10 h-32 mask-[linear-gradient(to_top,#000_20%,transparent_100%)] backdrop-blur-lg" -->
+  <div
+    aria-hidden="true"
+    class="bg-background/10 pointer-events-none absolute bottom-0 inset-0 -z-10 h-22 mask-[linear-gradient(to_top,#000_20%,transparent_100%)] backdrop-blur-lg"
+  >
+  </div>
+
+  <div class="px-3 pb-[max(0.75rem,env(safe-area-inset-bottom))]">
+    <div
+      class="pointer-events-auto mx-auto flex max-w-md items-stretch gap-2 rounded-3xl border bg-background/50 backdrop-blur-xs p-1.5 shadow"
+    >
+      <!-- Secondary: Free quote -->
+      <a
+        href="/book"
+        aria-label="Request a free moving quote"
+        class="flex flex-2 flex-col items-center justify-center rounded-[1.4rem] bg-secondary px-3 py-2 text-center text-secondary-foreground transition-transform duration-150 active:scale-[0.98]"
+      >
+        <span class="text-[0.95rem] font-bold tracking-tight">Free quote</span>
+        <span
+          class="mt-0.5 inline-flex items-center gap-1 text-[0.7rem] font-semibold text-secondary-foreground/80"
+        >
+          <IconStar class="size-3 fill-current" />
+          4.9
+        </span>
+      </a>
+
+      <!-- Primary: Call now -->
+      <a
+        href={telHref}
+        aria-label={`Call ${SITE.businessShortName} at ${SITE.contactPhone}`}
+        class="group relative flex flex-3 items-center gap-3 overflow-hidden rounded-[1.4rem] bg-linear-to-br from-primary to-primary-accent px-4 py-2.5 text-primary-foreground shadow-lg shadow-primary/30 transition-transform duration-150 active:scale-[0.98]"
+      >
+        <!-- Sheen sweep on tap/hover -->
+        <span
+          class="pointer-events-none absolute inset-0 -translate-x-full bg-linear-to-r from-transparent via-white/25 to-transparent transition-transform duration-700 group-hover:translate-x-full group-active:translate-x-full motion-reduce:hidden"
+          aria-hidden="true"
+        >
+        </span>
+
+        <!-- Icon with pulsing ring -->
+        <span class="relative flex size-9 shrink-0 items-center justify-center">
+          <span
+            class="absolute inset-0 rounded-full bg-white/40 motion-safe:animate-ping motion-reduce:hidden"
+            aria-hidden="true"
+          >
+          </span>
+          <span
+            class="relative flex size-9 items-center justify-center rounded-full bg-white/20"
+          >
+            <PhoneIcon
+              class="size-4.5 motion-safe:animate-[wiggle_3s_ease-in-out_infinite]"
+            />
+          </span>
+        </span>
+
+        <span class="flex min-w-0 flex-col leading-tight">
+          <span class="text-[0.95rem] font-bold tracking-tight">Call now</span>
+          <span class="truncate text-xs font-medium text-primary-foreground/85">
+            {SITE.contactPhone}
+          </span>
+        </span>
+      </a>
+    </div>
+  </div>
+</div>
+
+<style>
+  @keyframes wiggle {
+    0%,
+    70%,
+    100% {
+      transform: rotate(0deg);
+    }
+    80% {
+      transform: rotate(-12deg);
+    }
+    90% {
+      transform: rotate(12deg);
+    }
+  }
+</style>

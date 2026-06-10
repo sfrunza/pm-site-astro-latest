@@ -27,7 +27,7 @@ interface Props extends HTMLAttributes<'section'> {
 }
 
 const cta1 = tv({
-  base: 'py-16',
+  base: '',
 });
 
 const {
@@ -51,8 +51,10 @@ const {
         src={artur}
         width={460}
         height={780}
+        quality={50}
         loading="lazy"
         decoding="async"
+        fetchpriority="low"
         class="pointer-events-none absolute bottom-[-25%] right-0 hidden h-[120%] w-auto select-none object-contain lg:block"
       />
       <div class="relative z-10 flex flex-col items-center justify-center">

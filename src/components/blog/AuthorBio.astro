@@ -1,16 +1,24 @@
 ---
 import { BLOG_AUTHOR } from '@/config/blog';
+import Section from '../Section.astro';
+import Container from '../Container.astro';
 ---
 
-<aside
-  class="bg-muted/50 border-primary/20 border-l-4 mt-12 rounded-3xl p-6"
-  aria-labelledby="author-bio-heading"
+<Section spacing="sm">
+  <Container>
+    <aside
+      class="bg-muted/50 border-primary/20 border-l-4 mt-12 rounded-3xl p-6"
+      aria-labelledby="author-bio-heading"
+    >
+      <h2 id="author-bio-heading" class="text-lg font-semibold">
+        About {BLOG_AUTHOR.name}
+      </h2>
+      <p class="text-muted-foreground mt-3 leading-relaxed">
+        {BLOG_AUTHOR.bio}
+      </p>
+      <p class="text-muted-foreground mt-2 text-sm">
+        {BLOG_AUTHOR.credentials}
+      </p>
+    </aside>
+  </Container></Section
 >
-  <h2 id="author-bio-heading" class="text-lg font-semibold">
-    About {BLOG_AUTHOR.name}
-  </h2>
-  <p class="text-muted-foreground mt-3 leading-relaxed">
-    {BLOG_AUTHOR.bio}
-  </p>
-  <p class="text-muted-foreground mt-2 text-sm">{BLOG_AUTHOR.credentials}</p>
-</aside>

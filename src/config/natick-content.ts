@@ -184,7 +184,7 @@ const natickRelatedLinks: RelatedLink[] = [
 const natickFaqs: Faq[] = [
   {
     question: 'How much do Natick movers cost?',
-    answer: `<p>Local Natick moves are typically billed hourly in 15-minute increments for labor plus prorated travel from our Natick warehouse. Studio and one-bedroom jobs often run a few hours; larger homes take longer. <a href="/pricing">See moving prices</a> or <a href="/book">request a free quote</a> for your exact home size and date.</p>`,
+    answer: `<p>Local Natick moves are typically billed hourly in 15-minute increments for labor plus prorated travel from our Natick warehouse. Studio and one-bedroom jobs often run a few hours; larger homes take longer. <a href="/pricing" aria-label="See moving prices">See moving prices</a> or <a href="/book" aria-label="Request a free quote">request a free quote</a> for your exact home size and date.</p>`,
   },
   {
     question: 'Are Phoenix Moving crews licensed and insured in Natick?',
@@ -192,7 +192,7 @@ const natickFaqs: Faq[] = [
   },
   {
     question: 'Do you offer packing and storage for Natick moves?',
-    answer: `<p>Yes. Add <a href="/packing-services">professional packing</a>, supplies, and <a href="/storage-solutions">storage</a> between closings or lease gaps. One coordinator can bundle services on your Natick timeline.</p>`,
+    answer: `<p>Yes. Add <a href="/packing-services" aria-label="Professional packing">professional packing</a>, supplies, and <a href="/storage-solutions" aria-label="Storage">storage</a> between closings or lease gaps. One coordinator can bundle services on your Natick timeline.</p>`,
   },
   {
     question: 'How far in advance should I book movers in Natick?',

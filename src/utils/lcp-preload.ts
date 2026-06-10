@@ -2,9 +2,9 @@ import { getImage } from 'astro:assets';
 import type { ImageMetadata } from 'astro';
 
 /** Matches Astro Picture full-width hero breakpoints. */
-const HERO_LCP_WIDTHS = [640, 750, 828, 1080, 1280] as const;
+const HERO_LCP_WIDTHS = [640, 828, 1080, 1280] as const;
 
-/** Same preset as `<Picture quality="mid" />`. */
+/** Same preset as `<Picture quality={50} />`. */
 const HERO_LCP_QUALITY = 50;
 
 export type LcpPreloadLink = {

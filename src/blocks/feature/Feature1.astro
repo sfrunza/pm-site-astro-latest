@@ -28,7 +28,7 @@ interface Props extends HTMLAttributes<'section'> {
 }
 
 const feature2Styles = tv({
-  base: '@container py-16',
+  base: '@container',
 });
 
 const {
@@ -83,6 +83,8 @@ const {
             alt={image.alt}
             class="size-full object-cover aspect-3/2"
             loading="lazy"
+            fetchpriority="low"
+            quality={50}
           />
         </div>
       </div>

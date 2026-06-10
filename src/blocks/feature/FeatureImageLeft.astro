@@ -16,7 +16,7 @@ interface Props {
 }
 
 const featureImageLeft = tv({
-  base: 'py-16',
+  base: '',
 });
 
 const {
@@ -41,13 +41,14 @@ const {
               src={image}
               alt={alt}
               title={alt}
-              class="object-cover size-full starwind-image"
+              class="object-cover size-full"
               data-slot="image"
               decoding="async"
-              fetchpriority="auto"
-              height="450"
               loading="lazy"
-              width="700"
+              fetchpriority="low"
+              height={450}
+              width={700}
+              quality={50}
             />
           </div>
         </div>

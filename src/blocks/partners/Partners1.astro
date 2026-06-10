@@ -1,0 +1,186 @@
+---
+import Section from '@/components/Section.astro';
+import Container from '@/components/Container.astro';
+import { Image } from '@/components/starwind/image';
+import { ExternalLinkIcon } from '@/icons';
+
+import google from '@/assets/partners/google.png';
+import yelp from '@/assets/partners/yelp.png';
+import angi from '@/assets/partners/angi.png';
+import thumbtack from '@/assets/partners/thumbtack.png';
+
+interface Props {
+  class?: string;
+}
+
+const { class: className = '' } = Astro.props;
+
+type Logo = {
+  src: ImageMetadata;
+  alt: string;
+  href?: string;
+};
+
+const logos: Logo[] = [
+  {
+    src: google,
+    alt: 'Google Reviews',
+    href: 'https://www.google.com/maps/place/Phoenix+Moving+%26+Storage/@42.291787,-71.3626797,17z/data=!3m1!4b1!4m5!3m4!1s0x89e387680ffe9aeb:0x4651b1e640f15b41!8m2!3d42.291787!4d-71.360491',
+  },
+  {
+    src: yelp,
+    alt: 'Yelp',
+    href: 'https://www.yelp.com/biz/phoenix-moving-and-storage-natick-4',
+  },
+  { src: angi, alt: 'Angi' },
+  {
+    src: thumbtack,
+    alt: 'Thumbtack',
+    href: 'https://www.thumbtack.com/ma/natick/movers/phoenix-moving/service/452281587871776773?utm_medium=web&utm_source=txt&surface=sp',
+  },
+];
+
+// Repeat for seamless marquee loop on smaller screens.
+const marqueeLogos = Array.from({ length: 4 }, () => logos).flat();
+
+const cardClass =
+  'group/card relative z-0 flex h-24 w-44 shrink-0 items-center justify-center px-6 transition duration-300 hover:z-10';
+const imageClass = 'h-10 w-auto max-w-30 object-contain';
+const iconWrapClass =
+  'absolute top-4 right-3 flex size-6 items-center justify-center text-muted-foreground opacity-0 transition-all duration-300 group-hover/card:translate-x-0 group-hover/card:translate-y-0 group-hover/card:opacity-100 translate-x-1 -translate-y-1';
+---
+
+<Section class={`py-2 md:py-2 ${className}`} aria-label="Our review platforms">
+  <!-- Static logos: lg and up -->
+  <Container class="hidden lg:block">
+    <ul class="flex flex-wrap items-center justify-center gap-8 xl:gap-12">
+      {
+        logos.map((logo) => {
+          if (!logo.href) {
+            return (
+              <li>
+                <div class={cardClass} aria-hidden="true">
+                  <Image
+                    src={logo.src}
+                    alt={logo.alt}
+                    quality={50}
+                    loading="lazy"
+                    decoding="async"
+                    fetchpriority="low"
+                    class={imageClass}
+                  />
+                </div>
+              </li>
+            );
+          }
+          return (
+            <li>
+              <a
+                href={logo.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={`View our ${logo.alt} profile (opens in new tab)`}
+                class={cardClass}
+              >
+                <Image
+                  src={logo.src}
+                  alt={logo.alt}
+                  quality={50}
+                  loading="lazy"
+                  decoding="async"
+                  fetchpriority="low"
+                  class={imageClass}
+                />
+                <span class={iconWrapClass} aria-hidden="true">
+                  <ExternalLinkIcon class="size-3" />
+                </span>
+              </a>
+            </li>
+          );
+        })
+      }
+    </ul>
+  </Container>
+
+  <!-- Marquee: below lg -->
+  <div class="marquee group/marquee overflow-hidden lg:hidden">
+    <div class="marquee-track">
+      {
+        marqueeLogos.map((logo) => {
+          if (!logo.href) {
+            return (
+              <li class={`marquee-item ${cardClass}`} aria-hidden="true">
+                <div class={cardClass} aria-hidden="true">
+                  <Image
+                    src={logo.src}
+                    alt={logo.alt}
+                    quality={50}
+                    loading="lazy"
+                    decoding="async"
+                    fetchpriority="low"
+                    class={imageClass}
+                  />
+                </div>
+              </li>
+            );
+          }
+          return (
+            <li class={`marquee-item ${cardClass}`} aria-hidden="true">
+              <a
+                href={logo.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={`View our ${logo.alt} profile (opens in new tab)`}
+                class={cardClass}
+              >
+                <Image
+                  src={logo.src}
+                  alt={logo.alt}
+                  quality={50}
+                  loading="lazy"
+                  decoding="async"
+                  fetchpriority="low"
+                  class={imageClass}
+                />
+                <span class={iconWrapClass} aria-hidden="true">
+                  <ExternalLinkIcon class="size-3" />
+                </span>
+              </a>
+            </li>
+          );
+        })
+      }
+    </div>
+  </div>
+</Section>
+
+<style>
+  .marquee-track {
+    display: flex;
+    align-items: center;
+    width: max-content;
+    animation: marquee-scroll 45s linear infinite;
+    will-change: transform;
+  }
+
+  .marquee-item {
+    margin-inline-end: 1.25rem;
+  }
+
+  .marquee:hover .marquee-track,
+  .marquee:focus-within .marquee-track {
+    animation-play-state: paused;
+  }
+
+  @keyframes marquee-scroll {
+    to {
+      transform: translateX(-50%);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .marquee-track {
+      animation: none;
+    }
+  }
+</style>

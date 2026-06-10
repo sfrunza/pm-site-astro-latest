@@ -1,8 +1,6 @@
 ---
 import Logo from '@/components/Logo.astro';
 import Button from '@/components/starwind/button';
-import Separator from '@/components/starwind/separator';
-import { Sheet, SheetContent, SheetTrigger } from '@/components/starwind/sheet';
 import {
   Collapsible,
   CollapsibleContent,
@@ -10,20 +8,21 @@ import {
 } from '@/components/starwind/collapsible';
 import {
   Dropdown,
-  DropdownTrigger,
   DropdownContent,
   DropdownItem,
+  DropdownTrigger,
 } from '@/components/starwind/dropdown';
+import Separator from '@/components/starwind/separator';
+import { Sheet, SheetContent, SheetTrigger } from '@/components/starwind/sheet';
+import { services } from '@/config/services';
 import { SITE } from '@/config/site';
 import {
-  UserIcon,
-  PhoneIcon,
-  MailIcon,
   ChevronDownIcon,
+  MailIcon,
   MenuIcon,
+  PhoneIcon,
+  UserIcon,
 } from '@/icons';
-import Banner from '@/components/Banner.astro';
-import { services } from '@/config/services';
 
 export type NavLink = {
   label: string;
@@ -153,7 +152,9 @@ export const navLinks: NavLink[] = [
             <UserIcon />
             Client login
           </Button>
-          <Button variant="secondary" href="/book">Get a Quote</Button>
+          <Button variant="secondary" href="/book" class="max-lg:hidden"
+            >Get a Quote</Button
+          >
         </div>
         <!-- Mobile menu  -->
         <div class="block lg:hidden">

@@ -123,7 +123,7 @@ const newtonLocalGuide = {
   paragraphs: [
     'Newton\'s village structure matters for truck placement. In Newtonville and West Newton, crews often back down driveways or use street parking with temporary no-parking coordination. Newton Centre and Chestnut Hill buildings may require elevator reservations and loading-dock time slots—book these before you confirm your move date. Hills in Newton Highlands and Oak Hill can affect how we stage dollies and how many trips carry from garage to living level.',
     'College and academic calendars influence demand. Late August and early September see higher volume near Boston College and surrounding neighborhoods. Planning three to four weeks ahead secures preferred crews. Winter moves are common; crews use floor runners and door jamb protection when salt and slush increase slip risk at entries.',
-    'If you are comparing movers, ask how travel time is calculated, whether COI preparation is included, and how overtime is handled after the estimate. Phoenix Moving publishes <a href="/pricing">rate guidance</a> and explains 15-minute billing increments for labor. Long-distance moves from Newton use flat-rate quotes that include mileage, tolls, and insurance—your coordinator walks through line items before you sign.',
+    'If you are comparing movers, ask how travel time is calculated, whether COI preparation is included, and how overtime is handled after the estimate. Phoenix Moving publishes <a href="/pricing" aria-label="See moving prices">rate guidance</a> and explains 15-minute billing increments for labor. Long-distance moves from Newton use flat-rate quotes that include mileage, tolls, and insurance—your coordinator walks through line items before you sign.',
     'Downsizing and estate moves are frequent in Newton\'s established neighborhoods. We can combine partial packing, donation drop coordination, and storage for items that will not fit your next home yet. Senior moves benefit from labeled boxes by room and clear pathways—our coordinators send a prep checklist when you book.',
     'Commercial relocations along Washington Street, Needham Street, and office parks near the Massachusetts Turnpike require after-hours or weekend slots to limit downtime. We label workstations, protect IT equipment, and stage furniture by floor plan so your team reopens with minimal disruption. Share floor plans and COI requirements early for accurate crew sizing.',
     'Finally, remember that Newton shares borders with Brookline, Wellesley, Weston, and Boston. If your move crosses city lines, tell us both addresses upfront so travel and toll assumptions stay accurate. We serve all of Greater Boston from our Natick headquarters and Newton office—your estimate reflects the full route, not just the Newton leg.',
@@ -356,7 +356,7 @@ const newtonFaqs: Faq[] = [
   {
     question: 'What towns near Newton do you also cover?',
     answer:
-      '<p>We regularly serve Brookline, Wellesley, Needham, Waltham, Weston, and all of Greater Boston. Explore linked city pages or our <a href="/local-moving">local moving</a> hub for service details.</p>',
+      '<p>We regularly serve Brookline, Wellesley, Needham, Waltham, Weston, and all of Greater Boston. Explore linked city pages or our <a href="/local-moving" aria-label="Local moving services">local moving</a> hub for service details.</p>',
   },
 ];
 

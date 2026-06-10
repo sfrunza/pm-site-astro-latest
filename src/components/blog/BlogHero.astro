@@ -23,7 +23,7 @@ export async function getBlogHeroLcpPreload(
 ): Promise<(LcpPreloadLink & { imagesizes: string }) | undefined> {
   if (!src) return undefined;
 
-  const preload = await getLcpPreload(src, { width: 896, quality: 80 });
+  const preload = await getLcpPreload(src, { width: 896 });
   return { ...preload, imagesizes: BLOG_HERO_IMAGE_SIZES };
 }
 ---

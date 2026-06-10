@@ -39,7 +39,7 @@ const seo = await fetchPageSeo(Astro.url, {
 ---
 
 <Layout {...seo}>
-  <Section class="pt-28 sm:pt-32 pb-8">
+  <Section class="pt-28 sm:pt-32 pb-0 sm:pb-0" spacing="none">
     <Container>
       <SectionHeader
         position="center"
@@ -50,7 +50,7 @@ const seo = await fetchPageSeo(Astro.url, {
     </Container>
   </Section>
 
-  <Section class="pb-12">
+  <Section>
     <Container>
       <SectionHeader
         position="left"
@@ -64,7 +64,7 @@ const seo = await fetchPageSeo(Astro.url, {
     </Container>
   </Section>
 
-  <Section class="pb-16">
+  <Section>
     <Container>
       <SectionHeader
         position="left"

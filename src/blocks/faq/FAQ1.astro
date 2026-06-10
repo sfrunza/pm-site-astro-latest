@@ -15,18 +15,23 @@ import { tv } from 'tailwind-variants';
 interface Props {
   items?: Faq[];
   class?: string;
+  spacing?: 'none' | 'sm' | 'default' | 'lg';
 }
 
 const faq1 = tv({
-  base: 'py-16',
+  base: '',
 });
 
-const { items = faqs, class: className = '' } = Astro.props;
+const {
+  items = faqs,
+  class: className = '',
+  spacing = 'default',
+} = Astro.props;
 ---
 
-<Section class={faq1({ class: className })}>
+<Section class={faq1({ class: className })} spacing={spacing}>
   <Container>
-    <div class="grid w-full grid-cols-4 gap-4 py-12 md:grid-cols-12">
+    <div class="grid w-full grid-cols-4 gap-4 md:grid-cols-12">
       <div
         class="col-span-4 col-start-1 md:col-span-10 md:col-start-2 lg:col-span-10 lg:col-start-2"
       >

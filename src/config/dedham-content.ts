@@ -107,7 +107,7 @@ const dedhamMovingInDedham = {
   paragraphs: [
     'Dedham sits about 15 miles southwest of Boston in Norfolk County, blending a walkable town center with quiet residential pockets like Oakdale, Riverdale, and East Dedham. Whether you are closing on a colonial near the Charles River, leasing a condo near commuter rail, or shifting your business along Route 1, Phoenix Moving builds a move plan around your building rules, parking, and inventory—not a one-size template.',
     'Our coordinators work from Natick, so travel to Dedham is straightforward on I-95 and Route 1. That often keeps prorated travel time reasonable compared with crews dispatched from far outside MetroWest. We confirm crew size, truck type, and whether your building needs a certificate of insurance (COI) or freight-elevator reservation before we arrive.',
-    'Many Dedham moves pair local loading with <a href="/interstate-moving">long-distance delivery</a>, <a href="/packing-services">professional packing</a>, or <a href="/storage-solutions">short-term storage</a> between closings. One team can handle the timeline so you are not juggling multiple vendors during a stressful transition.',
+    'Many Dedham moves pair local loading with <a href="/interstate-moving" aria-label="Long-distance delivery">long-distance delivery</a>, <a href="/packing-services" aria-label="Professional packing">professional packing</a>, or <a href="/storage-solutions" aria-label="Storage">short-term storage</a> between closings. One team can handle the timeline so you are not juggling multiple vendors during a stressful transition.',
   ],
 };
 
@@ -275,7 +275,7 @@ const dedhamRelatedLinks: RelatedLink[] = [
 const dedhamFaqs: Faq[] = [
   {
     question: 'How much do Dedham movers cost?',
-    answer: `<p>Local Dedham moves are typically billed hourly in 15-minute increments for labor plus prorated travel from our Natick warehouse. Studio and one-bedroom jobs often run a few hours; larger homes take longer. <a href="/pricing">See moving prices</a> or <a href="/book">request a free quote</a> for your home size and date.</p>`,
+    answer: `<p>Local Dedham moves are typically billed hourly in 15-minute increments for labor plus prorated travel from our Natick warehouse. Studio and one-bedroom jobs often run a few hours; larger homes take longer. <a href="/pricing" aria-label="See moving prices">See moving prices</a> or <a href="/book" aria-label="Request a free quote">request a free quote</a> for your home size and date.</p>`,
   },
   {
     question: 'Are Phoenix Moving crews licensed and insured in Dedham?',
