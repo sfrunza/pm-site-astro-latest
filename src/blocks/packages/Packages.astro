@@ -17,7 +17,7 @@ import { MOVE_SUPPLY_PROFILES, getSupplyTotal } from '@/config/moving-supplies';
           <li class="carousel-item w-64">
             <Card class="transition-transform overflow-hidden p-0 hover:-translate-y-1 hover:shadow-lg">
               <table class="divide-y">
-                <thead>
+                <thead class="border-border">
                   <tr class="bg-muted">
                     <th scope="col" class="pl-6 py-2 text-left font-bold">
                       {houseSize.propertyType === 'house'
@@ -31,7 +31,7 @@ import { MOVE_SUPPLY_PROFILES, getSupplyTotal } from '@/config/moving-supplies';
                 </thead>
                 <tbody class="border-0">
                   {Object.entries(houseSize.items).map((material) => (
-                    <tr class="not-last:border-b">
+                    <tr class="not-last:border-b border-border">
                       <td class="text-left pl-4 py-2 font-medium">
                         {material[0]}
                       </td>

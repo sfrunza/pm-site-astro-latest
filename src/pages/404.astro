@@ -1,0 +1,99 @@
+---
+import RelatedServices from '@/blocks/related/RelatedServices.astro';
+import Container from '@/components/Container.astro';
+import Section from '@/components/Section.astro';
+import SectionHeader from '@/components/SectionHeader.astro';
+import Button from '@/components/starwind/button';
+import type { RelatedLink } from '@/config/service-faqs';
+import { SITE } from '@/config/site';
+import { ArrowRight } from '@/icons';
+import Layout from '@/layouts/Layout.astro';
+import { fetchPageSeo } from '@/seo';
+
+Astro.response.status = 404;
+
+const relatedLinks: RelatedLink[] = [
+  {
+    label: 'Local Moving',
+    description: 'Apartment, condo, and home moves across Greater Boston.',
+    href: '/local-moving',
+  },
+  {
+    label: 'Pricing',
+    description: 'Transparent rates and what affects your moving estimate.',
+    href: '/pricing',
+  },
+  {
+    label: 'Free Estimate',
+    description: 'Request a no-obligation quote online in minutes.',
+    href: '/book',
+  },
+  {
+    label: 'FAQ',
+    description: 'Answers about licensing, payments, and moving day.',
+    href: '/faq',
+  },
+  {
+    label: 'Sitemap',
+    description: 'Browse every page on our site.',
+    href: '/sitemap',
+  },
+  {
+    label: 'About Us',
+    description: 'Learn about our team, licenses, and service areas.',
+    href: '/about',
+  },
+];
+
+const seo = await fetchPageSeo(Astro.url, {
+  title: `Page Not Found | ${SITE.businessName}`,
+  description:
+    'The page you requested could not be found. Return to Phoenix Moving for local moving, pricing, and free estimates in the Boston area.',
+  keywords: '404, page not found, Phoenix Moving',
+  pathname: '/404',
+  breadcrumbs: [
+    { name: 'Home', path: '/' },
+    { name: 'Page Not Found', path: '/404' },
+  ],
+  noindex: true,
+});
+---
+
+<Layout {...seo}>
+  <Section class="pt-28 pb-16 md:pt-32" spacing="lg">
+    <Container class="text-center">
+      <p
+        class="text-primary/15 text-[clamp(5rem,18vw,9rem)] font-bold leading-none tracking-tighter select-none"
+      >
+        404
+      </p>
+
+      <SectionHeader
+        label="Lost in transit"
+        title="This page moved without us."
+        subtitle="Looks like it got packed into the wrong box. Head home or grab a free estimate while we track it down."
+      />
+
+      <div class="flex flex-wrap items-center justify-center gap-4">
+        <Button variant="primary" href="/" aria-label="Return to homepage">
+          Back to Home
+        </Button>
+        <Button
+          variant="outline"
+          href="/book"
+          class="group"
+          aria-label="Request a free moving estimate"
+        >
+          Get Free Estimate
+          <ArrowRight class="transition-transform group-hover:translate-x-1" />
+        </Button>
+      </div>
+    </Container>
+  </Section>
+
+  <RelatedServices
+    links={relatedLinks}
+    title="Find what you need"
+    class="bg-muted/30"
+  />
+</Layout>

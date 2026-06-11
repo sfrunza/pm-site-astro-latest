@@ -21,7 +21,7 @@ const listClass =
       const hasChildren = Boolean(node.children?.length);
 
       return (
-        <li class="sitemap-tree-item" role="treeitem">
+        <li class="sitemap-tree-item" role="treeitem" aria-selected="false">
           {hasChildren ? (
             <>
               {node.href ? (

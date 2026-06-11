@@ -34,6 +34,7 @@ export type PageSeoInput = {
   /** Absolute URL for og:image, twitter:image, and optional schema image */
   ogImage?: string;
   ogImageAlt?: string;
+  noindex?: boolean;
 };
 
 export type PageSeoBuildInput = PageSeoInput & {
@@ -47,8 +48,6 @@ export function buildPageSeo(
 ): AstroSeoProps {
   const pathname = normalizeCanonicalPath(input.pathname);
   const canonical = input.canonical ?? canonicalUrl(pathname);
-  const ogTitle =
-    input.title.split('|').at(-1)?.trim() ?? SITE.businessShortName;
 
   const additionalMetaTags: { name: string; content: string }[] = [
     { name: 'keywords', content: input.keywords },
@@ -57,7 +56,7 @@ export function buildPageSeo(
   if (input.ogImage) {
     additionalMetaTags.push(
       { name: 'twitter:image', content: input.ogImage },
-      { name: 'twitter:title', content: ogTitle },
+      { name: 'twitter:title', content: input.title },
       { name: 'twitter:description', content: input.description },
     );
   }
@@ -67,10 +66,11 @@ export function buildPageSeo(
     description: input.description,
     canonical,
     additionalMetaTags,
+    noindex: input.noindex,
     robotsProps: defaultRobotsProps,
     openGraph: buildOpenGraph({
       url: canonical,
-      title: ogTitle,
+      title: input.title,
       description: input.description,
       imageUrl: input.ogImage,
       imageAlt: input.ogImageAlt,

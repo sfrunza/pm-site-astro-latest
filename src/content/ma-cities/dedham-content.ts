@@ -336,7 +336,7 @@ const dedhamKeywords = [
 ].join(', ');
 
 const dedhamSeo = {
-  title: 'Dedham Movers | Licensed MA Moving Company — Phoenix Moving',
+  title: `Dedham, MA Movers | ${SITE.businessName}`,
   description:
     'Licensed Dedham movers from MetroWest HQ. Local & long-distance moves, packing, storage. Free estimate—book your Dedham, MA move online today.',
   serviceName: 'Dedham Moving Services',
@@ -444,6 +444,7 @@ export const dedhamPremium: CityPremiumContent = {
       'A short checklist helps crews stay on schedule and protects your building.',
     tips: dedhamPrepTips,
   },
+  movingChecklist: true,
   reviews: true,
   faq: {
     title: 'Dedham moving FAQ',

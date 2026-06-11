@@ -2,9 +2,11 @@
 import Section from '@/components/Section.astro';
 import SectionHeader from '@/components/SectionHeader.astro';
 import { cities } from '@/config/cities-data';
-import { MapPinIcon } from '@/icons';
+import { MapPinIcon, PhoneIcon } from '@/icons';
 import Container from '@/components/Container.astro';
 import { tv } from 'tailwind-variants';
+import { SITE } from '@/config/site';
+import Button from '@/components/starwind/button';
 
 interface Props {
   class?: string;
@@ -15,42 +17,119 @@ const cities1 = tv({
 });
 
 const { class: className = '' } = Astro.props;
+
+const maCities = cities
+  .filter((c) => c.state === 'MA')
+  .sort((a, b) => a.name.localeCompare(b.name));
+
+const outOfStateCities = cities
+  .filter((c) => c.state !== 'MA')
+  .sort((a, b) => a.name.localeCompare(b.name));
+
+const phoneHref = `tel:${SITE.contactPhone}`;
 ---
 
 <Section class={cities1({ class: className })}>
   <Container>
-    <div class="bg-muted/50 rounded-3xl px-10 py-24">
-      <SectionHeader title="Massachusetts serving areas." />
+    <div
+      class="rounded-3xl border border-border/40 bg-linear-to-br from-muted/20 to-muted/50 px-6 py-16 md:px-12 md:py-20"
+    >
+      <SectionHeader
+        label={`${cities.length}+ service locations`}
+        title="We come to you, wherever you are in Massachusetts."
+        subtitle="From our Natick home base, Phoenix Moving dispatches licensed, insured crews to cities and towns across Greater Boston, MetroWest, the North Shore, South Shore, Cape Cod, and neighboring states."
+      />
+
+      <!-- Massachusetts cities -->
+      <div class="mb-3 flex items-center gap-3">
+        <MapPinIcon class="size-4 shrink-0 text-primary" />
+        <span
+          class="text-xs font-semibold uppercase tracking-widest text-muted-foreground"
+        >
+          Massachusetts
+        </span>
+        <div class="h-px flex-1 bg-border/60"></div>
+        <span class="text-xs text-muted-foreground"
+          >{maCities.length} cities &amp; towns</span
+        >
+      </div>
+
       <div
-        class="grid grid-cols-2 gap-x-3 gap-y-0 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6"
+        class="mb-10 grid grid-cols-2 gap-1.5 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6"
       >
         {
-          cities
-            .sort((a, b) => {
-              if (a.name < b.name) {
-                return -1;
-              }
-              if (a.name > b.name) {
-                return 1;
-              }
-              return 0;
-            })
-            .map((city, i) => {
-              return (
+          maCities.map((city) => (
+            <a
+              href={`/${city.slug}`}
+              title={`Moving services in ${city.name}, MA`}
+              aria-label={`${city.name} movers — Phoenix Moving`}
+              class="group flex items-center gap-2 rounded-lg border border-transparent px-3 py-2.5 text-sm text-muted-foreground transition-all duration-150 hover:border-primary/20 hover:bg-primary/5 hover:text-foreground"
+            >
+              <span class="size-1.5 shrink-0 rounded-full bg-primary/30 transition-colors duration-150 group-hover:bg-primary" />
+              <span class="transition-transform duration-150 group-hover:translate-x-0.5">
+                {city.name}
+              </span>
+            </a>
+          ))
+        }
+      </div>
+
+      <!-- Out-of-state cities -->
+      {
+        outOfStateCities.length > 0 && (
+          <>
+            <div class="mb-3 flex items-center gap-3">
+              <MapPinIcon class="size-4 shrink-0 text-muted-foreground/60" />
+              <span class="text-xs font-semibold uppercase tracking-widest text-muted-foreground">
+                Out of State
+              </span>
+              <div class="h-px flex-1 bg-border/60" />
+              <span class="text-xs text-muted-foreground">
+                {outOfStateCities.length} destinations
+              </span>
+            </div>
+
+            <div class="mb-10 grid grid-cols-2 gap-1.5 sm:grid-cols-3 md:grid-cols-4">
+              {outOfStateCities.map((city) => (
                 <a
                   href={`/${city.slug}`}
-                  aria-label={city.fullName}
-                  title={city.fullName}
-                  class="text-muted-foreground group flex min-h-11 items-center gap-2 rounded-sm px-1 py-2.5 text-sm hover:underline"
+                  title={`Moving services in ${city.name}, ${city.state}`}
+                  aria-label={`${city.name} movers — Phoenix Moving`}
+                  class="group flex items-center gap-2 rounded-lg border border-transparent px-3 py-2.5 text-sm text-muted-foreground transition-all duration-150 hover:border-border hover:bg-muted hover:text-foreground"
                 >
-                  <MapPinIcon class="size-4" />
-                  <span class="group-hover:translate-x-1 transition-transform">
-                    {city.fullName}
+                  <span class="size-1.5 shrink-0 rounded-full bg-muted-foreground/25 transition-colors duration-150 group-hover:bg-muted-foreground/60" />
+                  <span class="transition-transform duration-150 group-hover:translate-x-0.5">
+                    {city.name},&nbsp;{city.state}
                   </span>
                 </a>
-              );
-            })
-        }
+              ))}
+            </div>
+          </>
+        )
+      }
+
+      <!-- "Don't see your city?" CTA strip -->
+      <div
+        class="flex flex-col items-start gap-4 justify-between rounded-2xl border border-dashed border-border bg-background/60 px-6 py-5 sm:flex-row sm:items-center"
+      >
+        <div class="flex items-start gap-3 sm:items-center">
+          <MapPinIcon class="mt-0.5 size-5 shrink-0 text-primary sm:mt-0" />
+          <p class="text-sm text-muted-foreground">
+            <strong class="font-semibold text-foreground"
+              >Don't see your city?</strong
+            >
+            {' '}We likely still cover your area — call us and we'll confirm.
+          </p>
+        </div>
+        <Button
+          href={phoneHref}
+          aria-label={`Call ${SITE.businessName} at ${SITE.contactPhone}`}
+          variant="primary"
+          size="sm"
+        >
+          <PhoneIcon class="size-4" />
+          {SITE.contactPhone}
+        </Button>
       </div>
     </div>
   </Container>

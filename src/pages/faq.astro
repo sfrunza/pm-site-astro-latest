@@ -13,12 +13,13 @@ import {
   stripHtmlForSchema,
 } from '@/seo';
 import { getRelatedLinks } from '@/config/service-faqs';
+import { SITE } from '@/config/site';
 
 const lcpPreload = await getHero2LcpPreload(heroBg);
 const socialImageUrl = await getSocialImageUrl(heroBg);
 
 const seo = await fetchPageSeo(Astro.url, {
-  title: 'Frequently Asked Questions - Phoenix Moving Boston',
+  title: `Frequently Asked Questions | ${SITE.businessName}`,
   description:
     'Frequently asked questions about Phoenix Moving services, pricing, licensing, payments, and what to expect on moving day.',
   keywords:

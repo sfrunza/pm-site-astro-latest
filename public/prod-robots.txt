@@ -1,4 +1,10 @@
 User-agent: *
 Allow: /
 
+# LLM-friendly documentation
+# For AI assistants and crawlers
+Allow: /llms.txt
+
+
 Sitemap: https://www.insightmoving.com/sitemap-index.xml
+

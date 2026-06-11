@@ -8,7 +8,7 @@ import FAQ1 from '@/blocks/faq/FAQ1.astro';
 import Feature2 from '@/blocks/feature/Feature2.astro';
 import Feature3 from '@/blocks/feature/Feature3.astro';
 import FeatureImageRight from '@/blocks/feature/FeatureImageRight.astro';
-import FeatureSteps from '@/blocks/feature/FeatureSteps.astro';
+import Process1 from '@/blocks/process/Process1.astro';
 import Container from '@/components/Container.astro';
 import Hero2, { getHero2LcpPreload } from '@/components/Hero2.astro';
 import Section from '@/components/Section.astro';
@@ -26,6 +26,7 @@ import RelatedServices from '@/blocks/related/RelatedServices.astro';
 import { fetchPageSeo, getSocialImageUrl } from '@/seo';
 import { getRelatedLinks, getServiceFaqs } from '@/config/service-faqs';
 import { servicePageJsonLd } from '@/seo/service-page-schema';
+import { SITE } from '@/config/site';
 
 const pathname = Astro.url.pathname;
 const pageFaqs = getServiceFaqs(pathname);
@@ -33,7 +34,7 @@ const lcpPreload = await getHero2LcpPreload(heroBg);
 const socialImageUrl = await getSocialImageUrl(heroBg);
 
 const seo = await fetchPageSeo(Astro.url, {
-  title: 'Piano Moving - Phoenix Moving (Free Estimate)',
+  title: `Piano Moving | ${SITE.businessName}`,
   description:
     'Professional piano movers in Boston and Greater Massachusetts. Upright, baby grand, and grand piano moving with proper equipment, licensed and insured',
   keywords:
@@ -82,6 +83,7 @@ const seo = await fetchPageSeo(Astro.url, {
     label="Specialty Moving"
     image={heroBg}
     alt="Phoenix Moving crew preparing furniture for a careful local move"
+    class="defer-section"
   >
     <p>
       Moving a piano is not a standard furniture job. Weight distribution,
@@ -113,7 +115,7 @@ const seo = await fetchPageSeo(Astro.url, {
     </p>
   </FeatureImageRight>
 
-  <Section>
+  <Section class="defer-section">
     <Container class="@container">
       <SectionHeader
         position="left"
@@ -220,7 +222,7 @@ const seo = await fetchPageSeo(Astro.url, {
     </Container>
   </Section>
 
-  <Section class="border-y bg-muted/50">
+  <Section class="border-y border-border bg-muted/50 defer-section">
     <Container>
       <SectionHeader
         title="What's included in a piano move"
@@ -236,7 +238,7 @@ const seo = await fetchPageSeo(Astro.url, {
             'Placement and basic positioning at destination',
             'Licensed, insured Massachusetts movers',
           ].map((item) => (
-            <li class="bg-background flex items-start gap-3 rounded-3xl border px-4 py-3 text-sm font-medium">
+            <li class="bg-background flex items-start gap-3 rounded-3xl border border-border px-4 py-3 text-sm font-medium">
               <span
                 class="bg-primary/10 text-primary mt-0.5 flex size-6 shrink-0 items-center justify-center rounded-full text-xs font-bold"
                 aria-hidden="true"
@@ -251,25 +253,27 @@ const seo = await fetchPageSeo(Astro.url, {
     </Container>
   </Section>
 
-  <FeatureSteps />
+  <Process1 class="defer-section" />
 
   <Feature2
     title="Why Choose Phoenix for Piano Moving"
     label="Why Choose Us"
     subtitle="Specialty moves demand specialty care — and a moving company that shows up prepared."
+    class="defer-section"
   />
 
-  <Carousel2 />
+  <Carousel2 class="defer-section" />
 
   <CTA2
     title="Ready to move your piano?"
     description="Get a free, no-obligation estimate. Tell us your piano type and addresses — we'll handle the rest."
     primaryButton={{ text: 'Request a Free Quote', href: '/book' }}
+    class="defer-section"
   />
 
-  <Cities1 />
+  <Cities1 class="defer-section" />
 
   <RelatedServices links={getRelatedLinks(pathname)} />
-  <FAQ1 items={pageFaqs} />
-  <CTA1 />
+  <FAQ1 items={pageFaqs} class="defer-section" />
+  <CTA1 class="defer-section" />
 </Layout>

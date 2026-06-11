@@ -25,6 +25,7 @@ import { fetchPageSeo, getSocialImageUrl } from '@/seo';
 import { getRelatedLinks, getServiceFaqs } from '@/config/service-faqs';
 import { servicePageJsonLd } from '@/seo/service-page-schema';
 import Packages from '@/blocks/packages/Packages.astro';
+import { SITE } from '@/config/site';
 
 const pathname = Astro.url.pathname;
 const pageFaqs = getServiceFaqs(pathname);
@@ -32,7 +33,7 @@ const lcpPreload = await getHero2LcpPreload(heroBg);
 const socialImageUrl = await getSocialImageUrl(heroBg);
 
 const seo = await fetchPageSeo(Astro.url, {
-  title: 'Packing Services - Phoenix Moving Boston',
+  title: `Packing Services | ${SITE.businessName}`,
   description:
     'Professional packing and unpacking services plus moving boxes and supplies. Our experienced team protects your belongings for a stress-free move.',
   keywords:

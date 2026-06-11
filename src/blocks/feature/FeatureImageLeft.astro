@@ -9,6 +9,7 @@ import { tv } from 'tailwind-variants';
 interface Props {
   title: string;
   subtitle?: string;
+  label?: string;
   position?: 'left' | 'right' | 'center';
   image: ImageMetadata;
   alt: string;
@@ -24,40 +25,48 @@ const {
   subtitle,
   image,
   alt,
-  position = 'left',
+  position = 'center',
+  label,
   class: className = '',
 } = Astro.props;
 ---
 
 <Section class={featureImageLeft({ class: className })}>
-  <Container class="@container">
-    <SectionHeader title={title} subtitle={subtitle} position={position} />
-    <div class="grid gap-12 @2xl:grid-cols-2 @2xl:gap-16">
+  <Container>
+    <SectionHeader
+      title={title}
+      subtitle={subtitle}
+      position={position}
+      label={label}
+    />
+    <div class="grid gap-12 lg:grid-cols-2 lg:gap-16">
       <!-- Left Content -->
-      <div class="flex flex-col">
-        <div class="">
-          <div class="overflow-hidden rounded-3xl">
-            <Image
-              src={image}
-              alt={alt}
-              title={alt}
-              class="object-cover size-full"
-              data-slot="image"
-              decoding="async"
-              loading="lazy"
-              fetchpriority="low"
-              height={450}
-              width={700}
-              quality={50}
-            />
-          </div>
+      <div class="order-first flex w-full justify-center">
+        <div
+          class="flex w-fit items-center max-h-[min(28rem,70dvh)] justify-center overflow-hidden rounded-3xl"
+        >
+          <Image
+            src={image}
+            alt={alt}
+            title={alt}
+            class="object-cover size-full"
+            data-slot="image"
+            decoding="async"
+            loading="lazy"
+            fetchpriority="low"
+            height={450}
+            width={700}
+            quality={50}
+          />
         </div>
       </div>
 
       <!-- Right Content -->
-      <Prose>
-        <slot />
-      </Prose>
+      <div class="flex min-w-0 w-full flex-col">
+        <Prose class="max-w-none">
+          <slot />
+        </Prose>
+      </div>
     </div>
   </Container>
 </Section>

@@ -32,7 +32,7 @@ const {
   afterSrc,
   beforeLabel = 'Before',
   afterLabel = 'After',
-  startPos = 50,
+  startPos = 70,
   aspectRatio = '3/4',
   alt = '',
 } = Astro.props;
@@ -41,7 +41,7 @@ const id = `sic-${Math.random().toString(36).slice(2, 9)}`;
 ---
 
 <div
-  class="sic-root group border bg-muted/50 rounded-3xl"
+  class="sic-root group bg-muted/50 rounded-3xl"
   id={id}
   data-start={startPos}
   style={`--sic-pos:${startPos}%; aspect-ratio:${aspectRatio};`}
@@ -52,13 +52,16 @@ const id = `sic-${Math.random().toString(36).slice(2, 9)}`;
   <Picture
     src={afterSrc}
     alt={`${alt} — ${afterLabel}`}
+    title={`${alt} — ${afterLabel}`}
     formats={['avif', 'webp']}
     fallbackFormat="webp"
     layout="full-width"
     fit="cover"
     position="center"
     quality={50}
+    decoding="async"
     loading="lazy"
+    fetchpriority="low"
     pictureAttributes={{
       class: 'sic-img sic-after',
     }}
@@ -70,13 +73,16 @@ const id = `sic-${Math.random().toString(36).slice(2, 9)}`;
     <Picture
       src={beforeSrc}
       alt={`${alt} — ${beforeLabel}`}
+      title={`${alt} — ${beforeLabel}`}
       formats={['avif', 'webp']}
       fallbackFormat="webp"
       layout="full-width"
       fit="cover"
       position="center"
       quality={50}
+      decoding="async"
       loading="lazy"
+      fetchpriority="low"
       pictureAttributes={{
         class: 'sic-img sic-before',
       }}

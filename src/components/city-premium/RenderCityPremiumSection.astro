@@ -3,7 +3,7 @@ import CTA2 from '@/blocks/cta/CTA2.astro';
 import FAQDetails from '@/blocks/faq/FAQDetails.astro';
 import Feature2 from '@/blocks/feature/Feature2.astro';
 import FeatureImageLeft from '@/blocks/feature/FeatureImageLeft.astro';
-import FeatureSteps from '@/blocks/feature/FeatureSteps.astro';
+import Process1 from '@/blocks/process/Process1.astro';
 import RelatedServices from '@/blocks/related/RelatedServices.astro';
 import Services1 from '@/blocks/services/Services1.astro';
 import Container from '@/components/Container.astro';
@@ -27,6 +27,9 @@ import type { ImageMetadata } from 'astro';
 import MouseRepelParticles from '../MouseRepelParticles.astro';
 import Reviews1 from '@/blocks/reviews/Reviews1.astro';
 import { ChevronRightIcon } from '@/icons';
+import FeatureImageRight from '@/blocks/feature/FeatureImageRight.astro';
+import MovingChecklist1 from '@/blocks/checklist/MovingChecklist1.astro';
+import Stats1 from '@/blocks/stats/Stats1.astro';
 
 interface Props {
   id: CityPremiumSectionId;
@@ -132,7 +135,7 @@ const { id, content: c, cityHero, phoneTel } = Astro.props;
 
 {
   id === 'howTo' && (
-    <FeatureSteps
+    <Process1
       label={c.howTo.label}
       title={c.howTo.title}
       subtitle={c.howTo.subtitle}
@@ -181,7 +184,7 @@ const { id, content: c, cityHero, phoneTel } = Astro.props;
                 <a
                   href={town.href}
                   aria-label={town.label}
-                  class="bg-muted/50 inline-flex hover:bg-muted hover:shadow-lg hover:-translate-y-1 transition-all rounded-full px-4 py-2 text-sm font-medium border"
+                  class="bg-muted/50 inline-flex hover:bg-muted hover:shadow-lg hover:-translate-y-1 transition-all rounded-full px-4 py-2 text-sm font-medium border border-border"
                 >
                   <div class="flex items-center gap-2">
                     <span>{town.label}</span>
@@ -262,46 +265,28 @@ const { id, content: c, cityHero, phoneTel } = Astro.props;
 
 {
   id === 'commercial' && c.commercial && (
-    <Section class="defer-section">
-      <Container class="@container">
-        <div class="grid gap-12 @2xl:grid-cols-2 @2xl:items-center">
-          <div>
-            <SectionHeader
-              label={c.commercial.label}
-              title={c.commercial.title}
-              subtitle={c.commercial.subtitle}
-              position="left"
-            />
-            <Prose class="mt-6 max-w-none">
-              {c.commercial.paragraphs.map((paragraph) => (
-                <p>{paragraph}</p>
-              ))}
-              <p>
-                <a href="/book" aria-label="Request a commercial moving quote">
-                  Request a commercial moving quote
-                </a>{' '}
-                or call{' '}
-                <a
-                  href={`tel:${phoneTel}`}
-                  aria-label={`Call ${SITE.contactPhone}`}
-                >
-                  {SITE.contactPhone}
-                </a>{' '}
-                to discuss your {c.schema.cityName} office timeline.
-              </p>
-            </Prose>
-          </div>
-          <div class="overflow-hidden rounded-3xl">
-            <Image
-              src={cityHero}
-              alt={c.commercial.imageAlt}
-              class="object-cover size-full max-h-[min(28rem,70dvh)]"
-              loading="lazy"
-            />
-          </div>
-        </div>
-      </Container>
-    </Section>
+    <FeatureImageRight
+      label={c.commercial.label}
+      title={c.commercial.title}
+      subtitle={c.commercial.subtitle}
+      position="left"
+      image={cityHero}
+      alt={c.commercial.imageAlt}
+    >
+      {c.commercial.paragraphs.map((paragraph) => (
+        <p>{paragraph}</p>
+      ))}
+      <p>
+        <a href="/book" aria-label="Request a commercial moving quote">
+          Request a commercial moving quote
+        </a>{' '}
+        or call{' '}
+        <a href={`tel:${phoneTel}`} aria-label={`Call ${SITE.contactPhone}`}>
+          {SITE.contactPhone}
+        </a>{' '}
+        to discuss your {c.schema.cityName} office timeline.
+      </p>
+    </FeatureImageRight>
   )
 }
 
@@ -353,7 +338,20 @@ const { id, content: c, cityHero, phoneTel } = Astro.props;
   )
 }
 
-{id === 'reviews' && c.reviews && <Reviews1 class="defer-section" />}
+{
+  id === 'movingChecklist' && c.movingChecklist && (
+    <MovingChecklist1 class="defer-section bg-linear-to-t from-muted/50 to-transparent" />
+  )
+}
+
+{
+  id === 'reviews' && c.reviews && (
+    <>
+      <Reviews1 class="defer-section" />
+      <Stats1 class="bg-linear-to-b from-muted/50 to-transparent defer-section" />
+    </>
+  )
+}
 
 {
   id === 'faq' && (

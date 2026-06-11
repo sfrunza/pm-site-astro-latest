@@ -230,7 +230,7 @@ const natickKeywords = [
 ].join(', ');
 
 const natickSeo = {
-  title: 'Natick Movers | Licensed MA Moving Company — Phoenix Moving',
+  title: `Natick, MA Movers | ${SITE.businessName}`,
   description:
     'Natick movers headquartered on Lakeview Gardens. Licensed, insured local & long-distance moves, packing, storage. Free estimate—book online today.',
   serviceName: 'Natick Moving Services',
@@ -303,6 +303,7 @@ export const natickPremium: CityPremiumContent = {
     subtitle:
       'Local moves are billed hourly with prorated travel from our Natick warehouse. Long-distance jobs use flat-rate quotes with fuel and tolls included.',
   },
+  movingChecklist: true,
   reviews: true,
   faq: {
     title: 'Natick moving FAQ',

@@ -59,6 +59,7 @@ export type CityPremiumSectionId =
   | 'commercial'
   | 'localGuide'
   | 'prepTips'
+  | 'movingChecklist'
   | 'reviews'
   | 'faq'
   | 'related';
@@ -74,6 +75,7 @@ export const DEFAULT_CITY_PREMIUM_SECTION_ORDER: CityPremiumSectionId[] = [
   'pricing',
   'commercial',
   'prepTips',
+  'movingChecklist',
   'reviews',
   'faq',
   'related',
@@ -167,6 +169,7 @@ export type CityPremiumContent = {
     subtitle?: string;
     paragraphs: string[];
   };
+  movingChecklist: boolean
   reviews: boolean;
   faq: {
     title: string;

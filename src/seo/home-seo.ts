@@ -13,14 +13,14 @@ export function homeSeo(
 ): AstroSeoProps {
   const canonical = canonicalUrl('/');
   return {
-    title: `${SITE.businessShortName} — Boston Moving Company (Free Estimate)`,
+    title: SITE.title,
     description: SITE.description,
     canonical,
     additionalMetaTags: [{ name: 'keywords', content: SITE.keywords }],
     robotsProps: defaultRobotsProps,
     openGraph: buildOpenGraph({
       url: canonical,
-      title: SITE.businessShortName,
+      title: SITE.title,
       description: SITE.description,
     }),
     twitter: buildTwitter(),

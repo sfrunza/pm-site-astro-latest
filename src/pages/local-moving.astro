@@ -8,7 +8,7 @@ import FAQ1 from '@/blocks/faq/FAQ1.astro';
 import Feature2 from '@/blocks/feature/Feature2.astro';
 import Feature3 from '@/blocks/feature/Feature3.astro';
 import FeatureImageRight from '@/blocks/feature/FeatureImageRight.astro';
-import FeatureSteps from '@/blocks/feature/FeatureSteps.astro';
+import Process1 from '@/blocks/process/Process1.astro';
 import Container from '@/components/Container.astro';
 import Hero2, { getHero2LcpPreload } from '@/components/Hero2.astro';
 import Section from '@/components/Section.astro';
@@ -25,6 +25,7 @@ import Layout from '@/layouts/Layout.astro';
 import { fetchPageSeo, getSocialImageUrl } from '@/seo';
 import { getRelatedLinks, getServiceFaqs } from '@/config/service-faqs';
 import { servicePageJsonLd } from '@/seo/service-page-schema';
+import { SITE } from '@/config/site';
 
 const pathname = Astro.url.pathname;
 const pageFaqs = getServiceFaqs(pathname);
@@ -32,7 +33,7 @@ const lcpPreload = await getHero2LcpPreload(heroBg);
 const socialImageUrl = await getSocialImageUrl(heroBg);
 
 const seo = await fetchPageSeo(Astro.url, {
-  title: 'Local Moving - Phoenix Moving (Free Estimate)',
+  title: `Local Moving | ${SITE.businessName}`,
   description:
     'Boston local movers for residential and commercial moves. Our crews pack, load, and relocate your belongings quickly and safely throughout Greater Boston.',
   keywords:
@@ -81,6 +82,7 @@ const seo = await fetchPageSeo(Astro.url, {
     label="Who We Are"
     image={heroBg}
     alt="Two movers packing dishes"
+    class="defer-section"
   >
     <p>
       As <b>Boston local movers</b>, Phoenix Moving serves Greater Massachusetts
@@ -116,7 +118,7 @@ const seo = await fetchPageSeo(Astro.url, {
     </p>
   </FeatureImageRight>
 
-  <Section>
+  <Section class="defer-section">
     <Container class="@container">
       <div class="grid @2xl:grid-cols-2 @4xl:grid-cols-3 gap-6">
         <!-- 1st card -->
@@ -221,20 +223,21 @@ const seo = await fetchPageSeo(Astro.url, {
     </Container>
   </Section>
 
-  <FeatureSteps />
+  <Process1 class="defer-section" />
 
   <Feature2
     title="The Moving Company That Actually Cares."
     label="Why Choose Us"
+    class="defer-section"
   />
 
-  <Carousel1 />
+  <Carousel1 class="defer-section" />
 
-  <CTA2 />
+  <CTA2 class="defer-section" />
 
-  <Cities1 />
+  <Cities1 class="defer-section" />
 
-  <RelatedServices links={getRelatedLinks(pathname)} />
-  <FAQ1 items={pageFaqs} />
-  <CTA1 />
+  <RelatedServices links={getRelatedLinks(pathname)} class="defer-section" />
+  <FAQ1 items={pageFaqs} class="defer-section" />
+  <CTA1 class="defer-section" />
 </Layout>

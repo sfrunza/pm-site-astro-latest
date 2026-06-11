@@ -7,7 +7,7 @@ export interface BusinessAddress {
   zip: string;
 }
 export const SITE = {
-  title: "Phoenix Moving - Professional Moving Services",
+  title: "Phoenix Moving & Storage | Boston Moving Company (Free Estimate)",
   description: "Professional moving services with experienced movers. Residential and commercial moves, packing services, and storage solutions.",
   url: appUrl, // Update with your actual domain
   author: "Phoenix Moving",

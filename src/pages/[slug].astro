@@ -104,7 +104,7 @@ const keywords = [
 ].join(', ');
 
 const seo = await fetchPageSeo(Astro.url, {
-  title: `${city.name}, ${city.state} Movers - Phoenix Moving (Free Estimate)`,
+  title: `${city.name}, ${city.state} Movers | ${SITE.businessName}`,
   description,
   keywords,
   pathname,

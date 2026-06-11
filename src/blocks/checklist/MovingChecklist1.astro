@@ -1,0 +1,150 @@
+---
+import Section from '@/components/Section.astro';
+import SectionHeader from '@/components/SectionHeader.astro';
+import Container from '@/components/Container.astro';
+import Button from '@/components/starwind/button';
+import { CheckIcon, ArrowRight } from '@/icons';
+import { tv } from 'tailwind-variants';
+import Badge from '@/components/starwind/badge';
+import { Card, CardContent } from '@/components/starwind/card';
+
+interface Props {
+  class?: string;
+  label?: string;
+  title?: string;
+  subtitle?: string;
+  /** URL to the full checklist article */
+  checklistHref?: string;
+}
+
+const movingChecklist1 = tv({ base: '' });
+
+const {
+  class: className = '',
+  label = 'Moving Checklist',
+  title = 'Your 8-week moving timeline.',
+  subtitle = 'The exact schedule our crews share with every customer — broken into four simple phases so nothing gets missed.',
+  checklistHref = '/blog/8-week-moving-checklist-boston',
+} = Astro.props;
+
+const phases = [
+  {
+    when: '8 Weeks Out',
+    accent: 'blue',
+    items: [
+      'Research and book your moving company',
+      'Set your moving budget',
+      'Notify employer & school of address change',
+      'Start decluttering room by room',
+    ],
+  },
+  {
+    when: '4 Weeks Out',
+    accent: 'violet',
+    items: [
+      'Confirm date with your mover',
+      'Order packing supplies',
+      'Begin packing non-essentials',
+      'Arrange parking permits if needed',
+    ],
+  },
+  {
+    when: '1 Week Out',
+    accent: 'amber',
+    items: [
+      'Pack all rooms except daily essentials',
+      'Defrost & clean fridge and freezer',
+      'Confirm utilities transfer dates',
+      'Prepare an "open first" essentials box',
+    ],
+  },
+  {
+    when: 'Moving Day',
+    accent: 'green',
+    items: [
+      'Do a final walkthrough of every room',
+      'Supervise loading & confirm inventory',
+      'Hand off keys, garage openers & remotes',
+      'Sign delivery receipt & tip the crew',
+    ],
+  },
+];
+
+const accentMap: Record<string, { badge: string; dot: string; check: string }> =
+  {
+    blue: {
+      badge: 'bg-blue-500/10 text-blue-600 dark:text-blue-400',
+      dot: 'bg-blue-500/20',
+      check: 'text-blue-500',
+    },
+    violet: {
+      badge: 'bg-violet-500/10 text-violet-600 dark:text-violet-400',
+      dot: 'bg-violet-500/20',
+      check: 'text-violet-500',
+    },
+    amber: {
+      badge: 'bg-amber-500/10 text-amber-600 dark:text-amber-400',
+      dot: 'bg-amber-500/20',
+      check: 'text-amber-500',
+    },
+    green: {
+      badge: 'bg-green-500/10 text-green-600 dark:text-green-400',
+      dot: 'bg-green-500/20',
+      check: 'text-green-600',
+    },
+  };
+---
+
+<Section class={movingChecklist1({ class: className })}>
+  <Container>
+    <SectionHeader label={label} title={title} subtitle={subtitle} />
+
+    <div class="grid gap-5 sm:grid-cols-2 xl:grid-cols-4">
+      {
+        phases.map(({ when, accent, items }) => {
+          const colors = accentMap[accent];
+          return (
+            <Card class="group hover:shadow-lg hover:-translate-y-1 transition-all">
+              <CardContent class="grow flex flex-col space-y-4">
+                <Badge class={`${colors.badge} w-fit`}>{when}</Badge>
+
+                <ul class="space-y-2.5" role="list">
+                  {items.map((item) => (
+                    <li class="flex items-start gap-2.5">
+                      <span
+                        class={`mt-0.5 flex size-4 shrink-0 items-center justify-center rounded-full ${colors.dot}`}
+                        aria-hidden="true"
+                      >
+                        <CheckIcon class={`size-2.5 ${colors.check}`} />
+                      </span>
+                      <span class="text-sm">{item}</span>
+                    </li>
+                  ))}
+                </ul>
+              </CardContent>
+            </Card>
+          );
+        })
+      }
+    </div>
+
+    <!-- CTA -->
+    <div class="mt-8 flex flex-col items-center gap-3 text-center">
+      <p class="text-sm text-muted-foreground">
+        Want the printable version with 40+ tasks, dates, and pro tips?
+      </p>
+      <Button
+        href={checklistHref}
+        variant="outline"
+        class="group"
+        aria-label="Read the full 8-week checklist"
+      >
+        Read the Full 8-Week Checklist
+        <ArrowRight
+          class="size-4 transition-transform group-hover:translate-x-1"
+          aria-hidden="true"
+        />
+      </Button>
+    </div>
+  </Container>
+</Section>

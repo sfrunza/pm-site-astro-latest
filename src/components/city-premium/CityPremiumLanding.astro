@@ -2,7 +2,7 @@
 import CTA1 from '@/blocks/cta/CTA1.astro';
 import Feature3 from '@/blocks/feature/Feature3.astro';
 import FeatureImageRight from '@/blocks/feature/FeatureImageRight.astro';
-import RenderCityPremiumSection from '@/components/city-premium/RenderCityPremiumSection.astro';
+import RenderCityPremiumSection from './RenderCityPremiumSection.astro';
 import Button from '@/components/starwind/button';
 import Hero2 from '@/components/Hero2.astro';
 import {
@@ -11,6 +11,7 @@ import {
 } from '@/config/city-premium/types';
 import { SITE } from '@/config/site';
 import type { ImageMetadata } from 'astro';
+import BlogPreview1 from '@/blocks/blog/BlogPreview1.astro';
 
 interface Props {
   content: CityPremiumContent;
@@ -36,6 +37,7 @@ const sectionOrder = c.sectionOrder ?? DEFAULT_CITY_PREMIUM_SECTION_ORDER;
   position="left"
   image={cityLogo}
   alt={c.intro.imageAlt}
+  class="defer-section"
 >
   <p>
     <strong>{c.intro.trustLead}</strong>
@@ -43,27 +45,40 @@ const sectionOrder = c.sectionOrder ?? DEFAULT_CITY_PREMIUM_SECTION_ORDER;
   </p>
   <address class="not-italic mt-6 space-y-2 text-sm">
     <p>
-      <strong>{SITE.businessShortName}</strong><br />
+      <strong>{SITE.businessName}</strong><br />
       {office.address}<br />
       {office.city}, {office.state}
       {office.zip}
     </p>
     <p>
-      Phone: <a href={`tel:${phoneTel}`}>{SITE.contactPhone}</a><br />
-      Email: <a href={`mailto:${SITE.contactEmail}`}>{SITE.contactEmail}</a>
+      Phone: <a
+        href={`tel:${phoneTel}`}
+        aria-label={`Call ${SITE.businessName}`}>{SITE.contactPhone}</a
+      ><br />
+      Email: <a
+        href={`mailto:${SITE.contactEmail}`}
+        aria-label={`Email ${SITE.businessName}`}>{SITE.contactEmail}</a
+      >
     </p>
     <p>Hours: {SITE.businessHours}</p>
   </address>
   <p>
     Ready to move within {c.schema.cityName} or across Massachusetts? Compare our
-    <a href="/pricing">moving prices</a>, explore
-    <a href="/local-moving">local moving services</a>, or
-    <a href="/book">book your free quote</a> today.
+    <a href="/pricing" aria-label="Compare moving prices">moving prices</a>,
+    explore
+    <a href="/local-moving" aria-label="Explore local moving services"
+      >local moving services</a
+    >, or
+    <a href="/book" aria-label="Book your free quote">book your free quote</a> today.
   </p>
 
   <Fragment slot="actions">
-    <Button variant="primary" href="/book">Get a free quote</Button>
-    <Button variant="secondary" href="/pricing">View pricing</Button>
+    <Button variant="primary" href="/book" aria-label="Book your free quote"
+      >Get a free quote</Button
+    >
+    <Button variant="secondary" href="/pricing" aria-label="View pricing"
+      >View pricing</Button
+    >
   </Fragment>
 </FeatureImageRight>
 
@@ -78,6 +93,10 @@ const sectionOrder = c.sectionOrder ?? DEFAULT_CITY_PREMIUM_SECTION_ORDER;
   ))
 }
 
+<!-- Blog preview: 3 featured posts + "Browse all" CTA -->
+<BlogPreview1 class="defer-section" />
+
+<!-- CTA -->
 <CTA1
   title={c.finalCta.title}
   description={c.finalCta.description}

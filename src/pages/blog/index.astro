@@ -7,6 +7,7 @@ import Section from '@/components/Section.astro';
 import SectionHeader from '@/components/SectionHeader.astro';
 import { getFeaturedPosts, getPostUrl, getPublishedPosts } from '@/config/blog';
 import { getBlogRelatedServices } from '@/config/blog-related-services';
+import { SITE } from '@/config/site';
 import Layout from '@/layouts/Layout.astro';
 import { buildBlogListingJsonLd, fetchPageSeo } from '@/seo';
 
@@ -24,7 +25,7 @@ const listingPosts = posts.map((post) => ({
 }));
 
 const seo = await fetchPageSeo(Astro.url, {
-  title: 'Moving Tips & Guides Blog | Phoenix Moving Boston',
+  title: `Moving Tips & Guides Blog | ${SITE.businessName}`,
   description:
     'Boston and Massachusetts moving tips, cost guides, packing advice, and checklists from licensed Phoenix Moving crews. Plan your next move with confidence.',
   keywords:

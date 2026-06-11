@@ -20,6 +20,10 @@ import medicalChairBefore from '@/assets/medical-chair-before.jpeg';
 import medicalChairAfter from '@/assets/medical-chair-after.jpeg';
 import Reviews1 from '@/blocks/reviews/Reviews1.astro';
 import Partners1 from '@/blocks/partners/Partners1.astro';
+import Stats1 from '@/blocks/stats/Stats1.astro';
+import Process1 from '@/blocks/process/Process1.astro';
+import BlogPreview1 from '@/blocks/blog/BlogPreview1.astro';
+import MovingChecklist1 from '@/blocks/checklist/MovingChecklist1.astro';
 
 const [seo, lcpPreload] = await Promise.all([
   fetchHomeSeo(Astro.url),
@@ -29,12 +33,25 @@ const [seo, lcpPreload] = await Promise.all([
 
 <Layout {...seo} lcpPreload={lcpPreload}>
   <Hero />
+
+  <!-- Trust logos -->
   <Partners1
     class="bg-linear-to-t from-muted/50 to-transparent defer-section"
   />
+
+  <!-- Services -->
   <Services1 class="defer-section" />
+
+  <!-- Pricing -->
   <Pricing1 class="defer-section" />
 
+  <!-- How It Works — 4-step process with HowTo schema -->
+  <Process1 class="defer-section" />
+
+  <!-- Trust numbers: 1,200+ moves · 5.0 rating · 10 yrs · 100% insured -->
+  <Stats1 class="bg-linear-to-t from-muted/50 to-transparent defer-section" />
+
+  <!-- Furniture wrapping before/after -->
   <Section class="defer-section bg-muted/50">
     <Container>
       <SectionHeader
@@ -50,7 +67,6 @@ const [seo, lcpPreload] = await Promise.all([
           afterSrc={shkafAfter}
           beforeLabel="Before"
           afterLabel="After"
-          startPos={70}
           alt="Shkaf before and after"
         />
         <ImageCompareSlider
@@ -58,22 +74,35 @@ const [seo, lcpPreload] = await Promise.all([
           afterSrc={medicalChairAfter}
           beforeLabel="Before"
           afterLabel="After"
-          startPos={70}
           alt="Medical chair before and after"
         />
       </div>
     </Container>
   </Section>
 
+  <!-- Feature -->
   <Feature1
-    image={{
-      src: feature1Image,
-      alt: '2 Movers and Truck',
-    }}
+    image={{ src: feature1Image, alt: '2 Movers and Truck' }}
     class="defer-section"
   />
+
+  <!-- 8-week moving timeline teaser + link to full checklist -->
+  <MovingChecklist1
+    class="defer-section bg-linear-to-t from-muted/50 to-transparent"
+  />
+
+  <!-- Reviews -->
   <Reviews1 class="defer-section" />
+
+  <!-- Service areas -->
   <Cities1 class="defer-section" />
+
+  <!-- Blog preview: 3 featured posts + "Browse all" CTA -->
+  <BlogPreview1 class="defer-section" />
+
+  <!-- Related services -->
   <RelatedServices links={getRelatedLinks('/')} class="defer-section" />
+
+  <!-- CTA -->
   <CTA1 class="defer-section" />
 </Layout>

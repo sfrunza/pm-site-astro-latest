@@ -22,6 +22,7 @@ import RelatedServices from '@/blocks/related/RelatedServices.astro';
 import { fetchPageSeo, getSocialImageUrl } from '@/seo';
 import { getRelatedLinks, getServiceFaqs } from '@/config/service-faqs';
 import { servicePageJsonLd } from '@/seo/service-page-schema';
+import { SITE } from '@/config/site';
 
 const pathname = Astro.url.pathname;
 const pageFaqs = getServiceFaqs(pathname);
@@ -29,7 +30,7 @@ const lcpPreload = await getHero2LcpPreload(heroBg);
 const socialImageUrl = await getSocialImageUrl(heroBg);
 
 const seo = await fetchPageSeo(Astro.url, {
-  title: 'Interstate Moving - Phoenix Moving Boston (Free Estimate)',
+  title: `Interstate Moving | ${SITE.businessName}`,
   description:
     'Interstate and long-distance moving with licensed, insured crews. Flat-rate pricing includes gas, mileage, tolls, and insurance.',
   keywords:

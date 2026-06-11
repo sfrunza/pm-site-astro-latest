@@ -2,7 +2,7 @@
 import Layout from '@/layouts/Layout.astro';
 import Container from '@/components/Container.astro';
 import Section from '@/components/Section.astro';
-import FeatureSteps from '@/blocks/feature/FeatureSteps.astro';
+import Process1 from '@/blocks/process/Process1.astro';
 import FAQ1 from '@/blocks/faq/FAQ1.astro';
 import Button from '@/components/starwind/button';
 import { CircleCheckIcon, PhoneIcon, MailIcon } from '@/icons';
@@ -112,7 +112,7 @@ const highlights = [
   </Section>
 
   {/* Quick reassurance — compact, not a heavy stats band */}
-  <Section class="border-y bg-muted/50">
+  <Section class="border-y border-border bg-muted/50 defer-section">
     <Container>
       <dl
         class="mx-auto grid max-w-3xl gap-8 text-center sm:grid-cols-3 sm:gap-6"
@@ -141,10 +141,10 @@ const highlights = [
     </Container>
   </Section>
 
-  <FeatureSteps />
+  <Process1 class="defer-section" />
 
-  <RelatedServices links={getRelatedLinks(pathname)} />
-  <FAQ1 items={pageFaqs} />
+  <RelatedServices links={getRelatedLinks(pathname)} class="defer-section" />
+  <FAQ1 items={pageFaqs} class="defer-section" />
 </Layout>
 
 <script is:inline src="http://localhost:4173/book-form-widget.js" defer

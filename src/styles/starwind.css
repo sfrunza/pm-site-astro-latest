@@ -39,6 +39,10 @@
       0 1px 0 var(--color-neutral-400);
   }
 
+  /**
+   * Defer section: allows the section to be hidden until it is in view.
+   * From modern-web-guidance/performance.md
+   */
   .defer-section {
     content-visibility: auto;
     contain-intrinsic-size: auto none auto 28rem;
@@ -89,25 +93,6 @@
     flex-shrink: 0;
     scroll-snap-align: start;
     container-type: scroll-state;
-  }
-
-  @supports (container-type: scroll-state) {
-    @media (prefers-reduced-motion: no-preference) {
-      @container scroll-state(snapped: x) {
-        .carousel-card {
-          scale: 1.02;
-          box-shadow: 0 10px 25px
-            color-mix(in oklch, var(--color-primary) 18%, transparent);
-        }
-      }
-    }
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    .carousel-card {
-      transition: none !important;
-      scale: 1 !important;
-    }
   }
 
   .parallax-bg {
@@ -234,12 +219,9 @@
 
 @layer base {
   * {
-    @apply border-border outline-outline/50;
+    @apply outline-outline/50;
   }
   body {
     @apply bg-background text-foreground scheme-light dark:scheme-dark;
-  }
-  button {
-    @apply cursor-pointer;
   }
 }

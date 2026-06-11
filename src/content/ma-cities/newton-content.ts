@@ -381,7 +381,7 @@ const newtonKeywords = [
 ].join(', ');
 
 const newtonSeo = {
-  title: 'Newton Movers | Licensed MA Moving Company — Phoenix Moving',
+  title: `Newton, MA Movers | ${SITE.businessName}`,
   description:
     'Newton movers with a local Adams Street office. Licensed local & long-distance moves, packing, storage. Free estimate—book your Newton, MA move today.',
   serviceName: 'Newton Moving Services',
@@ -399,6 +399,7 @@ const newtonSectionOrder: CityPremiumSectionId[] = [
   'pricing',
   'movingInCity',
   'howTo',
+  'movingChecklist',
   'reviews',
   'moveTypes',
   'midCta',
@@ -502,6 +503,7 @@ export const newtonPremium: CityPremiumContent = {
       'Six steps that keep Newton building managers, crews, and your family aligned before the truck arrives.',
     tips: newtonPrepTips,
   },
+  movingChecklist: true,
   reviews: true,
   faq: {
     title: 'Newton moving FAQ',

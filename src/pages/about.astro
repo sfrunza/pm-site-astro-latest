@@ -10,7 +10,7 @@ import Feature2 from '@/blocks/feature/Feature2.astro';
 import Feature3 from '@/blocks/feature/Feature3.astro';
 import FeatureImageLeft from '@/blocks/feature/FeatureImageLeft.astro';
 import FeatureImageRight from '@/blocks/feature/FeatureImageRight.astro';
-import FeatureSteps from '@/blocks/feature/FeatureSteps.astro';
+import Process1 from '@/blocks/process/Process1.astro';
 import Services1 from '@/blocks/services/Services1.astro';
 import Hero2, { getHero2LcpPreload } from '@/components/Hero2.astro';
 import Layout from '@/layouts/Layout.astro';
@@ -21,7 +21,7 @@ const lcpPreload = await getHero2LcpPreload(heroBg);
 const socialImageUrl = await getSocialImageUrl(heroBg);
 
 const seo = await fetchPageSeo(Astro.url, {
-  title: 'About our company - Phoenix Moving & Storage',
+  title: `About our company | ${SITE.businessName}`,
   description:
     'Learn about Phoenix Moving & Storage — a licensed, insured Boston-area moving company offering local and long-distance moves, packing and storage.',
   keywords:
@@ -146,12 +146,7 @@ const seo = await fetchPageSeo(Astro.url, {
     class="defer-section"
   />
 
-  <FeatureSteps
-    label="How It Works"
-    title="Moving Is Easy With Us — Here's How"
-    subtitle="We've streamlined the moving process so there are no surprises on moving day."
-    class="defer-section"
-  />
+  <Process1 class="defer-section" />
 
   <Cities1 class="defer-section" />
 

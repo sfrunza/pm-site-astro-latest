@@ -6,11 +6,12 @@ import SectionHeader from '@/components/SectionHeader.astro';
 import SitemapTree from '@/components/SitemapTree.astro';
 import { getSitemapTree } from '@/config/sitemap-tree';
 import { fetchPageSeo } from '@/seo';
+import { SITE } from '@/config/site';
 
 const tree = await getSitemapTree();
 
 const seo = await fetchPageSeo(Astro.url, {
-  title: 'Sitemap - Phoenix Moving Boston',
+  title: `Sitemap | ${SITE.businessName}`,
   description:
     'Browse all Phoenix Moving pages: services, pricing, booking, FAQs, Massachusetts service areas, and legal policies.',
   keywords: 'sitemap, Phoenix Moving pages, Boston movers site map',

@@ -1,10 +1,12 @@
-import { dedhamPremium } from '@/config/dedham-content';
-import { natickPremium } from '@/config/natick-content';
-import { newtonPremium } from '@/config/newton-content';
+import { bostonPremium } from '@/content/ma-cities/boston-content';
+import { dedhamPremium } from '@/content/ma-cities/dedham-content';
+import { natickPremium } from '@/content/ma-cities/natick-content';
+import { newtonPremium } from '@/content/ma-cities/newton-content';
 import type { CityPremiumContent } from '@/config/city-premium/types';
 
 /** All full-guide city landing pages. Add a `{city}-content.ts` + `*Premium` export, then register here. */
 export const premiumCities: CityPremiumContent[] = [
+  bostonPremium,
   natickPremium,
   dedhamPremium,
   newtonPremium,
@@ -30,6 +32,7 @@ export function getPremiumSitemapEntries(): { label: string; href: string }[] {
 }
 
 /** Re-export paths for legacy slug canonical overrides. */
-export { NATICK_PATH } from '@/config/natick-content';
-export { DEDHAM_PATH } from '@/config/dedham-content';
-export { NEWTON_PATH } from '@/config/newton-content';
+export { BOSTON_PATH } from '@/content/ma-cities/boston-content';
+export { NATICK_PATH } from '@/content/ma-cities/natick-content';
+export { DEDHAM_PATH } from '@/content/ma-cities/dedham-content';
+export { NEWTON_PATH } from '@/content/ma-cities/newton-content';

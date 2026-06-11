@@ -8,6 +8,7 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/starwind/card';
+import Prose from '@/components/starwind/prose';
 import {
   ShieldCheckIcon,
   TruckDeliveryIcon,
@@ -112,7 +113,11 @@ const feature2 = tv({
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <p class="mt-2 leading-7">{feature.description}</p>
+                  {/* <div set:html={feature.description} /> */}
+                  <Prose
+                    class="max-w-none font-normal"
+                    set:html={feature.description}
+                  />
                 </CardContent>
               </Card>
             </li>

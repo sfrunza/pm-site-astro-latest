@@ -20,6 +20,7 @@ import RelatedServices from '@/blocks/related/RelatedServices.astro';
 import { fetchPageSeo, getSocialImageUrl } from '@/seo';
 import { getRelatedLinks, getServiceFaqs } from '@/config/service-faqs';
 import { servicePageJsonLd } from '@/seo/service-page-schema';
+import { SITE } from '@/config/site';
 
 const pathname = Astro.url.pathname;
 const pageFaqs = getServiceFaqs(pathname);
@@ -27,7 +28,7 @@ const lcpPreload = await getHero2LcpPreload(heroBg);
 const socialImageUrl = await getSocialImageUrl(heroBg);
 
 const seo = await fetchPageSeo(Astro.url, {
-  title: 'Storage Solutions - Phoenix Moving Boston (Free Estimate)',
+  title: `Storage Solutions | ${SITE.businessName}`,
   description:
     'Secure, flexible storage solutions for your move — short-term, long-term, and overnight options with licensed and insured Phoenix Moving.',
   keywords:
@@ -106,7 +107,7 @@ const options = [
   >
     {
       options.map((option) => (
-        <div class="border-b last:border-b-0">
+        <div class="border-b border-border last:border-b-0">
           <h3>{option.name}</h3>
           {option.items && (
             <ul>

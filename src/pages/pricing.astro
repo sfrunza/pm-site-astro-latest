@@ -10,11 +10,12 @@ import FAQ1 from '@/blocks/faq/FAQ1.astro';
 import { fetchPageSeo } from '@/seo';
 import { getRelatedLinks, getServiceFaqs } from '@/config/service-faqs';
 import { servicePageJsonLd } from '@/seo/service-page-schema';
+import { SITE } from '@/config/site';
 
 const pathname = Astro.url.pathname;
 const pageFaqs = getServiceFaqs(pathname);
 const seo = await fetchPageSeo(Astro.url, {
-  title: 'Boston Moving Prices & Rates - Phoenix Moving (Free Estimate)',
+  title: `Moving Prices & Rates | ${SITE.businessName}`,
   description:
     'Boston moving prices and transparent rates for local, long-distance, packing, and storage. Get a free quote from our licensed and insured moving team.',
   keywords: 'moving prices, moving rates, moving costs, Boston movers',

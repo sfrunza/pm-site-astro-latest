@@ -1,0 +1,81 @@
+---
+import Section from '@/components/Section.astro';
+import SectionHeader from '@/components/SectionHeader.astro';
+import Container from '@/components/Container.astro';
+import BlogCard from '@/components/blog/BlogCard.astro';
+import Button from '@/components/starwind/button';
+import { ArrowRight } from '@/icons';
+import { getFeaturedPosts } from '@/config/blog';
+import { tv } from 'tailwind-variants';
+
+interface Props {
+  class?: string;
+  limit?: number;
+  label?: string;
+  title?: string;
+  subtitle?: string;
+}
+
+const blogPreview1 = tv({ base: '' });
+
+const {
+  class: className = '',
+  limit = 3,
+  label = 'From the Blog',
+  title = 'Moving tips straight from the crew.',
+  subtitle = 'Field-tested advice from licensed Phoenix Moving crews — budgeting, packing, permits, and everything in between.',
+} = Astro.props;
+
+const posts = (await getFeaturedPosts()).slice(0, limit);
+---
+
+<Section class={blogPreview1({ class: className })}>
+  <Container>
+    <div class="flex flex-col gap-10">
+      <!-- Header row with inline CTA -->
+      <div
+        class="flex flex-col items-start gap-4 sm:flex-row sm:items-end sm:justify-between"
+      >
+        <SectionHeader
+          label={label}
+          title={title}
+          subtitle={subtitle}
+          position="left"
+          class="mb-0"
+        />
+        <a
+          href="/blog"
+          aria-label="Browse all moving guides and tips"
+          class="group hidden shrink-0 items-center gap-2 text-sm font-semibold text-primary transition-colors hover:text-primary/80 sm:flex"
+        >
+          Browse all articles
+          <ArrowRight
+            class="size-4 transition-transform group-hover:translate-x-1"
+            aria-hidden="true"
+          />
+        </a>
+      </div>
+
+      <!-- Post cards -->
+      <div class="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+        {posts.map((post) => <BlogCard post={post} />)}
+      </div>
+
+      <!-- Mobile-only full CTA -->
+      <div class="flex justify-center sm:hidden">
+        <Button
+          href="/blog"
+          variant="outline"
+          class="group w-full max-w-xs"
+          aria-label="Browse all moving guides and tips"
+        >
+          Browse all articles
+          <ArrowRight
+            class="size-4 transition-transform group-hover:translate-x-1"
+            aria-hidden="true"
+          />
+        </Button>
+      </div>
+    </div>
+  </Container>
+</Section>
