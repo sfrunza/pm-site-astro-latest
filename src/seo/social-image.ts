@@ -19,6 +19,3 @@ export async function getSocialImageUrl(
 
   return new URL(optimized.src, site).href;
 }
-
-/** @deprecated Use getSocialImageUrl */
-export const getBlogImageUrl = getSocialImageUrl;

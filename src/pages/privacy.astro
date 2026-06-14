@@ -9,7 +9,7 @@ const lastUpdated = new Date(2025, 2, 1).toLocaleDateString();
 const seo = await fetchPageSeo(Astro.url, {
   title: `Privacy Policy | ${SITE.businessName}`,
   description: `Privacy Policy for ${SITE.businessName}. Last updated: ${lastUpdated}`,
-  keywords: 'privacy policy, data protection, Phoenix Moving privacy',
+  keywords: `privacy policy, data protection, ${SITE.businessShortName} privacy`,
   pathname: Astro.url.pathname,
   breadcrumbs: [
     { name: 'Home', path: '/' },
@@ -29,10 +29,10 @@ const seo = await fetchPageSeo(Astro.url, {
     </div>
 
     <p>
-      Phoenix Moving Inc. (&quot;Company&quot;, &quot;we&quot;, &quot;our&quot;,
-      or &quot;us&quot;) values your privacy. This Privacy Policy describes how
-      we collect, use, and protect your information when you visit our website,
-      contact us, or use our services.
+      {SITE.businessShortName} Inc. (&quot;Company&quot;, &quot;we&quot;, &quot;our&quot;,
+      or &quot;us&quot;) values your privacy. This Privacy Policy describes how we
+      collect, use, and protect your information when you visit our website, contact
+      us, or use our services.
     </p>
 
     <p>
@@ -142,8 +142,8 @@ const seo = await fetchPageSeo(Astro.url, {
           rights, property, or safety.
         </li>
         <li>
-          Business Transfers in the event Phoenix Moving Inc. is merged, sold,
-          or acquired, customer information may be transferred.
+          Business Transfers in the event {SITE.businessShortName} Inc. is merged,
+          sold, or acquired, customer information may be transferred.
         </li>
       </ul>
       <p>
@@ -229,7 +229,7 @@ const seo = await fetchPageSeo(Astro.url, {
       <p>SMS Opt-In Policy</p>
       <p>
         By opting into SMS messages, you consent to receive service-related text
-        messages from Phoenix Moving Inc.
+        messages from {SITE.businessShortName} Inc.
       </p>
       <p>Important:</p>
       <ul>
@@ -262,9 +262,9 @@ const seo = await fetchPageSeo(Astro.url, {
     <section>
       <h2>8. Children&apos;s Privacy</h2>
       <p>
-        Phoenix Moving Inc. does not knowingly collect personal data from
-        children under 13 years old. If we discover that a child has provided us
-        with personal data, we will delete it immediately.
+        {SITE.businessShortName} Inc. does not knowingly collect personal data from
+        children under 13 years old. If we discover that a child has provided us with
+        personal data, we will delete it immediately.
       </p>
     </section>
 

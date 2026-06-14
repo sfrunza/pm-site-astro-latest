@@ -40,14 +40,14 @@ const lcpPreload = await getHero2LcpPreload(cityHero);
 
 const lead =
   city.intro ??
-  `Phoenix Moving provides licensed, insured ${city.name} movers for residential and commercial relocations across ${city.name}, ${city.state}.`;
+  `${SITE.businessShortName} provides licensed, insured ${city.name} movers for residential and commercial relocations across ${city.name}, ${city.state}.`;
 
 const description = `${lead} Request a free moving estimate for ${city.name}, MA.`;
 
 const cityFaqs = [
   {
     question: `Do you provide moving services in ${city.name}, MA?`,
-    answer: `<p>Yes. Phoenix Moving serves ${city.name} and nearby communities with local moving, packing, storage, and long-distance options.</p>`,
+    answer: `<p>Yes. ${SITE.businessShortName} serves ${city.name} and nearby communities with local moving, packing, storage, and long-distance options.</p>`,
   },
   {
     question: `How do I get a moving quote in ${city.name}?`,

@@ -5,12 +5,13 @@ import Section from '@/components/Section.astro';
 import SectionHeader from '@/components/SectionHeader.astro';
 import { Card } from '@/components/starwind/card';
 import { Image } from '@/components/starwind/image';
+import { SITE } from '@/config/site';
 ---
 
 <Section>
   <Container>
     <SectionHeader
-      title="Phoenix Moving Gallery."
+      title=`${SITE.businessShortName} Gallery.`
       position="left"
       class="mb-6"
     />
@@ -19,7 +20,7 @@ import { Image } from '@/components/starwind/image';
     <ul
       class="carousel-scroller"
       tabindex="0"
-      aria-label="Phoenix Moving Gallery"
+      aria-label=`${SITE.businessShortName} Gallery`
     >
       {
         Array.from({ length: 5 }).map((_, index) => (
@@ -28,8 +29,8 @@ import { Image } from '@/components/starwind/image';
               <Card class="aspect-square overflow-hidden p-0 ring-0 shadow-md">
                 <Image
                   src={heroBg}
-                  alt={`Phoenix Moving Gallery ${index}`}
-                  title={`Phoenix Moving Gallery ${index}`}
+                  alt={`${SITE.businessShortName} Gallery ${index}`}
+                  title={`${SITE.businessShortName} Gallery ${index}`}
                   class="size-full object-cover"
                   loading="lazy"
                   fetchpriority="low"

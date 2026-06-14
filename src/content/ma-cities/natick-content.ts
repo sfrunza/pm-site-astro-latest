@@ -15,7 +15,7 @@ export const NATICK_PATH = '/natick-ma-movers';
 
 /** 40–60 word direct answer for GEO / above-the-fold. */
 const natickDirectAnswer =
-  'Phoenix Moving is a licensed, insured Natick moving company headquartered at 18 Lakeview Gardens. We provide local, long-distance, packing, storage, and commercial moves for Natick Center, West Natick, South Natick, and MetroWest with transparent pricing and free estimates.';
+  `${SITE.businessShortName} is a licensed, insured Natick moving company headquartered at 18 Lakeview Gardens. We provide local, long-distance, packing, storage, and commercial moves for Natick Center, West Natick, South Natick, and MetroWest with transparent pricing and free estimates.`;
 
 const natickTrustFeatures = [
   `Licensed MDPU #${SITE.businessLicenses.MDPU}`,
@@ -30,7 +30,7 @@ const natickWhyChooseFeatures = [
   {
     name: 'Licensed & insured Massachusetts movers',
     description:
-      'Phoenix Moving holds MDPU license 32054, US DOT 3868109, and cargo, motor vehicle, and general liability coverage—so your Natick move meets building and landlord requirements.',
+      `${SITE.businessShortName} holds MDPU license 32054, US DOT 3868109, and cargo, motor vehicle, and general liability coverage—so your Natick move meets building and landlord requirements.`,
     icon: LicenseIcon,
   },
   {
@@ -139,7 +139,7 @@ const natickNearbyTowns: RelatedLink[] = [
   {
     href: '/newton-movers',
     label: 'Newton movers',
-    description: 'Second Phoenix Moving location—full-service crews.',
+    description: `Second ${SITE.businessShortName} location—full-service crews.`,
   },
   {
     href: '/boston-movers',
@@ -187,7 +187,7 @@ const natickFaqs: Faq[] = [
     answer: `<p>Local Natick moves are typically billed hourly in 15-minute increments for labor plus prorated travel from our Natick warehouse. Studio and one-bedroom jobs often run a few hours; larger homes take longer. <a href="/pricing" aria-label="See moving prices">See moving prices</a> or <a href="/book" aria-label="Request a free quote">request a free quote</a> for your exact home size and date.</p>`,
   },
   {
-    question: 'Are Phoenix Moving crews licensed and insured in Natick?',
+    question: `Are ${SITE.businessShortName} crews licensed and insured in Natick?`,
     answer: `<p>Yes. We are licensed with the Massachusetts Department of Public Utilities (MDPU #${SITE.businessLicenses.MDPU}), US DOT ${SITE.businessLicenses.DOT}, and carry cargo, motor vehicle, and general liability insurance. We provide certificates of insurance for Natick buildings when required.</p>`,
   },
   {
@@ -226,7 +226,7 @@ const natickKeywords = [
   'West Natick movers',
   'South Natick movers',
   '01760 movers',
-  'Phoenix Moving Natick',
+  `${SITE.businessShortName} Natick`,
 ].join(', ');
 
 const natickSeo = {
@@ -236,9 +236,9 @@ const natickSeo = {
   serviceName: 'Natick Moving Services',
   serviceDescription:
     'Licensed local and long-distance moving, packing, storage, and commercial relocation for Natick, MA and MetroWest—headquartered at 18 Lakeview Gardens with transparent pricing.',
-  howToName: 'How to book Natick movers with Phoenix Moving',
+  howToName: `How to book Natick movers with ${SITE.businessShortName}`,
   howToDescription:
-    'Four steps to plan and complete a Natick move with Phoenix Moving—from free quote to walkthrough and payment.',
+    `Four steps to plan and complete a Natick move with ${SITE.businessShortName}—from free quote to walkthrough and payment.`,
 };
 
 export const natickPremium: CityPremiumContent = {
@@ -246,7 +246,7 @@ export const natickPremium: CityPremiumContent = {
   imageSlug: 'natick-movers',
   legacySlug: 'natick-movers',
   keywords: natickKeywords,
-  ogImageAlt: 'Natick, MA movers — Phoenix Moving',
+  ogImageAlt: `Natick, MA movers — ${SITE.businessShortName}`,
   schema: {
     cityName: 'Natick',
     postalCode: '01760',
@@ -268,13 +268,13 @@ export const natickPremium: CityPremiumContent = {
   intro: {
     label: 'Natick, MA',
     title: 'Your local Natick moving company',
-    imageAlt: 'Natick, Massachusetts — Phoenix Moving service area',
+    imageAlt: `Natick, Massachusetts — ${SITE.businessShortName} service area`,
     trustLead: 'Natick movers you can trust:',
   },
   trustFeatures: natickTrustFeatures,
   whyChoose: {
     label: 'Why Natick homeowners choose us',
-    title: 'Why choose Phoenix Moving in Natick?',
+    title: `Why choose ${SITE.businessShortName} in Natick?`,
     subtitle:
       'Licensed MetroWest crews, transparent pricing, and building-ready service from our Natick headquarters.',
     features: natickWhyChooseFeatures,

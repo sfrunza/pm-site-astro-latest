@@ -52,7 +52,7 @@ export function buildArticleJsonLd(
     dateModified: modified,
     author: {
       '@type': 'Organization',
-      name: 'Phoenix Moving Team',
+      name: `${SITE.businessShortName} Team`,
       url: `${SITE.url}/blog`,
     },
     publisher: {
@@ -80,7 +80,7 @@ export function buildBlogListingJsonLd(
       url: blogUrl,
       name: `${SITE.businessShortName} Moving Blog`,
       description:
-        'Boston and Massachusetts moving tips, cost guides, packing advice, and checklists from licensed Phoenix Moving crews.',
+        `Boston and Massachusetts moving tips, cost guides, packing advice, and checklists from licensed ${SITE.businessShortName} crews.`,
       publisher: { '@id': ORGANIZATION_ID },
       inLanguage: SITE.locale.replace('_', '-'),
     },

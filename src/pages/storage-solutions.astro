@@ -30,8 +30,7 @@ const socialImageUrl = await getSocialImageUrl(heroBg);
 
 const seo = await fetchPageSeo(Astro.url, {
   title: `Storage Solutions | ${SITE.businessName}`,
-  description:
-    'Secure, flexible storage solutions for your move — short-term, long-term, and overnight options with licensed and insured Phoenix Moving.',
+  description: `Secure, flexible storage solutions for your move — short-term, long-term, and overnight options with licensed and insured ${SITE.businessShortName}.`,
   keywords:
     'moving storage, storage units Boston, short term storage, climate controlled storage, mover storage',
   pathname,
@@ -102,7 +101,7 @@ const options = [
   <!-- Storage Solutions -->
   <FeatureImageLeft
     title="Welcome to Our Storage Services."
-    subtitle="Phoenix Movers offers a variety of storage solutions to meet your needs, whether you require short-term, long-term, or overnight storage. Our services are designed to provide convenience, affordability, and peace of mind for all your storage needs."
+    subtitle=`${SITE.businessShortName} offers a variety of storage solutions to meet your needs, whether you require short-term, long-term, or overnight storage. Our services are designed to provide convenience, affordability, and peace of mind for all your storage needs.`
     image={storageUnits}
     alt="Storage units"
     stats={[

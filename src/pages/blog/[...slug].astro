@@ -24,7 +24,7 @@ import {
 } from '@/config/blog';
 import { getBlogRelatedServices } from '@/config/blog-related-services';
 import Layout from '@/layouts/Layout.astro';
-import { fetchBlogPostSeo, getBlogImageUrl } from '@/seo';
+import { fetchBlogPostSeo, getSocialImageUrl } from '@/seo';
 import CTA2 from '@/blocks/cta/CTA2.astro';
 
 export async function getStaticPaths() {
@@ -52,7 +52,7 @@ const faqItems =
     answer: `<p>${item.answer}</p>`,
   })) ?? [];
 
-const blogImageUrl = await getBlogImageUrl(data.image, Astro.site);
+const blogImageUrl = await getSocialImageUrl(data.image, Astro.site);
 const lcpPreload = await getBlogHeroLcpPreload(data.image);
 
 const seo = await fetchBlogPostSeo(

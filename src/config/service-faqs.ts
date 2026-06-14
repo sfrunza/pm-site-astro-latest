@@ -14,7 +14,7 @@ export const serviceFaqsByPath: Record<string, ServiceFaq[]> = {
     {
       question: 'Do you serve Cambridge, Somerville, and Brookline?',
       answer:
-        '<p>Yes. Phoenix Moving serves Greater Boston including Cambridge, Somerville, Brookline, Newton, and surrounding communities.</p>',
+        `<p>Yes. ${SITE.businessShortName} serves Greater Boston including Cambridge, Somerville, Brookline, Newton, and surrounding communities.</p>`,
     },
     {
       question: 'Are your local movers licensed and insured in Massachusetts?',
@@ -295,6 +295,7 @@ export const relatedLinksByPath: Record<string, RelatedLink[]> = {
 };
 
 import { normalizeCanonicalPath } from '@/seo/canonical';
+import { SITE } from './site';
 
 /** Strip trailing slashes so lookups work in dev and directory-format production builds. */
 export function normalizePathKey(pathname: string): string {

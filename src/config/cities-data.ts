@@ -1,3 +1,5 @@
+import { SITE } from '@/config/site';
+
 export type City = {
   fullName: string;
   name: string;
@@ -13,9 +15,9 @@ export const cities: City[] = [
     name: 'Natick',
     state: 'MA',
     intro:
-      'Phoenix Moving is headquartered in Natick, Massachusetts, and serves homeowners and businesses throughout MetroWest and Greater Boston.',
+      `${SITE.businessShortName} is headquartered in Natick, Massachusetts, and serves homeowners and businesses throughout MetroWest and Greater Boston.`,
     description:
-      'Natick is our home base in MetroWest Massachusetts. Phoenix Moving provides local, long-distance, packing, storage, and specialty moves for Natick residents and businesses with licensed, insured crews and transparent pricing.',
+      `Natick is our home base in MetroWest Massachusetts. ${SITE.businessShortName} provides local, long-distance, packing, storage, and specialty moves for Natick residents and businesses with licensed, insured crews and transparent pricing.`,
     slug: 'natick-movers',
     icon: '/cities/natick.png',
   },
@@ -195,7 +197,7 @@ export const cities: City[] = [
     name: 'Brookline',
     state: 'MA',
     intro:
-      'Phoenix Movers in Brookline MA are a great choice for those looking for experienced and professional moving services. Our team of movers in Brookline have years of experience in the moving industry and are dedicated to providing the best service in town. We are fully insured and bonded to ensure that your belongings are safe and secure during the move. Our movers in Brookline MA will provide you with a stress-free move and make sure that everything arrives in its original condition. We offer a variety of services to accommodate all of your moving needs, from packing and loading to unloading and storage. Contact us today to get an estimate for your move and let our movers in Brookline take the worry out of your move.',
+      `${SITE.businessShortName} Movers in Brookline MA are a great choice for those looking for experienced and professional moving services. Our team of movers in Brookline have years of experience in the moving industry and are dedicated to providing the best service in town. We are fully insured and bonded to ensure that your belongings are safe and secure during the move. Our movers in Brookline MA will provide you with a stress-free move and make sure that everything arrives in its original condition. We offer a variety of services to accommodate all of your moving needs, from packing and loading to unloading and storage. Contact us today to get an estimate for your move and let our movers in Brookline take the worry out of your move.`,
     description:
       'Brookline Massachusetts is an excellent place to move for a number of reasons. The community is particularly diverse and vibrant, making it a great place for those who value culture and diversity. The public schools are among the top in the nation and there are numerous educational opportunities for people of all ages. This city also has a thriving economy, with plenty of job opportunities in a variety of industries. Furthermore, Brookline Massachusetts has a very affordable cost of living and is close to major cities such as Boston, making it an ideal place for those who want to be close to the action. Finally, the area is full of green spaces and recreational activities, making it a great place to live for those who love the outdoors.',
     slug: 'brookline-movers',

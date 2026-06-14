@@ -1,3 +1,5 @@
+import { SITE } from "@/config/site";
+
 export type Service = {
   name: string;
   description: string;
@@ -10,7 +12,7 @@ export const services: Service[] = [
   {
     name: "Local Moving",
     description:
-      "Phoenix Moving is a perfect solution for your Boston and surrounding area move.",
+      `${SITE.businessShortName} is a perfect solution for your Boston and surrounding area move.`,
     shortDescription: "Hourly based full moving servcies",
     video: "/videos/video-1.mp4",
     href: "/local-moving",
@@ -26,7 +28,7 @@ export const services: Service[] = [
   {
     name: "Packing Services",
     description:
-      "Moving packing solutions. Phoenix Moving Company provides all kinds of boxes and carefully packs your belongings.",
+      `Moving packing solutions. ${SITE.businessShortName} Company provides all kinds of boxes and carefully packs your belongings.`,
     shortDescription: "Top-notch packing services to reduce the stress of moving",
     video: "/videos/video-3.mp4",
     href: "/packing-services",
@@ -34,7 +36,7 @@ export const services: Service[] = [
   {
     name: "Storage Solutions",
     description:
-      "All types of storage for your move with Phoenix Moving Company. Short and long-term available.",
+      `All types of storage for your move with ${SITE.businessShortName} Company. Short and long-term available.`,
     shortDescription: "Temperature-controlled storage for up to 6 months",
     video: "/videos/video-4.mp4",
     href: "/storage-solutions",

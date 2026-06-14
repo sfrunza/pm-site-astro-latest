@@ -1,5 +1,6 @@
 import { getCollection, type CollectionEntry } from 'astro:content';
 import { formatReadingTime } from '@/utils/reading-time';
+import { SITE } from '@/config/site';
 
 export {
   BLOG_CATEGORY_VALUES,
@@ -8,7 +9,7 @@ export {
 } from '@/config/blog-categories';
 
 export const BLOG_AUTHOR = {
-  name: 'Phoenix Moving Team',
+  name: `${SITE.businessShortName} Team`,
   url: '/blog',
   bio: 'Licensed and insured Boston-area movers sharing field-tested advice from thousands of local and long-distance relocations across Massachusetts.',
   credentials:

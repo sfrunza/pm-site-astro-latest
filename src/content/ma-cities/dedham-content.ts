@@ -13,9 +13,10 @@ import {
 
 export const DEDHAM_PATH = '/dedham-ma-movers';
 
+
 /** 40–60 word direct answer for GEO / above-the-fold. */
 const dedhamDirectAnswer =
-  'Phoenix Moving is a licensed, insured Massachusetts moving company serving Dedham and Norfolk County from our Natick headquarters. We handle local, long-distance, packing, storage, and commercial moves in Dedham Square, Oakdale, and nearby South Shore communities—with transparent pricing and free estimates.';
+  `${SITE.businessShortName} is a licensed, insured Massachusetts moving company serving Dedham and Norfolk County from our Natick headquarters. We handle local, long-distance, packing, storage, and commercial moves in Dedham Square, Oakdale, and nearby South Shore communities—with transparent pricing and free estimates.`;
 
 const dedhamTrustFeatures = [
   `Licensed MDPU #${SITE.businessLicenses.MDPU}`,
@@ -30,7 +31,7 @@ const dedhamWhyChooseFeatures = [
   {
     name: 'Licensed & insured Massachusetts movers',
     description:
-      'Phoenix Moving holds MDPU license 32054, US DOT 3868109, and cargo, motor vehicle, and general liability coverage—so your Dedham move meets landlord and building requirements.',
+      `${SITE.businessShortName} holds MDPU license 32054, US DOT 3868109, and cargo, motor vehicle, and general liability coverage—so your Dedham move meets landlord and building requirements.`,
     icon: LicenseIcon,
   },
   {
@@ -96,7 +97,7 @@ const dedhamServicesCopy = {
   label: 'Dedham moving services',
   title: 'Full-service movers for Dedham homes & businesses',
   subtitle:
-    'From Dedham Square walk-ups to Oakdale colonials and office relocations along Route 1, Phoenix Moving delivers licensed local crews, packing, storage, and long-distance options from our Natick headquarters.',
+    `From Dedham Square walk-ups to Oakdale colonials and office relocations along Route 1, ${SITE.businessShortName} delivers licensed local crews, packing, storage, and long-distance options from our Natick headquarters.`,
 };
 
 /** Long-form “moving in Dedham” copy for FeatureImageLeft. */
@@ -105,7 +106,7 @@ const dedhamMovingInDedham = {
   subtitle:
     'Historic downtown charm, suburban streets, and quick access to Boston—here is how we plan Dedham moves for less stress on load day.',
   paragraphs: [
-    'Dedham sits about 15 miles southwest of Boston in Norfolk County, blending a walkable town center with quiet residential pockets like Oakdale, Riverdale, and East Dedham. Whether you are closing on a colonial near the Charles River, leasing a condo near commuter rail, or shifting your business along Route 1, Phoenix Moving builds a move plan around your building rules, parking, and inventory—not a one-size template.',
+    `Dedham sits about 15 miles southwest of Boston in Norfolk County, blending a walkable town center with quiet residential pockets like Oakdale, Riverdale, and East Dedham. Whether you are closing on a colonial near the Charles River, leasing a condo near commuter rail, or shifting your business along Route 1, ${SITE.businessShortName} builds a move plan around your building rules, parking, and inventory—not a one-size template.`,
     'Our coordinators work from Natick, so travel to Dedham is straightforward on I-95 and Route 1. That often keeps prorated travel time reasonable compared with crews dispatched from far outside MetroWest. We confirm crew size, truck type, and whether your building needs a certificate of insurance (COI) or freight-elevator reservation before we arrive.',
     'Many Dedham moves pair local loading with <a href="/interstate-moving" aria-label="Long-distance delivery">long-distance delivery</a>, <a href="/packing-services" aria-label="Professional packing">professional packing</a>, or <a href="/storage-solutions" aria-label="Storage">short-term storage</a> between closings. One team can handle the timeline so you are not juggling multiple vendors during a stressful transition.',
   ],
@@ -170,7 +171,7 @@ const dedhamCommercialCopy = {
   subtitle:
     'Minimize downtime for Norfolk County businesses with planned commercial relocations.',
   paragraphs: [
-    'Dedham businesses along Route 1, legacy mill conversions, and professional offices near Dedham Corporate Center trust Phoenix Moving for structured commercial moves. We label workstations, protect IT equipment, and stage furniture so your team can resume work faster.',
+    `Dedham businesses along Route 1, legacy mill conversions, and professional offices near Dedham Corporate Center trust ${SITE.businessShortName} for structured commercial moves. We label workstations, protect IT equipment, and stage furniture so your team can resume work faster.`,
     'Share your target move-in window, loading dock or freight elevator rules, and any after-hours access needs. We align crew size and truck type with your floor plan and coordinate COIs when property managers require them.',
   ],
 };
@@ -230,7 +231,7 @@ const dedhamNearbyTowns: RelatedLink[] = [
   {
     href: '/newton-movers',
     label: 'Newton movers',
-    description: 'Second Phoenix Moving location—full-service crews.',
+    description: `Second ${SITE.businessShortName} location—full-service crews.`,
   },
   {
     href: '/boston-movers',
@@ -278,7 +279,7 @@ const dedhamFaqs: Faq[] = [
     answer: `<p>Local Dedham moves are typically billed hourly in 15-minute increments for labor plus prorated travel from our Natick warehouse. Studio and one-bedroom jobs often run a few hours; larger homes take longer. <a href="/pricing" aria-label="See moving prices">See moving prices</a> or <a href="/book" aria-label="Request a free quote">request a free quote</a> for your home size and date.</p>`,
   },
   {
-    question: 'Are Phoenix Moving crews licensed and insured in Dedham?',
+    question: `Are ${SITE.businessShortName} crews licensed and insured in Dedham?`,
     answer: `<p>Yes. We are licensed with the Massachusetts Department of Public Utilities (MDPU #${SITE.businessLicenses.MDPU}), US DOT ${SITE.businessLicenses.DOT}, and carry cargo, motor vehicle, and general liability insurance. We provide certificates of insurance for Dedham buildings when required.</p>`,
   },
   {
@@ -303,7 +304,7 @@ const dedhamFaqs: Faq[] = [
       '<p>Yes. We help Dedham families with downsizing, estate cleanouts, and partial loads—coordinating packing, donation drop-offs, and storage when you need a lighter footprint. Tell us your timeline when you <a href="/book" aria-label="Request a quote">request a quote</a>.</p>',
   },
   {
-    question: 'Can Phoenix Moving handle weekend moves in Dedham?',
+    question: `Can ${SITE.businessShortName} handle weekend moves in Dedham?`,
     answer:
       '<p>Weekend and month-end dates are available for Dedham local moves when schedules allow. Popular Saturdays fill early—book two to four weeks ahead for the best crew and truck match.</p>',
   },
@@ -332,7 +333,7 @@ const dedhamKeywords = [
   'Oakdale movers',
   'East Dedham movers',
   '02026 movers',
-  'Phoenix Moving Dedham',
+  `${SITE.businessShortName} Dedham`,
 ].join(', ');
 
 const dedhamSeo = {
@@ -342,9 +343,9 @@ const dedhamSeo = {
   serviceName: 'Dedham Moving Services',
   serviceDescription:
     'Licensed local and long-distance moving, packing, storage, and commercial relocation for Dedham, MA and Norfolk County—with transparent pricing from our Natick headquarters.',
-  howToName: 'How to book Dedham movers with Phoenix Moving',
+  howToName: `How to book Dedham movers with ${SITE.businessShortName}`,
   howToDescription:
-    'Four steps to plan and complete a Dedham move with Phoenix Moving—from free quote to walkthrough and payment.',
+    `Four steps to plan and complete a Dedham move with ${SITE.businessShortName}—from free quote to walkthrough and payment.`,
 };
 
 export const dedhamPremium: CityPremiumContent = {
@@ -352,7 +353,7 @@ export const dedhamPremium: CityPremiumContent = {
   imageSlug: 'dedham-movers',
   legacySlug: 'dedham-movers',
   keywords: dedhamKeywords,
-  ogImageAlt: 'Dedham, MA movers — Phoenix Moving',
+  ogImageAlt: `Dedham, MA movers — ${SITE.businessShortName}`,
   schema: {
     cityName: 'Dedham',
     postalCode: '02026',
@@ -374,7 +375,7 @@ export const dedhamPremium: CityPremiumContent = {
   intro: {
     label: 'Dedham, MA',
     title: 'Your local Dedham moving company',
-    imageAlt: 'Dedham, Massachusetts — Phoenix Moving service area',
+    imageAlt: `Dedham, Massachusetts — ${SITE.businessShortName} service area`,
     trustLead: 'Dedham movers you can trust:',
   },
   trustFeatures: dedhamTrustFeatures,
@@ -383,7 +384,7 @@ export const dedhamPremium: CityPremiumContent = {
     title: dedhamMovingInDedham.title,
     subtitle: dedhamMovingInDedham.subtitle,
     paragraphs: dedhamMovingInDedham.paragraphs,
-    imageAlt: 'Phoenix Moving crew serving Dedham, Massachusetts',
+    imageAlt: `${SITE.businessShortName} crew serving Dedham, Massachusetts`,
   },
   moveTypes: {
     label: 'Move types',
@@ -396,7 +397,7 @@ export const dedhamPremium: CityPremiumContent = {
   },
   whyChoose: {
     label: 'Why Dedham homeowners choose us',
-    title: 'Why choose Phoenix Moving in Dedham?',
+    title: `Why choose ${SITE.businessShortName} in Dedham?`,
     subtitle:
       'Licensed MetroWest crews, transparent pricing, and building-ready service for Norfolk County moves.',
     features: dedhamWhyChooseFeatures,

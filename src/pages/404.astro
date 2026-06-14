@@ -47,9 +47,8 @@ const relatedLinks: RelatedLink[] = [
 
 const seo = await fetchPageSeo(Astro.url, {
   title: `Page Not Found | ${SITE.businessName}`,
-  description:
-    'The page you requested could not be found. Return to Phoenix Moving for local moving, pricing, and free estimates in the Boston area.',
-  keywords: '404, page not found, Phoenix Moving',
+  description: `The page you requested could not be found. Return to ${SITE.businessShortName} for local moving, pricing, and free estimates in the Boston area.`,
+  keywords: `404, page not found, ${SITE.businessShortName}`,
   pathname: '/404',
   breadcrumbs: [
     { name: 'Home', path: '/' },

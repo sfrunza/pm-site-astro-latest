@@ -7,6 +7,7 @@ import Button from '@/components/starwind/button';
 import { ArrowRight } from '@/icons';
 import { getFeaturedPosts } from '@/config/blog';
 import { tv } from 'tailwind-variants';
+import { SITE } from '@/config/site';
 
 interface Props {
   class?: string;
@@ -23,7 +24,7 @@ const {
   limit = 3,
   label = 'From the Blog',
   title = 'Moving tips straight from the crew.',
-  subtitle = 'Field-tested advice from licensed Phoenix Moving crews — budgeting, packing, permits, and everything in between.',
+  subtitle = `Field-tested advice from licensed ${SITE.businessShortName} crews — budgeting, packing, permits, and everything in between.`,
 } = Astro.props;
 
 const posts = (await getFeaturedPosts()).slice(0, limit);

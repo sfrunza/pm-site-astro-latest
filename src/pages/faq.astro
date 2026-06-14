@@ -20,8 +20,7 @@ const socialImageUrl = await getSocialImageUrl(heroBg);
 
 const seo = await fetchPageSeo(Astro.url, {
   title: `Frequently Asked Questions | ${SITE.businessName}`,
-  description:
-    'Frequently asked questions about Phoenix Moving services, pricing, licensing, payments, and what to expect on moving day.',
+  description: `Frequently asked questions about ${SITE.businessShortName} services, pricing, licensing, payments, and what to expect on moving day.`,
   keywords:
     'moving FAQ, moving questions, Boston movers FAQ, moving cost, licensed movers',
   pathname: Astro.url.pathname,

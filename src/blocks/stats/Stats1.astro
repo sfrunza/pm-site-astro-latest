@@ -6,6 +6,7 @@ import moversTruck from '@/assets/2-movers-and-truck-opt.jpg';
 import { MapPinIcon } from '@/icons';
 import { tv } from 'tailwind-variants';
 import type { HTMLAttributes } from 'astro/types';
+import { SITE } from '@/config/site';
 
 interface PlainStat {
   value: string;
@@ -28,7 +29,7 @@ const stats1 = tv({ base: '' });
 
 const {
   class: className = '',
-  titleStart = 'Phoenix Moving',
+  titleStart = SITE.businessShortName,
   titleHighlight = 'by the Numbers',
   subtitle = 'A decade of smooth, stress-free moves across Massachusetts',
   rating = '5.0',
@@ -108,8 +109,8 @@ const {
               </div>
               <Image
                 src={moversTruck}
-                alt="Two Phoenix Moving crew members standing in front of a branded purple moving truck"
-                title="Two Phoenix Moving crew members standing in front of a branded purple moving truck"
+                alt={`Two ${SITE.businessShortName} crew members standing in front of a branded purple moving truck`}
+                title={`Two ${SITE.businessShortName} crew members standing in front of a branded purple moving truck`}
                 class="relative z-10 h-full w-full object-cover"
                 widths={[320, 480, 640, 768]}
                 sizes="(min-width: 1024px) 24rem, 20rem"

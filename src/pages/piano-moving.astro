@@ -52,8 +52,7 @@ const seo = await fetchPageSeo(Astro.url, {
   ogImage: socialImageUrl,
   jsonLdExtra: servicePageJsonLd(pathname, {
     name: 'How to move a piano with professional movers',
-    description:
-      'Four steps to book, protect, and deliver your piano with Phoenix Moving Boston.',
+    description: `Four steps to book, protect, and deliver your piano with ${SITE.businessShortName} Boston.`,
   }),
 });
 ---
@@ -82,14 +81,14 @@ const seo = await fetchPageSeo(Astro.url, {
     title="Boston Piano Movers You Can Trust"
     label="Specialty Moving"
     image={heroBg}
-    alt="Phoenix Moving crew preparing furniture for a careful local move"
+    alt=`${SITE.businessShortName} crew preparing furniture for a careful local move`
     class="defer-section"
   >
     <p>
       Moving a piano is not a standard furniture job. Weight distribution,
       fragile internal components, and narrow doorways require <b
         >specialized tools and experience</b
-      >. Phoenix Moving provides dedicated piano moving services throughout
+      >. ${SITE.businessShortName} provides dedicated piano moving services throughout
       Boston, Natick, Cambridge, and surrounding communities.
     </p>
     <p>
@@ -256,7 +255,7 @@ const seo = await fetchPageSeo(Astro.url, {
   <Process1 class="defer-section" />
 
   <Feature2
-    title="Why Choose Phoenix for Piano Moving"
+    title={`Why Choose ${SITE.businessShortName} for Piano Moving`}
     label="Why Choose Us"
     subtitle="Specialty moves demand specialty care — and a moving company that shows up prepared."
     class="defer-section"

@@ -9,8 +9,7 @@ const lastUpdated = new Date(2025, 2, 10).toLocaleDateString();
 const seo = await fetchPageSeo(Astro.url, {
   title: `Terms and Conditions | ${SITE.businessName}`,
   description: `Terms and Conditions for ${SITE.businessName}. Last updated: ${lastUpdated}`,
-  keywords:
-    'moving terms, moving contract, Phoenix Moving terms and conditions',
+  keywords: `moving terms, moving contract, ${SITE.businessShortName} terms and conditions`,
   pathname: Astro.url.pathname,
   breadcrumbs: [
     { name: 'Home', path: '/' },
@@ -31,10 +30,11 @@ const seo = await fetchPageSeo(Astro.url, {
 
     <p>
       The following terms and conditions apply to all services performed by the
-      carrier under this contract. The term “carrier” refers to Phoenix Moving
-      Inc., a Massachusetts corporation. The contract is also subject to all
-      rules, rates, and charges in the current tariffs, published, or on file
-      with, the Massachusetts Department of Public Utilities.
+      carrier under this contract. The term “carrier” refers to {
+        SITE.businessShortName
+      } Inc., a Massachusetts corporation. The contract is also subject to all rules,
+      rates, and charges in the current tariffs, published, or on file with, the Massachusetts
+      Department of Public Utilities.
     </p>
     <section>
       <h2>Sec 1.</h2>
@@ -271,8 +271,9 @@ const seo = await fetchPageSeo(Astro.url, {
         <li>
           <b>Types of SMS Communications:</b>
           <p>
-            If consent has been given to receive text messages from Phoenix
-            Moving & Storage, messages may be received related to the following:
+            If consent has been given to receive text messages from {
+              SITE.businessName
+            }, messages may be received related to the following:
           </p>
           <ul>
             <li>Delivery notifications</li>
@@ -320,8 +321,8 @@ const seo = await fetchPageSeo(Astro.url, {
         <li>
           <b>Opt-In Method:</b>
           <p>
-            Opt-in to receive SMS messages from Phoenix Moving & Storage can be
-            done in the following ways:
+            Opt-in to receive SMS messages from {SITE.businessName} can be done in
+            the following ways:
           </p>
           <p>By submitting an online form</p>
         </li>

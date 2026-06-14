@@ -9,8 +9,7 @@ const lastUpdated = new Date(2025, 2, 1).toLocaleDateString();
 const seo = await fetchPageSeo(Astro.url, {
   title: `Company Policy | ${SITE.businessName}`,
   description: `Company Policy for ${SITE.businessName}. Last updated: ${lastUpdated}`,
-  keywords:
-    'moving company policy, deposit policy, cancellation policy, Phoenix Moving',
+  keywords: `moving company policy, deposit policy, cancellation policy, ${SITE.businessShortName}`,
   pathname: Astro.url.pathname,
   breadcrumbs: [
     { name: 'Home', path: '/' },
@@ -171,12 +170,14 @@ const seo = await fetchPageSeo(Astro.url, {
         Two parking spaces (to accommodate a 34-foot-long moving truck) should
         be provided/secured by the customer. Parking spot must be located within
         75 feet from the entrance. In case if a parking permit is needed, it is
-        customer&apos;s responsibility to inform Phoenix Moving. All parking
-        permits must be obtained by the customer unless otherwise indicated on
-        the move plan. In case if there is no parking space available next to
-        the origin/delivery location and the moving truck needs to be parked in
-        a non-permitted space, it is customer&apos;s responsibility to cover the
-        cost of any parking tickets issued to Phoenix Moving.
+        customer&apos;s responsibility to inform {SITE.businessShortName}. All
+        parking permits must be obtained by the customer unless otherwise
+        indicated on the move plan. In case if there is no parking space
+        available next to the origin/delivery location and the moving truck
+        needs to be parked in a non-permitted space, it is customer&apos;s
+        responsibility to cover the cost of any parking tickets issued to {
+          SITE.businessShortName
+        }.
       </p>
     </section>
 
@@ -247,11 +248,11 @@ const seo = await fetchPageSeo(Astro.url, {
         <li>
           Moving blankets: If your shipment will be delivered to a storage
           facility, your warehouse, or loaded into a POD/container or a
-          different truck instead of the Phoenix Movers truck, we will charge
-          you $20 for each moving blanket. When you move out or receive your
-          delivery from storage, if Phoenix Movers retrieves the moving
-          blankets, we will refund you $10 for each blanket that was charged
-          during the move-in or loading services.
+          different truck instead of the {SITE.businessShortName} truck, we will charge
+          you $20 for each moving blanket. When you move out or receive your delivery
+          from storage, if {SITE.businessShortName} retrieves the moving blankets,
+          we will refund you $10 for each blanket that was charged during the move-in
+          or loading services.
         </li>
       </ul>
     </section>
@@ -297,12 +298,11 @@ const seo = await fetchPageSeo(Astro.url, {
         each moving location, walking distance, stairs, etc. We recommend a
         certain number of movers for each job taking in consideration all the
         above as well as our current schedule, availability, etc. On extreme
-        situations, Phoenix Moving & Storage might recommend sending extra men
-        and/or truck during the day to complete a job if there is an overflow of
-        items that needs to be moved, or additional packing required, a time
-        restriction, very difficult access or very difficult pieces of
-        furniture, etc. The hourly rate will be increased accordingly and the
-        move will run more efficiently with more movers.
+        situations, {SITE.businessName} might recommend sending extra men and/or truck
+        during the day to complete a job if there is an overflow of items that needs
+        to be moved, or additional packing required, a time restriction, very difficult
+        access or very difficult pieces of furniture, etc. The hourly rate will be
+        increased accordingly and the move will run more efficiently with more movers.
       </p>
     </section>
 
@@ -310,9 +310,9 @@ const seo = await fetchPageSeo(Astro.url, {
       <h2>Sec 16. Storage in Transit (SIT) Policy.</h2>
       <p>
         If delivery to the final destination cannot be completed on the
-        scheduled date, Phoenix Moving may provide Storage in Transit (SIT)
-        services to temporarily store the customer&apos;s belongings in a secure
-        facility until delivery can be made.
+        scheduled date, {SITE.businessShortName} may provide Storage in Transit (SIT)
+        services to temporarily store the customer&apos;s belongings in a secure facility
+        until delivery can be made.
       </p>
       <p>
         SIT is available for up to 180 days, depending on the type of move. If
@@ -335,9 +335,10 @@ const seo = await fetchPageSeo(Astro.url, {
           boxes, totes, or containers packed by you or anyone outside our crew.
         </li>
         <li>
-          <b>Pre-Existing Damage.</b> Phoenix Moving is not liable for any damage
-          that existed before our involvement. Our team will document visible issues
-          (e.g., via photos) prior to starting the move.
+          <b>Pre-Existing Damage.</b>
+          {SITE.businessShortName} is not liable for any damage that existed before
+          our involvement. Our team will document visible issues (e.g., via photos)
+          prior to starting the move.
         </li>
         <li>
           <b>Perishable, Hazardous, or Restricted Items.</b> We do not transport perishable
@@ -384,10 +385,10 @@ const seo = await fetchPageSeo(Astro.url, {
     <section>
       <h2>Sec 18. Coverage / Insurance Options.</h2>
       <p>
-        Phoenix Moving provides valuation coverage options to protect your items
-        during transit. Coverage only applies if we are responsible for the loss
-        or damage. Note: Even if damage is identified during the move, full
-        payment for services is still required.
+        {SITE.businessShortName} provides valuation coverage options to protect your
+        items during transit. Coverage only applies if we are responsible for the
+        loss or damage. Note: Even if damage is identified during the move, full payment
+        for services is still required.
       </p>
       <ol>
         <li>
@@ -418,7 +419,9 @@ const seo = await fetchPageSeo(Astro.url, {
         <li>
           Furniture made of particle board, pressed wood, or similar materials.
         </li>
-        <li>Items found damaged in boxes not packed by Phoenix Moving.</li>
+        <li>
+          Items found damaged in boxes not packed by {SITE.businessShortName}.
+        </li>
         <li>
           Mechanical or functional issues with electronics during transit or
           storage.

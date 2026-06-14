@@ -26,8 +26,7 @@ const listingPosts = posts.map((post) => ({
 
 const seo = await fetchPageSeo(Astro.url, {
   title: `Moving Tips & Guides Blog | ${SITE.businessName}`,
-  description:
-    'Boston and Massachusetts moving tips, cost guides, packing advice, and checklists from licensed Phoenix Moving crews. Plan your next move with confidence.',
+  description: `Boston and Massachusetts moving tips, cost guides, packing advice, and checklists from licensed ${SITE.businessShortName} crews. Plan your next move with confidence.`,
   keywords:
     'moving blog Boston, moving tips Massachusetts, packing guide, moving cost Boston, moving checklist',
   pathname,

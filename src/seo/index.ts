@@ -25,7 +25,6 @@ export type { BlogSeoPost } from '@/seo/json-ld';
 export { fetchCityPremiumPageSeo } from '@/seo/city-premium-seo';
 export { servicePageJsonLd } from '@/seo/service-page-schema';
 export {
-  getBlogImageUrl,
   getSocialImageUrl,
 } from '@/seo/social-image';
 

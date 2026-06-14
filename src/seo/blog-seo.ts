@@ -87,7 +87,7 @@ function buildBlogPostSeo(
       article: {
         publishedTime: publishedIso,
         modifiedTime: modifiedIso,
-        authors: ['Phoenix Moving Team'],
+        authors: [`${SITE.businessShortName} Team`],
         section: post.category,
         tags: post.tags,
       },

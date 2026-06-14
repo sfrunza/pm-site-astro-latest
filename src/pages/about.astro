@@ -23,9 +23,9 @@ const socialImageUrl = await getSocialImageUrl(heroBg);
 const seo = await fetchPageSeo(Astro.url, {
   title: `About our company | ${SITE.businessName}`,
   description:
-    'Learn about Phoenix Moving & Storage — a licensed, insured Boston-area moving company offering local and long-distance moves, packing and storage.',
+    `Learn about ${SITE.businessName} — a licensed, insured Boston-area moving company offering local and long-distance moves, packing and storage.`,
   keywords:
-    'about Phoenix Moving, Boston moving company, Natick movers, licensed movers Massachusetts, moving and storage',
+    `about ${SITE.businessShortName}, Boston moving company, Natick movers, licensed movers Massachusetts, moving and storage`,
   pathname: Astro.url.pathname,
   breadcrumbs: [
     { name: 'Home', path: '/' },
@@ -38,7 +38,7 @@ const seo = await fetchPageSeo(Astro.url, {
 <Layout {...seo} lcpPreload={lcpPreload}>
   <Hero2
     bgImage={heroBg}
-    title="About Phoenix Moving & Storage"
+    title={`About ${SITE.businessName}`}
     subtitle="Professional movers serving Greater Boston and beyond — fast, reliable, and built around making your move stress-free."
   />
 
@@ -59,7 +59,7 @@ const seo = await fetchPageSeo(Astro.url, {
     title="What Makes Us Different."
     label="Who We Are"
     image={featureImage}
-    alt="Phoenix Moving crew with truck"
+    alt={`${SITE.businessShortName} crew with truck`}
     class="defer-section"
   >
     <p>
@@ -85,7 +85,7 @@ const seo = await fetchPageSeo(Astro.url, {
     title="Licensed, Bonded & Insured."
     subtitle="Your belongings are protected every step of the way."
     image={heroBg}
-    alt="Phoenix Moving professional crew"
+    alt={`${SITE.businessShortName} professional crew`}
     class="defer-section"
   >
     <p>
@@ -122,7 +122,7 @@ const seo = await fetchPageSeo(Astro.url, {
     description="We are a professional moving company that provides fast, reliable, and affordable moving services for residential and commercial customers throughout the Boston area and beyond."
     image={{
       src: featureImage,
-      alt: 'Phoenix Moving crew loading a truck',
+      alt: `${SITE.businessShortName} crew loading a truck`,
     }}
     class="defer-section"
   />
@@ -141,7 +141,7 @@ const seo = await fetchPageSeo(Astro.url, {
   />
 
   <CTA2
-    title="Move with Phoenix Moving Boston."
+    title={`Move with ${SITE.businessShortName} Boston.`}
     description="Request a free estimate — no credit card required."
     class="defer-section"
   />

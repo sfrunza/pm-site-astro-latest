@@ -50,7 +50,7 @@ const seo = await fetchPageSeo(Astro.url, {
   },
   ogImage: socialImageUrl,
   jsonLdExtra: servicePageJsonLd(pathname, {
-    name: 'How to move with Phoenix Moving in Boston',
+    name: `How to move with ${SITE.businessShortName} in Boston`,
     description:
       'Book Boston local movers in four steps — from free quote to move-in day.',
   }),
@@ -85,16 +85,17 @@ const seo = await fetchPageSeo(Astro.url, {
     class="defer-section"
   >
     <p>
-      As <b>Boston local movers</b>, Phoenix Moving serves Greater Massachusetts
-      with residential and commercial relocation. If you need local movers in
-      Boston MA, check your area and request a free quote.
+      As <b>Boston local movers</b>, ${SITE.businessShortName} serves Greater Massachusetts
+      with residential and commercial relocation. If you need local movers in Boston
+      MA, check your area and request a free quote.
     </p>
     <p>
       Are you searching for reliable local movers in Boston and the surrounding
-      areas? Look no further! At Phoenix Moving, we specialize in professional
-      local moving services tailored to meet your needs. Whether you're
-      relocating within Boston, Cambridge, Somerville, Brookline, or beyond, our
-      experienced team is here to make your move seamless and stress-free.
+      areas? Look no further! At ${SITE.businessShortName}, we specialize in
+      professional local moving services tailored to meet your needs. Whether
+      you're relocating within Boston, Cambridge, Somerville, Brookline, or
+      beyond, our experienced team is here to make your move seamless and
+      stress-free.
     </p>
 
     <ul>
@@ -109,9 +110,10 @@ const seo = await fetchPageSeo(Astro.url, {
       </li>
     </ul>
     <p>
-      Since moving is a big part of their everyday lives, our Phoenix Movers are
-      experienced in everything that comes along with the word relocation.
-      Accurate quotes, on-time arrival,
+      Since moving is a big part of their everyday lives, our ${
+        SITE.businessShortName
+      } are experienced in everything that comes along with the word relocation. Accurate
+      quotes, on-time arrival,
       <b>professional packing techniques</b>, and qualified handling of moving
       equipment and materials — our workers are trained and equipped in the best
       possible way.
@@ -150,12 +152,12 @@ const seo = await fetchPageSeo(Astro.url, {
               </h2>
               <p>
                 Serving Boston, Natick, Cambridge, Somerville, Brookline, and
-                Beyond. Locally based Phoenix Movers proudly serves clients
-                throughout the city and its neighboring areas. In addition to
-                Boston, our services extend to Cambridge, Somerville, Brookline,
-                Newton, Quincy, Waltham, Medford, Arlington, and other nearby
-                cities. Wherever your destination may be within the Greater
-                Boston area, we are here to assist you.
+                Beyond. Locally based ${SITE.businessShortName} proudly serves clients
+                throughout the city and its neighboring areas. In addition to Boston,
+                our services extend to Cambridge, Somerville, Brookline, Newton, Quincy,
+                Waltham, Medford, Arlington, and other nearby cities. Wherever your
+                destination may be within the Greater Boston area, we are here to
+                assist you.
               </p>
               <Button
                 class="mr-auto"
@@ -218,10 +220,10 @@ const seo = await fetchPageSeo(Astro.url, {
           </CardHeader>
           <CardContent>
             <p>
-              If you require solely loading or unloading assistance, Phoenix
-              Moving Company has you covered. Our dedicated team ensures
-              efficient and secure loading, or unloading, of your belongings,
-              making your move hassle-free.
+              If you require solely loading or unloading assistance, ${
+                SITE.businessShortName
+              } Company has you covered. Our dedicated team ensures efficient and
+              secure loading, or unloading, of your belongings, making your move hassle-free.
             </p>
           </CardContent>
         </Card>

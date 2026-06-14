@@ -12,9 +12,8 @@ const tree = await getSitemapTree();
 
 const seo = await fetchPageSeo(Astro.url, {
   title: `Sitemap | ${SITE.businessName}`,
-  description:
-    'Browse all Phoenix Moving pages: services, pricing, booking, FAQs, Massachusetts service areas, and legal policies.',
-  keywords: 'sitemap, Phoenix Moving pages, Boston movers site map',
+  description: `Browse all ${SITE.businessShortName} pages: services, pricing, booking, FAQs, Massachusetts service areas, and legal policies.`,
+  keywords: `sitemap, ${SITE.businessShortName} pages, Boston movers site map`,
   pathname: Astro.url.pathname,
   breadcrumbs: [
     { name: 'Home', path: '/' },
@@ -30,7 +29,7 @@ const seo = await fetchPageSeo(Astro.url, {
         position="left"
         label="Site navigation"
         title="Sitemap"
-        subtitle="A complete tree of pages on Phoenix Moving — services, locations, and policies."
+        subtitle={`A complete tree of pages on ${SITE.businessShortName} — services, locations, and policies.`}
       />
       <SitemapTree nodes={tree} />
     </Container>

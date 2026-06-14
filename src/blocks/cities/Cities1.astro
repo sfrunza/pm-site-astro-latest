@@ -36,8 +36,8 @@ const phoneHref = `tel:${SITE.contactPhone}`;
     >
       <SectionHeader
         label={`${cities.length}+ service locations`}
-        title="We come to you, wherever you are in Massachusetts."
-        subtitle="From our Natick home base, Phoenix Moving dispatches licensed, insured crews to cities and towns across Greater Boston, MetroWest, the North Shore, South Shore, Cape Cod, and neighboring states."
+        title="Areas We Proudly Serve with Excellence"
+        subtitle=`From our Natick home base, ${SITE.businessShortName} dispatches licensed, insured crews to cities and towns across Greater Boston, MetroWest, the North Shore, South Shore, Cape Cod, and neighboring states.`
       />
 
       <!-- Massachusetts cities -->
@@ -62,7 +62,7 @@ const phoneHref = `tel:${SITE.contactPhone}`;
             <a
               href={`/${city.slug}`}
               title={`Moving services in ${city.name}, MA`}
-              aria-label={`${city.name} movers — Phoenix Moving`}
+              aria-label={`${city.name} movers — ${SITE.businessShortName}`}
               class="group flex items-center gap-2 rounded-lg border border-transparent px-3 py-2.5 text-sm text-muted-foreground transition-all duration-150 hover:border-primary/20 hover:bg-primary/5 hover:text-foreground"
             >
               <span class="size-1.5 shrink-0 rounded-full bg-primary/30 transition-colors duration-150 group-hover:bg-primary" />
@@ -94,7 +94,7 @@ const phoneHref = `tel:${SITE.contactPhone}`;
                 <a
                   href={`/${city.slug}`}
                   title={`Moving services in ${city.name}, ${city.state}`}
-                  aria-label={`${city.name} movers — Phoenix Moving`}
+                  aria-label={`${city.name} movers — ${SITE.businessShortName}`}
                   class="group flex items-center gap-2 rounded-lg border border-transparent px-3 py-2.5 text-sm text-muted-foreground transition-all duration-150 hover:border-border hover:bg-muted hover:text-foreground"
                 >
                   <span class="size-1.5 shrink-0 rounded-full bg-muted-foreground/25 transition-colors duration-150 group-hover:bg-muted-foreground/60" />
