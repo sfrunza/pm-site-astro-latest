@@ -3,7 +3,9 @@ import type { Faq } from '@/blocks/faq/faqs';
 import Container from '@/components/Container.astro';
 import Section from '@/components/Section.astro';
 import SectionHeader from '@/components/SectionHeader.astro';
+import { accordion } from '@/components/starwind/accordion/Accordion.astro';
 import { accordionContent } from '@/components/starwind/accordion/AccordionContent.astro';
+import { accordionItem } from '@/components/starwind/accordion/AccordionItem.astro';
 import { accordionTrigger } from '@/components/starwind/accordion/AccordionTrigger.astro';
 import Prose from '@/components/starwind/prose';
 import { ChevronDownIcon } from '@/icons';
@@ -33,18 +35,18 @@ const {
         class="col-span-4 col-start-1 md:col-span-10 md:col-start-2 lg:col-span-10 lg:col-start-2"
       >
         <SectionHeader title={title} label={label} />
-        <div class="space-y-3">
+        <div class={accordion()}>
           {
             items.map((item, index) => (
               <details
-                class="bg-muted group w-full overflow-hidden px-8 py-3"
                 name={groupName}
                 open={index === 0}
+                class={accordionItem({ class: 'bg-muted px-8 py-3 group' })}
               >
                 <summary
                   class={accordionTrigger({
                     class:
-                      'cursor-pointer py-4 list-none marker:content-none [&::-webkit-details-marker]:hidden text-xl font-medium hover:cursor-pointer hover:no-underline [&>svg]:size-6',
+                      'text-xl font-medium hover:cursor-pointer [&>svg]:size-6',
                   })}
                 >
                   <span class="flex items-center justify-between gap-4 w-full">
@@ -52,11 +54,8 @@ const {
                     <ChevronDownIcon class="size-5 shrink-0 transition-transform group-open:rotate-180" />
                   </span>
                 </summary>
-                <div class={accordionContent({ class: 'pb-5' })}>
-                  <Prose
-                    set:html={item.answer}
-                    class="max-w-none font-normal"
-                  />
+                <div class={accordionContent({ class: 'pb-4' })}>
+                  <Prose set:html={item.answer} class="max-w-none" />
                 </div>
               </details>
             ))

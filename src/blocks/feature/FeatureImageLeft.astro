@@ -4,7 +4,28 @@ import SectionHeader from '@/components/SectionHeader.astro';
 import { Image } from '@/components/starwind/image';
 import Container from '@/components/Container.astro';
 import Prose from '@/components/starwind/prose';
+import { CalendarTimeIcon, TruckDeliveryIcon } from '@/icons';
+import type { SvgComponent } from 'astro/types';
 import { tv } from 'tailwind-variants';
+
+interface StatCard {
+  value: string;
+  label: string;
+  icon: SvgComponent;
+}
+
+const defaultStats: [StatCard, StatCard] = [
+  {
+    value: '10+ Years',
+    label: 'Of Experience',
+    icon: CalendarTimeIcon,
+  },
+  {
+    value: '1,200+',
+    label: 'Moves Completed',
+    icon: TruckDeliveryIcon,
+  },
+];
 
 interface Props {
   title: string;
@@ -13,6 +34,7 @@ interface Props {
   position?: 'left' | 'right' | 'center';
   image: ImageMetadata;
   alt: string;
+  stats?: [StatCard, StatCard];
   class?: string;
 }
 
@@ -27,8 +49,13 @@ const {
   alt,
   position = 'center',
   label,
+  stats = defaultStats,
   class: className = '',
 } = Astro.props;
+
+const [topLeftStat, bottomRightStat] = stats;
+const TopLeftIcon = topLeftStat.icon;
+const BottomRightIcon = bottomRightStat.icon;
 ---
 
 <Section class={featureImageLeft({ class: className })}>
@@ -42,22 +69,68 @@ const {
     <div class="grid gap-12 lg:grid-cols-2 lg:gap-16">
       <!-- Left Content -->
       <div class="order-first flex w-full justify-center">
-        <div
-          class="flex w-fit items-center max-h-[min(28rem,70dvh)] justify-center overflow-hidden rounded-3xl"
-        >
-          <Image
-            src={image}
-            alt={alt}
-            title={alt}
-            class="object-cover size-full"
-            data-slot="image"
-            decoding="async"
-            loading="lazy"
-            fetchpriority="low"
-            height={450}
-            width={700}
-            quality={50}
-          />
+        <div class="relative w-fit h-fit">
+          <div
+            class="flex w-fit items-center max-h-[min(28rem,70dvh)] justify-center overflow-hidden rounded-3xl"
+          >
+            <Image
+              src={image}
+              alt={alt}
+              title={alt}
+              class="object-cover size-full"
+              data-slot="image"
+              decoding="async"
+              loading="lazy"
+              fetchpriority="low"
+              height={450}
+              width={700}
+              quality={50}
+            />
+          </div>
+
+          <div
+            class="absolute -top-4 -left-4 z-10 flex max-w-[calc(100%-1.5rem)] items-center gap-3 rounded-2xl bg-card/80 backdrop-blur-sm px-4 py-3 shadow-xl sm:top-8 sm:-left-16 sm:max-w-none sm:px-5 sm:py-4"
+            aria-label={`${topLeftStat.value} ${topLeftStat.label}`}
+          >
+            <span
+              class="flex size-10 shrink-0 items-center justify-center rounded-xl bg-primary/10"
+              aria-hidden="true"
+            >
+              <TopLeftIcon class="size-5 text-primary" />
+            </span>
+            <div class="min-w-0">
+              <p class="text-base font-bold tracking-tight sm:text-lg">
+                {topLeftStat.value}
+              </p>
+              <p
+                class="text-[0.65rem] font-medium tracking-widest text-muted-foreground uppercase sm:text-xs"
+              >
+                {topLeftStat.label}
+              </p>
+            </div>
+          </div>
+
+          <div
+            class="absolute -right-4 -bottom-4 z-10 flex max-w-[calc(100%-1.5rem)] items-center gap-3 rounded-2xl bg-card/80 backdrop-blur-sm px-4 py-3 shadow-xl sm:-right-16 sm:bottom-8 sm:max-w-none sm:px-5 sm:py-4"
+            aria-label={`${bottomRightStat.value} ${bottomRightStat.label}`}
+          >
+            <span
+              class="flex size-10 shrink-0 items-center justify-center rounded-xl bg-primary/10"
+              aria-hidden="true"
+            >
+              <BottomRightIcon class="size-5 text-primary" />
+            </span>
+            <div class="min-w-0">
+              <p class="text-base font-bold tracking-tight sm:text-lg">
+                {bottomRightStat.value}
+              </p>
+              <p
+                class="text-[0.65rem] font-medium tracking-widest text-muted-foreground uppercase sm:text-xs"
+              >
+                {bottomRightStat.label}
+              </p>
+            </div>
+          </div>
         </div>
       </div>
 

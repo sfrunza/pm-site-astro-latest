@@ -21,6 +21,8 @@ import IconStar from '@tabler/icons/outline/star.svg';
 import PlusIcon from '@tabler/icons/outline/plus.svg';
 import PercentageIcon from '@tabler/icons/outline/percentage.svg';
 import ExternalLinkIcon from '@tabler/icons/outline/external-link.svg';
+import ArrowUpRightIcon from '@tabler/icons/outline/arrow-up-right.svg';
+import Menu3Icon from '@tabler/icons/outline/menu-3.svg';
 
 export {
   PhoneIcon,
@@ -41,9 +43,11 @@ export {
   ClockShieldIcon,
   ArrowRight,
   ArrowDown,
+  ArrowUpRightIcon,
   SparklesIcon,
   IconStar,
   PlusIcon,
   PercentageIcon,
   ExternalLinkIcon,
+  Menu3Icon,
 };

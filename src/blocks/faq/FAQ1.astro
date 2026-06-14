@@ -43,18 +43,12 @@ const {
         <Accordion type="single">
           {
             items.map((item) => (
-              <AccordionItem
-                value={item.question}
-                class="bg-muted w-full overflow-hidden border-b-0! px-8 py-3"
-              >
-                <AccordionTrigger class="text-xl font-medium hover:cursor-pointer hover:no-underline [&>svg]:size-6">
+              <AccordionItem value={item.question} class="bg-muted px-8 py-3">
+                <AccordionTrigger class="text-xl font-medium hover:cursor-pointer [&>svg]:size-6">
                   {item.question}
                 </AccordionTrigger>
                 <AccordionContent>
-                  <Prose
-                    set:html={item.answer}
-                    class="max-w-none font-normal"
-                  />
+                  <Prose set:html={item.answer} class="max-w-none" />
                 </AccordionContent>
               </AccordionItem>
             ))

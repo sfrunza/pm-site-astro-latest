@@ -19,6 +19,7 @@ import { SITE } from '@/config/site';
 import {
   ChevronDownIcon,
   MailIcon,
+  Menu3Icon,
   MenuIcon,
   PhoneIcon,
   UserIcon,
@@ -62,9 +63,8 @@ export const navLinks: NavLink[] = [
 ---
 
 <header
-  class="pointer-events-none fixed top-0 right-0 left-0 z-60 transform-gpu"
+  class="pointer-events-none fixed right-0 left-0 z-60 transform-gpu top-(--site-banner-height,0px)"
 >
-  <!-- <Banner /> -->
   <div class="relative sm:p-4">
     <div
       class="bg-background/10 pointer-events-none absolute inset-0 -z-10 h-22 mask-[linear-gradient(to_bottom,#000_20%,transparent_100%)] backdrop-blur-lg"
@@ -160,8 +160,8 @@ export const navLinks: NavLink[] = [
         <div class="block lg:hidden">
           <Sheet>
             <SheetTrigger asChild>
-              <Button aria-label="mobile menu" variant="outline" size="icon">
-                <MenuIcon />
+              <Button aria-label="mobile menu" variant="ghost" size="icon-lg">
+                <Menu3Icon class="size-6" />
               </Button>
             </SheetTrigger>
             <SheetContent side="right" class="pb-22">

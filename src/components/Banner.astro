@@ -1,12 +1,46 @@
-<div
-  class="bg-primary flex items-center justify-center px-3 py-2 text-center"
-  aria-live="polite"
->
-  <div>
-    <p
-      class="text-primary-foreground text-sm leading-none font-medium md:text-[15px]"
-    >
-      Save 10% on your first move — save 15% when you refer a friend.
-    </p>
-  </div>
-</div>
+---
+// Client-only widget — no build-time fetching (keeps all routes fully static).
+---
+
+<aside id="world-cup-banner" class="hidden" aria-hidden="true"></aside>
+
+<style is:global>
+  :root {
+    --site-banner-height: 0px;
+  }
+
+  .world-cup-banner__content {
+    animation: world-cup-marquee 40s linear infinite;
+  }
+
+  .world-cup-banner__track:hover .world-cup-banner__content {
+    animation-play-state: paused;
+  }
+
+  @keyframes world-cup-marquee {
+    from {
+      transform: translateX(0);
+    }
+
+    to {
+      transform: translateX(-50%);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .world-cup-banner__content {
+      animation: none;
+      flex-wrap: wrap;
+      width: 100%;
+      gap: 0.75rem;
+      padding-block: 0.25rem;
+    }
+
+    .world-cup-banner {
+      height: auto;
+      min-height: 2.5rem;
+    }
+  }
+</style>
+
+<script is:inline src="/world-cup-banner.js" defer></script>

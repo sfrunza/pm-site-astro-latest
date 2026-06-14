@@ -93,10 +93,10 @@ const id = `sic-${Math.random().toString(36).slice(2, 9)}`;
   <!-- Divider line + handle -->
   <div class="sic-divider" aria-hidden="true">
     <Button
-      variant="ghost"
+      variant="outline"
       size="icon-lg"
       tabindex="-1"
-      class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 border border-white/35 bg-white/20 text-white shadow-lg shadow-black/25 backdrop-blur-xs backdrop-saturate-150 transition-[transform,colors,box-shadow] hover:border-white/45 hover:bg-white/30 hover:text-white group-hover:scale-105 group-[.sic-dragging]:scale-105"
+      class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 border-white/25 bg-white/15 text-white hover:bg-white/10 hover:text-white backdrop-blur-xs"
     >
       <ChevronLeftIcon stroke-width={2.5} />
       <ChevronRightIcon stroke-width={2.5} />
@@ -161,7 +161,7 @@ const id = `sic-${Math.random().toString(36).slice(2, 9)}`;
   }
 
   /* ── Labels ────────────────────────────────────────────── */
-  .sic-label {
+  /* .sic-label {
     position: absolute;
     top: 14px;
     padding: 4px 10px 4px 10px;
@@ -175,14 +175,14 @@ const id = `sic-${Math.random().toString(36).slice(2, 9)}`;
     -webkit-backdrop-filter: blur(4px);
     pointer-events: none;
     transition: opacity 0.2s;
-  }
+  } */
 
-  .sic-label-before {
+  /* .sic-label-before {
     left: 14px;
   }
   .sic-label-after {
     right: 14px;
-  }
+  } */
 
   /* ── Divider ───────────────────────────────────────────── */
   .sic-divider {

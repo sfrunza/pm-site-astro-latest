@@ -14,6 +14,7 @@ import {
   LicenseIcon,
   Receipt2Icon,
   ShieldCheckIcon,
+  TruckDeliveryIcon,
 } from '@/icons';
 import Layout from '@/layouts/Layout.astro';
 import RelatedServices from '@/blocks/related/RelatedServices.astro';
@@ -104,6 +105,18 @@ const options = [
     subtitle="Phoenix Movers offers a variety of storage solutions to meet your needs, whether you require short-term, long-term, or overnight storage. Our services are designed to provide convenience, affordability, and peace of mind for all your storage needs."
     image={storageUnits}
     alt="Storage units"
+    stats={[
+      {
+        value: 'Climate-Controlled',
+        label: 'Facility',
+        icon: ShieldCheckIcon,
+      },
+      {
+        value: 'Long-Term',
+        label: 'Storage',
+        icon: CalendarTimeIcon,
+      },
+    ]}
   >
     {
       options.map((option) => (

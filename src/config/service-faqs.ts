@@ -9,7 +9,7 @@ export const serviceFaqsByPath: Record<string, ServiceFaq[]> = {
     {
       question: 'How much do Boston local movers charge?',
       answer:
-        '<p>Local moves are billed by labor time plus travel time to and from your addresses, prorated in 15-minute increments. Request a <a href="/book">free quote</a> for a transparent estimate.</p>',
+        '<p>Local moves are billed by labor time plus travel time to and from your addresses, prorated in 15-minute increments. Request a <a href="/book" aria-label="Book your move online">free quote</a> for a transparent estimate.</p>',
     },
     {
       question: 'Do you serve Cambridge, Somerville, and Brookline?',
@@ -24,7 +24,7 @@ export const serviceFaqsByPath: Record<string, ServiceFaq[]> = {
     {
       question: 'Can you pack and move on the same day?',
       answer:
-        '<p>Yes. We offer <a href="/packing-services">packing services</a> and can coordinate packing and loading in one visit when scheduled in advance.</p>',
+        '<p>Yes. We offer <a href="/packing-services" aria-label="Packing services">packing services</a> and can coordinate packing and loading in one visit when scheduled in advance.</p>',
     },
   ],
   '/interstate-moving': [
@@ -36,19 +36,19 @@ export const serviceFaqsByPath: Record<string, ServiceFaq[]> = {
     {
       question: 'How far in advance should I book a long-distance move?',
       answer:
-        '<p>We recommend booking 4-8 weeks ahead for interstate moves. Peak season dates fill quickly — <a href="/book">request a quote</a> early.</p>',
+        '<p>We recommend booking 4-8 weeks ahead for interstate moves. Peak season dates fill quickly — <a href="/book" aria-label="Book your move online">request a quote</a> early.</p>',
     },
     {
       question: 'Do you offer packing for cross-country moves?',
       answer:
-        '<p>Yes. Our <a href="/packing-services">packing team</a> can prepare your home before pickup for long-distance relocation.</p>',
+        '<p>Yes. Our <a href="/packing-services" aria-label="Packing services">packing team</a> can prepare your home before pickup for long-distance relocation.</p>',
     },
   ],
   '/packing-services': [
     {
       question: 'Do you provide boxes and packing materials?',
       answer:
-        '<p>Yes. We supply boxes, wardrobe cartons, dish packs, and protective materials. Ask about supply bundles when you <a href="/book" aria-label="Book your move">book your move</a>.</p>',
+        '<p>Yes. We supply boxes, wardrobe cartons, dish packs, and protective materials. Ask about supply bundles when you <a href="/book" aria-label="Book your move online">book your move</a>.</p>',
     },
     {
       question: 'What is full-service packing?',
@@ -75,14 +75,14 @@ export const serviceFaqsByPath: Record<string, ServiceFaq[]> = {
     {
       question: 'How is storage priced?',
       answer:
-        '<p>Rates depend on volume and duration. See <a href="/pricing">moving prices</a> for starting points or request a custom quote.</p>',
+        '<p>Rates depend on volume and duration. See <a href="/pricing" aria-label="Moving prices & rates">moving prices</a> for starting points or request a custom quote.</p>',
     },
   ],
   '/piano-moving': [
     {
       question: 'How much does piano moving cost in Boston?',
       answer:
-        '<p>Piano moving quotes depend on instrument type, stairs, distance, and access. <a href="/book">Get a free estimate</a> with your piano details.</p>',
+        '<p>Piano moving quotes depend on instrument type, stairs, distance, and access. <a href="/book" aria-label="Book your move online">Get a free estimate</a> with your piano details.</p>',
     },
     {
       question: 'Do you move baby grand and upright pianos?',
@@ -116,7 +116,7 @@ export const serviceFaqsByPath: Record<string, ServiceFaq[]> = {
     {
       question: 'How are Boston moving prices calculated?',
       answer:
-        '<p>Local moves use hourly labor plus travel time. Long-distance moves use flat-rate pricing. See service pages for details or <a href="/book">request a quote</a>.</p>',
+        '<p>Local moves use hourly labor plus travel time. Long-distance moves use flat-rate pricing. See service pages for details or <a href="/book" aria-label="Book your move online">request a quote</a>.</p>',
     },
     {
       question: 'Is there a deposit to reserve my move?',
@@ -126,7 +126,7 @@ export const serviceFaqsByPath: Record<string, ServiceFaq[]> = {
     {
       question: 'Are packing materials included in the listed rates?',
       answer:
-        '<p>Packing supply and labor are quoted separately. Visit <a href="/packing-services">packing services</a> for options.</p>',
+        '<p>Packing supply and labor are quoted separately. Visit <a href="/packing-services" aria-label="Packing services">packing services</a> for options.</p>',
     },
   ],
 };

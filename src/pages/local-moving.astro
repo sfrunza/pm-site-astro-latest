@@ -142,7 +142,10 @@ const seo = await fetchPageSeo(Astro.url, {
             <CardContent
               class="flex justify-between gap-6 @xl:p-8 flex-col p-6"
             >
-              <h2 class="text-2xl font-bold">
+              <h2
+                class="text-2xl font-bold"
+                aria-label="Our Comprehensive Local Moving Services"
+              >
                 Our Comprehensive Local Moving Services.
               </h2>
               <p>
@@ -154,8 +157,11 @@ const seo = await fetchPageSeo(Astro.url, {
                 cities. Wherever your destination may be within the Greater
                 Boston area, we are here to assist you.
               </p>
-              <Button class="mr-auto" variant="primary" href="/book"
-                >Get a Free Quote</Button
+              <Button
+                class="mr-auto"
+                variant="primary"
+                href="/book"
+                aria-label="Get a free quote">Get a Free Quote</Button
               >
             </CardContent>
           </div>
