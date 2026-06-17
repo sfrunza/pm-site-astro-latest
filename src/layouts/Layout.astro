@@ -1,6 +1,5 @@
 ---
 import Footer from '@/components/Footer.astro';
-import Navbar from '@/components/Navbar.astro';
 import MobileCallBar from '@/components/MobileCallBar.astro';
 import PageGrid from '@/components/PageGrid.astro';
 import { SITE } from '@/config/site';
@@ -13,6 +12,7 @@ import AttributionCapture from '@/components/AttributionCapture.astro';
 import Contact1 from '@/blocks/contact/Contact1.astro';
 import type { AstroSeoProps } from '@/seo';
 import type { LcpPreloadLink as LcpPreloadData } from '@/utils/lcp-preload';
+import Navbar from '@/components/Navbar.astro';
 
 interface Props extends AstroSeoProps {
   /** Hero LCP image preload — must be a direct Layout prop to land in `<head>`. */

@@ -42,9 +42,9 @@ export const faqs: Faq[] = [
     question: 'What forms of payment do you accept?',
     answer: `
       <p>
-        Payments for <a href="/local-moving">local services</a> can be made in
+        Payments for <a href="/local-moving" aria-label="Local services">local services</a> can be made in
         form of cash, credit card or a certified bankers check. Payments for
-        <a href="/interstate-moving">long distance services</a> can be made in
+        <a href="/interstate-moving" aria-label="Long distance services">long distance services</a> can be made in
         form of cash, certified bankers check or debit/credit cards. Any
         payments with a personal check have to be granted by your moving
         coordinator.
@@ -91,9 +91,9 @@ export const faqs: Faq[] = [
       <p>
         If you need to change your move, date and/or time, log in to your
         profile to request a date and/or time change. If you can't log in, email
-        <a href="mailto:${SITE.contactEmail}">${SITE.contactEmail}</a> or give
+        <a href="mailto:${SITE.contactEmail}" aria-label="Email us">${SITE.contactEmail}</a> or give
         us a call at
-        <a href="tel:${SITE.contactPhone}">${SITE.contactPhone}</a> and we will
+        <a href="tel:${SITE.contactPhone}" aria-label="Call us">${SITE.contactPhone}</a> and we will
         assist you with the change. Keep in mind that price may change when
         rescheduling online.
       </p>

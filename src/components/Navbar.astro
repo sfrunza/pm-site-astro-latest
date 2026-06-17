@@ -13,17 +13,16 @@ import {
   DropdownTrigger,
 } from '@/components/starwind/dropdown';
 import Separator from '@/components/starwind/separator';
-import { Sheet, SheetContent, SheetTrigger } from '@/components/starwind/sheet';
 import { services } from '@/config/services';
 import { SITE } from '@/config/site';
 import {
   ChevronDownIcon,
   MailIcon,
   Menu3Icon,
-  MenuIcon,
   PhoneIcon,
   UserIcon,
 } from '@/icons';
+import X from '@tabler/icons/outline/x.svg';
 
 export type NavLink = {
   label: string;
@@ -156,105 +155,357 @@ export const navLinks: NavLink[] = [
             >Get a Quote</Button
           >
         </div>
-        <!-- Mobile menu  -->
+        <!-- Mobile menu trigger -->
         <div class="block lg:hidden">
-          <Sheet>
-            <SheetTrigger asChild>
-              <Button aria-label="mobile menu" variant="ghost" size="icon-lg">
-                <Menu3Icon class="size-6" />
-              </Button>
-            </SheetTrigger>
-            <SheetContent side="right" class="pb-22">
-              <div class="px-4 pt-12">
-                <nav>
-                  <ul class="flex flex-col space-y-1">
-                    {
-                      navLinks.map((link) => {
-                        if (link.items) {
-                          return (
-                            <li>
-                              <Collapsible class="group">
-                                <CollapsibleTrigger asChild>
-                                  <Button
-                                    variant="ghost"
-                                    class="w-full justify-between px-5!"
-                                  >
-                                    Services
-                                    <ChevronDownIcon class="transition-transform duration-200 group-data-[state=open]:rotate-180" />
-                                  </Button>
-                                </CollapsibleTrigger>
-                                <CollapsibleContent class="flex flex-col gap-1 pt-1 pl-3">
-                                  {link.items.map((item) => (
-                                    <Button
-                                      variant="ghost"
-                                      class="w-full justify-start font-normal"
-                                      href={item.href}
-                                    >
-                                      {item.label}
-                                    </Button>
-                                  ))}
-                                </CollapsibleContent>
-                              </Collapsible>
-                            </li>
-                          );
-                        }
-
-                        return (
-                          <li>
-                            <Button
-                              variant="ghost"
-                              class="w-full justify-start"
-                              href={link.href}
-                            >
-                              {link.label}
-                            </Button>
-                          </li>
-                        );
-                      })
-                    }
-                  </ul>
-                  <Separator class="my-6" />
-                  <ul class="space-y-4">
-                    <li>
-                      <Button
-                        variant="ghost"
-                        class="w-full justify-start"
-                        href={`tel:${SITE.contactPhone}`}
-                      >
-                        <UserIcon />
-                        Client login</Button
-                      >
-                    </li>
-                  </ul>
-                  <Separator class="my-6" />
-                  <ul class="space-y-4">
-                    <li>
-                      <Button
-                        variant="outline"
-                        class="w-full justify-start"
-                        href={`tel:${SITE.contactPhone}`}
-                      >
-                        <PhoneIcon />
-                        {SITE.contactPhone}</Button
-                      >
-                    </li>
-                    <li>
-                      <Button
-                        variant="primary"
-                        class="w-full justify-start"
-                        href={`mailto:${SITE.contactEmail}`}
-                      >
-                        <MailIcon />
-                        {SITE.contactEmail}</Button
-                      >
-                    </li>
-                  </ul>
-                </nav>
-              </div>
-            </SheetContent>
-          </Sheet>
+          <Button
+            id="mobile-drawer-trigger"
+            type="button"
+            aria-label="Open menu"
+            aria-controls="mobile-drawer"
+            aria-expanded="false"
+            variant="ghost"
+            size="icon-lg"
+          >
+            <Menu3Icon class="size-6" />
+          </Button>
         </div>
       </div>
     </div>
   </div>
 </header>
+
+<!-- Mobile navigation drawer (native popover + scroll-snap swipe to close) -->
+<div class="mobile-drawer lg:hidden" id="mobile-drawer" popover="manual">
+  <div class="mobile-drawer-scroller">
+    <nav
+      class="mobile-drawer-sheet bg-background text-foreground"
+      tabindex="-1"
+      aria-label="Mobile"
+    >
+      <div
+        class="flex h-16 items-center justify-between border-b border-border px-4"
+      >
+        <a href="/" aria-label={`${SITE.businessShortName} logo`}>
+          <Logo class="h-9 w-auto" />
+        </a>
+        <Button
+          id="mobile-drawer-close"
+          type="button"
+          aria-label="Close menu"
+          variant="ghost"
+          size="icon"
+        >
+          <X class="size-5" />
+        </Button>
+      </div>
+      <div
+        class="min-h-0 overflow-y-auto overscroll-contain px-4 pt-4 pb-[calc(2rem+env(safe-area-inset-bottom))]"
+      >
+        <ul class="flex flex-col space-y-1">
+          {
+            navLinks.map((link) => {
+              if (link.items) {
+                return (
+                  <li>
+                    <Collapsible class="group">
+                      <CollapsibleTrigger asChild>
+                        <Button
+                          variant="ghost"
+                          class="w-full justify-between px-5!"
+                        >
+                          Services
+                          <ChevronDownIcon class="transition-transform duration-200 group-data-[state=open]:rotate-180" />
+                        </Button>
+                      </CollapsibleTrigger>
+                      <CollapsibleContent class="flex flex-col gap-1 pt-1 pl-3">
+                        {link.items.map((item) => (
+                          <Button
+                            variant="ghost"
+                            class="w-full justify-start font-normal"
+                            href={item.href}
+                          >
+                            {item.label}
+                          </Button>
+                        ))}
+                      </CollapsibleContent>
+                    </Collapsible>
+                  </li>
+                );
+              }
+
+              return (
+                <li>
+                  <Button
+                    variant="ghost"
+                    class="w-full justify-start"
+                    href={link.href}
+                  >
+                    {link.label}
+                  </Button>
+                </li>
+              );
+            })
+          }
+        </ul>
+        <Separator class="my-6" />
+        <ul class="space-y-4">
+          <li>
+            <Button
+              variant="ghost"
+              class="w-full justify-start"
+              href={`tel:${SITE.contactPhone}`}
+            >
+              <UserIcon />
+              Client login</Button
+            >
+          </li>
+        </ul>
+        <Separator class="my-6" />
+        <ul class="space-y-4">
+          <li>
+            <Button
+              variant="outline"
+              class="w-full justify-start"
+              href={`tel:${SITE.contactPhone}`}
+            >
+              <PhoneIcon />
+              {SITE.contactPhone}</Button
+            >
+          </li>
+          <li>
+            <Button
+              variant="primary"
+              class="w-full justify-start"
+              href={`mailto:${SITE.contactEmail}`}
+            >
+              <MailIcon />
+              {SITE.contactEmail}</Button
+            >
+          </li>
+        </ul>
+      </div>
+    </nav>
+  </div>
+</div>
+
+<script>
+  // Native mobile navigation drawer.
+  // Opening/closing is driven by horizontal scroll-snap so the user can
+  // swipe the panel off-screen with native momentum. An IntersectionObserver
+  // on the sheet is the single source of truth for "open" vs "closed".
+  let escapeBound = false;
+
+  const setupMobileDrawer = () => {
+    const drawer = document.getElementById('mobile-drawer');
+    const trigger = document.getElementById('mobile-drawer-trigger');
+    if (!drawer || !trigger) return;
+    if (drawer.dataset.drawerBound === 'true') return;
+    drawer.dataset.drawerBound = 'true';
+
+    const scroller = drawer.querySelector<HTMLElement>(
+      '.mobile-drawer-scroller'
+    );
+    const sheet = drawer.querySelector<HTMLElement>('.mobile-drawer-sheet');
+    const closeBtn = document.getElementById('mobile-drawer-close');
+    if (!scroller || !sheet) return;
+
+    let isOpen = false;
+    let opening = false;
+
+    const openDrawer = () => {
+      opening = true;
+      drawer.showPopover();
+      requestAnimationFrame(() => {
+        scroller.scrollTo({ left: scroller.scrollWidth, behavior: 'auto' });
+      });
+    };
+
+    const closeDrawer = () => {
+      scroller.scrollTo({ left: 0, behavior: 'auto' });
+    };
+
+    const setBackgroundInert = (state: boolean) => {
+      for (const el of Array.from(document.body.children)) {
+        if (el !== drawer) (el as HTMLElement).inert = state;
+      }
+    };
+
+    const root = document.body;
+    const lockScroll = (state: boolean) => {
+      if (state) {
+        const scrollbarWidth = window.innerWidth - root.clientWidth;
+        root.style.setProperty(
+          '--drawer-scrollbar-width',
+          `${scrollbarWidth}px`
+        );
+        root.classList.add('mobile-drawer-locked');
+      } else {
+        root.classList.remove('mobile-drawer-locked');
+        root.style.removeProperty('--drawer-scrollbar-width');
+      }
+    };
+
+    const onOpened = () => {
+      opening = false;
+      isOpen = true;
+      setBackgroundInert(true);
+      lockScroll(true);
+      trigger.setAttribute('aria-expanded', 'true');
+      sheet.focus({ preventScroll: true });
+    };
+
+    const onClosed = () => {
+      if (drawer.matches(':popover-open')) drawer.hidePopover();
+      setBackgroundInert(false);
+      lockScroll(false);
+      trigger.setAttribute('aria-expanded', 'false');
+      if (isOpen) trigger.focus();
+      isOpen = false;
+    };
+
+    const visibleThreshold = 1 / window.innerWidth;
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const entry = entries.at(-1);
+        if (!entry) return;
+        const ratio = entry.intersectionRatio;
+        if (ratio >= 0.999) onOpened();
+        else if (ratio < visibleThreshold) {
+          if (!opening) onClosed();
+        } else {
+          opening = false;
+        }
+      },
+      { root: drawer, threshold: [visibleThreshold, 1] }
+    );
+    observer.observe(sheet);
+
+    if (!CSS.supports('animation-timeline: scroll()')) {
+      scroller.addEventListener('scroll', () => {
+        const max = scroller.scrollWidth - scroller.clientWidth;
+        const ratio = max > 0 ? scroller.scrollLeft / max : 0;
+        drawer.style.setProperty('--drawer-backdrop', String(ratio));
+      });
+    }
+
+    trigger.addEventListener('click', openDrawer);
+    closeBtn?.addEventListener('click', closeDrawer);
+
+    scroller.addEventListener('click', (event) => {
+      if (!sheet.contains(event.target as Node)) closeDrawer();
+    });
+
+    sheet.addEventListener('click', (event) => {
+      const link = (event.target as HTMLElement).closest('a[href]');
+      const href = link?.getAttribute('href');
+      if (href && !href.startsWith('#')) closeDrawer();
+    });
+
+    if (!escapeBound) {
+      escapeBound = true;
+      document.addEventListener('keydown', (event) => {
+        if (event.key !== 'Escape') return;
+        const current = document.getElementById('mobile-drawer');
+        if (current?.matches(':popover-open')) {
+          current
+            .querySelector<HTMLElement>('.mobile-drawer-scroller')
+            ?.scrollTo({ left: 0 });
+        }
+      });
+    }
+  };
+
+  setupMobileDrawer();
+  document.addEventListener('astro:after-swap', setupMobileDrawer);
+</script>
+
+<style>
+  body.mobile-drawer-locked {
+    overflow: hidden;
+    padding-right: var(--drawer-scrollbar-width, 0px);
+  }
+
+  .mobile-drawer {
+    --drawer-width: min(20rem, 80vw);
+    --drawer-backdrop: 0;
+
+    inset: 0;
+    width: auto;
+    height: auto;
+    max-width: none;
+    max-height: none;
+    margin: 0;
+    padding: 0;
+    background: transparent;
+    border: 0;
+    overflow: visible;
+  }
+
+  .mobile-drawer::backdrop {
+    background: #000;
+    opacity: calc(var(--drawer-backdrop) / 1.6);
+  }
+
+  .mobile-drawer-scroller {
+    display: grid;
+    grid-template-columns: 100% var(--drawer-width);
+    height: 100%;
+    overflow-x: scroll;
+    overflow-y: hidden;
+    overscroll-behavior: none;
+    scrollbar-width: none;
+    scroll-snap-type: x mandatory;
+  }
+
+  .mobile-drawer-scroller::-webkit-scrollbar {
+    display: none;
+  }
+
+  .mobile-drawer-scroller::before {
+    content: '';
+    scroll-snap-align: start;
+    scroll-snap-stop: always;
+  }
+
+  .mobile-drawer-sheet {
+    display: grid;
+    grid-template-rows: auto 1fr;
+    height: 100svh;
+    scroll-snap-align: end;
+    scroll-snap-stop: always;
+    box-shadow: -12px 0 40px rgb(0 0 0 / 0.18);
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .mobile-drawer-scroller {
+      scroll-behavior: smooth;
+    }
+  }
+
+  @supports (animation-timeline: scroll()) {
+    .mobile-drawer {
+      timeline-scope: --mobile-drawer-fade;
+      animation: mobile-drawer-fade linear both;
+      animation-timeline: --mobile-drawer-fade;
+    }
+
+    .mobile-drawer-scroller {
+      scroll-timeline: --mobile-drawer-fade x;
+    }
+
+    @property --drawer-backdrop {
+      syntax: '<number>';
+      inherits: true;
+      initial-value: 0;
+    }
+
+    @keyframes mobile-drawer-fade {
+      0% {
+        --drawer-backdrop: 0;
+      }
+      100% {
+        --drawer-backdrop: 1;
+      }
+    }
+  }
+</style>

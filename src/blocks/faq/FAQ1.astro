@@ -44,7 +44,10 @@ const {
           {
             items.map((item) => (
               <AccordionItem value={item.question} class="bg-muted px-8 py-3">
-                <AccordionTrigger class="text-xl font-medium hover:cursor-pointer [&>svg]:size-6">
+                <AccordionTrigger
+                  class="text-xl font-medium hover:cursor-pointer [&>svg]:size-6"
+                  aria-label={item.question}
+                >
                   {item.question}
                 </AccordionTrigger>
                 <AccordionContent>

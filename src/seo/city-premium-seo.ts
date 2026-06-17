@@ -32,6 +32,7 @@ function buildCityPremiumPageSeo(
       pathname,
       cityName: content.schema.cityName,
       image: socialImageUrl,
+      addressIndex: content.schema.officeIndex,
       areaServed: content.schema.areaServed ?? [
         { '@type': 'City', name: content.schema.cityName },
         { '@type': 'PostalCode', name: content.schema.postalCode },

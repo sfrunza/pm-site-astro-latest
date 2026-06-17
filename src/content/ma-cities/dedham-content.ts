@@ -229,13 +229,13 @@ const dedhamNearbyTowns: RelatedLink[] = [
     description: 'Suburban moves southeast of Dedham.',
   },
   {
-    href: '/newton-movers',
-    label: 'Newton movers',
+    href: '/newton-ma-movers',
+    label: 'Newton movers (full guide)',
     description: `Second ${SITE.businessShortName} location—full-service crews.`,
   },
   {
-    href: '/boston-movers',
-    label: 'Boston movers',
+    href: '/boston-ma-movers',
+    label: 'Boston movers (full guide)',
     description: 'Greater Boston apartments, walk-ups, and offices.',
   },
 ];

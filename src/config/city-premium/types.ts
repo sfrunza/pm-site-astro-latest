@@ -30,6 +30,8 @@ export type CityPremiumSchema = {
   cityName: string;
   postalCode: string;
   geo: CityPremiumGeo;
+  /** Index into SITE.businessAddresses for JSON-LD address (defaults to HQ). */
+  officeIndex?: number;
   areaServed?: Array<
     | { '@type': 'City'; name: string }
     | { '@type': 'PostalCode'; name: string }

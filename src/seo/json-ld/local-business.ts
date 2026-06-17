@@ -20,6 +20,8 @@ export type LocalMoverJsonLdInput = {
     | { '@type': 'State'; name: string }
   >;
   geo?: { latitude: number; longitude: number };
+  /** Index into SITE.businessAddresses (defaults to HQ). */
+  addressIndex?: number;
   /** When reviews are visible on the page, include rating + review schema. */
   reviewsData?: GooglePlaceReviews;
   includeReviews?: boolean;
@@ -34,7 +36,9 @@ export function buildLocalMoverJsonLd(
       ? buildReviewSchemas(input.reviewsData)
       : [];
   const url = `${SITE.url}${input.pathname}`;
-  const address = SITE.businessAddresses[0];
+  const address =
+    SITE.businessAddresses[input.addressIndex ?? 0] ??
+    SITE.businessAddresses[0];
   const geo = input.geo ?? {
     latitude: SITE.schema.serviceArea.geoMidpoint.latitude,
     longitude: SITE.schema.serviceArea.geoMidpoint.longitude,

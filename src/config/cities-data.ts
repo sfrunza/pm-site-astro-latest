@@ -11,17 +11,6 @@ export type City = {
 };
 export const cities: City[] = [
   {
-    fullName: 'Natick Movers',
-    name: 'Natick',
-    state: 'MA',
-    intro:
-      `${SITE.businessShortName} is headquartered in Natick, Massachusetts, and serves homeowners and businesses throughout MetroWest and Greater Boston.`,
-    description:
-      `Natick is our home base in MetroWest Massachusetts. ${SITE.businessShortName} provides local, long-distance, packing, storage, and specialty moves for Natick residents and businesses with licensed, insured crews and transparent pricing.`,
-    slug: 'natick-movers',
-    icon: '/cities/natick.png',
-  },
-  {
     fullName: 'Acton Movers',
     name: 'Acton',
     state: 'MA',
@@ -29,15 +18,6 @@ export const cities: City[] = [
       'Acton is a great place to live for many reasons. It is located in Middlesex County, Massachusetts, and it is close to Boston, making it convenient for commuters. Acton is a safe, family-friendly town with a low crime rate and excellent schools. It is also home to many outdoor spaces, such as trails, parks, and conservation land, providing plenty of opportunities to explore nature and enjoy the outdoors. Additionally, Acton is an economically strong town, with many businesses and employers providing job opportunities in a variety of industries. All of these factors make Acton an ideal place to live and work.',
     slug: 'acton-movers',
     icon: '/cities/acton.png',
-  },
-  {
-    fullName: 'Boston Movers',
-    name: 'Boston',
-    state: 'MA',
-    description:
-      'Boston is an amazing city with a lot to offer. From its vibrant culture, to its world-class educational opportunities, to its rich history, Boston is an amazing place to live. The city is filled with an amazing variety of restaurants, bars, theaters, and other attractions that make it one of the most vibrant cities in the world. The city is also filled with history, as it was an important part of the American Revolution and is now a major hub for technology, finance, and education. In addition, Boston has some of the best public transportation options in the United States, making it easy to get around the city. The cost of living is also quite reasonable, especially compared to other major cities in the United States. Finally, Boston is a great place to raise a family, with a variety of parks, schools, and recreational activities available to keep everyone entertained. For these reasons and more, Boston is an amazing place to live.',
-    slug: 'boston-movers',
-    icon: '/cities/boston.png',
   },
   {
     fullName: 'Cambridge Movers',
@@ -74,15 +54,6 @@ export const cities: City[] = [
       'Woburn, Massachusetts is a great place to live with plenty of reasons to move there. Woburn is a safe and friendly community with plenty of opportunities to do and explore. Woburn is conveniently located near the major cities of Boston and Cambridge, giving residents access to a wide variety of jobs, education, and culture. Additionally, Woburn offers a variety of outdoor activities, including skiing, fishing, and hiking, as well as numerous parks and recreational areas. Woburn is also home to a variety of restaurants, shops, and entertainment venues, making it a great place to meet new people and experience different cultures. Finally, Woburn has a strong economy with a low cost of living and great housing options, making it an excellent place to call home.',
     slug: 'woburn-movers',
     icon: '/cities/woburn.png',
-  },
-  {
-    fullName: 'Newton Movers',
-    name: 'Newton',
-    state: 'MA',
-    description:
-      "If you're looking for an idyllic New England town, Newton Massachusetts may be the perfect place for you. Newton has many attractive qualities that make it a desirable place to live, including its excellent school system, its close proximity to Boston, its beautiful parks, and its lively culture. The city's schools are consistently ranked among the best in the nation, and its many prestigious universities make it a great place to further your education. With its convenient location on the MBTA Red Line, Boston is just a short commute away. Newton also features over 50 parks, perfect for a leisurely afternoon stroll, or a picnic with a view of the Charles River. The city’s vibrant culture is also a draw, with its many art galleries, music venues, and cultural events. With its natural beauty, convenient location, and strong sense of community, Newton is an excellent place to call home.",
-    slug: 'newton-movers',
-    icon: '/cities/newton.png',
   },
   {
     fullName: 'Lexington Movers',
@@ -301,15 +272,6 @@ export const cities: City[] = [
       'Franklin Massachusetts is an excellent place to live, offering something for everyone. The town is known for its small-town charm and vibrant community, making it a great place to raise a family. There are plenty of recreational activities to enjoy, such as parks and trails, golf courses, and community centers. Education is also a priority in Franklin, with renowned institutions such as Dean College, Dean Technical High School, and Franklin High School. The town is also conveniently located near some of the largest cities in the state, such as Boston, Worcester, and Providence. With its safe neighborhoods, warm climate, and friendly people, Franklin is an ideal place to call home.',
     slug: 'franklin-movers',
     icon: '/cities/franklin.png',
-  },
-  {
-    fullName: 'Dedham Movers',
-    name: 'Dedham',
-    state: 'MA',
-    description:
-      'Dedham, Massachusetts is a great place to live for many reasons. Located just 15 miles southwest of Boston, it offers a small-town atmosphere while still being close to the city. The town is full of history, with its old-fashioned downtown and its historic churches and mansions. It is a diverse community, with a variety of cultures and lifestyles. The schools are excellent, and there are plenty of cultural and recreational activities to take part in. Dedham also offers plenty of outdoor activities, with its parks, trails, and beaches. It is also a great place to raise a family, with its safe and friendly neighborhoods. All of these reasons make Dedham a great place to call home.',
-    slug: 'dedham-movers',
-    icon: '/cities/dedham.png',
   },
   {
     fullName: 'Belmont Movers',

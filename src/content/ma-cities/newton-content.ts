@@ -218,8 +218,8 @@ const newtonNearbyTowns: RelatedLink[] = [
     description: `${SITE.businessShortName} headquarters and MetroWest hub.`,
   },
   {
-    href: '/boston-movers',
-    label: 'Boston movers',
+    href: '/boston-ma-movers',
+    label: 'Boston movers (full guide)',
     description: 'Apartments, walk-ups, and downtown offices.',
   },
 ];
@@ -271,7 +271,7 @@ const newtonPricingFactors = [
   {
     title: 'Labor & travel time',
     description:
-      'Local Newton jobs bill in 15-minute increments for on-site work plus prorated travel from our warehouse or Newton office round trip.',
+      'Local Newton jobs bill in 15-minute increments. Weekday hourly rates start at $130 (2 movers + truck), $180 (3 movers + truck), and $220 (4 movers + truck), plus prorated travel from our Adams Street office or Natick warehouse round trip.',
   },
   {
     title: 'Building & village access',
@@ -291,7 +291,7 @@ const newtonPricingFactors = [
 ];
 
 const newtonCostOverview =
-  'Newton local moves are typically hourly with transparent travel charges from our Adams Street office or Natick warehouse. Long-distance relocations use flat-rate quotes including fuel, mileage, tolls, and insurance. Request a free estimate with your addresses, home size, and date—we confirm crew and truck before you reserve.';
+  'Newton local moves bill hourly in 15-minute increments plus prorated travel from our Adams Street office or Natick warehouse. Standard weekday rates start at $130/hour (2 movers + truck), $180/hour (3 movers + truck), and $220/hour (4 movers + truck), taxes included. A typical Newton studio or one-bedroom local move runs about 3–5 labor hours ($390–$650 at the 2-mover rate), while larger Victorians and multi-level homes often need 5–8 hours with a 3- or 4-person crew ($900–$1,760+). Weekend and peak dates may use higher tiers—see our pricing page for current rates. Long-distance relocations from Newton use flat-rate quotes including fuel, mileage, tolls, and insurance.';
 
 const newtonCommercialCopy = {
   label: 'Commercial moving',
@@ -317,7 +317,7 @@ const newtonPrepTips = [
 const newtonFaqs: Faq[] = [
   {
     question: 'How much do Newton movers cost?',
-    answer: `<p>Local Newton moves are billed hourly in 15-minute increments for labor plus prorated travel. Studio and one-bedroom jobs often run a few hours; larger homes and multi-level Victorians take longer. <a href="/pricing" aria-label="See moving prices">See moving prices</a> or <a href="/book" aria-label="Request a free quote">request a free quote</a> for your inventory and date.</p>`,
+    answer: `<p>Local Newton moves are billed hourly in 15-minute increments plus prorated travel. Standard weekday rates start at <strong>$130/hour</strong> (2 movers + truck), <strong>$180/hour</strong> (3 movers + truck), and <strong>$220/hour</strong> (4 movers + truck), taxes included. A studio or one-bedroom move typically runs 3–5 labor hours ($390–$650 at the 2-mover rate); larger Newton homes often need 5–8 hours with a 3- or 4-person crew ($900–$1,760+). Weekend and peak dates may use higher hourly tiers. Long-distance moves from Newton use flat-rate quotes with fuel, tolls, and insurance included. <a href="/pricing" aria-label="See moving prices">See moving prices</a> or <a href="/book" aria-label="Request a free quote">request a free quote</a> for your inventory and date.</p>`,
   },
   {
     question: `Does ${SITE.businessShortName} have a Newton office?`,
@@ -420,12 +420,20 @@ export const newtonPremium: CityPremiumContent = {
   schema: {
     cityName: 'Newton',
     postalCode: '02458',
+    officeIndex: 1,
     geo: { latitude: 42.337, longitude: -71.2092 },
     areaServed: [
       { '@type': 'City', name: 'Newton' },
       { '@type': 'PostalCode', name: '02458' },
       { '@type': 'PostalCode', name: '02459' },
       { '@type': 'PostalCode', name: '02460' },
+      { '@type': 'PostalCode', name: '02461' },
+      { '@type': 'PostalCode', name: '02462' },
+      { '@type': 'PostalCode', name: '02464' },
+      { '@type': 'PostalCode', name: '02465' },
+      { '@type': 'PostalCode', name: '02466' },
+      { '@type': 'PostalCode', name: '02467' },
+      { '@type': 'PostalCode', name: '02468' },
       { '@type': 'State', name: 'Massachusetts' },
     ],
   },
