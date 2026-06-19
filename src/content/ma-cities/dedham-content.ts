@@ -11,8 +11,7 @@ import {
   TruckDeliveryIcon,
 } from '@/icons';
 
-export const DEDHAM_PATH = '/dedham-ma-movers';
-
+export const DEDHAM_PATH = '/dedham-movers';
 
 /** 40–60 word direct answer for GEO / above-the-fold. */
 const dedhamDirectAnswer =
@@ -229,12 +228,12 @@ const dedhamNearbyTowns: RelatedLink[] = [
     description: 'Suburban moves southeast of Dedham.',
   },
   {
-    href: '/newton-ma-movers',
+    href: '/newton-movers',
     label: 'Newton movers (full guide)',
     description: `Second ${SITE.businessShortName} location—full-service crews.`,
   },
   {
-    href: '/boston-ma-movers',
+    href: '/boston-movers',
     label: 'Boston movers (full guide)',
     description: 'Greater Boston apartments, walk-ups, and offices.',
   },

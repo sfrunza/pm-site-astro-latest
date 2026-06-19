@@ -1,5 +1,5 @@
 ---
-import { ArrowRight, Receipt2Icon } from '@/icons';
+import { ArrowRightIcon, Receipt2Icon } from '@/icons';
 import type { HTMLAttributes } from 'astro/types';
 import { tv } from 'tailwind-variants';
 
@@ -33,7 +33,7 @@ const cta2Styles = tv({
 const {
   title = `Move with ${SITE.businessShortName} Boston.`,
   description = '',
-  primaryButton = { text: 'Request Free Estimate Online', href: '/book' },
+  primaryButton = { text: 'Start Your Move Today', href: '/book' },
   secondaryButton,
   class: className,
   ...rest
@@ -66,6 +66,7 @@ const {
             aria-label={primaryButton.text}
             href={primaryButton.href}
           >
+            <ArrowRightIcon slot="icon" aria-hidden="true" />
             {primaryButton.text}
           </Button>
           {
@@ -76,8 +77,8 @@ const {
                 aria-label={secondaryButton.text}
                 href={secondaryButton.href}
               >
+                <ArrowRightIcon slot="icon" aria-hidden="true" />
                 {secondaryButton.text}
-                <ArrowRight class="transition-transform group-hover:translate-x-1" />
               </Button>
             )
           }

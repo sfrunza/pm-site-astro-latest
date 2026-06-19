@@ -11,7 +11,7 @@ import {
   TruckDeliveryIcon,
 } from '@/icons';
 
-export const NATICK_PATH = '/natick-ma-movers';
+export const NATICK_PATH = '/natick-movers';
 
 /** 40–60 word direct answer for GEO / above-the-fold. */
 const natickDirectAnswer =
@@ -137,12 +137,12 @@ const natickNearbyTowns: RelatedLink[] = [
     description: 'College-town and estate moves north of Natick.',
   },
   {
-    href: '/newton-ma-movers',
+    href: '/newton-movers',
     label: 'Newton movers (full guide)',
     description: `Second ${SITE.businessShortName} location—full-service crews.`,
   },
   {
-    href: '/boston-ma-movers',
+    href: '/boston-movers',
     label: 'Boston movers (full guide)',
     description: 'Greater Boston apartments, walk-ups, and offices.',
   },

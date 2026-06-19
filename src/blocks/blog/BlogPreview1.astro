@@ -4,7 +4,7 @@ import SectionHeader from '@/components/SectionHeader.astro';
 import Container from '@/components/Container.astro';
 import BlogCard from '@/components/blog/BlogCard.astro';
 import Button from '@/components/starwind/button';
-import { ArrowRight } from '@/icons';
+import { ArrowRightIcon } from '@/icons';
 import { getFeaturedPosts } from '@/config/blog';
 import { tv } from 'tailwind-variants';
 import { SITE } from '@/config/site';
@@ -44,17 +44,14 @@ const posts = (await getFeaturedPosts()).slice(0, limit);
           position="left"
           class="mb-0"
         />
-        <a
+        <Button
           href="/blog"
+          variant="primary"
           aria-label="Browse all moving guides and tips"
-          class="group hidden shrink-0 items-center gap-2 text-sm font-semibold text-primary transition-colors hover:text-primary/80 sm:flex"
         >
+          <ArrowRightIcon slot="icon" aria-hidden="true" />
           Browse all articles
-          <ArrowRight
-            class="size-4 transition-transform group-hover:translate-x-1"
-            aria-hidden="true"
-          />
-        </a>
+        </Button>
       </div>
 
       <!-- Post cards -->
@@ -70,11 +67,8 @@ const posts = (await getFeaturedPosts()).slice(0, limit);
           class="group w-full max-w-xs"
           aria-label="Browse all moving guides and tips"
         >
+          <ArrowRightIcon slot="icon" aria-hidden="true" />
           Browse all articles
-          <ArrowRight
-            class="size-4 transition-transform group-hover:translate-x-1"
-            aria-hidden="true"
-          />
         </Button>
       </div>
     </div>

@@ -35,7 +35,7 @@ const phoneHref = `tel:${SITE.contactPhone}`;
       class="rounded-3xl border border-border/40 bg-linear-to-br from-muted/20 to-muted/50 px-6 py-16 md:px-12 md:py-20"
     >
       <SectionHeader
-        label={`${cities.length}+ service locations`}
+        label={`${cities.length}+ Service Locations`}
         title="Areas We Proudly Serve with Excellence"
         subtitle=`From our Natick home base, ${SITE.businessShortName} dispatches licensed, insured crews to cities and towns across Greater Boston, MetroWest, the North Shore, South Shore, Cape Cod, and neighboring states.`
       />
@@ -127,7 +127,7 @@ const phoneHref = `tel:${SITE.contactPhone}`;
           variant="primary"
           size="sm"
         >
-          <PhoneIcon class="size-4" />
+          <PhoneIcon slot="icon" aria-hidden="true" />
           {SITE.contactPhone}
         </Button>
       </div>

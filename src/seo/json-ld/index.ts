@@ -1,4 +1,9 @@
-export { breadcrumb, serviceSchema, webPage } from '@/seo/json-ld/shared';
+export {
+  breadcrumb,
+  serviceSchema,
+  type ServiceAreaServed,
+  webPage,
+} from '@/seo/json-ld/shared';
 export { buildFaqJsonLd, stripHtmlForSchema } from '@/seo/json-ld/faq';
 export { buildHowToJsonLd } from '@/seo/json-ld/how-to';
 export {

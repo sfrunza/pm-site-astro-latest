@@ -1,4 +1,3 @@
-import { SITE } from '@/config/site';
 import {
   getGoogleReviews,
   type GooglePlaceReviews,
@@ -9,6 +8,7 @@ import {
   breadcrumb,
   buildLocalMoverJsonLd,
   serviceSchema,
+  type ServiceAreaServed,
   webPage,
 } from '@/seo/json-ld';
 import { buildBusinessRatingJsonLd } from '@/seo/reviews';
@@ -21,7 +21,11 @@ export type PageSeoInput = {
   keywords: string;
   pathname: string;
   breadcrumbs: { name: string; path: string }[];
-  service?: { name: string; description: string };
+  service?: {
+    name: string;
+    description: string;
+    areaServed?: ServiceAreaServed | ServiceAreaServed[];
+  };
   jsonLdExtra?: Record<string, unknown>[];
   /**
    * When the page shows Reviews1, adds city LocalBusiness JSON-LD with
@@ -88,6 +92,7 @@ export function buildPageSeo(
               pathname,
               input.service.name,
               input.service.description,
+              input.service.areaServed,
             ),
           ]
           : []),

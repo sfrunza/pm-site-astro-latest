@@ -63,7 +63,11 @@ const showSubtitle = Boolean(subtitle || hasSubtitleSlot);
 <div class={rootClass}>
   {
     label && (
-      <Badge class="bg-primary/10 text-primary text-pretty whitespace-normal">
+      <Badge
+        variant="primary"
+        class="bg-linear-to-r from-primary/20 to-primary/5 text-violet-900 text-pretty whitespace-normal bg-transparent"
+        size="lg"
+      >
         {label}
       </Badge>
     )

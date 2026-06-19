@@ -30,9 +30,3 @@ export function getPremiumSitemapEntries(): { label: string; href: string }[] {
     href: city.path,
   }));
 }
-
-/** Re-export paths for legacy slug canonical overrides. */
-export { BOSTON_PATH } from '@/content/ma-cities/boston-content';
-export { NATICK_PATH } from '@/content/ma-cities/natick-content';
-export { DEDHAM_PATH } from '@/content/ma-cities/dedham-content';
-export { NEWTON_PATH } from '@/content/ma-cities/newton-content';

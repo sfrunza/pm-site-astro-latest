@@ -38,10 +38,16 @@ export function breadcrumb(
   };
 }
 
+export type ServiceAreaServed =
+  | { '@type': 'City'; name: string }
+  | { '@type': 'PostalCode'; name: string }
+  | { '@type': 'State'; name: string };
+
 export function serviceSchema(
   pathname: string,
   name: string,
   description: string,
+  areaServed?: ServiceAreaServed | ServiceAreaServed[],
 ) {
   const url = `${SITE.url}${pathname}`;
   return {
@@ -51,7 +57,8 @@ export function serviceSchema(
     description,
     url,
     provider: { '@id': BUSINESS_ID },
-    areaServed: { '@type': 'State', name: 'Massachusetts' },
+    areaServed:
+      areaServed ?? { '@type': 'State', name: 'Massachusetts' },
     serviceType: 'Moving Services',
   };
 }

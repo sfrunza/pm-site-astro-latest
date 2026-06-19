@@ -3,7 +3,7 @@ import Section from '@/components/Section.astro';
 import SectionHeader from '@/components/SectionHeader.astro';
 import Container from '@/components/Container.astro';
 import Button from '@/components/starwind/button';
-import { CheckIcon, ArrowRight } from '@/icons';
+import { CheckIcon, ArrowRightIcon } from '@/icons';
 import { tv } from 'tailwind-variants';
 import Badge from '@/components/starwind/badge';
 import { Card, CardContent } from '@/components/starwind/card';
@@ -139,11 +139,8 @@ const accentMap: Record<string, { badge: string; dot: string; check: string }> =
         class="group"
         aria-label="Read the full 8-week checklist"
       >
+        <ArrowRightIcon slot="icon" aria-hidden="true" />
         Read the Full 8-Week Checklist
-        <ArrowRight
-          class="size-4 transition-transform group-hover:translate-x-1"
-          aria-hidden="true"
-        />
       </Button>
     </div>
   </Container>

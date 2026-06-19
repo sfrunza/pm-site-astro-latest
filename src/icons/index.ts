@@ -14,10 +14,10 @@ import ShieldCheckIcon from '@tabler/icons/outline/shield-check.svg';
 import Receipt2Icon from '@tabler/icons/outline/receipt-2.svg';
 import LicenseIcon from '@tabler/icons/outline/license.svg';
 import ClockShieldIcon from '@tabler/icons/outline/clock-shield.svg';
-import ArrowRight from '@tabler/icons/outline/arrow-right.svg';
-import ArrowDown from '@tabler/icons/outline/arrow-down.svg';
+import ArrowRightIcon from '@tabler/icons/outline/arrow-right.svg';
+import ArrowDownIcon from '@tabler/icons/outline/arrow-down.svg';
 import SparklesIcon from '@tabler/icons/outline/sparkles.svg';
-import IconStar from '@tabler/icons/outline/star.svg';
+import StarIcon from '@tabler/icons/outline/star.svg';
 import PlusIcon from '@tabler/icons/outline/plus.svg';
 import PercentageIcon from '@tabler/icons/outline/percentage.svg';
 import ExternalLinkIcon from '@tabler/icons/outline/external-link.svg';
@@ -41,11 +41,11 @@ export {
   Receipt2Icon,
   LicenseIcon,
   ClockShieldIcon,
-  ArrowRight,
-  ArrowDown,
+  ArrowRightIcon,
+  ArrowDownIcon,
   ArrowUpRightIcon,
   SparklesIcon,
-  IconStar,
+  StarIcon,
   PlusIcon,
   PercentageIcon,
   ExternalLinkIcon,

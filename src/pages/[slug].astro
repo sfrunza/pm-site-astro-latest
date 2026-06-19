@@ -1,5 +1,4 @@
 ---
-import CTA1 from '@/blocks/cta/CTA1.astro';
 import FeatureImageRight from '@/blocks/feature/FeatureImageRight.astro';
 import RelatedServices from '@/blocks/related/RelatedServices.astro';
 import Hero2, { getHero2LcpPreload } from '@/components/Hero2.astro';
@@ -16,7 +15,7 @@ import { SITE } from '@/config/site';
 import type { RelatedLink } from '@/config/service-faqs';
 import Layout from '@/layouts/Layout.astro';
 import Services1 from '@/blocks/services/Services1.astro';
-import { ArrowRight } from '@/icons';
+import { ArrowRightIcon } from '@/icons';
 import CTA2 from '@/blocks/cta/CTA2.astro';
 import Reviews1 from '@/blocks/reviews/Reviews1.astro';
 import FAQ1 from '@/blocks/faq/FAQ1.astro';
@@ -176,8 +175,8 @@ const seo = await fetchPageSeo(Astro.url, {
         href="/pricing"
         aria-label="View hourly rates"
       >
+        <ArrowRightIcon slot="icon" aria-hidden="true" />
         View hourly rates
-        <ArrowRight class="transition-transform group-hover:translate-x-1" />
       </Button>
     </Fragment>
   </FeatureImageRight>

@@ -23,6 +23,7 @@ import { fetchPageSeo, getSocialImageUrl } from '@/seo';
 import { getRelatedLinks, getServiceFaqs } from '@/config/service-faqs';
 import { servicePageJsonLd } from '@/seo/service-page-schema';
 import { SITE } from '@/config/site';
+import { ArrowRightIcon } from '@/icons';
 
 const pathname = Astro.url.pathname;
 const pageFaqs = getServiceFaqs(pathname);
@@ -102,9 +103,15 @@ const seo = await fetchPageSeo(Astro.url, {
                 state or city, our experienced team is here to make your move
                 seamless and stress-free.
               </p>
-              <Button class="mr-auto" variant="primary" href="/book"
-                >Get a Free Quote</Button
+              <Button
+                class="mr-auto"
+                variant="primary"
+                href="/book"
+                aria-label="Get a free quote"
               >
+                <ArrowRightIcon slot="icon" aria-hidden="true" />
+                Get Started Now
+              </Button>
             </CardContent>
           </div>
         </Card>

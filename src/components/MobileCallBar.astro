@@ -1,6 +1,6 @@
 ---
 import { SITE } from '@/config/site';
-import { PhoneIcon, IconStar } from '@/icons';
+import { PhoneIcon, StarIcon } from '@/icons';
 
 /** Sticky, mobile-only call/quote bar. Hidden from `lg` up. */
 const telHref = `tel:${SITE.contactPhone.replace(/[^+\d]/g, '')}`;
@@ -32,7 +32,7 @@ const telHref = `tel:${SITE.contactPhone.replace(/[^+\d]/g, '')}`;
         <span
           class="mt-0.5 inline-flex items-center gap-1 text-[0.7rem] font-semibold text-secondary-foreground/80"
         >
-          <IconStar class="size-3 fill-current" />
+          <StarIcon class="size-3 fill-current" aria-hidden="true" />
           4.9
         </span>
       </a>

@@ -14,10 +14,10 @@ import {
   TruckDeliveryIcon,
 } from '@/icons';
 
-export const NEWTON_PATH = '/newton-ma-movers';
+export const NEWTON_PATH = '/newton-movers';
 
 const newtonDirectAnswer =
-  `${SITE.businessShortName} is a licensed, insured Newton moving company with a local office at 174 Adams Street. We provide residential, commercial, packing, storage, and long-distance moves across Newton’s villages—from Newton Centre to Newtonville—with transparent hourly pricing and free estimates.`;
+  `${SITE.businessShortName} is a licensed Newton movers team with a local office at 174 Adams Street. We provide residential, commercial, packing, storage, and long-distance moves across Newton’s villages—from Newton Centre to Newtonville—with transparent hourly pricing and free estimates.`;
 
 const newtonTrustFeatures = [
   `Licensed MDPU #${SITE.businessLicenses.MDPU}`,
@@ -96,7 +96,7 @@ const newtonHowToSteps: MovingStep[] = [
 
 const newtonServicesCopy = {
   label: 'Newton moving services',
-  title: 'Full-service movers for Newton homes, apartments & offices',
+  title: 'Movers in Newton, MA for homes, apartments & offices',
   subtitle:
     `From triple-deckers near Crystal Lake to elevator buildings in Newton Centre, ${SITE.businessShortName} delivers licensed crews, packing, storage, and long-distance options—with a Newton office for local support.`,
 };
@@ -106,7 +106,7 @@ const newtonMovingInNewton = {
   subtitle:
     'Thirteen villages, strong schools, and quick Red Line access to Boston—here is how we tailor moves to Newton\'s mix of housing and building rules.',
   paragraphs: [
-    `Newton is one of Greater Boston\'s most desirable communities: tree-lined streets, excellent public schools, and a patchwork of villages—Newton Centre, Newtonville, West Newton, Newton Highlands, Auburndale, Chestnut Hill, and more—each with its own personality. Moves here are rarely “generic suburban.” You might be leaving a Victorian with a narrow side entrance, a condo near the Green Line with freight-elevator windows, or a colonial on a sloped lot in Newton Highlands. ${SITE.businessShortName} builds plans around your actual access, not a template developed for another town.`,
+    `Newton is home to roughly 90,700 residents, according to the <a href="https://www.census.gov/quickfacts/fact/table/newtoncitymassachusetts" rel="noopener noreferrer" aria-label="U.S. Census Bureau">U.S. Census Bureau</a> (2024 population estimate)—one of Greater Boston\'s most desirable communities: tree-lined streets, excellent public schools, and a patchwork of thirteen villages—Newton Centre, Newtonville, West Newton, Newton Highlands, Auburndale, Chestnut Hill, and more—each with its own personality. Moves here are rarely “generic suburban.” You might be leaving a Victorian with a narrow side entrance, a condo near the Green Line with freight-elevator windows, or a colonial on a sloped lot in Newton Highlands. ${SITE.businessShortName} builds plans around your actual access, not a template developed for another town.`,
     'Our <strong>Newton office at 174 Adams Street</strong> means local coordinators understand village streets, commuter-rail crossings, and peak traffic on Washington Street and Route 9. Travel time on hourly jobs is prorated from our warehouse and return routing—when crews start closer to your neighborhood, you avoid the inflated travel charges that out-of-area movers sometimes pass through on local estimates.',
     'Many Newton relocations connect to Boston employment, university schedules, or family moves along the Route 128 corridor. We coordinate <a href="/local-moving">local moves</a> within Newton, to neighboring Brookline or Wellesley, and <a href="/interstate-moving">long-distance deliveries</a> nationwide. Add <a href="/packing-services">professional packing</a> or <a href="/storage-solutions">storage</a> when closing dates do not align—one vendor keeps your timeline coherent.',
     'Building managers in Newton frequently require certificates of insurance, elevator reservations, and padded common areas. Share your property manager\'s checklist when you <a href="/book">request a quote</a> so move day matches building rules and avoids fines or denied dock access. Our crews pad hallways, protect elevator cabs, and follow timed freight schedules where required.',
@@ -123,8 +123,8 @@ const newtonLocalGuide = {
   paragraphs: [
     'Newton\'s village structure matters for truck placement. In Newtonville and West Newton, crews often back down driveways or use street parking with temporary no-parking coordination. Newton Centre and Chestnut Hill buildings may require elevator reservations and loading-dock time slots—book these before you confirm your move date. Hills in Newton Highlands and Oak Hill can affect how we stage dollies and how many trips carry from garage to living level.',
     'College and academic calendars influence demand. Late August and early September see higher volume near Boston College and surrounding neighborhoods. Planning three to four weeks ahead secures preferred crews. Winter moves are common; crews use floor runners and door jamb protection when salt and slush increase slip risk at entries.',
-    `If you are comparing movers, ask how travel time is calculated, whether COI preparation is included, and how overtime is handled after the estimate. ${SITE.businessShortName} publishes <a href="/pricing" aria-label="See moving prices">rate guidance</a> and explains 15-minute billing increments for labor. Long-distance moves from Newton use flat-rate quotes that include mileage, tolls, and insurance—your coordinator walks through line items before you sign.`,
-    'Downsizing and estate moves are frequent in Newton\'s established neighborhoods. We can combine partial packing, donation drop coordination, and storage for items that will not fit your next home yet. Senior moves benefit from labeled boxes by room and clear pathways—our coordinators send a prep checklist when you book.',
+    `If you are comparing movers Newton renters and homeowners hire, ask how travel time is calculated, whether COI preparation is included, and how overtime is handled after the estimate. ${SITE.businessShortName} publishes <a href="/pricing" aria-label="See moving prices">rate guidance</a> and explains 15-minute billing increments for labor. Long-distance moves from Newton use flat-rate quotes that include mileage, tolls, and insurance—your coordinator walks through line items before you sign.`,
+    'About 70% of Newton housing units are owner-occupied (<a href="https://www.census.gov/quickfacts/fact/table/newtoncitymassachusetts" rel="noopener noreferrer" aria-label="U.S. Census Bureau">U.S. Census Bureau, 2020-2024</a>), so downsizing and estate moves are frequent in Newton\'s established neighborhoods. We can combine partial packing, donation drop coordination, and storage for items that will not fit your next home yet. Senior moves benefit from labeled boxes by room and clear pathways—our coordinators send a prep checklist when you book.',
     'Commercial relocations along Washington Street, Needham Street, and office parks near the Massachusetts Turnpike require after-hours or weekend slots to limit downtime. We label workstations, protect IT equipment, and stage furniture by floor plan so your team reopens with minimal disruption. Share floor plans and COI requirements early for accurate crew sizing.',
     'Finally, remember that Newton shares borders with Brookline, Wellesley, Weston, and Boston. If your move crosses city lines, tell us both addresses upfront so travel and toll assumptions stay accurate. We serve all of Greater Boston from our Natick headquarters and Newton office—your estimate reflects the full route, not just the Newton leg.',
   ],
@@ -213,12 +213,12 @@ const newtonNearbyTowns: RelatedLink[] = [
     description: 'Northwest commutes and Charles River communities.',
   },
   {
-    href: '/natick-ma-movers',
+    href: '/natick-movers',
     label: 'Natick movers (full guide)',
     description: `${SITE.businessShortName} headquarters and MetroWest hub.`,
   },
   {
-    href: '/boston-ma-movers',
+    href: '/boston-movers',
     label: 'Boston movers (full guide)',
     description: 'Apartments, walk-ups, and downtown offices.',
   },
@@ -320,6 +320,14 @@ const newtonFaqs: Faq[] = [
     answer: `<p>Local Newton moves are billed hourly in 15-minute increments plus prorated travel. Standard weekday rates start at <strong>$130/hour</strong> (2 movers + truck), <strong>$180/hour</strong> (3 movers + truck), and <strong>$220/hour</strong> (4 movers + truck), taxes included. A studio or one-bedroom move typically runs 3–5 labor hours ($390–$650 at the 2-mover rate); larger Newton homes often need 5–8 hours with a 3- or 4-person crew ($900–$1,760+). Weekend and peak dates may use higher hourly tiers. Long-distance moves from Newton use flat-rate quotes with fuel, tolls, and insurance included. <a href="/pricing" aria-label="See moving prices">See moving prices</a> or <a href="/book" aria-label="Request a free quote">request a free quote</a> for your inventory and date.</p>`,
   },
   {
+    question: 'Who are the best movers in Newton, MA?',
+    answer: `<p>The best movers in Newton, MA combine a local presence, licensed crews, and village-specific planning—not generic suburban templates. ${SITE.businessShortName} maintains an office at 174 Adams Street, holds MDPU #${SITE.businessLicenses.MDPU} and US DOT ${SITE.businessLicenses.DOT}, and plans for Newton’s elevators, hills, and parking rules before load day. Compare our <a href="/pricing" aria-label="See moving prices">moving prices</a>, read village notes on this page, or <a href="/book" aria-label="Book your move">book a free estimate</a>.</p>`,
+  },
+  {
+    question: 'Do you provide movers in Newton, MA for local moves?',
+    answer: `<p>Yes. Our movers in Newton, MA handle local relocations within the city and to nearby Brookline, Wellesley, Needham, and Greater Boston. Hourly crews bill in 15-minute increments with prorated travel from our Adams Street office. Share both addresses when you <a href="/book" aria-label="Request a quote">request a quote</a> so your estimate reflects the full route.</p>`,
+  },
+  {
     question: `Does ${SITE.businessShortName} have a Newton office?`,
     answer:
       '<p>Yes. We maintain a Newton location at 174 Adams Street, MA 02458, in addition to our Natick headquarters. Local coordinators and crews support moves across all Newton villages from this office.</p>',
@@ -331,7 +339,7 @@ const newtonFaqs: Faq[] = [
   {
     question: 'Do you handle Newton apartments and condo buildings?',
     answer:
-      '<p>Yes. Share your building’s COI template, elevator reservation rules, and loading instructions when you book. Our crews pad common areas and follow freight-elevator time windows in Newton Centre, Chestnut Hill, and along the Green Line.</p>',
+      '<p>Yes. Share your building\'s COI template, elevator reservation rules, and loading instructions when you book. Our crews pad common areas and follow freight-elevator time windows in Newton Centre, Chestnut Hill, and along the Green Line.</p>',
   },
   {
     question: 'Do you offer packing and storage for Newton moves?',
@@ -362,11 +370,12 @@ const newtonFaqs: Faq[] = [
 
 const newtonKeywords = [
   'Newton movers',
+  'movers Newton',
+  'movers in Newton MA',
+  'movers Newton MA',
   'Newton MA moving company',
   'movers Newton Massachusetts',
   'local movers Newton',
-  'best movers Newton MA',
-  'affordable movers Newton',
   'licensed movers Newton',
   'residential movers Newton',
   'commercial movers Newton',
@@ -381,9 +390,9 @@ const newtonKeywords = [
 ].join(', ');
 
 const newtonSeo = {
-  title: `Newton, MA Movers | ${SITE.businessName}`,
+  title: `Newton Movers | Licensed Moving Company | ${SITE.businessName}`,
   description:
-    'Newton movers with a local Adams Street office. Licensed local & long-distance moves, packing, storage. Free estimate—book your Newton, MA move today.',
+    'Newton movers and movers in Newton, MA—with a local Adams Street office. Licensed local & long-distance moves, packing, storage. Free estimate today.',
   serviceName: 'Newton Moving Services',
   serviceDescription:
     'Licensed local and long-distance moving, packing, storage, and commercial relocation for Newton, MA—from our Newton office and Natick headquarters with transparent pricing.',
@@ -441,14 +450,14 @@ export const newtonPremium: CityPremiumContent = {
   breadcrumbLabel: 'Newton Movers',
   sectionOrder: newtonSectionOrder,
   hero: {
-    title: 'Newton, MA Movers',
+    title: 'Newton Movers',
     subtitle:
-      'Licensed Newton movers with a local office on Adams Street—residential, commercial, packing, and long-distance service across every Newton village.',
+      'Licensed movers in Newton, MA with a local Adams Street office—residential, commercial, packing, and long-distance service across every village.',
   },
   directAnswer: newtonDirectAnswer,
   intro: {
     label: 'Newton, MA',
-    title: 'Your Newton moving company — local office',
+    title: 'Movers in Newton, MA — local Adams Street office',
     imageAlt: `Newton, Massachusetts — ${SITE.businessShortName}`,
     trustLead: 'Newton movers you can trust:',
     officeIndex: 1,
@@ -514,7 +523,7 @@ export const newtonPremium: CityPremiumContent = {
   movingChecklist: true,
   reviews: true,
   faq: {
-    title: 'Newton moving FAQ',
+    title: 'Newton movers FAQ',
     label: 'Questions about Newton moves',
     groupName: 'newton-faq',
     items: newtonFaqs,

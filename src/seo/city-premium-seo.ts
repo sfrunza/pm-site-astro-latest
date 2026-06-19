@@ -27,17 +27,19 @@ function buildCityPremiumPageSeo(
 ): AstroSeoProps {
   const pathname = content.path;
 
+  const areaServed = content.schema.areaServed ?? [
+    { '@type': 'City', name: content.schema.cityName },
+    { '@type': 'PostalCode', name: content.schema.postalCode },
+    { '@type': 'State', name: 'Massachusetts' },
+  ];
+
   const jsonLdExtra = [
     buildLocalMoverJsonLd({
       pathname,
       cityName: content.schema.cityName,
       image: socialImageUrl,
       addressIndex: content.schema.officeIndex,
-      areaServed: content.schema.areaServed ?? [
-        { '@type': 'City', name: content.schema.cityName },
-        { '@type': 'PostalCode', name: content.schema.postalCode },
-        { '@type': 'State', name: 'Massachusetts' },
-      ],
+      areaServed,
       geo: content.schema.geo,
       reviewsData,
       includeReviews: content.reviews,
@@ -73,6 +75,7 @@ function buildCityPremiumPageSeo(
     service: {
       name: content.seo.serviceName,
       description: content.seo.serviceDescription,
+      areaServed,
     },
     ogImage: socialImageUrl,
     ogImageAlt: content.ogImageAlt,

@@ -16,6 +16,7 @@ import Separator from '@/components/starwind/separator';
 import { services } from '@/config/services';
 import { SITE } from '@/config/site';
 import {
+  ArrowRightIcon,
   ChevronDownIcon,
   MailIcon,
   Menu3Icon,
@@ -133,13 +134,13 @@ export const navLinks: NavLink[] = [
               }
               <li>
                 <Button
-                  variant="outline"
+                  variant="primary"
                   href={`tel:${SITE.contactPhone}`}
                   title={SITE.contactPhone}
                 >
-                  <PhoneIcon />
-                  {SITE.contactPhone}</Button
-                >
+                  <PhoneIcon slot="icon" aria-hidden="true" />
+                  {SITE.contactPhone}
+                </Button>
               </li>
             </ul>
           </nav>
@@ -148,12 +149,13 @@ export const navLinks: NavLink[] = [
         <!-- Right side -->
         <div class="flex items-center gap-1">
           <Button variant="ghost" class="max-xl:hidden">
-            <UserIcon />
+            <UserIcon slot="icon" aria-hidden="true" />
             Client login
           </Button>
-          <Button variant="secondary" href="/book" class="max-lg:hidden"
-            >Get a Quote</Button
-          >
+          <Button variant="secondary" href="/book" class="max-lg:hidden pl-2">
+            <ArrowRightIcon slot="icon" aria-hidden="true" />
+            Get a Quote
+          </Button>
         </div>
         <!-- Mobile menu trigger -->
         <div class="block lg:hidden">
@@ -255,32 +257,32 @@ export const navLinks: NavLink[] = [
               class="w-full justify-start"
               href={`tel:${SITE.contactPhone}`}
             >
-              <UserIcon />
-              Client login</Button
-            >
+              <UserIcon slot="icon" aria-hidden="true" />
+              Client login
+            </Button>
           </li>
         </ul>
         <Separator class="my-6" />
         <ul class="space-y-4">
           <li>
             <Button
-              variant="outline"
+              variant="primary"
               class="w-full justify-start"
               href={`tel:${SITE.contactPhone}`}
             >
-              <PhoneIcon />
-              {SITE.contactPhone}</Button
-            >
+              <PhoneIcon slot="icon" aria-hidden="true" />
+              {SITE.contactPhone}
+            </Button>
           </li>
           <li>
             <Button
-              variant="primary"
+              variant="secondary"
               class="w-full justify-start"
               href={`mailto:${SITE.contactEmail}`}
             >
-              <MailIcon />
-              {SITE.contactEmail}</Button
-            >
+              <MailIcon slot="icon" aria-hidden="true" />
+              {SITE.contactEmail}
+            </Button>
           </li>
         </ul>
       </div>

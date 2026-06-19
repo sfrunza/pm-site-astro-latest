@@ -6,7 +6,7 @@ import SectionHeader from '@/components/SectionHeader.astro';
 import Button from '@/components/starwind/button';
 import type { RelatedLink } from '@/config/service-faqs';
 import { SITE } from '@/config/site';
-import { ArrowRight } from '@/icons';
+import { ArrowRightIcon } from '@/icons';
 import Layout from '@/layouts/Layout.astro';
 import { fetchPageSeo } from '@/seo';
 
@@ -83,8 +83,8 @@ const seo = await fetchPageSeo(Astro.url, {
           class="group"
           aria-label="Request a free moving estimate"
         >
+          <ArrowRightIcon slot="icon" aria-hidden="true" />
           Get Free Estimate
-          <ArrowRight class="transition-transform group-hover:translate-x-1" />
         </Button>
       </div>
     </Container>

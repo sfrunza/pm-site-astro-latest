@@ -26,6 +26,7 @@ import { fetchPageSeo, getSocialImageUrl } from '@/seo';
 import { getRelatedLinks, getServiceFaqs } from '@/config/service-faqs';
 import { servicePageJsonLd } from '@/seo/service-page-schema';
 import { SITE } from '@/config/site';
+import { ArrowRightIcon } from '@/icons';
 
 const pathname = Astro.url.pathname;
 const pageFaqs = getServiceFaqs(pathname);
@@ -163,8 +164,11 @@ const seo = await fetchPageSeo(Astro.url, {
                 class="mr-auto"
                 variant="primary"
                 href="/book"
-                aria-label="Get a free quote">Get a Free Quote</Button
+                aria-label="Get a free quote"
               >
+                <ArrowRightIcon slot="icon" aria-hidden="true" />
+                Get a Free Quote
+              </Button>
             </CardContent>
           </div>
         </Card>

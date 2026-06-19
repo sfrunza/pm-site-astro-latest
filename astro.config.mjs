@@ -28,6 +28,8 @@ export default defineConfig({
         protocol: 'https',
         hostname: '**.unsplash.com',
       },
+      { protocol: 'https', hostname: '**.yelpcdn.com' },
+      { protocol: 'https', hostname: '**.googleusercontent.com' },
     ],
   },
 

@@ -22,7 +22,7 @@ interface Props {
 const { content, cityHero, cityLogo } = Astro.props;
 const c = content;
 const office = SITE.businessAddresses[c.intro.officeIndex ?? 0];
-const phoneTel = `+${SITE.contactPhone.replace(/\D/g, '')}`;
+const phoneTel = SITE.contactPhone;
 const sectionOrder = c.sectionOrder ?? DEFAULT_CITY_PREMIUM_SECTION_ORDER;
 ---
 
@@ -39,11 +39,7 @@ const sectionOrder = c.sectionOrder ?? DEFAULT_CITY_PREMIUM_SECTION_ORDER;
   alt={c.intro.imageAlt}
   class="defer-section"
 >
-  <p>
-    <strong>{c.intro.trustLead}</strong>
-    {c.directAnswer}
-  </p>
-  <address class="not-italic mt-6 space-y-2 text-sm">
+  <address class="not-italic space-y-2 text-sm">
     <p>
       <strong>{SITE.businessName}</strong><br />
       {office.address}<br />
@@ -97,9 +93,4 @@ const sectionOrder = c.sectionOrder ?? DEFAULT_CITY_PREMIUM_SECTION_ORDER;
 <BlogPreview1 class="defer-section" />
 
 <!-- CTA -->
-<CTA1
-  title={c.finalCta.title}
-  description={c.finalCta.description}
-  primaryButton={{ text: 'Get a free quote', href: '/book' }}
-  secondaryButton={{ text: 'Call us', href: `tel:${phoneTel}` }}
-/>
+<CTA1 title={c.finalCta.title} description={c.finalCta.description} />

@@ -10,7 +10,6 @@ import Container from '@/components/Container.astro';
 import Section from '@/components/Section.astro';
 import SectionHeader from '@/components/SectionHeader.astro';
 import Button from '@/components/starwind/button';
-import { Image } from '@/components/starwind/image';
 import Prose from '@/components/starwind/prose';
 import {
   Card,
@@ -208,7 +207,7 @@ const { id, content: c, cityHero, phoneTel } = Astro.props;
     <CTA2
       title={c.midCta.title}
       description={c.midCta.description}
-      primaryButton={{ text: 'Request a free estimate', href: '/book' }}
+      primaryButton={{ text: 'Get A Free Moving Quote', href: '/book' }}
       secondaryButton={{ text: 'View moving prices', href: '/pricing' }}
       class="defer-section"
     />

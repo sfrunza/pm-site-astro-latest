@@ -3,7 +3,7 @@ import Container from '@/components/Container.astro';
 import Section from '@/components/Section.astro';
 import SectionHeader from '@/components/SectionHeader.astro';
 import Button from '@/components/starwind/button';
-import { ArrowRight } from '@/icons';
+import { ArrowRightIcon, PhoneIcon } from '@/icons';
 import { Image } from 'astro:assets';
 import artur from '@/assets/artur.png';
 
@@ -70,6 +70,7 @@ const {
             href={primaryButton.href}
             aria-label={primaryButton.text}
           >
+            <ArrowRightIcon slot="icon" aria-hidden="true" />
             {primaryButton.text}
           </Button>
           {
@@ -80,8 +81,8 @@ const {
                 href={secondaryButton.href}
                 aria-label={secondaryButton.text ?? 'Contact Sales'}
               >
+                <PhoneIcon slot="icon" aria-hidden="true" />
                 {secondaryButton.text}
-                <ArrowRight class="transition-transform group-hover:translate-x-1" />
               </Button>
             )
           }

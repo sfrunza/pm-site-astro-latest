@@ -27,6 +27,7 @@ import { fetchPageSeo, getSocialImageUrl } from '@/seo';
 import { getRelatedLinks, getServiceFaqs } from '@/config/service-faqs';
 import { servicePageJsonLd } from '@/seo/service-page-schema';
 import { SITE } from '@/config/site';
+import { ArrowRightIcon } from '@/icons';
 
 const pathname = Astro.url.pathname;
 const pageFaqs = getServiceFaqs(pathname);
@@ -144,7 +145,10 @@ const seo = await fetchPageSeo(Astro.url, {
               class="flex flex-col justify-between gap-6 p-6 @xl:p-8"
             >
               <div class="space-y-4">
-                <h2 class="text-2xl font-bold">
+                <h2
+                  class="text-2xl font-bold"
+                  aria-label="Full-service piano relocation"
+                >
                   Full-service piano relocation
                 </h2>
                 <p>
@@ -159,8 +163,14 @@ const seo = await fetchPageSeo(Astro.url, {
                   arrive safely on schedule.
                 </p>
               </div>
-              <Button class="mr-auto" variant="primary" href="/book">
-                Get a Free Quote
+              <Button
+                class="mr-auto"
+                variant="primary"
+                href="/book"
+                aria-label="Start Your Move Today"
+              >
+                <ArrowRightIcon slot="icon" aria-hidden="true" />
+                Start Your Move Today
               </Button>
             </CardContent>
           </div>

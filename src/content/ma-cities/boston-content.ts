@@ -13,9 +13,8 @@ import {
   ShieldCheckIcon,
   TruckDeliveryIcon,
 } from '@/icons';
-import { NEWTON_PATH } from './newton-content';
 
-export const BOSTON_PATH = '/boston-ma-movers';
+export const BOSTON_PATH = '/boston-movers';
 
 const bostonDirectAnswer =
   `${SITE.businessName} is a licensed, insured Boston moving company serving all neighborhoods from Back Bay to Seaport. We provide residential moves, apartment relocations, commercial office moves, packing, storage, and long-distance service—with transparent pricing, permit coordination, and crews trained for Boston's walk-ups, elevators, and parking restrictions.`;
@@ -229,7 +228,7 @@ const bostonNearbyTowns: RelatedLink[] = [
     description: 'North of Boston with walkable squares and triple-deckers.',
   },
   {
-    href: NEWTON_PATH,
+    href: '/newton-movers',
     label: 'Newton movers',
     description: 'West on the Green Line—village neighborhoods and suburban homes.',
   },
@@ -239,7 +238,7 @@ const bostonNearbyTowns: RelatedLink[] = [
     description: 'South Shore access with Red Line connection to Boston.',
   },
   {
-    href: '/natick-ma-movers',
+    href: '/natick-movers',
     label: 'Natick movers (full guide)',
     description: `${SITE.businessName} headquarters—MetroWest and Route 9 corridor.`,
   },

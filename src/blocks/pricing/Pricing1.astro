@@ -267,7 +267,7 @@ const { class: className = '' } = Astro.props;
         href={`tel:${SITE.contactPhone}`}
         aria-label="Contact Sales"
       >
-        <PhoneIcon />
+        <PhoneIcon slot="icon" aria-hidden="true" />
         Contact Sales
       </Button>
     </div>

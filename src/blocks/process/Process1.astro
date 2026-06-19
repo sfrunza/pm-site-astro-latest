@@ -10,7 +10,6 @@ import {
 } from '@/components/starwind/card';
 
 import { movingHowToSteps, type MovingStep } from '@/config/moving-howto';
-import { SITE } from '@/config/site';
 import { tv } from 'tailwind-variants';
 
 interface Props {
@@ -27,9 +26,9 @@ const featureSteps = tv({
 
 const {
   steps = movingHowToSteps,
-  label = 'Simple Process',
-  title = 'Moving made simple, start to finish.',
-  subtitle = `From your first call to the last box in place, ${SITE.businessShortName} makes every step clear, fast, and stress-free.`,
+  label = 'Our Process',
+  title = 'Simple Moving Process',
+  subtitle = `Our process begins with a personalized consultation to understand your unique needs and preferences. We then provide a detailed estimate and help you select the best moving options for your situation.`,
   class: className = '',
 } = Astro.props;
 ---
