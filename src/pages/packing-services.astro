@@ -1,11 +1,14 @@
 ---
 import heroBg from '@/assets/heros/packing-services.jpg';
+import cardImage1 from '@/assets/two-movers-packing-kitchen.jpeg';
 import Carousel2 from '@/blocks/carousel/Carousel2.astro';
 import CTA1 from '@/blocks/cta/CTA1.astro';
 import CTA2 from '@/blocks/cta/CTA2.astro';
 import FAQ1 from '@/blocks/faq/FAQ1.astro';
 import Feature2 from '@/blocks/feature/Feature2.astro';
 import Feature3 from '@/blocks/feature/Feature3.astro';
+import Packages from '@/blocks/packages/Packages.astro';
+import RelatedServices from '@/blocks/related/RelatedServices.astro';
 import Container from '@/components/Container.astro';
 import Hero2, { getHero2LcpPreload } from '@/components/Hero2.astro';
 import Section from '@/components/Section.astro';
@@ -18,15 +21,12 @@ import {
 } from '@/components/starwind/card';
 import { Image } from '@/components/starwind/image';
 import Prose from '@/components/starwind/prose';
-import Layout from '@/layouts/Layout.astro';
-// import MoveSuppliesCalculator1 from '@/blocks/calculator/MoveSuppliesCalculator1.astro';
-import RelatedServices from '@/blocks/related/RelatedServices.astro';
-import { fetchPageSeo, getSocialImageUrl } from '@/seo';
 import { getRelatedLinks, getServiceFaqs } from '@/config/service-faqs';
-import { servicePageJsonLd } from '@/seo/service-page-schema';
-import Packages from '@/blocks/packages/Packages.astro';
 import { SITE } from '@/config/site';
 import { ArrowRightIcon } from '@/icons';
+import Layout from '@/layouts/Layout.astro';
+import { fetchPageSeo, getSocialImageUrl } from '@/seo';
+import { servicePageJsonLd } from '@/seo/service-page-schema';
 
 const pathname = Astro.url.pathname;
 const pageFaqs = getServiceFaqs(pathname);
@@ -80,12 +80,13 @@ const seo = await fetchPageSeo(Astro.url, {
             <div class="relative w-full pb-[100%]">
               <div class="@xl:aspect-auto absolute inset-0">
                 <Image
-                  src={heroBg}
+                  src={cardImage1}
                   alt="Two movers packing dishes"
                   class="object-cover size-full"
-                  loading="lazy"
+                  data-slot="image"
                   decoding="async"
-                  fetchpriority="low"
+                  loading="eager"
+                  fetchpriority="high"
                   quality={50}
                 />
               </div>

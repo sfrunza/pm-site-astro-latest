@@ -17,8 +17,7 @@ const pathname = Astro.url.pathname;
 const pageFaqs = getServiceFaqs(pathname);
 const seo = await fetchPageSeo(Astro.url, {
   title: `Book Your Move — Get a Free Moving Quote | ${SITE.businessName}`,
-  description:
-    `Book Boston movers online in minutes. Get a free, no-obligation moving quote from ${SITE.businessShortName} — licensed and insured crews serving Greater Boston.`,
+  description: `Book Boston movers online in minutes. Get a free, no-obligation moving quote from ${SITE.businessShortName} — licensed and insured crews serving Greater Boston.`,
   keywords:
     'book a move, moving quote, free moving estimate, schedule movers, Boston movers',
   pathname,
@@ -74,10 +73,10 @@ const highlights = [
   </Section>
 
   {/* Booking form — centered focal section */}
-  <Section class="pb-16 md:pb-20" aria-label="Booking form">
+  <Section class="defer-section pb-8" spacing="none">
     <Container>
       <div class="mx-auto max-w-xl">
-        <div class="booking-widget-container min-h-[580px] w-full"></div>
+        <div id="phoenix-moving-calculator"></div>
 
         <div
           class="text-muted-foreground mt-8 flex flex-col items-center gap-4 text-center text-sm sm:flex-row sm:justify-center sm:gap-6"
@@ -147,5 +146,5 @@ const highlights = [
   <FAQ1 items={pageFaqs} class="defer-section" />
 </Layout>
 
-<script is:inline src="http://localhost:4173/book-form-widget.js" defer
+<script is:inline src="http://localhost:3000/calculator-embed.js" defer
 ></script>

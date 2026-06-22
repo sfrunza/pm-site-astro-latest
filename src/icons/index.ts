@@ -23,8 +23,10 @@ import PercentageIcon from '@tabler/icons/outline/percentage.svg';
 import ExternalLinkIcon from '@tabler/icons/outline/external-link.svg';
 import ArrowUpRightIcon from '@tabler/icons/outline/arrow-up-right.svg';
 import Menu3Icon from '@tabler/icons/outline/menu-3.svg';
+import XIcon from '@tabler/icons/outline/x.svg';
 
 export {
+  XIcon,
   PhoneIcon,
   UserIcon,
   ChevronDownIcon,

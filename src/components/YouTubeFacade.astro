@@ -1,0 +1,128 @@
+---
+import type { ImageMetadata } from 'astro';
+import { Image } from '@/components/starwind/image';
+
+interface Props {
+  videoId: string;
+  poster: ImageMetadata;
+  posterAlt: string;
+  title?: string;
+  class?: string;
+  /** Mute on play (default true). */
+  mute?: boolean;
+  /** Show YouTube controls after play (default true for click-to-play). */
+  controls?: boolean;
+}
+
+const {
+  videoId,
+  poster,
+  posterAlt,
+  title = 'Play video',
+  class: className,
+  mute = true,
+  controls = true,
+} = Astro.props;
+---
+
+<div
+  class:list={['youtube-facade size-full', className]}
+  data-youtube-facade
+  data-video-id={videoId}
+  data-mute={mute ? '1' : '0'}
+  data-controls={controls ? '1' : '0'}
+>
+  <button
+    type="button"
+    class="group relative size-full cursor-pointer overflow-hidden"
+    aria-label={`Play video: ${title}`}
+    data-youtube-facade-trigger
+  >
+    <Image
+      src={poster}
+      alt={posterAlt}
+      class="size-full object-cover"
+      loading="lazy"
+      decoding="async"
+      fetchpriority="low"
+      quality={50}
+    />
+    <span
+      class="absolute inset-0 bg-black/20 transition-colors group-hover:bg-black/35"
+      aria-hidden="true"></span>
+    <span
+      class="absolute inset-0 flex items-center justify-center"
+      aria-hidden="true"
+    >
+      <span
+        class="flex size-14 items-center justify-center rounded-full bg-white/90 text-black shadow-lg transition group-hover:scale-105"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 24 24"
+          fill="currentColor"
+          class="size-7 translate-x-0.5"
+          aria-hidden="true"
+        >
+          <path d="M8 5v14l11-7z"></path>
+        </svg>
+      </span>
+    </span>
+  </button>
+</div>
+
+<script>
+  const preconnectYouTube = () => {
+    if (document.querySelector('link[data-youtube-preconnect]')) return;
+
+    const link = document.createElement('link');
+    link.rel = 'preconnect';
+    link.href = 'https://www.youtube-nocookie.com';
+    link.dataset.youtubePreconnect = 'true';
+    document.head.appendChild(link);
+  };
+
+  const initYouTubeFacades = () => {
+    document.querySelectorAll('[data-youtube-facade]').forEach((facade) => {
+      if (facade.hasAttribute('data-youtube-facade-ready')) return;
+      facade.setAttribute('data-youtube-facade-ready', 'true');
+
+      const videoId = facade.getAttribute('data-video-id');
+      const trigger = facade.querySelector('[data-youtube-facade-trigger]');
+      if (!videoId || !(trigger instanceof HTMLButtonElement)) return;
+
+      const mute = facade.getAttribute('data-mute') === '1';
+      const controls = facade.getAttribute('data-controls') === '0';
+
+      trigger.addEventListener('pointerenter', preconnectYouTube, {
+        once: true,
+      });
+
+      trigger.addEventListener('click', () => {
+        const params = new URLSearchParams({
+          autoplay: '1',
+          rel: '0',
+          modestbranding: '1',
+          playsinline: '1',
+        });
+        if (mute) params.set('mute', '1');
+        if (!controls) params.set('controls', '0');
+
+        const iframe = document.createElement('iframe');
+        iframe.src = `https://www.youtube-nocookie.com/embed/${videoId}?${params.toString()}`;
+        iframe.title = trigger.getAttribute('aria-label') ?? 'YouTube video';
+        iframe.allow =
+          'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share';
+        iframe.allowFullscreen = true;
+        iframe.referrerPolicy = 'strict-origin-when-cross-origin';
+        iframe.className = 'size-full border-0';
+        iframe.loading = 'lazy';
+
+        facade.replaceChildren(iframe);
+      });
+    });
+  };
+
+  initYouTubeFacades();
+  document.addEventListener('astro:page-load', initYouTubeFacades);
+</script>

@@ -3,6 +3,7 @@ import Feature3 from '@/blocks/feature/Feature3.astro';
 import Layout from '../layouts/Layout.astro';
 import Hero2, { getHero2LcpPreload } from '@/components/Hero2.astro';
 import heroBg from '@/assets/heros/interstate-moving.jpeg';
+import cardImage1 from '@/assets/yelp-1.jpg';
 import FAQ1 from '@/blocks/faq/FAQ1.astro';
 import CTA1 from '@/blocks/cta/CTA1.astro';
 import Section from '@/components/Section.astro';
@@ -80,11 +81,13 @@ const seo = await fetchPageSeo(Astro.url, {
             <div class="relative w-full pb-[100%]">
               <div class="@xl:aspect-auto absolute inset-0">
                 <Image
-                  src={heroBg}
+                  src={cardImage1}
                   alt="Two movers packing dishes"
                   class="object-cover size-full"
-                  loading="lazy"
-                  fetchpriority="low"
+                  data-slot="image"
+                  decoding="async"
+                  loading="eager"
+                  fetchpriority="high"
                   quality={50}
                 />
               </div>

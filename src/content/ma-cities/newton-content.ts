@@ -390,7 +390,7 @@ const newtonKeywords = [
 ].join(', ');
 
 const newtonSeo = {
-  title: `Newton Movers | Licensed Moving Company | ${SITE.businessName}`,
+  title: `Newton Movers | ${SITE.businessName} (Free Estimate)`,
   description:
     'Newton movers and movers in Newton, MA—with a local Adams Street office. Licensed local & long-distance moves, packing, storage. Free estimate today.',
   serviceName: 'Newton Moving Services',

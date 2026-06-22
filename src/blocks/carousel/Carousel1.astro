@@ -1,11 +1,20 @@
 ---
-import heroBg from '@/assets/heros/home.webp';
+// import heroBg from '@/assets/heros/home.webp';
 import Container from '@/components/Container.astro';
 import Section from '@/components/Section.astro';
 import SectionHeader from '@/components/SectionHeader.astro';
 import { Card } from '@/components/starwind/card';
 import { Image } from '@/components/starwind/image';
 import { SITE } from '@/config/site';
+import img1 from '@/assets/yelp-1.jpg';
+import img2 from '@/assets/yelp-2.jpg';
+import img3 from '@/assets/yelp-3.jpg';
+import img4 from '@/assets/yelp-4.jpg';
+import img5 from '@/assets/yelp-5.jpg';
+import img6 from '@/assets/yelp-6.jpg';
+import img7 from '@/assets/yelp-7.jpg';
+import img8 from '@/assets/yelp-8.jpg';
+import img9 from '@/assets/yelp-9.jpg';
 ---
 
 <Section>
@@ -24,22 +33,27 @@ import { SITE } from '@/config/site';
       aria-label=`${SITE.businessShortName} Gallery`
     >
       {
-        Array.from({ length: 5 }).map((_, index) => (
-          <li class="carousel-item w-72">
-            <div class="p-1">
-              <Card class="aspect-square overflow-hidden p-0 ring-0 shadow-md">
-                <Image
-                  src={heroBg}
-                  alt={`${SITE.businessShortName} Gallery ${index}`}
-                  title={`${SITE.businessShortName} Gallery ${index}`}
-                  class="size-full object-cover"
-                  loading="lazy"
-                  fetchpriority="low"
-                />
-              </Card>
-            </div>
-          </li>
-        ))
+        [img1, img2, img3, img4, img5, img6, img7, img8, img9].map(
+          (img, index) => (
+            <li class="carousel-item w-72">
+              <div class="p-1">
+                <Card class="aspect-square overflow-hidden p-0 ring-0 shadow-md">
+                  <Image
+                    src={img}
+                    alt={`${SITE.businessShortName} Gallery ${index}`}
+                    title={`${SITE.businessShortName} Gallery ${index}`}
+                    class="object-cover size-full"
+                    data-slot="image"
+                    decoding="async"
+                    loading="lazy"
+                    fetchpriority="low"
+                    quality={50}
+                  />
+                </Card>
+              </div>
+            </li>
+          )
+        )
       }
     </ul>
   </div>

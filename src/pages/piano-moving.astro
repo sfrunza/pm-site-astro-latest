@@ -1,5 +1,7 @@
 ---
 import heroBg from '@/assets/heros/piano-movers.jpg';
+import cardImage1 from '@/assets/yelp-9.jpg';
+import cardImage2 from '@/assets/moving-piano-opt.jpg';
 import Carousel2 from '@/blocks/carousel/Carousel2.astro';
 import Cities1 from '@/blocks/cities/Cities1.astro';
 import CTA1 from '@/blocks/cta/CTA1.astro';
@@ -10,6 +12,7 @@ import Feature3 from '@/blocks/feature/Feature3.astro';
 import FeatureImageRight from '@/blocks/feature/FeatureImageRight.astro';
 import Process1 from '@/blocks/process/Process1.astro';
 import Container from '@/components/Container.astro';
+import YouTubeFacade from '@/components/YouTubeFacade.astro';
 import Hero2, { getHero2LcpPreload } from '@/components/Hero2.astro';
 import Section from '@/components/Section.astro';
 import SectionHeader from '@/components/SectionHeader.astro';
@@ -20,7 +23,6 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/starwind/card';
-import { Image } from '@/components/starwind/image';
 import Layout from '@/layouts/Layout.astro';
 import RelatedServices from '@/blocks/related/RelatedServices.astro';
 import { fetchPageSeo, getSocialImageUrl } from '@/seo';
@@ -81,7 +83,7 @@ const seo = await fetchPageSeo(Astro.url, {
   <FeatureImageRight
     title="Boston Piano Movers You Can Trust"
     label="Specialty Moving"
-    image={heroBg}
+    image={cardImage1}
     alt=`${SITE.businessShortName} crew preparing furniture for a careful local move`
     class="defer-section"
   >
@@ -130,14 +132,12 @@ const seo = await fetchPageSeo(Astro.url, {
           <div class="grid h-full @xl:grid-cols-2">
             <div class="relative w-full pb-[100%]">
               <div class="absolute inset-0 @xl:aspect-auto">
-                <Image
-                  src={heroBg}
-                  alt="Moving team using equipment to transport heavy items safely"
-                  class="size-full object-cover"
-                  loading="lazy"
-                  decoding="async"
-                  fetchpriority="low"
-                  quality={50}
+                <YouTubeFacade
+                  videoId="lO-2IYOQo7Y"
+                  poster={cardImage2}
+                  posterAlt="Moving team using equipment to transport a piano safely"
+                  title="Piano moving video"
+                  class="size-full"
                 />
               </div>
             </div>

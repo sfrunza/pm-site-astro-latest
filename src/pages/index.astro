@@ -8,7 +8,7 @@ import CTA1 from '@/blocks/cta/CTA1.astro';
 import Cities1 from '@/blocks/cities/Cities1.astro';
 import RelatedServices from '@/blocks/related/RelatedServices.astro';
 import { getRelatedLinks } from '@/config/service-faqs';
-import feature1Image from '@/assets/2-movers-and-truck-opt.jpg';
+import feature1Image from '@/assets/2-movers-and-customers.jpeg';
 import { fetchHomeSeo } from '@/seo';
 import ImageCompareSlider from '@/components/ImageCompareSlider.astro';
 import Section from '@/components/Section.astro';
@@ -18,12 +18,15 @@ import shkafBefore from '@/assets/shkaf-before.jpeg';
 import shkafAfter from '@/assets/shkaf-after.jpeg';
 import medicalChairBefore from '@/assets/medical-chair-before.jpeg';
 import medicalChairAfter from '@/assets/medical-chair-after.jpeg';
+import pianoBefore from '@/assets/piano-before.jpg';
+import pianoAfter from '@/assets/piano-after.jpg';
 import Reviews1 from '@/blocks/reviews/Reviews1.astro';
 import Partners1 from '@/blocks/partners/Partners1.astro';
 import Stats1 from '@/blocks/stats/Stats1.astro';
 import Process1 from '@/blocks/process/Process1.astro';
 import BlogPreview1 from '@/blocks/blog/BlogPreview1.astro';
 import MovingChecklist1 from '@/blocks/checklist/MovingChecklist1.astro';
+import LightboxGridGallery from '@/blocks/gallery/LightboxGridGallery.astro';
 
 const [seo, lcpPreload] = await Promise.all([
   fetchHomeSeo(Astro.url),
@@ -43,7 +46,7 @@ const [seo, lcpPreload] = await Promise.all([
   <Services1 class="defer-section" />
 
   <!-- Pricing -->
-  <Pricing1 class="defer-section" />
+  <Pricing1 class="defer-section" client:load />
 
   <!-- How It Works — 4-step process with HowTo schema -->
   <Process1 class="defer-section" />
@@ -60,7 +63,7 @@ const [seo, lcpPreload] = await Promise.all([
         subtitle="Every piece of furniture is professionally wrapped and protected before transport. See the difference our meticulous packing makes."
       />
       <div
-        class="flex flex-col sm:flex-row justify-center items-center gap-12 sm:gap-24 max-w-3xl mx-auto"
+        class="flex flex-col sm:flex-row justify-center items-center gap-12 sm:gap-24"
       >
         <ImageCompareSlider
           beforeSrc={shkafBefore}
@@ -76,6 +79,13 @@ const [seo, lcpPreload] = await Promise.all([
           afterLabel="After"
           alt="Medical chair before and after"
         />
+        <ImageCompareSlider
+          beforeSrc={pianoBefore}
+          afterSrc={pianoAfter}
+          beforeLabel="Before"
+          afterLabel="After"
+          alt="Piano before and after"
+        />
       </div>
     </Container>
   </Section>
@@ -90,6 +100,9 @@ const [seo, lcpPreload] = await Promise.all([
   <MovingChecklist1
     class="defer-section bg-linear-to-t from-muted/50 to-transparent"
   />
+
+  <!-- Gallery -->
+  <LightboxGridGallery />
 
   <!-- Reviews -->
   <Reviews1 class="defer-section" />

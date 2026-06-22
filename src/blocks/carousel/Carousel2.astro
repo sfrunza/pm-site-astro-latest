@@ -5,7 +5,10 @@ import mdImg from '@/assets/packing/md.jpg';
 import paperImg from '@/assets/packing/paper.jpg';
 import pictureImg from '@/assets/packing/picture.jpg';
 import smImg from '@/assets/packing/sm.jpg';
+import tapeImg from '@/assets/packing/tape.jpg';
 import wardrobeImg from '@/assets/packing/wardrobe.jpg';
+import shrinkWrapImg from '@/assets/packing/shrink-wrap.jpg';
+import mattressBagImg from '@/assets/packing/mattress-bag.jpg';
 import Container from '@/components/Container.astro';
 import Section from '@/components/Section.astro';
 import SectionHeader from '@/components/SectionHeader.astro';
@@ -33,8 +36,26 @@ const items: Item[] = [
     size: `72" x 0.2" x 80`,
   },
   {
+    img: tapeImg,
+    price: '$4.50',
+    name: 'Packing Tape',
+    size: 'per roll',
+  },
+  {
+    img: shrinkWrapImg,
+    price: '$10.00',
+    name: 'Shrink Wrap',
+    size: 'per 1/4 of roll',
+  },
+  {
+    img: mattressBagImg,
+    price: '$14.00',
+    name: 'Mattress Bag',
+    size: 'per bag',
+  },
+  {
     img: smImg,
-    price: '$4.00',
+    price: '$5.00',
     name: 'Small Box',
     size: `17" x 12 3/8" x 12 3/8`,
   },
@@ -52,7 +73,7 @@ const items: Item[] = [
   },
   {
     img: wardrobeImg,
-    price: '$20.00',
+    price: '$25.00',
     name: 'Wardrobe',
     size: `21" x 18" x 46`,
   },
@@ -64,7 +85,7 @@ const items: Item[] = [
   },
   {
     img: paperImg,
-    price: '$30.00',
+    price: '$40.00',
     name: 'Packing Paper',
     size: `approx. 450 sheets`,
   },

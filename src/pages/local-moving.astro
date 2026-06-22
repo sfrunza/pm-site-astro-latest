@@ -1,5 +1,7 @@
 ---
 import heroBg from '@/assets/heros/local-moving.jpg';
+import cardImage1 from '@/assets/yelp-2.jpg';
+import cardImage2 from '@/assets/yelp-14.jpg';
 import Carousel1 from '@/blocks/carousel/Carousel1.astro';
 import Cities1 from '@/blocks/cities/Cities1.astro';
 import CTA1 from '@/blocks/cta/CTA1.astro';
@@ -81,8 +83,8 @@ const seo = await fetchPageSeo(Astro.url, {
   <FeatureImageRight
     title="Your Neighborhood Moving Experts."
     label="Who We Are"
-    image={heroBg}
-    alt="Two movers packing dishes"
+    image={cardImage1}
+    alt="Mover pushing dolly"
     class="defer-section"
   >
     <p>
@@ -132,7 +134,7 @@ const seo = await fetchPageSeo(Astro.url, {
             <div class="relative w-full pb-[100%]">
               <div class="@xl:aspect-auto absolute inset-0">
                 <Image
-                  src={heroBg}
+                  src={cardImage2}
                   alt="Two movers packing dishes"
                   class="object-cover size-full"
                   loading="lazy"

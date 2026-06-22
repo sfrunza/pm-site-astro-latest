@@ -7,7 +7,7 @@ export interface BusinessAddress {
   zip: string;
 }
 export const SITE = {
-  title: "Phoenix Moving & Storage | Boston Moving Company (Free Estimate)",
+  title: "Phoenix Moving & Storage | Boston Moving Company",
   description: "Professional moving services with experienced movers. Residential and commercial moves, packing services, and storage solutions.",
   url: appUrl, // Update with your actual domain
   author: "Phoenix Moving",
@@ -25,7 +25,7 @@ export const SITE = {
   facebookAppId: "your-facebook-app-id",
   // Contact
   contactEmail: "info@gophoenixmoving.com",
-  contactPhone: "+1 (508) 315-7779",
+  contactPhone: "+1 (508) 315-9458",
   // Business Info
   businessName: "Phoenix Moving & Storage",
   businessShortName: "Phoenix Moving",
@@ -43,7 +43,7 @@ export const SITE = {
       zip: "02458",
     }
   ] as BusinessAddress[],
-  businessHours: "Monday - Friday: 8AM - 6PM",
+  businessHours: "Monday - Friday: 8AM - 6PM, Saturday - Sunday: 9AM - 4PM",
   businessLicenses: {
     MDPU: "32054",
     DOT: "3868109",

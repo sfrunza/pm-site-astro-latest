@@ -14,7 +14,7 @@ export default defineConfig({
     format: 'file',
   },
   integrations: [sitemap(), mdx()],
-
+  compressHTML: true,
   vite: {
     plugins: [tailwindcss()],
     optimizeDeps: {
