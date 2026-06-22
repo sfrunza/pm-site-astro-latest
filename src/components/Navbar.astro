@@ -60,6 +60,8 @@ export const navLinks: NavLink[] = [
     href: '/faq',
   },
 ];
+
+const clientLoginHref = `https://account.gophoenixmoving.com/login`;
 ---
 
 <header
@@ -148,7 +150,13 @@ export const navLinks: NavLink[] = [
 
         <!-- Right side -->
         <div class="flex items-center gap-1">
-          <Button variant="ghost" class="max-xl:hidden">
+          <Button
+            variant="ghost"
+            class="max-xl:hidden"
+            href={clientLoginHref}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
             <UserIcon slot="icon" aria-hidden="true" />
             Client login
           </Button>
@@ -255,7 +263,9 @@ export const navLinks: NavLink[] = [
             <Button
               variant="ghost"
               class="w-full justify-start"
-              href={`tel:${SITE.contactPhone}`}
+              href={clientLoginHref}
+              target="_blank"
+              rel="noopener noreferrer"
             >
               <UserIcon slot="icon" aria-hidden="true" />
               Client login

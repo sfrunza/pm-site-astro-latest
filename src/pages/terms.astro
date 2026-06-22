@@ -248,15 +248,9 @@ const seo = await fetchPageSeo(Astro.url, {
       </p>
     </section>
 
-    <section>
+    <section id="sms-terms-and-conditions">
       <h2>Sec 11.</h2>
       <h3>SMS Terms & Conditions</h3>
-      <p>
-        The Terms of Service related to SMS communication must be included in
-        the privacy policy or as a stand-alone document. Note: If you have a
-        Terms and Conditions page, this information should be included there,
-        NOT in the privacy policy. The document must include the following:
-      </p>
 
       <ol>
         <li>
@@ -284,11 +278,6 @@ const seo = await fetchPageSeo(Astro.url, {
             <li>Promotional offers</li>
             <li>Discounts and announcements</li>
           </ul>
-          <p>
-            <b>Example:</b> &quot;Hello, this is a reminder of your upcoming Delivery
-            with us. [Name] at [Location] on [Date] at [Time]. Reply STOP to opt out
-            of SMS messaging at any time.&quot;
-          </p>
         </li>
 
         <li>
@@ -296,16 +285,9 @@ const seo = await fetchPageSeo(Astro.url, {
           <p>
             Message frequency may vary depending on the type of communication.
             For example, up to 5 SMS messages per week may be received related
-            to
-            <b>
-              Delivery notifications, Accounts notifications, Move details,
-              arrival time updates, General questions , Promotional offers,
-              discounts and Announcements.
-            </b>
-          </p>
-          <p>
-            <b>Example:</b> &quot;Message frequency may vary. You may receive up to
-            5 SMS messages per week regarding your Delivery notifications or Announcements.&quot;
+            to delivery notifications, account notifications, move details,
+            arrival time updates, general questions, promotional offers,
+            discounts, and announcements.
           </p>
         </li>
 
@@ -343,7 +325,7 @@ const seo = await fetchPageSeo(Astro.url, {
             For any issues, reply with the keyword HELP. Alternatively, help can
             be obtained directly from us at
             <a
-              href={SITE.contactEmail}
+              href={`mailto:${SITE.contactEmail}`}
               target="_blank"
               rel="noopener noreferrer"
             >
