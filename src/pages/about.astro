@@ -1,5 +1,5 @@
 ---
-import heroBg from '@/assets/heros/home.webp';
+import heroBg from '@/assets/heros/home.jpg';
 import featureImage from '@/assets/2-movers-and-truck-opt.jpg';
 import Carousel1 from '@/blocks/carousel/Carousel1.astro';
 import Cities1 from '@/blocks/cities/Cities1.astro';
@@ -22,10 +22,8 @@ const socialImageUrl = await getSocialImageUrl(heroBg);
 
 const seo = await fetchPageSeo(Astro.url, {
   title: `About our company | ${SITE.businessName}`,
-  description:
-    `Learn about ${SITE.businessName} — a licensed, insured Boston-area moving company offering local and long-distance moves, packing and storage.`,
-  keywords:
-    `about ${SITE.businessShortName}, Boston moving company, Natick movers, licensed movers Massachusetts, moving and storage`,
+  description: `Learn about ${SITE.businessName} — a licensed, insured Boston-area moving company offering local and long-distance moves, packing and storage.`,
+  keywords: `about ${SITE.businessShortName}, Boston moving company, Natick movers, licensed movers Massachusetts, moving and storage`,
   pathname: Astro.url.pathname,
   breadcrumbs: [
     { name: 'Home', path: '/' },
