@@ -15,6 +15,8 @@ import Container from '@/components/Container.astro';
 import { tv } from 'tailwind-variants';
 import RotatingGradientBorder from '@/components/RotatingGradientBorder.astro';
 
+const PRICES_API_URL = 'https://account.gophoenixmoving.com/api/v1/prices';
+
 type Price = {
   two_men: [number, number];
   three_men: [number, number];
@@ -23,25 +25,27 @@ type Price = {
   add_truck: [number, number];
 };
 
+type PriceKey = keyof Price;
+
 type Tier = {
   name: string;
   href: string;
   priceMonthly: number;
+  priceKey: PriceKey;
   description: string;
   sizes: string;
   includedFeatures: string[];
   isPopular?: boolean;
 };
 
-const prices: Price[] = await fetch(
-  `https://account.gophoenixmoving.com/api/v1/prices`
-).then((res) => res.json());
+const prices: Price[] = await fetch(PRICES_API_URL).then((res) => res.json());
 
 const tiers: Tier[] = [
   {
     name: '2 Movers',
     href: '/book',
     priceMonthly: prices?.[0]?.two_men[0] ?? 0,
+    priceKey: 'two_men',
     description: 'Starting from',
     sizes: 'Room/Studio',
     includedFeatures: [
@@ -55,6 +59,7 @@ const tiers: Tier[] = [
     name: '3 Movers',
     href: '/book',
     priceMonthly: prices?.[0]?.three_men[0] ?? 0,
+    priceKey: 'three_men',
     description: 'Starting from',
     sizes: '1-2 Bedroom Apt/House',
     includedFeatures: [
@@ -69,6 +74,7 @@ const tiers: Tier[] = [
     name: '4 Movers',
     href: '/book',
     priceMonthly: prices?.[0]?.four_men[0] ?? 0,
+    priceKey: 'four_men',
     description: 'Starting from',
     sizes: '3-4 Bedroom Apt/House',
     includedFeatures: [
@@ -116,7 +122,7 @@ const { class: className = '' } = Astro.props;
                     {tier.description}
                   </p>
                   <p class="text-4xl font-semibold tracking-tight">
-                    ${tier.priceMonthly}
+                    $<span data-price={tier.priceKey}>{tier.priceMonthly}</span>
                     <span class="text-muted-foreground ml-1 text-sm font-normal tracking-normal">
                       per hour
                     </span>
@@ -165,7 +171,7 @@ const { class: className = '' } = Astro.props;
                   {tier.description}
                 </p>
                 <p class="text-4xl font-semibold tracking-tight">
-                  ${tier.priceMonthly}
+                  $<span data-price={tier.priceKey}>{tier.priceMonthly}</span>
                   <span class="text-muted-foreground ml-1 text-sm font-normal tracking-normal">
                     per hour
                   </span>
@@ -209,7 +215,8 @@ const { class: className = '' } = Astro.props;
           <CardContent>
             <p class="mt-4">
               <span class="text-4xl font-semibold tracking-tight">
-                ${prices?.[0]?.add_men[0] ?? 0}
+                $<span data-price="add_men">{prices?.[0]?.add_men[0] ?? 0}</span
+                >
               </span>
               <span class="text-muted-foreground text-sm">per hour</span>
             </p>
@@ -234,7 +241,9 @@ const { class: className = '' } = Astro.props;
           <CardContent>
             <p class="mt-4">
               <span class="text-4xl font-semibold tracking-tight">
-                ${prices?.[0]?.add_truck[0] ?? 0}
+                $<span data-price="add_truck"
+                  >{prices?.[0]?.add_truck[0] ?? 0}</span
+                >
               </span>
               <span class="text-muted-foreground text-sm">per hour</span>
             </p>
@@ -273,3 +282,28 @@ const { class: className = '' } = Astro.props;
     </div>
   </Container>
 </Section>
+
+<script define:vars={{ PRICES_API_URL }} is:inline>
+  (async () => {
+    try {
+      const prices = await fetch(PRICES_API_URL).then((r) => r.json());
+      const first = prices?.[0];
+      if (!first) return;
+
+      const map = {
+        two_men: first.two_men?.[0],
+        three_men: first.three_men?.[0],
+        four_men: first.four_men?.[0],
+        add_men: first.add_men?.[0],
+        add_truck: first.add_truck?.[0],
+      };
+
+      document.querySelectorAll('[data-price]').forEach((el) => {
+        const val = map[el.dataset.price];
+        if (val !== undefined) el.textContent = val;
+      });
+    } catch {
+      // API unavailable — build-time prices remain visible
+    }
+  })();
+</script>
