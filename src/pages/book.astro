@@ -4,14 +4,15 @@ import Container from '@/components/Container.astro';
 import Section from '@/components/Section.astro';
 import Process1 from '@/blocks/process/Process1.astro';
 import FAQ1 from '@/blocks/faq/FAQ1.astro';
-import Button from '@/components/starwind/button';
-import { CircleCheckIcon, PhoneIcon, MailIcon } from '@/icons';
 import { SITE } from '@/config/site';
 import RelatedServices from '@/blocks/related/RelatedServices.astro';
 import { fetchPageSeo } from '@/seo';
 import { getRelatedLinks, getServiceFaqs } from '@/config/service-faqs';
 import { servicePageJsonLd } from '@/seo/service-page-schema';
 import SectionHeader from '@/components/SectionHeader.astro';
+import BookFormFrame from '@/components/BookFormFrame.astro';
+import Stats1 from '@/blocks/stats/Stats1.astro';
+import MouseRepelParticles from '@/components/MouseRepelParticles.astro';
 
 const pathname = Astro.url.pathname;
 const pageFaqs = getServiceFaqs(pathname);
@@ -31,122 +32,34 @@ const seo = await fetchPageSeo(Astro.url, {
       'Get a free quote, pick your date, and move with licensed Boston movers.',
   }),
 });
-
-const highlights = [
-  'Free, no-obligation estimate',
-  'Transparent pricing',
-  'Licensed & insured',
-  'Flexible scheduling',
-];
 ---
 
 <Layout {...seo}>
-  {/* Page intro */}
-  <Section class="pt-28 pb-10 md:pt-32 md:pb-12">
+  <Section
+    class="pt-28 md:pt-32 relative isolate overflow-hidden bg-linear-to-b from-muted/50 to-transparent"
+    spacing="none"
+  >
+    <MouseRepelParticles />
     <Container>
-      <div class="mx-auto max-w-2xl text-center">
-        <SectionHeader
-          label="Free Online Estimate"
-          title="Book Your Move"
-          subtitle="Book Boston movers in minutes — share your move details and get a fast, transparent quote with no obligation."
-        />
-        <ul
-          class="mt-8 flex flex-wrap items-center justify-center gap-2"
-          aria-label="Why book with us"
-        >
-          {
-            highlights.map((item) => (
-              <li>
-                <span class="bg-muted/50 text-foreground inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 text-sm font-medium">
-                  <CircleCheckIcon
-                    class="text-primary size-4 shrink-0"
-                    aria-hidden="true"
-                  />
-                  {item}
-                </span>
-              </li>
-            ))
-          }
-        </ul>
-      </div>
-    </Container>
-  </Section>
-
-  {/* Booking form — centered focal section */}
-  <Section class="defer-section pb-8" spacing="none">
-    <Container>
-      <div class="mx-auto max-w-xl">
+      <SectionHeader
+        label="Free Online Estimate"
+        title="Book Your Move"
+        subtitle="Get a free estimate in minutes — share your move details and get a fast, transparent quote with no obligation."
+      />
+      <BookFormFrame>
         <div id="phoenix-moving-calculator"></div>
-
-        <div
-          class="text-muted-foreground mt-8 flex flex-col items-center gap-4 text-center text-sm sm:flex-row sm:justify-center sm:gap-6"
-        >
-          <span>Prefer to talk? We're happy to help.</span>
-          <div class="flex flex-wrap items-center justify-center gap-3">
-            <Button
-              variant="outline"
-              size="sm"
-              href={`tel:${SITE.contactPhone}`}
-            >
-              <PhoneIcon />
-              {SITE.contactPhone}
-            </Button>
-            <Button
-              variant="ghost"
-              size="sm"
-              href={`mailto:${SITE.contactEmail}`}
-            >
-              <MailIcon />
-              Email us
-            </Button>
-          </div>
-        </div>
-        <p class="text-muted-foreground mt-4 text-center text-xs">
-          Licensed MDPU #{SITE.businessLicenses.MDPU} · US DOT #{
-            SITE.businessLicenses.DOT
-          }
-        </p>
-      </div>
-    </Container>
-  </Section>
-
-  {/* Quick reassurance — compact, not a heavy stats band */}
-  <Section class="border-y border-border bg-muted/50 defer-section">
-    <Container>
-      <dl
-        class="mx-auto grid max-w-3xl gap-8 text-center sm:grid-cols-3 sm:gap-6"
-      >
-        <div class="space-y-1">
-          <dt class="text-primary text-3xl font-bold tracking-tight">
-            ~15 min
-          </dt>
-          <dd class="text-muted-foreground text-sm font-medium">
-            To complete your quote
-          </dd>
-        </div>
-        <div class="space-y-1">
-          <dt class="text-primary text-3xl font-bold tracking-tight">4.98★</dt>
-          <dd class="text-muted-foreground text-sm font-medium">
-            From 240+ reviews
-          </dd>
-        </div>
-        <div class="space-y-1">
-          <dt class="text-primary text-3xl font-bold tracking-tight">$0</dt>
-          <dd class="text-muted-foreground text-sm font-medium">
-            Cost for your estimate
-          </dd>
-        </div>
-      </dl>
+      </BookFormFrame>
     </Container>
   </Section>
 
   <Process1 class="defer-section" />
 
+  <Stats1 class="defer-section" />
+
   <RelatedServices links={getRelatedLinks(pathname)} class="defer-section" />
+
   <FAQ1 items={pageFaqs} class="defer-section" />
 </Layout>
 
-<script
-  is:inline
-  src="https://account.gophoenixmoving.com/calculator-embed.js"
-  defer></script>
+<script is:inline src="http://localhost:3000/calculator-embed.js" defer
+></script>

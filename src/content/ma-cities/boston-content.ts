@@ -417,7 +417,7 @@ const bostonKeywords = [
 ].join(', ');
 
 const bostonSeo = {
-  title: `Boston, MA Movers | ${SITE.businessName}`,
+  title: `Boston Movers | ${SITE.businessName} (Free Estimate)`,
   description:
     `${SITE.businessName} provides local and long-distance moving services in Boston, MA, with packing, storage, and free estimates.`,
   serviceName: 'Boston Moving Services',

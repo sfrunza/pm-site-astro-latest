@@ -2,6 +2,7 @@
 import Section from '@/components/Section.astro';
 import SectionHeader from '@/components/SectionHeader.astro';
 import { cities } from '@/config/cities-data';
+import { getPremiumCityLinks } from '@/config/city-premium/registry';
 import { MapPinIcon, PhoneIcon } from '@/icons';
 import Container from '@/components/Container.astro';
 import { tv } from 'tailwind-variants';
@@ -26,6 +27,7 @@ const outOfStateCities = cities
   .filter((c) => c.state !== 'MA')
   .sort((a, b) => a.name.localeCompare(b.name));
 
+const premiumCityLinks = getPremiumCityLinks();
 const phoneHref = `tel:${SITE.contactPhone}`;
 ---
 
@@ -39,6 +41,39 @@ const phoneHref = `tel:${SITE.contactPhone}`;
         title="Areas We Proudly Serve with Excellence"
         subtitle=`From our Natick home base, ${SITE.businessShortName} dispatches licensed, insured crews to cities and towns across Greater Boston, MetroWest, the North Shore, South Shore, Cape Cod, and neighboring states.`
       />
+
+      {
+        premiumCityLinks.length > 0 && (
+          <>
+            <div class="mb-3 flex items-center gap-3">
+              <MapPinIcon class="size-4 shrink-0 text-primary" />
+              <span class="text-xs font-semibold uppercase tracking-widest text-muted-foreground">
+                Featured City Guides
+              </span>
+              <div class="h-px flex-1 bg-border/60" />
+              <span class="text-xs text-muted-foreground">
+                {premiumCityLinks.length} full guides
+              </span>
+            </div>
+
+            <div class="mb-10 grid grid-cols-2 gap-2 sm:grid-cols-4">
+              {premiumCityLinks.map((city) => (
+                <a
+                  href={city.href}
+                  title={`${city.label} — local moving guide`}
+                  aria-label={`${city.label} — ${SITE.businessShortName}`}
+                  class="group flex flex-col gap-1 rounded-xl border border-primary/25 bg-primary/5 px-4 py-3 text-sm transition-all duration-150 hover:border-primary/40 hover:bg-primary/10 hover:shadow-sm"
+                >
+                  <span class="font-semibold text-foreground transition-transform duration-150 group-hover:translate-x-0.5">
+                    {city.cityName}
+                  </span>
+                  <span class="text-xs text-muted-foreground">Full moving guide</span>
+                </a>
+              ))}
+            </div>
+          </>
+        )
+      }
 
       <!-- Massachusetts cities -->
       <div class="mb-3 flex items-center gap-3">

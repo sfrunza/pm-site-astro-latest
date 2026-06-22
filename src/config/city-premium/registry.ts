@@ -30,3 +30,20 @@ export function getPremiumSitemapEntries(): { label: string; href: string }[] {
     href: city.path,
   }));
 }
+
+export type PremiumCityLink = {
+  href: string;
+  cityName: string;
+  label: string;
+};
+
+/** Sorted links for homepage / service-area grids. */
+export function getPremiumCityLinks(): PremiumCityLink[] {
+  return premiumCities
+    .map((city) => ({
+      href: city.path,
+      cityName: city.schema.cityName,
+      label: city.breadcrumbLabel,
+    }))
+    .sort((a, b) => a.cityName.localeCompare(b.cityName));
+}
