@@ -11,9 +11,9 @@ export const CONTENT_DATE_MODIFIED = '2026-05-28';
 export const CONTENT_DATE_PUBLISHED = '2024-01-15';
 
 export const sameAsProfiles = [
-  'https://www.facebook.com/phoenixmoving',
-  'https://www.instagram.com/phoenixmovingboston/',
-  'https://www.yelp.com/biz/phoenix-moving-natick-6',
+  SITE.businessUrls.facebook,
+  SITE.businessUrls.instagram,
+  SITE.businessUrls.yelp,
 ] as const;
 
 /** Shared robots directives (matches homepage). */

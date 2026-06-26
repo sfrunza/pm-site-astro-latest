@@ -26,27 +26,27 @@ type Social = {
 const social: Social[] = [
   {
     name: 'Facebook',
-    href: 'https://www.facebook.com/phoenixmoving',
+    href: SITE.businessUrls.facebook,
     network: 'facebook',
   },
   {
     name: 'Instagram',
-    href: 'https://www.instagram.com/phoenixmovingboston/',
+    href: SITE.businessUrls.instagram,
     network: 'instagram',
   },
   {
     name: 'Twitter',
-    href: 'https://twitter.com/phoenix_moving?ref_src=twsrc%5Etfw',
+    href: SITE.businessUrls.twitter,
     network: 'twitter',
   },
   {
     name: 'Yelp',
-    href: 'https://www.yelp.com/biz/phoenix-moving-natick-6',
+    href: SITE.businessUrls.yelp,
     network: 'yelp',
   },
   {
     name: 'Google',
-    href: 'https://goo.gl/maps/NPF6QwaYbWBQdG3Q6',
+    href: SITE.businessUrls.googleMaps,
     network: 'google',
   },
 ];
@@ -72,7 +72,7 @@ const social: Social[] = [
         <CardContent>
           <div class="space-y-4">
             {
-              SITE.businessAddresses.map((address, index: number) => (
+              SITE.businessAddresses.map((address) => (
                 <address class="text-muted-foreground not-italic">
                   <div class="text-foreground font-medium">
                     {address.address}

@@ -6,6 +6,16 @@ export interface BusinessAddress {
   state: string;
   zip: string;
 }
+
+export type SocialNetwork =
+  'facebook' | 'instagram' | 'twitter' | 'yelp' | 'google';
+
+export type Social = {
+  name: string;
+  href: string;
+  network: SocialNetwork;
+};
+
 export const SITE = {
   title: "Phoenix Moving & Storage | Boston Moving Company",
   description: "Professional moving services with experienced movers. Residential and commercial moves, packing services, and storage solutions.",
@@ -48,6 +58,14 @@ export const SITE = {
     MDPU: "32054",
     DOT: "3868109",
     MC: "01415308",
+  },
+  businessUrls: {
+    googleMaps: "https://goo.gl/maps/NPF6QwaYbWBQdG3Q6",
+    yelp: "https://www.yelp.com/biz/phoenix-moving-natick-6",
+    facebook: "https://www.facebook.com/phoenixmoving",
+    instagram: "https://www.instagram.com/phoenixmovingboston/",
+    twitter: "https://twitter.com/phoenix_moving",
+    thumbtack: "https://www.thumbtack.com/ma/natick/movers/phoenix-moving",
   },
   // Schema.org structured data
   schema: {

@@ -46,9 +46,7 @@ const seo = await fetchPageSeo(Astro.url, {
         title="Book Your Move"
         subtitle="Get a free estimate in minutes — share your move details and get a fast, transparent quote with no obligation."
       />
-      <BookFormFrame>
-        <div id="phoenix-moving-calculator"></div>
-      </BookFormFrame>
+      <BookFormFrame />
     </Container>
   </Section>
 
@@ -60,8 +58,3 @@ const seo = await fetchPageSeo(Astro.url, {
 
   <FAQ1 items={pageFaqs} class="defer-section" />
 </Layout>
-
-<script
-  is:inline
-  src="https://account.gophoenixmoving.com/calculator-embed.js"
-  defer></script>

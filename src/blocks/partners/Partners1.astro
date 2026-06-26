@@ -3,7 +3,7 @@ import Section from '@/components/Section.astro';
 import Container from '@/components/Container.astro';
 import { Image } from '@/components/starwind/image';
 import { ExternalLinkIcon } from '@/icons';
-
+import { SITE } from '@/config/site';
 import google from '@/assets/partners/google.png';
 import yelp from '@/assets/partners/yelp.png';
 import angi from '@/assets/partners/angi.png';
@@ -25,18 +25,18 @@ const logos: Logo[] = [
   {
     src: google,
     alt: 'Google Reviews',
-    href: 'https://www.google.com/maps/place/Phoenix+Moving+%26+Storage/@42.291787,-71.3626797,17z/data=!3m1!4b1!4m5!3m4!1s0x89e387680ffe9aeb:0x4651b1e640f15b41!8m2!3d42.291787!4d-71.360491',
+    href: SITE.businessUrls.googleMaps,
   },
   {
     src: yelp,
     alt: 'Yelp',
-    href: 'https://www.yelp.com/biz/phoenix-moving-and-storage-natick-4',
+    href: SITE.businessUrls.yelp,
   },
   { src: angi, alt: 'Angi' },
   {
     src: thumbtack,
     alt: 'Thumbtack',
-    href: 'https://www.thumbtack.com/ma/natick/movers/phoenix-moving/service/452281587871776773?utm_medium=web&utm_source=txt&surface=sp',
+    href: SITE.businessUrls.thumbtack,
   },
 ];
 

@@ -15,7 +15,7 @@ const {
   reviewCount = '240+ verified reviews',
   quoteTime = '~15 min',
   quoteLabel = 'To complete your quote',
-  googleMapsUrl = 'https://www.google.com/maps/place/Phoenix+Moving+%26+Storage/@42.291787,-71.3626797,17z/data=!3m1!4b1!4m5!3m4!1s0x89e387680ffe9aeb:0x4651b1e640f15b41!8m2!3d42.291787!4d-71.360491',
+  googleMapsUrl = SITE.businessUrls.googleMaps,
 } = Astro.props;
 
 const floatCard =
@@ -75,7 +75,7 @@ const floatCard =
           class="text-primary size-4 shrink-0"
           aria-hidden="true"
         />
-        Licensed & insured
+        Licensed & Insured
       </span>
     </li>
   </ul>
@@ -214,7 +214,7 @@ const floatCard =
           class="text-primary size-5 shrink-0"
           aria-hidden="true"
         />
-        Licensed & insured
+        Licensed & Insured
       </span>
       <span class="mt-2 block text-xs leading-relaxed text-muted-foreground">
         MDPU #{SITE.businessLicenses.MDPU}<br />
@@ -225,6 +225,9 @@ const floatCard =
 
   {/* Form embed */}
   <div class="relative z-10 mx-auto w-full max-w-xl">
-    <slot />
+    <div id="phoenix-moving-calculator"></div>
   </div>
 </div>
+
+<script is:inline src={import.meta.env.PUBLIC_CALCULATOR_EMBED_URL} defer
+></script>
