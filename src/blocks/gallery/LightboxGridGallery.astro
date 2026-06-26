@@ -22,6 +22,7 @@ import img18 from '@/assets/yelp-18.jpg';
 import img19 from '@/assets/yelp-19.jpg';
 import Button from '@/components/starwind/button';
 import { ChevronLeftIcon, ChevronRightIcon, XIcon } from '@/icons';
+import { tv } from 'tailwind-variants';
 
 type GalleryImage = typeof img1;
 
@@ -62,9 +63,16 @@ const slides = await Promise.all(
     };
   })
 );
+
+const galleryRoot = tv({
+  base: '',
+});
+const { class: className } = Astro.props;
+
+const rootClass = galleryRoot({ class: className });
 ---
 
-<Section>
+<Section class={rootClass}>
   <Container>
     <SectionHeader label="Our Gallery" title="See Our Team At Work" />
 

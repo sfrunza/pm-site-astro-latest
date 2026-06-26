@@ -8,7 +8,6 @@ import Section from '@/components/Section.astro';
 import Container from '@/components/Container.astro';
 import SectionHeader from '@/components/SectionHeader.astro';
 import RotatingGradientBorder from '@/components/RotatingGradientBorder.astro';
-import { SITE } from '@/config/site';
 
 export interface ButtonConfig {
   text: string;
@@ -31,9 +30,9 @@ const cta2Styles = tv({
 });
 
 const {
-  title = `Move with ${SITE.businessShortName} Boston.`,
-  description = '',
-  primaryButton = { text: 'Start Your Move Today', href: '/book' },
+  title = 'Get Your Free Moving Quote',
+  description = 'Tell us about your move and receive a fast, accurate estimate with no hidden fees.',
+  primaryButton = { text: 'Get Free Quote', href: '/book' },
   secondaryButton,
   class: className,
   ...rest
@@ -42,7 +41,9 @@ const {
 
 <Section class={cta2Styles({ class: className })} {...rest}>
   <Container>
-    <RotatingGradientBorder class="rounded-3xl bg-card px-8 py-24 group/cta">
+    <RotatingGradientBorder
+      class="rounded-3xl bg-card px-8 py-12 md:py-24 group/cta"
+    >
       <SectionHeader title={title} subtitle={description} />
       <div class="-mt-6 flex flex-col items-center">
         <p

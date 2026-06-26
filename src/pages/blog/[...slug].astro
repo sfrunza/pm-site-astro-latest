@@ -36,6 +36,7 @@ export async function getStaticPaths() {
 }
 
 const { post } = Astro.props;
+
 const { Content, headings } = await render(post);
 const { data } = post;
 const pathname = getPostUrl(post);
@@ -131,10 +132,7 @@ const relatedServices = getBlogRelatedServices();
           }
 
           <AuthorBio />
-          <CTA2
-            title="Ready for your Boston move?"
-            description="Get a free estimate from licensed, insured crews serving Greater Boston and Massachusetts."
-          />
+          <CTA2 />
         </div>
 
         <aside class="hidden lg:block">

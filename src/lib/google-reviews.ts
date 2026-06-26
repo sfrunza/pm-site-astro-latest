@@ -83,6 +83,87 @@ interface YelpBusinessDetailsResponse {
 let cachedReviews: GooglePlaceReviews | null = null;
 let cacheKey: string | null = null;
 
+function resolveGooglePlaceIds(options?: {
+  placeIds?: string | string[];
+  placeId?: string;
+}): string[] {
+  if (options?.placeIds) {
+    const ids = Array.isArray(options.placeIds)
+      ? options.placeIds
+      : [options.placeIds];
+    return [...new Set(ids.filter(Boolean))];
+  }
+
+  if (options?.placeId) {
+    return [options.placeId];
+  }
+
+  return [
+    ...new Set(
+      [
+        import.meta.env.PUBLIC_GOOGLE_PLACE_ID_NATICK,
+        import.meta.env.PUBLIC_GOOGLE_PLACE_ID_NEWTON,
+        import.meta.env.PUBLIC_GOOGLE_PLACE_ID,
+      ].filter(Boolean),
+    ),
+  ];
+}
+
+function mergeGooglePlaceReviews(
+  results: GooglePlaceReviews[],
+  fallbackReviewsUrl: string,
+): GooglePlaceReviews {
+  const reviews = results
+    .flatMap((result) => result.reviews)
+    .sort((a, b) => b.time - a.time);
+
+  let totalReviews = 0;
+  let weightedRating = 0;
+
+  for (const result of results) {
+    totalReviews += result.totalReviews;
+    weightedRating += result.averageRating * result.totalReviews;
+  }
+
+  return {
+    reviews,
+    averageRating: totalReviews > 0 ? weightedRating / totalReviews : 0,
+    totalReviews,
+    reviewsUrl:
+      fallbackReviewsUrl ||
+      results.find((result) => result.reviewsUrl)?.reviewsUrl ||
+      '',
+  };
+}
+
+async function fetchGoogleReviewsForPlace(
+  placeId: string,
+  apiKey: string,
+  reviewsSort: 'newest' | 'most_relevant',
+): Promise<GooglePlaceReviews> {
+  // i need limit 3 reviews to be fetched from the API
+  const response = await fetch(
+    `https://maps.googleapis.com/maps/api/place/details/json?place_id=${placeId}&fields=reviews,rating,user_ratings_total,url&reviews_sort=${reviewsSort}&key=${apiKey}`,
+  );
+  const data: PlaceDetailsResponse = await response.json();
+
+  if (data.status === 'OK' && data.result) {
+    const reviews = [...(data.result.reviews ?? [])].sort(
+      (a, b) => b.time - a.time,
+    );
+
+    return {
+      reviews,
+      averageRating: data.result.rating ?? 0,
+      totalReviews: data.result.user_ratings_total ?? 0,
+      reviewsUrl: data.result.url ?? '',
+    };
+  }
+
+  console.error(`Google Places API error for ${placeId}:`, data.status);
+  return { ...emptyResult };
+}
+
 let cachedYelpReviews: YelpBusinessReviews | null = null;
 let yelpCacheKey: string | null = null;
 
@@ -135,47 +216,36 @@ function resolveYelpBusinessId(options?: {
 }
 
 export async function getGoogleReviews(options?: {
+  placeIds?: string | string[];
   placeId?: string;
   apiKey?: string;
   googleMapsUrl?: string;
   reviewsSort?: 'newest' | 'most_relevant';
 }): Promise<GooglePlaceReviews> {
-  const placeId = options?.placeId ?? import.meta.env.PUBLIC_GOOGLE_PLACE_ID;
+  const placeIds = resolveGooglePlaceIds(options);
   const apiKey = options?.apiKey ?? import.meta.env.PUBLIC_GOOGLE_PLACES_API_KEY;
   const googleMapsUrl = options?.googleMapsUrl ?? '';
   const reviewsSort = options?.reviewsSort ?? 'newest';
-  const key = `${apiKey ?? ''}:${placeId ?? ''}:${googleMapsUrl}:${reviewsSort}`;
+  const key = `${apiKey ?? ''}:${placeIds.join(',')}:${googleMapsUrl}:${reviewsSort}`;
 
   if (cachedReviews && cacheKey === key) {
     return cachedReviews;
   }
 
-  if (!apiKey || !placeId) {
+  if (!apiKey || placeIds.length === 0) {
     return { ...emptyResult, reviewsUrl: googleMapsUrl };
   }
 
   try {
-    const response = await fetch(
-      `https://maps.googleapis.com/maps/api/place/details/json?place_id=${placeId}&fields=reviews,rating,user_ratings_total,url&reviews_sort=${reviewsSort}&key=${apiKey}`,
+    const results = await Promise.all(
+      placeIds.map((placeId) =>
+        fetchGoogleReviewsForPlace(placeId, apiKey, reviewsSort),
+      ),
     );
-    const data: PlaceDetailsResponse = await response.json();
 
-    if (data.status === 'OK' && data.result) {
-      const reviews = [...(data.result.reviews ?? [])].sort(
-        (a, b) => b.time - a.time,
-      );
-
-      cachedReviews = {
-        reviews,
-        averageRating: data.result.rating ?? 0,
-        totalReviews: data.result.user_ratings_total ?? 0,
-        reviewsUrl: data.result.url ?? googleMapsUrl,
-      };
-      cacheKey = key;
-      return cachedReviews;
-    }
-
-    console.error('Google Places API error:', data.status);
+    cachedReviews = mergeGooglePlaceReviews(results, googleMapsUrl);
+    cacheKey = key;
+    return cachedReviews;
   } catch (error) {
     console.error('Failed to fetch reviews:', error);
   }
@@ -211,7 +281,7 @@ export async function getYelpReviews(options?: {
     const [detailsResponse, reviewsResponse] = await Promise.all([
       fetch(`https://api.yelp.com/v3/businesses/${encodedId}`, { headers }),
       fetch(
-        `https://api.yelp.com/v3/businesses/${encodedId}/reviews?limit=3&sort_by=yelp_sort`,
+        `https://api.yelp.com/v3/businesses/${encodedId}/reviews`,
         { headers },
       ),
     ]);

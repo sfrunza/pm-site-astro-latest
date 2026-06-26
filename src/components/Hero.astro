@@ -26,16 +26,16 @@ interface Props {
 }
 
 const {
-  badge = 'Licensed & insured in Massachusetts',
-  title = 'Stress-free moves',
-  titleAccent = 'you can trust',
+  badge = 'Licensed & Insured In Massachusetts',
+  title = 'Stress-Free Moves',
+  titleAccent = 'You Can Trust',
   subtitle = 'Professional residential and commercial moving across Greater Boston. Transparent pricing, experienced crews, and a free quote in minutes.',
 } = Astro.props;
 
 const stats = [
-  { value: '4.9★', label: 'Average rating' },
-  { value: '240+', label: 'Happy customers' },
-  { value: '100%', label: 'On-time guarantee' },
+  { value: '4.9★', label: 'Average Rating' },
+  { value: '240+', label: 'Happy Customers' },
+  { value: '100%', label: 'On-Time Guarantee' },
 ];
 ---
 
@@ -111,6 +111,7 @@ const stats = [
             href="/book"
             aria-label="Start Your Move Today"
           >
+            <ArrowRightIcon slot="icon" aria-hidden="true" />
             Start Your Move Today
           </Button>
           <Button
@@ -120,7 +121,6 @@ const stats = [
             class="border-white/25 bg-white/5 text-white hover:bg-white/10 hover:text-white backdrop-blur-xs"
             aria-label="View pricing"
           >
-            <ArrowRightIcon slot="icon" aria-hidden="true" />
             View Pricing
           </Button>
         </div>

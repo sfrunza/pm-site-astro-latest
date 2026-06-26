@@ -19,6 +19,7 @@ import { ArrowRightIcon } from '@/icons';
 import CTA2 from '@/blocks/cta/CTA2.astro';
 import Reviews1 from '@/blocks/reviews/Reviews1.astro';
 import FAQ1 from '@/blocks/faq/FAQ1.astro';
+import Cities1 from '@/blocks/cities/Cities1.astro';
 
 export function getStaticPaths() {
   return cities.map((city) => ({
@@ -188,5 +189,6 @@ const seo = await fetchPageSeo(Astro.url, {
   />
   <Reviews1 class="defer-section" />
   <FAQ1 items={cityFaqs} class="defer-section" />
+  <Cities1 currentSlug={city.slug} class="defer-section" />
   <CTA2 title={`Ready to move in or out of ${city.name}, ${city.state}?`} />
 </Layout>

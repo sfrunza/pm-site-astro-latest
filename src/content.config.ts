@@ -38,24 +38,24 @@ const blog = defineCollection({
   }),
   schema: ({ image }) =>
     z.object({
-    title: z.string(),
-    /** SEO meta description (120–160 characters). */
-    description: z.string(),
-    excerpt: z.string(),
-    pubDate: z.coerce.date(),
-    updatedDate: z.coerce.date().optional(),
-    keywords: z.string(),
-    category: z.enum(blogCategoryValues),
-    tags: z.array(z.string()).default([]),
-    /** Path relative to this .mdx file, e.g. ../../assets/blog/my-post.jpg */
-    image: image().optional(),
-    featured: z.boolean().default(false),
-    draft: z.boolean().default(false),
-    keyTakeaways: z.array(z.string()).min(3).max(5),
-    faq: z.array(faqSchema).min(3).max(5).optional(),
-    howTo: howToSchema.optional(),
-    relatedSlugs: z.array(z.string()).optional(),
-  }),
+      title: z.string(),
+      /** SEO meta description (120–160 characters). */
+      description: z.string(),
+      excerpt: z.string(),
+      pubDate: z.coerce.date(),
+      updatedDate: z.coerce.date().optional(),
+      keywords: z.string(),
+      category: z.enum(blogCategoryValues),
+      tags: z.array(z.string()).default([]),
+      /** Path relative to this .mdx file, e.g. ../../assets/blog/my-post.jpg */
+      image: image().optional(),
+      featured: z.boolean().default(false),
+      draft: z.boolean().default(false),
+      keyTakeaways: z.array(z.string()).min(3).max(5),
+      faq: z.array(faqSchema).min(3).max(5).optional(),
+      howTo: howToSchema.optional(),
+      relatedSlugs: z.array(z.string()).optional(),
+    }),
 });
 
 export const collections = { blog };

@@ -17,9 +17,9 @@ export default defineConfig({
   compressHTML: true,
   vite: {
     plugins: [tailwindcss()],
-    optimizeDeps: {
-      include: ['astro/toolbar'],
-    },
+    // optimizeDeps: {
+    //   include: ['astro/toolbar'],
+    // },
   },
 
   image: {

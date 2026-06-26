@@ -15,6 +15,8 @@ import Container from '@/components/Container.astro';
 import { tv } from 'tailwind-variants';
 import MouseRepelParticles from '@/components/MouseRepelParticles.astro';
 import { SITE } from '@/config/site';
+import sasha from '@/assets/sasha.png';
+import Image from 'astro/components/Image.astro';
 
 type Props = {
   class?: string;
@@ -40,43 +42,57 @@ const {
 <Section id="services" class={services1({ class: className })}>
   <MouseRepelParticles />
   <Container>
-    <SectionHeader label={label} title={title} subtitle={subtitle} />
-    <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-      {
-        services.map((service) => (
-          <Card class="group hover:shadow-lg hover:-translate-y-1 transition-all">
-            <CardHeader>
-              <CardTitle>{service.name}</CardTitle>
-              <CardAction>
-                <Button
-                  data-state="active"
-                  variant="ghost"
-                  size="icon-sm"
-                  title={`Learn More about ${service.name}`}
-                  aria-label={`Learn More about ${service.name}`}
-                  href={service.href}
-                  class="rotate-180"
-                >
-                  <ChevronLeftIcon />
-                </Button>
-              </CardAction>
-            </CardHeader>
-            <CardContent class="grow flex flex-col space-y-4">
-              <p class="grow">{service.description}</p>
-              <div>
-                <Button
-                  variant="primary"
-                  title={`Learn More about ${service.name}`}
-                  aria-label={`Learn More about ${service.name}`}
-                  href={service.href}
-                >
-                  Learn More<span class="sr-only">about {service.name}</span>
-                </Button>
-              </div>
-            </CardContent>
-          </Card>
-        ))
-      }
+    <div class="relative">
+      <Image
+        src={sasha}
+        alt="Sasha"
+        title="Sasha"
+        width={460}
+        height={780}
+        quality={80}
+        loading="lazy"
+        decoding="async"
+        fetchpriority="low"
+        class="pointer-events-none absolute bottom-[-12%] z-10 right-0 hidden h-[50%] w-auto select-none object-contain lg:block"
+      />
+      <SectionHeader label={label} title={title} subtitle={subtitle} />
+      <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        {
+          services.map((service) => (
+            <Card class="group hover:shadow-lg hover:-translate-y-1 transition-all">
+              <CardHeader>
+                <CardTitle>{service.name}</CardTitle>
+                <CardAction>
+                  <Button
+                    data-state="active"
+                    variant="ghost"
+                    size="icon-sm"
+                    title={`Learn More about ${service.name}`}
+                    aria-label={`Learn More about ${service.name}`}
+                    href={service.href}
+                    class="rotate-180"
+                  >
+                    <ChevronLeftIcon />
+                  </Button>
+                </CardAction>
+              </CardHeader>
+              <CardContent class="grow flex flex-col space-y-4">
+                <p class="grow">{service.description}</p>
+                <div>
+                  <Button
+                    variant="primary"
+                    title={`Learn More about ${service.name}`}
+                    aria-label={`Learn More about ${service.name}`}
+                    href={service.href}
+                  >
+                    Learn More<span class="sr-only">about {service.name}</span>
+                  </Button>
+                </div>
+              </CardContent>
+            </Card>
+          ))
+        }
+      </div>
     </div>
   </Container>
 </Section>

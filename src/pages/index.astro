@@ -90,6 +90,12 @@ const [seo, lcpPreload] = await Promise.all([
     </Container>
   </Section>
 
+  <!-- Reviews -->
+  <Reviews1 class="defer-section" />
+
+  <!-- Gallery -->
+  <LightboxGridGallery class="defer-section" />
+
   <!-- Feature -->
   <Feature1
     image={{ src: feature1Image, alt: '2 Movers and Truck' }}
@@ -100,12 +106,6 @@ const [seo, lcpPreload] = await Promise.all([
   <MovingChecklist1
     class="defer-section bg-linear-to-t from-muted/50 to-transparent"
   />
-
-  <!-- Gallery -->
-  <LightboxGridGallery />
-
-  <!-- Reviews -->
-  <Reviews1 class="defer-section" />
 
   <!-- Service areas -->
   <Cities1 class="defer-section" />

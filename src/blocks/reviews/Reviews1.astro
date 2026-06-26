@@ -12,7 +12,7 @@ import Image from 'astro/components/Image.astro';
 interface Props {
   title?: string;
   subtitle?: string;
-  placeId?: string;
+  placeIds?: string | string[];
   googleMapsUrl?: string;
   yelpBusinessIdOrAlias?: string;
   yelpUrl?: string;
@@ -36,7 +36,7 @@ interface DisplayReview {
 const {
   title = 'What Our Customers Say',
   subtitle = 'Read reviews from our satisfied customers',
-  placeId = import.meta.env.PUBLIC_GOOGLE_PLACE_ID,
+  placeIds,
   googleMapsUrl,
   yelpBusinessIdOrAlias = import.meta.env.YELP_BUSINESS_ID ??
     import.meta.env.PUBLIC_YELP_BUSINESS_ID ??
@@ -50,7 +50,7 @@ const yelpApiKey =
   import.meta.env.YELP_API_KEY ?? import.meta.env.PUBLIC_YELP_API_KEY;
 
 const [googleData, yelpData] = await Promise.all([
-  getGoogleReviews({ placeId, googleMapsUrl }),
+  getGoogleReviews({ placeIds, googleMapsUrl }),
   getYelpReviews({ businessIdOrAlias: yelpBusinessIdOrAlias, yelpUrl }),
 ]);
 
@@ -92,7 +92,18 @@ const averageRating =
       totalReviews
     : 0;
 
-const hasGoogleConfig = Boolean(googleApiKey && placeId);
+const configuredPlaceIds = (
+  placeIds
+    ? Array.isArray(placeIds)
+      ? placeIds
+      : [placeIds]
+    : [
+        import.meta.env.PUBLIC_GOOGLE_PLACE_ID_NATICK,
+        import.meta.env.PUBLIC_GOOGLE_PLACE_ID_NEWTON ??
+          import.meta.env.PUBLIC_GOOGLE_PLACE_ID_Newton,
+      ]
+).filter(Boolean);
+const hasGoogleConfig = Boolean(googleApiKey && configuredPlaceIds.length > 0);
 const hasYelpConfig = Boolean(yelpApiKey && yelpBusinessIdOrAlias);
 
 const renderStars = (rating: number) => {
@@ -273,7 +284,7 @@ const reviews1 = tv({
               variant="outline"
             >
               <ExternalLinkIcon slot="icon" aria-hidden="true" />
-              View All on Google
+              View All on Google ({googleData.totalReviews}+)
             </Button>
           )}
           {yelpData.reviewsUrl && (
@@ -286,7 +297,7 @@ const reviews1 = tv({
               variant="outline"
             >
               <ExternalLinkIcon slot="icon" aria-hidden="true" />
-              View All on Yelp
+              View All on Yelp ({yelpData.totalReviews}+)
             </Button>
           )}
         </div>

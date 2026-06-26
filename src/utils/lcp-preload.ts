@@ -43,7 +43,7 @@ export async function getLcpPreload(
     }),
   );
 
-  const fallback = await getImage({ src, width: 828, format, quality });
+  const fallback = await getImage({ src, width: 640, format, quality });
 
   return {
     href: fallback.src,

@@ -34,6 +34,8 @@ interface Props extends VariantProps<typeof sectionHeaderRoot> {
   title: string;
   subtitle?: string;
   label?: string;
+  /** Sets `id` on the `<h2>` for `aria-labelledby` on parent landmarks. */
+  titleId?: string;
   class?: string;
   titleClass?: string;
   subtitleClass?: string;
@@ -43,6 +45,7 @@ const {
   title,
   subtitle,
   label,
+  titleId,
   class: className,
   titleClass: titleClassName,
   subtitleClass: subtitleClassName,
@@ -72,7 +75,7 @@ const showSubtitle = Boolean(subtitle || hasSubtitleSlot);
       </Badge>
     )
   }
-  <h2 aria-label={title} class={titleClass}>{title}</h2>
+  <h2 id={titleId} class={titleClass} aria-label={title}>{title}</h2>
   {
     showSubtitle && (
       <p class={subtitleClass}>
@@ -81,15 +84,3 @@ const showSubtitle = Boolean(subtitle || hasSubtitleSlot);
     )
   }
 </div>
-
-<style>
-  @keyframes gradient {
-    to {
-      background-position: 200% center;
-    }
-  }
-
-  .animate-gradient {
-    animation: gradient 4s linear infinite;
-  }
-</style>

@@ -2,7 +2,7 @@ import { getImage } from 'astro:assets';
 import type { ImageMetadata } from 'astro';
 
 /** Breakpoints aligned with Astro Picture `layout="full-width"`. */
-export const HERO_WIDTHS = [640, 750, 828, 1080, 1280] as const;
+export const HERO_WIDTHS = [640, 828, 1080, 1280] as const;
 
 type FormatSet = {
   srcset: string;
