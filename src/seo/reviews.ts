@@ -51,6 +51,7 @@ export function buildBusinessRatingJsonLd(
   reviewsData?: GooglePlaceReviews,
 ): Record<string, unknown> {
   return {
+    '@type': ['LocalBusiness', 'MovingCompany'],
     '@id': BUSINESS_ID,
     aggregateRating: buildAggregateRatingSchema(reviewsData),
   };

@@ -34,8 +34,8 @@ export type CityPremiumSchema = {
   officeIndex?: number;
   areaServed?: Array<
     | { '@type': 'City'; name: string }
-    | { '@type': 'PostalCode'; name: string }
     | { '@type': 'State'; name: string }
+    | string
   >;
 };
 

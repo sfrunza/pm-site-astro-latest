@@ -16,8 +16,8 @@ export type LocalMoverJsonLdInput = {
   image?: string;
   areaServed?: Array<
     | { '@type': 'City'; name: string }
-    | { '@type': 'PostalCode'; name: string }
     | { '@type': 'State'; name: string }
+    | string
   >;
   geo?: { latitude: number; longitude: number };
   /** Index into SITE.businessAddresses (defaults to HQ). */

@@ -451,8 +451,8 @@ export const dedhamPremium: CityPremiumContent = {
     geo: { latitude: 42.2418, longitude: -71.1662 },
     areaServed: [
       { '@type': 'City', name: 'Dedham' },
-      { '@type': 'PostalCode', name: '02026' },
-      { '@type': 'PostalCode', name: '02027' },
+      '02026',
+      '02027',
       { '@type': 'State', name: 'Massachusetts' },
     ],
   },

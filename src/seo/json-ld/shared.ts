@@ -40,8 +40,8 @@ export function breadcrumb(
 
 export type ServiceAreaServed =
   | { '@type': 'City'; name: string }
-  | { '@type': 'PostalCode'; name: string }
-  | { '@type': 'State'; name: string };
+  | { '@type': 'State'; name: string }
+  | string;
 
 export function serviceSchema(
   pathname: string,

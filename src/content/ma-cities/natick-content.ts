@@ -444,7 +444,7 @@ export const natickPremium: CityPremiumContent = {
     geo: { latitude: 42.2728, longitude: -71.3692 },
     areaServed: [
       { '@type': 'City', name: 'Natick' },
-      { '@type': 'PostalCode', name: '01760' },
+      '01760',
       { '@type': 'State', name: 'Massachusetts' },
     ],
   },

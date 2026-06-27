@@ -29,7 +29,7 @@ function buildCityPremiumPageSeo(
 
   const areaServed = content.schema.areaServed ?? [
     { '@type': 'City', name: content.schema.cityName },
-    { '@type': 'PostalCode', name: content.schema.postalCode },
+    content.schema.postalCode,
     { '@type': 'State', name: 'Massachusetts' },
   ];
 
