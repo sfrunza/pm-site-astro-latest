@@ -61,7 +61,7 @@ export const SITE = {
   },
   businessUrls: {
     googleMaps: "https://goo.gl/maps/NPF6QwaYbWBQdG3Q6",
-    yelp: "https://www.yelp.com/biz/phoenix-moving-natick-6",
+    yelp: "https://www.yelp.com/biz/phoenix-moving-and-storage-newton",
     facebook: "https://www.facebook.com/phoenixmoving",
     instagram: "https://www.instagram.com/phoenixmovingboston/",
     twitter: "https://twitter.com/phoenix_moving",

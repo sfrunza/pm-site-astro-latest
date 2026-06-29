@@ -64,25 +64,25 @@ export const buildTags = (config: AstroSeoProps): string => {
     tagsToRender += tag + "\n";
   };
 
-  const addMetaTag = (attributes: Record<string, string>) => {
-    addTag(
-      `<meta ${Object.entries(attributes)
-        .map(([key, value]) => `${key}="${escape(value)}"`)
-        .join(" ")} />`
-    );
-  };
+  // const addMetaTag = (attributes: Record<string, string>) => {
+  //   addTag(
+  //     `<meta ${Object.entries(attributes)
+  //       .map(([key, value]) => `${key}="${escape(value)}"`)
+  //       .join(" ")} />`
+  //   );
+  // };
 
-  const addLinkTag = (attributes: Record<string, string>) => {
-    addTag(
-      `<link ${Object.entries(attributes)
-        .map(([key, value]) => `${key}="${escape(value)}"`)
-        .join(" ")} />`
-    );
-  };
+  // const addLinkTag = (attributes: Record<string, string>) => {
+  //   addTag(
+  //     `<link ${Object.entries(attributes)
+  //       .map(([key, value]) => `${key}="${escape(value)}"`)
+  //       .join(" ")} />`
+  //   );
+  // };
 
-  const addOpenGraphTag = (property: string, content: string) => {
-    addMetaTag({ property: `og:${property}`, content });
-  };
+  // const addOpenGraphTag = (property: string, content: string) => {
+  //   addMetaTag({ property: `og:${property}`, content });
+  // };
 
   // Title
   if (config.title) {

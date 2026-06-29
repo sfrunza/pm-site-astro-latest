@@ -142,131 +142,131 @@ export const relatedLinksByPath: Record<string, RelatedLink[]> = {
   '/': [
     {
       href: '/local-moving',
-      label: 'Boston local movers',
+      label: 'Boston Local Movers',
       description: 'Residential and commercial moves across Greater Boston.',
     },
     {
       href: '/pricing',
-      label: 'Moving prices & rates',
+      label: 'Moving Prices & Rates',
       description: 'Transparent pricing for local and long-distance moves.',
     },
     {
       href: '/book',
-      label: 'Book your move online',
+      label: 'Book Your Move Online',
       description: 'Free, no-obligation quote in minutes.',
     },
   ],
   '/local-moving': [
     {
       href: '/packing-services',
-      label: 'Packing services',
+      label: 'Packing Services',
       description: 'Full or partial packing before your local move.',
     },
     {
       href: '/storage-solutions',
-      label: 'Storage solutions',
+      label: 'Storage Solutions',
       description: 'Short- and long-term storage between closings.',
     },
     {
       href: '/book',
-      label: 'Get a free moving quote',
+      label: 'Get a Free Moving Quote',
       description: 'Schedule Boston local movers online.',
     },
   ],
   '/interstate-moving': [
     {
       href: '/packing-services',
-      label: 'Packing for long-distance moves',
+      label: 'Packing for Long-Distance Moves',
       description: 'Professional packing before interstate pickup.',
     },
     {
       href: '/storage-solutions',
-      label: 'Storage between destinations',
+      label: 'Storage Between Destinations',
       description: 'Hold belongings until delivery is ready.',
     },
     {
       href: '/book',
-      label: 'Request an interstate quote',
+      label: 'Request an Interstate Quote',
       description: 'Flat-rate long-distance estimates.',
     },
   ],
   '/packing-services': [
     {
       href: '/local-moving',
-      label: 'Local moving services',
+      label: 'Local Moving Services',
       description: 'Pair packing with our Boston moving crews.',
     },
     {
       href: '/interstate-moving',
-      label: 'Interstate moving',
+      label: 'Interstate Moving',
       description: 'Long-distance moves with optional packing.',
     },
     {
       href: '/book',
-      label: 'Book packing & moving',
+      label: 'Book Packing & Moving',
       description: 'Combine services in one quote.',
     },
   ],
   '/storage-solutions': [
     {
       href: '/local-moving',
-      label: 'Local moving',
+      label: 'Local Moving',
       description: 'Move in, store, or move out with one team.',
     },
     {
       href: '/pricing',
-      label: 'Storage & moving prices',
+      label: 'Storage & Moving Prices',
       description: 'Monthly and overnight storage rates.',
     },
     {
       href: '/book',
-      label: 'Get a storage quote',
+      label: 'Get a Storage Quote',
       description: 'Tell us your timeline and volume.',
     },
   ],
   '/piano-moving': [
     {
       href: '/local-moving',
-      label: 'Local moving services',
+      label: 'Local Moving Services',
       description: 'Full-home moves with specialized piano handling.',
     },
     {
       href: '/packing-services',
-      label: 'Packing services',
+      label: 'Packing Services',
       description: 'Protect valuables beyond your piano.',
     },
     {
       href: '/book',
-      label: 'Book piano movers',
+      label: 'Book Piano Movers',
       description: 'Free estimate for upright and grand pianos.',
     },
   ],
   '/pricing': [
     {
       href: '/local-moving',
-      label: 'Local moving services',
+      label: 'Local Moving Services',
       description: 'Hourly Boston mover rates explained.',
     },
     {
       href: '/interstate-moving',
-      label: 'Interstate moving',
+      label: 'Interstate Moving',
       description: 'Flat-rate long-distance pricing.',
     },
     {
       href: '/book',
-      label: 'Get your custom quote',
+      label: 'Get your Custom Quote',
       description: 'Pricing tailored to your inventory.',
     },
   ],
   '/book': [
     {
       href: '/local-moving',
-      label: 'Local moving services',
+      label: 'Local Moving Services',
       description: 'Learn what our Boston crews include.',
     },
     {
       href: '/pricing',
-      label: 'Moving prices',
+      label: 'Moving Prices',
       description: 'Review rates before you book.',
     },
     {
@@ -278,17 +278,17 @@ export const relatedLinksByPath: Record<string, RelatedLink[]> = {
   '/faq': [
     {
       href: '/book',
-      label: 'Book your move',
+      label: 'Book Your Move',
       description: 'Ready to schedule? Start your free quote.',
     },
     {
       href: '/local-moving',
-      label: 'Local moving',
+      label: 'Local Moving',
       description: 'Service areas and local move details.',
     },
     {
       href: '/pricing',
-      label: 'Pricing',
+      label: 'Moving Prices & Rates',
       description: 'How local and long-distance rates work.',
     },
   ],
