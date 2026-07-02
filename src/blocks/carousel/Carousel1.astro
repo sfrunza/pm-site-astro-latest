@@ -20,7 +20,7 @@ import img9 from '@/assets/yelp-9.jpg';
   <Container>
     <SectionHeader
       label="Our Gallery"
-      title="See Our Team At Work"
+      title="See Our Team at Work"
       position="left"
       class="mb-6"
     />
@@ -29,7 +29,7 @@ import img9 from '@/assets/yelp-9.jpg';
     <ul
       class="carousel-scroller"
       tabindex="0"
-      aria-label=`${SITE.businessShortName} Gallery`
+      aria-label={`${SITE.businessShortName} Gallery`}
     >
       {
         [img1, img2, img3, img4, img5, img6, img7, img8, img9].map(
@@ -39,8 +39,8 @@ import img9 from '@/assets/yelp-9.jpg';
                 <Card class="aspect-square overflow-hidden p-0 ring-0 shadow-md">
                   <Image
                     src={img}
-                    alt={`${SITE.businessShortName} Gallery ${index}`}
-                    title={`${SITE.businessShortName} Gallery ${index}`}
+                    alt={`${SITE.businessShortName} in action ${index + 1}`}
+                    title={`${SITE.businessShortName} in action ${index + 1}`}
                     class="object-cover size-full"
                     data-slot="image"
                     decoding="async"

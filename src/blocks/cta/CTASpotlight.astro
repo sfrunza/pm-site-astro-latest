@@ -1,0 +1,126 @@
+---
+import Container from '@/components/Container.astro';
+import Section from '@/components/Section.astro';
+import Spotlight from '@/components/Spotlight.astro';
+import Button from '@/components/starwind/button';
+import { ArrowRightIcon, PhoneIcon } from '@/icons';
+import { SITE } from '@/config/site';
+import type { HTMLAttributes } from 'astro/types';
+import { tv } from 'tailwind-variants';
+
+export interface ButtonConfig {
+  text: string;
+  href: string;
+}
+
+interface Props extends HTMLAttributes<'section'> {
+  /** Eyebrow label above the headline */
+  label?: string;
+  /** Main heading — use a slot for rich markup, or plain `title` */
+  title?: string;
+  /** Highlighted phrase appended to the title */
+  titleAccent?: string;
+  /** Supporting copy */
+  description?: string;
+  /** Primary button configuration */
+  primaryButton?: ButtonConfig;
+  /** Secondary button configuration (optional) */
+  secondaryButton?: ButtonConfig;
+  /** Spotlight fill color */
+  spotlightFill?: string;
+}
+
+const ctaSpotlight = tv({
+  base: '',
+});
+
+const {
+  label = 'Free estimate · No obligation',
+  title = 'Ready for a',
+  titleAccent = 'stress-free move?',
+  description = 'Get a transparent quote from licensed Boston movers. Most estimates take under two minutes — no hidden fees, no pressure.',
+  primaryButton = { text: 'Get Your Free Quote', href: '/book' },
+  secondaryButton = {
+    text: 'Call Us',
+    href: `tel:${SITE.contactPhone}`,
+  },
+  spotlightFill = 'white',
+  class: className,
+  ...rest
+} = Astro.props;
+---
+
+<Section class={ctaSpotlight({ class: className })} {...rest}>
+  <Container>
+    <div
+      class="relative flex h-160 w-full overflow-hidden rounded-3xl bg-neutral-900 antialiased md:items-center md:justify-center"
+    >
+      <div
+        class="cta-spotlight-grid pointer-events-none absolute inset-0"
+        aria-hidden="true"
+      >
+      </div>
+
+      <Spotlight
+        class="pointer-events-none absolute z-1 h-[169%] w-[138%] lg:w-[84%] opacity-0 -top-40 left-0 md:-top-20 md:left-60"
+        fill={spotlightFill}
+      />
+
+      <div class="relative z-10 text-center space-y-4 w-full p-4 pt-20 md:pt-0">
+        <h2
+          class="text-3xl font-bold tracking-tight sm:text-4xl lg:text-5xl text-pretty text-primary-foreground text-shadow-lg"
+        >
+          {title}
+          <br />
+          <span
+            class="bg-linear-to-r from-violet-200 via-violet-400 to-fuchsia-300 bg-clip-text text-transparent"
+          >
+            {titleAccent}
+          </span>
+        </h2>
+
+        <p
+          class="text-lg text-pretty leading-relaxed mx-auto max-w-4xl text-primary-foreground/90 text-shadow-lg"
+        >
+          {description}
+        </p>
+
+        <div class="flex flex-wrap items-center justify-center gap-4 mt-10">
+          <Button
+            variant="secondary"
+            size="lg"
+            href={primaryButton.href}
+            aria-label={primaryButton.text}
+          >
+            <ArrowRightIcon slot="icon" aria-hidden="true" />
+            {primaryButton.text}
+          </Button>
+          {
+            secondaryButton && (
+              <Button
+                variant="outline"
+                size="lg"
+                class="border-white/25 bg-white/5 text-white hover:bg-white/10 hover:text-white backdrop-blur-xs"
+                href={secondaryButton.href}
+                aria-label={secondaryButton.text}
+              >
+                <PhoneIcon slot="icon" aria-hidden="true" />
+                {secondaryButton.text}
+              </Button>
+            )
+          }
+        </div>
+      </div>
+    </div>
+  </Container>
+</Section>
+
+<style>
+  .cta-spotlight-grid {
+    background-image:
+      linear-gradient(to right, rgb(255 255 255 / 0.06) 1px, transparent 1px),
+      linear-gradient(to bottom, rgb(255 255 255 / 0.06) 1px, transparent 1px);
+    background-size: 3rem 3rem;
+    mask-image: radial-gradient(ellipse at center, black 30%, transparent 80%);
+  }
+</style>

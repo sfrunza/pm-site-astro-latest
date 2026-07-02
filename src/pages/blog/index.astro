@@ -1,8 +1,10 @@
 ---
+import heroBg from '@/assets/heros/blog.jpg';
 import CTA1 from '@/blocks/cta/CTA1.astro';
 import RelatedServices from '@/blocks/related/RelatedServices.astro';
 import BlogCard from '@/components/blog/BlogCard.astro';
 import Container from '@/components/Container.astro';
+import Hero2 from '@/components/Hero2.astro';
 import Section from '@/components/Section.astro';
 import SectionHeader from '@/components/SectionHeader.astro';
 import { getFeaturedPosts, getPostUrl, getPublishedPosts } from '@/config/blog';
@@ -39,16 +41,11 @@ const seo = await fetchPageSeo(Astro.url, {
 ---
 
 <Layout {...seo}>
-  <Section class="pt-28 sm:pt-32 pb-0 sm:pb-0" spacing="none">
-    <Container>
-      <SectionHeader
-        position="center"
-        label="Resources"
-        title="Boston Moving Tips & Guides"
-        subtitle="Practical advice for local and long-distance moves across Greater Boston and Massachusetts — from budgeting and packing to move-day prep."
-      />
-    </Container>
-  </Section>
+  <Hero2
+    bgImage={heroBg}
+    title="Moving Tips & Guides Blog"
+    subtitle="Practical advice for local and long-distance moves across Greater Boston and Massachusetts — from budgeting and packing to move-day prep."
+  />
 
   <Section>
     <Container>

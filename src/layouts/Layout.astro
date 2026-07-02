@@ -23,7 +23,9 @@ const { lcpPreload, noindex, ...seoProps } = Astro.props;
 
 Astro.response.headers.set(
   'X-Robots-Tag',
-  noindex ? 'noindex, follow' : 'index, follow'
+  noindex
+    ? 'noindex, follow'
+    : 'index, follow, max-snippet:-1, max-image-preview:large'
 );
 ---
 
@@ -62,6 +64,47 @@ Astro.response.headers.set(
 
     <!-- Performance: avoid font preload — it competes with the LCP image -->
     <Font cssVariable="--font-sans" />
+
+    {
+      /*
+      Scroll-driven parallax CSS is intentionally `is:inline` so Astro renders
+      it verbatim and it bypasses Tailwind v4's Lightning CSS minifier. Lightning
+      folds a standalone `animation-timeline` into the `animation` shorthand
+      (`animation: ... --parallax`), which browsers can't parse and which resets
+      the timeline to `auto` — so the parallax works in `dev` but breaks after
+      `astro build`. Keep these rules here, not in `starwind.css`.
+    */
+    }
+    <style is:inline>
+      .parallax-bg {
+        top: calc(-1 * var(--parallax-shift, 12%) - 8%);
+        height: calc(100% + var(--parallax-shift, 12%) * 2 + 16%);
+      }
+
+      @supports ((animation-timeline: view()) and (animation-range: entry)) {
+        @media (prefers-reduced-motion: no-preference) {
+          .parallax {
+            view-timeline-name: --parallax;
+            view-timeline-axis: block;
+          }
+
+          .parallax-bg {
+            animation: parallax-scroll linear both;
+            animation-timeline: --parallax;
+            animation-range: cover;
+          }
+        }
+      }
+
+      @keyframes parallax-scroll {
+        from {
+          transform: translateY(calc(-1 * var(--parallax-shift, 12%)));
+        }
+        to {
+          transform: translateY(var(--parallax-shift, 12%));
+        }
+      }
+    </style>
 
     <!-- SEO slots -->
     <slot name="head" />

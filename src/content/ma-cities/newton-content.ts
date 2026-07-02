@@ -390,7 +390,7 @@ const newtonKeywords = [
 ].join(', ');
 
 const newtonSeo = {
-  title: `Newton Movers | ${SITE.businessName} (Free Estimate)`,
+  title: `Newton, MA Movers | ${SITE.businessName}`,
   description:
     'Newton movers and movers in Newton, MA—with a local Adams Street office. Licensed local & long-distance moves, packing, storage. Free estimate today.',
   serviceName: 'Newton Moving Services',
@@ -450,7 +450,7 @@ export const newtonPremium: CityPremiumContent = {
   breadcrumbLabel: 'Newton Movers',
   sectionOrder: newtonSectionOrder,
   hero: {
-    title: 'Newton Movers',
+    title: 'Newton, MA Movers',
     subtitle:
       'Licensed movers in Newton, MA with a local Adams Street office—residential, commercial, packing, and long-distance service across every village.',
   },

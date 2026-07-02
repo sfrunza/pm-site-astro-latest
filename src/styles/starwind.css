@@ -23,6 +23,19 @@
       height: 0;
     }
   }
+
+  --animate-spotlight: spotlight 2s ease 0.75s 1 forwards;
+
+  @keyframes spotlight {
+    0% {
+      opacity: 0;
+      transform: translate(-72%, -62%) scale(0.5);
+    }
+    100% {
+      opacity: 1;
+      transform: translate(-50%, -40%) scale(1);
+    }
+  }
 }
 
 @layer utilities {
@@ -94,34 +107,12 @@
     container-type: scroll-state;
   }
 
-  .parallax-bg {
-    top: calc(-1 * var(--parallax-shift, 12%) - 8%);
-    height: calc(100% + var(--parallax-shift, 12%) * 2 + 16%);
-  }
-
-  @supports ((animation-timeline: view()) and (animation-range: entry)) {
-    @media (prefers-reduced-motion: no-preference) {
-      .parallax {
-        view-timeline-name: --parallax;
-        view-timeline-axis: block;
-      }
-
-      .parallax-bg {
-        animation: parallax-scroll linear both;
-        animation-timeline: --parallax;
-        animation-range: cover;
-      }
-    }
-  }
-}
-
-@keyframes parallax-scroll {
-  from {
-    transform: translateY(calc(-1 * var(--parallax-shift, 12%)));
-  }
-  to {
-    transform: translateY(var(--parallax-shift, 12%));
-  }
+  /**
+   * Parallax scroll-driven animation lives in `src/styles/parallax.css`.
+   * It must NOT be processed by Tailwind v4's Lightning CSS minifier, which
+   * folds `animation-timeline` into the `animation` shorthand and breaks it in
+   * production builds. See that file for details.
+   */
 }
 
 @theme inline {
@@ -217,10 +208,16 @@
 }
 
 @layer base {
+  html {
+    touch-action: manipulation;
+  }
   * {
-    @apply outline-outline/50;
+    @apply border-border outline-outline/50;
   }
   body {
     @apply bg-background text-foreground scheme-light dark:scheme-dark;
+  }
+  button {
+    @apply cursor-pointer;
   }
 }

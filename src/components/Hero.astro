@@ -1,10 +1,15 @@
 ---
 import heroBg from '@/assets/heros/home.jpg';
+import SeasonalEffect from '@/components/SeasonalEffect.astro';
 import Button from '@/components/starwind/button';
 import { SITE } from '@/config/site';
 import { ArrowRightIcon, SparklesIcon } from '@/icons';
 import { buildHeroResponsiveImage } from '@/utils/hero-responsive-image';
 import type { LcpPreloadLink } from '@/utils/lcp-preload';
+// import leafImage from '@/assets/effects/leaf.png';
+// import leaf2Image from '@/assets/effects/leaf-2.png';
+// import snowImage from '@/assets/effects/snowflake.png';
+// import snow2Image from '@/assets/effects/snowflake-2.png';
 
 const heroImage = await buildHeroResponsiveImage(heroBg);
 
@@ -26,7 +31,7 @@ interface Props {
 }
 
 const {
-  badge = 'Licensed & Insured In Massachusetts',
+  badge = 'Licensed and Insured in Massachusetts',
   title = 'Stress-Free Moves',
   titleAccent = 'You Can Trust',
   subtitle = 'Professional residential and commercial moving across Greater Boston. Transparent pricing, experienced crews, and a free quote in minutes.',
@@ -34,7 +39,7 @@ const {
 
 const stats = [
   { value: '4.9★', label: 'Average Rating' },
-  { value: '240+', label: 'Happy Customers' },
+  { value: '329+', label: 'Happy Customers' },
   { value: '100%', label: 'On-Time Guarantee' },
 ];
 ---
@@ -50,8 +55,8 @@ const stats = [
     <img
       src={heroImage.webp.href}
       srcset={heroImage.webp.srcset}
-      alt="Home page hero image"
-      title="Home page hero image"
+      alt="Phoenix Moving truck on a street in Boston"
+      title="Phoenix Moving truck on a street in Boston"
       width={heroImage.width}
       height={heroImage.height}
       loading="eager"
@@ -74,6 +79,11 @@ const stats = [
   >
   </div>
 
+  <!-- Seasonal ambient effect (auto-selects by month) -->
+  <!-- leafImages={[leafImage.src, leaf2Image.src]} -->
+  <!-- snowImages={[snowImage.src, snow2Image.src]} -->
+  <SeasonalEffect />
+
   <!-- Content container -->
   <div
     class="relative mx-auto flex w-full max-w-[1440px] flex-1 flex-col px-6 pt-28 pb-10 lg:px-10 lg:pt-32 lg:pb-14"
@@ -95,6 +105,7 @@ const stats = [
           class="text-4xl font-bold tracking-tight text-pretty text-white text-shadow-lg sm:text-5xl lg:text-6xl lg:leading-[1.1]"
         >
           {title}
+          {' '}
           <span class="text-secondary">{titleAccent}</span>
         </h1>
 

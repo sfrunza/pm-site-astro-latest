@@ -25,7 +25,7 @@ const bostonTrustFeatures = [
   'Greater Boston headquarters',
   'Fully insured · COI available',
   'Free moving estimates',
-  '4.98★ average (243+ reviews)',
+  '4.98★ average (329+ reviews)',
 ];
 
 const bostonWhyChooseFeatures = [
@@ -206,7 +206,7 @@ const bostonNeighborhoods = [
       'Diverse residential neighborhoods with mix of single-families, multi-families, and walk-ups. Street parking typically easier than downtown, but neighborhood-specific permit rules still apply.',
   },
   {
-    name: 'East Boston & Charlestown',
+    name: 'East Boston & Harbor Neighborhoods',
     description:
       'Waterfront and commuter-accessible neighborhoods with growing condo developments. Tunnel and bridge access considerations for routing—share exact addresses for accurate travel time estimates.',
   },
@@ -248,7 +248,7 @@ const bostonRelatedLinks: RelatedLink[] = [
   {
     href: '/local-moving',
     label: 'Local moving services',
-    description: 'Hourly Boston and Greater Boston crews.',
+    description: 'Hourly moving services for Boston and Greater Boston.',
   },
   {
     href: '/interstate-moving',
@@ -417,7 +417,7 @@ const bostonKeywords = [
 ].join(', ');
 
 const bostonSeo = {
-  title: `Boston Movers | ${SITE.businessName} (Free Estimate)`,
+  title: `Boston, MA Movers | ${SITE.businessName} (Free Estimate)`,
   description:
     `${SITE.businessName} provides local and long-distance moving services in Boston, MA, with packing, storage, and free estimates.`,
   serviceName: 'Boston Moving Services',

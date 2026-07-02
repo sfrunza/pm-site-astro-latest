@@ -37,9 +37,9 @@ const lcpPreload = await getHero2LcpPreload(heroBg);
 const socialImageUrl = await getSocialImageUrl(heroBg);
 
 const seo = await fetchPageSeo(Astro.url, {
-  title: `Piano Moving | ${SITE.businessName}`,
+  title: `Piano Moving | ${SITE.businessName} (Free Estimate)`,
   description:
-    'Professional piano movers in Boston and Greater Massachusetts. Upright, baby grand, and grand piano moving with proper equipment, licensed and insured',
+    'Professional piano movers in Boston and Greater Massachusetts. Upright, baby grand, and grand piano moving with proper equipment, licensed and insured.',
   keywords:
     'piano movers Boston, piano moving service, upright piano movers, grand piano movers, Boston piano relocation',
   pathname,
@@ -91,7 +91,7 @@ const seo = await fetchPageSeo(Astro.url, {
       Moving a piano is not a standard furniture job. Weight distribution,
       fragile internal components, and narrow doorways require <b
         >specialized tools and experience</b
-      >. ${SITE.businessShortName} provides dedicated piano moving services throughout
+      >. {SITE.businessShortName} provides dedicated piano moving services throughout
       Boston, Natick, Cambridge, and surrounding communities.
     </p>
     <p>
@@ -231,7 +231,7 @@ const seo = await fetchPageSeo(Astro.url, {
     </Container>
   </Section>
 
-  <Section class="border-y border-border bg-muted/50 defer-section">
+  <Section class="border-y bg-muted/50 defer-section">
     <Container>
       <SectionHeader
         title="What's included in a piano move"
@@ -247,7 +247,7 @@ const seo = await fetchPageSeo(Astro.url, {
             'Placement and basic positioning at destination',
             'Licensed, insured Massachusetts movers',
           ].map((item) => (
-            <li class="bg-background flex items-start gap-3 rounded-3xl border border-border px-4 py-3 text-sm font-medium">
+            <li class="bg-background flex items-start gap-3 rounded-3xl border px-4 py-3 text-sm font-medium">
               <span
                 class="bg-primary/10 text-primary mt-0.5 flex size-6 shrink-0 items-center justify-center rounded-full text-xs font-bold"
                 aria-hidden="true"

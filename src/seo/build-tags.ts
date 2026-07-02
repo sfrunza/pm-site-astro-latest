@@ -100,11 +100,11 @@ export const buildTags = (config: AstroSeoProps): string => {
   // Robots: noindex, nofollow, and other robotsProps
   let robotsContent: string[] = [];
   if (typeof config.noindex !== "undefined") {
-    robotsContent.push(config.noindex ? "noindex" : "index");
+    robotsContent.push(config.noindex ? " noindex" : " index");
   }
 
   if (typeof config.nofollow !== "undefined") {
-    robotsContent.push(config.nofollow ? "nofollow" : "follow");
+    robotsContent.push(config.nofollow ? " nofollow" : " follow");
   }
 
   if (config.robotsProps) {
@@ -119,9 +119,9 @@ export const buildTags = (config: AstroSeoProps): string => {
     } = config.robotsProps;
 
     if (nosnippet) robotsContent.push("nosnippet");
-    if (typeof maxSnippet === 'number') robotsContent.push(`max-snippet:${maxSnippet}`);
+    if (typeof maxSnippet === 'number') robotsContent.push(` max-snippet:${maxSnippet}`);
     if (maxImagePreview)
-      robotsContent.push(`max-image-preview:${maxImagePreview}`);
+      robotsContent.push(` max-image-preview:${maxImagePreview}`);
     if (noarchive) robotsContent.push("noarchive");
     if (unavailableAfter)
       robotsContent.push(`unavailable_after:${unavailableAfter}`);

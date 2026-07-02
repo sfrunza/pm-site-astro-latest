@@ -401,7 +401,7 @@ const natickKeywords = [
 ].join(', ');
 
 const natickSeo = {
-  title: `Natick Movers | ${SITE.businessName} (Free Estimate)`,
+  title: `Natick, MA Movers | ${SITE.businessName}`,
   description:
     'Natick movers headquartered at 18 Lakeview Gardens. Licensed local & long-distance moves, packing, storage. Free estimate—book your Natick, MA move today.',
   serviceName: 'Natick Moving Services',
@@ -452,7 +452,7 @@ export const natickPremium: CityPremiumContent = {
   breadcrumbLabel: 'Natick Movers',
   sectionOrder: natickSectionOrder,
   hero: {
-    title: 'Natick Movers',
+    title: 'Natick, MA Movers',
     subtitle:
       'Licensed movers in Natick, MA with our MetroWest headquarters at 18 Lakeview Gardens—residential, commercial, packing, and long-distance service across every neighborhood.',
   },

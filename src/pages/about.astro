@@ -21,7 +21,7 @@ const lcpPreload = await getHero2LcpPreload(heroBg);
 const socialImageUrl = await getSocialImageUrl(heroBg);
 
 const seo = await fetchPageSeo(Astro.url, {
-  title: `About our company | ${SITE.businessName}`,
+  title: `About Us | ${SITE.businessName}`,
   description: `Learn about ${SITE.businessName} — a licensed, insured Boston-area moving company offering local and long-distance moves, packing and storage.`,
   keywords: `about ${SITE.businessShortName}, Boston moving company, Natick movers, licensed movers Massachusetts, moving and storage`,
   pathname: Astro.url.pathname,
@@ -37,24 +37,24 @@ const seo = await fetchPageSeo(Astro.url, {
   <Hero2
     bgImage={heroBg}
     title={`About ${SITE.businessName}`}
-    subtitle="Professional movers serving Greater Boston and beyond — fast, reliable, and built around making your move stress-free."
+    subtitle="Professional movers serving Greater Boston and beyond — reliable, affordable, and focused on making your move stress-free."
   />
 
   <Feature3
     features={[
       'Local Moving',
       'Long-Distance Moving',
-      'Residential & Commercial',
+      'Residential and Commercial',
       'Full Packing Services',
-      'Loading & Unloading',
-      'Short & Long-Term Storage',
+      'Loading and Unloading',
+      'Short- and Long-Term Storage',
       'Piano Moving',
-      'Licensed & Insured',
+      'Licensed and Insured',
     ]}
   />
 
   <FeatureImageRight
-    title="What Makes Us Different."
+    title="What Makes Us Different"
     label="Who We Are"
     image={featureImage}
     alt={`${SITE.businessShortName} crew with truck`}
@@ -66,9 +66,9 @@ const seo = await fetchPageSeo(Astro.url, {
       and value for your relocation needs.
     </p>
     <p>
-      Our experienced team of movers offers local and long-distance moves, as
-      well as packing and unpacking services, loading and unloading, storage
-      solutions, and much more. We take great pride in our commitment to
+      Our experienced team handles local and long-distance moves, packing and
+      unpacking, loading and unloading, storage solutions, and more. We take
+      great pride in our commitment to
       customer satisfaction and strive to make every move as stress-free as
       possible.
     </p>
@@ -80,7 +80,7 @@ const seo = await fetchPageSeo(Astro.url, {
   </FeatureImageRight>
 
   <FeatureImageLeft
-    title="Licensed, Bonded & Insured."
+    title="Licensed and Insured"
     subtitle="Your belongings are protected every step of the way."
     image={heroBg}
     alt={`${SITE.businessShortName} professional crew`}
@@ -91,19 +91,19 @@ const seo = await fetchPageSeo(Astro.url, {
       Utilities (MDPU #{SITE.businessLicenses.MDPU}) and registered with the
       Federal Motor Carrier Safety Administration (DOT #
       {SITE.businessLicenses.DOT}, MC #{SITE.businessLicenses.MC}). We carry
-      Cargo, Motor Vehicle, and General Liability insurance so you can move with
+      cargo, motor vehicle, and general liability insurance so you can move with
       confidence.
     </p>
     <p>
-      From our headquarters in <b>Natick</b> and our local office in
-      <b> Newton</b>, we serve residential and commercial customers throughout
+      From our headquarters in <b>Natick</b> and our local office in <b>Newton</b>,
+      we serve residential and commercial customers throughout
       Greater Boston, MetroWest, and Massachusetts — with long-distance coverage
       across the United States.
     </p>
     <ul>
       <li>
-        <b>Two Massachusetts locations</b> — Natick and Newton for convenient local
-        service.
+        <b>Two Massachusetts locations</b> — Natick and Newton for convenient,
+        local service.
       </li>
       <li>
         <b>Transparent pricing</b> — detailed upfront estimates with no hidden fees.
@@ -116,8 +116,8 @@ const seo = await fetchPageSeo(Astro.url, {
   </FeatureImageLeft>
 
   <Feature1
-    title={`Why choose ${SITE.businessShortName}?`}
-    description="We are a professional moving company that provides fast, reliable, and affordable moving services for residential and commercial customers throughout the Boston area and beyond."
+    title={`Why Choose ${SITE.businessShortName}?`}
+    description="We are a professional moving company providing fast, reliable, and affordable moving services for residential and commercial customers throughout Greater Boston and beyond."
     image={{
       src: featureImage,
       alt: `${SITE.businessShortName} crew loading a truck`,
@@ -127,19 +127,19 @@ const seo = await fetchPageSeo(Astro.url, {
 
   <Services1
     label="What We Offer"
-    title="Moving services."
+    title="Moving Services"
     subtitle="From local apartment moves to interstate relocations, we provide end-to-end moving solutions tailored to your needs and budget."
     class="defer-section"
   />
 
   <Feature2
-    title="The Moving Company That Actually Cares."
+    title="The Moving Company That Actually Cares"
     label="Why Choose Us"
     class="defer-section"
   />
 
   <CTA2
-    title={`Move with ${SITE.businessShortName} Boston.`}
+    title={`Move with ${SITE.businessShortName} Boston`}
     description="Request a free estimate — no credit card required."
     class="defer-section"
   />

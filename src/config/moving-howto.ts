@@ -9,7 +9,7 @@ export type MovingStep = {
 export const movingHowToSteps: MovingStep[] = [
   {
     stepNumber: '01',
-    title: 'Call Or Book Online',
+    title: 'Call or Book Online',
     description:
       `Call ${SITE.contactPhone} or book your move online. We'll give you a transparent, no-obligation estimate in minutes.`,
   },
@@ -21,13 +21,13 @@ export const movingHowToSteps: MovingStep[] = [
   },
   {
     stepNumber: '03',
-    title: 'The Professional Move',
+    title: 'Professional Move Day',
     description:
       'Our crew arrives on time, fully equipped. We protect your floors, walls, and furniture before anything moves.',
   },
   {
     stepNumber: '04',
-    title: 'The "Delivery" Guarantee',
+    title: 'Delivery Guarantee',
     description:
       'We place every box and piece of furniture exactly where you want it, and reassemble anything we took apart. Done.',
   },

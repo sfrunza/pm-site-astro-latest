@@ -1,0 +1,411 @@
+---
+import type { HTMLAttributes } from 'astro/types';
+import { tv } from 'tailwind-variants';
+
+interface Props extends HTMLAttributes<'div'> {
+  /**
+   * Number of petals per 100,000 px² of surface area. Higher = denser.
+   * The real count is derived from the rendered size and clamped by `maxCount`.
+   * @default 2
+   */
+  density?: number;
+  /**
+   * Hard upper bound on the petal count, regardless of density/size.
+   * @default 50
+   */
+  maxCount?: number;
+  /**
+   * Smallest petal length in CSS pixels.
+   * @default 10
+   */
+  minSize?: number;
+  /**
+   * Largest petal length in CSS pixels.
+   * @default 22
+   */
+  maxSize?: number;
+  /**
+   * Base fall speed in CSS pixels per second (petals drift downward).
+   * @default 34
+   */
+  speed?: number;
+  /**
+   * Horizontal sway amplitude in CSS pixels per second.
+   * @default 40
+   */
+  sway?: number;
+  /**
+   * Maximum petal opacity (0–1).
+   * @default 0.9
+   */
+  opacity?: number;
+  /**
+   * Blossom palette. Each petal is randomly assigned one of these colors.
+   * @default soft cherry-blossom pinks
+   */
+  colors?: string[];
+}
+
+const blossom = tv({
+  base: 'cherry-blossom pointer-events-none absolute inset-0 -z-10 size-full overflow-hidden',
+});
+
+const {
+  density = 2,
+  maxCount = 50,
+  minSize = 10,
+  maxSize = 22,
+  speed = 34,
+  sway = 40,
+  opacity = 0.9,
+  colors = ['#ffd1dc', '#ffb7c5', '#f7a8b8', '#ffc0cb', '#f4afc4', '#ffdde4'],
+  class: className,
+  style,
+  ...rest
+} = Astro.props;
+
+// Pipe-delimited so CSS color values containing commas (e.g. rgb(a)) survive.
+const colorsAttr = colors.join('|');
+---
+
+<div
+  class={blossom({ class: className })}
+  style={style}
+  data-slot="cherry-blossom"
+  data-density={density}
+  data-max-count={maxCount}
+  data-min-size={minSize}
+  data-max-size={maxSize}
+  data-speed={speed}
+  data-sway={sway}
+  data-opacity={opacity}
+  data-colors={colorsAttr}
+  aria-hidden="true"
+  {...rest}
+>
+  <canvas class="block size-full"></canvas>
+</div>
+
+<script>
+  interface Petal {
+    x: number;
+    y: number;
+    size: number;
+    /** Downward fall speed in px/s. */
+    fall: number;
+    /** Horizontal sway amplitude in px/s. */
+    sway: number;
+    /** Sway frequency in rad/s. */
+    swayFreq: number;
+    /** Sway phase offset in rad. */
+    swayPhase: number;
+    /** Current rotation in rad. */
+    rot: number;
+    /** Rotation speed in rad/s. */
+    spin: number;
+    /** Flutter (edge-on flip) phase in rad. */
+    flip: number;
+    /** Flutter frequency in rad/s. */
+    flipFreq: number;
+    /** Index into the sprite/color list. */
+    sprite: number;
+    /** Peak opacity for this petal. */
+    alpha: number;
+  }
+
+  const initialized = new WeakSet<HTMLElement>();
+
+  function readNumber(el: HTMLElement, key: string, fallback: number) {
+    const value = Number(el.dataset[key]);
+    return Number.isFinite(value) ? value : fallback;
+  }
+
+  function rand(min: number, max: number) {
+    return min + Math.random() * (max - min);
+  }
+
+  function initCherryBlossom(root: HTMLElement) {
+    if (initialized.has(root)) return;
+    initialized.add(root);
+
+    const canvas = root.querySelector('canvas');
+    if (!canvas) return;
+
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return;
+
+    const density = readNumber(root, 'density', 2);
+    const maxCount = readNumber(root, 'maxCount', 50);
+    const minSize = readNumber(root, 'minSize', 10);
+    const maxSize = readNumber(root, 'maxSize', 22);
+    const baseSpeed = readNumber(root, 'speed', 34);
+    const baseSway = readNumber(root, 'sway', 40);
+    const maxAlpha = readNumber(root, 'opacity', 0.9);
+    const colors = (root.dataset.colors || '')
+      .split('|')
+      .map((c) => c.trim())
+      .filter(Boolean);
+    if (colors.length === 0) colors.push('#ffb7c5');
+
+    const reducedMotion = window.matchMedia(
+      '(prefers-reduced-motion: reduce)'
+    ).matches;
+
+    let petals: Petal[] = [];
+    let width = 0;
+    let height = 0;
+    let dpr = 1;
+    let frameId = 0;
+    let running = false;
+    let visible = true;
+    let lastTime = 0;
+
+    // One pre-rendered petal sprite per color.
+    let sprites: HTMLCanvasElement[] = [];
+    const SPRITE = 64;
+
+    const abort = new AbortController();
+    const { signal } = abort;
+
+    const buildSprite = (color: string): HTMLCanvasElement => {
+      const s = document.createElement('canvas');
+      s.width = SPRITE;
+      s.height = SPRITE;
+      const g = s.getContext('2d');
+      if (!g) return s;
+
+      const cx = SPRITE / 2;
+      const cy = SPRITE / 2;
+      const h = 42;
+      const w = 30;
+      const topY = cy - h / 2;
+      const botY = cy + h / 2;
+      const notch = 7;
+
+      // Petal body — narrow rounded base, wide top with a small central notch.
+      g.beginPath();
+      g.moveTo(cx, botY);
+      g.bezierCurveTo(
+        cx + w * 0.62,
+        botY - h * 0.32,
+        cx + w * 0.5,
+        topY + h * 0.08,
+        cx + w * 0.16,
+        topY + notch
+      );
+      g.quadraticCurveTo(cx, topY + notch * 0.35, cx - w * 0.16, topY + notch);
+      g.bezierCurveTo(
+        cx - w * 0.5,
+        topY + h * 0.08,
+        cx - w * 0.62,
+        botY - h * 0.32,
+        cx,
+        botY
+      );
+      g.closePath();
+      g.fillStyle = color;
+      g.fill();
+
+      // Soft inner highlight toward the base for a little depth.
+      g.globalCompositeOperation = 'source-atop';
+      const grad = g.createLinearGradient(cx, topY, cx, botY);
+      grad.addColorStop(0, 'rgba(255,255,255,0)');
+      grad.addColorStop(1, 'rgba(255,255,255,0.28)');
+      g.fillStyle = grad;
+      g.fillRect(0, 0, SPRITE, SPRITE);
+      g.globalCompositeOperation = 'source-over';
+
+      // Faint central vein.
+      g.strokeStyle = 'rgba(200,60,110,0.18)';
+      g.lineWidth = 1;
+      g.beginPath();
+      g.moveTo(cx, botY - 2);
+      g.lineTo(cx, topY + notch + 2);
+      g.stroke();
+
+      return s;
+    };
+
+    const buildSprites = () => {
+      sprites = colors.map(buildSprite);
+    };
+
+    const makePetal = (atRandomY: boolean): Petal => ({
+      x: rand(0, width),
+      y: atRandomY ? rand(0, height) : rand(-maxSize * 2, -maxSize),
+      size: rand(minSize, maxSize),
+      fall: baseSpeed * rand(0.6, 1.3),
+      sway: baseSway * rand(0.6, 1.2),
+      swayFreq: rand(0.5, 1.3),
+      swayPhase: rand(0, Math.PI * 2),
+      rot: rand(0, Math.PI * 2),
+      spin: rand(-1.6, 1.6),
+      flip: rand(0, Math.PI * 2),
+      flipFreq: rand(0.8, 2.2),
+      sprite: Math.floor(Math.random() * sprites.length),
+      alpha: maxAlpha * rand(0.7, 1),
+    });
+
+    const buildPetals = () => {
+      const area = width * height;
+      const target = Math.min(
+        maxCount,
+        Math.max(6, Math.round((area / 100_000) * density))
+      );
+      petals = Array.from({ length: target }, () => makePetal(true));
+    };
+
+    const drawPetal = (petal: Petal, alpha: number) => {
+      const sprite = sprites[petal.sprite];
+      if (!sprite) return;
+      const s = petal.size * 1.5;
+      const flipX = Math.cos(petal.flip);
+      ctx.save();
+      ctx.translate(petal.x, petal.y);
+      ctx.rotate(petal.rot);
+      ctx.scale(flipX < 0 ? Math.min(flipX, -0.2) : Math.max(flipX, 0.2), 1);
+      ctx.globalAlpha = Math.max(0, Math.min(1, alpha));
+      ctx.drawImage(sprite, -s / 2, -s / 2, s, s);
+      ctx.restore();
+    };
+
+    const drawStatic = () => {
+      ctx.clearRect(0, 0, width, height);
+      for (const petal of petals) drawPetal(petal, petal.alpha);
+      ctx.globalAlpha = 1;
+    };
+
+    const resize = () => {
+      const rect = root.getBoundingClientRect();
+      width = Math.max(1, Math.floor(rect.width));
+      height = Math.max(1, Math.floor(rect.height));
+      dpr = Math.min(window.devicePixelRatio || 1, 2);
+
+      canvas.width = Math.floor(width * dpr);
+      canvas.height = Math.floor(height * dpr);
+      canvas.style.width = `${width}px`;
+      canvas.style.height = `${height}px`;
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+
+      buildPetals();
+      if (reducedMotion) drawStatic();
+    };
+
+    const step = (time: number) => {
+      const dt = Math.min(0.05, (time - lastTime) / 1000 || 0);
+      lastTime = time;
+      const t = time / 1000;
+
+      ctx.clearRect(0, 0, width, height);
+
+      for (const petal of petals) {
+        petal.y += petal.fall * dt;
+        petal.x +=
+          Math.sin(t * petal.swayFreq + petal.swayPhase) * petal.sway * dt;
+        petal.rot += petal.spin * dt;
+        petal.flip += petal.flipFreq * dt;
+
+        const margin = petal.size * 1.5;
+        if (petal.y - margin > height) {
+          petal.y = -margin;
+          petal.x = rand(0, width);
+        }
+        if (petal.x < -margin) petal.x = width + margin;
+        else if (petal.x > width + margin) petal.x = -margin;
+
+        drawPetal(petal, petal.alpha);
+      }
+
+      ctx.globalAlpha = 1;
+    };
+
+    const loop = (time: number) => {
+      if (!running) return;
+      step(time);
+      frameId = window.requestAnimationFrame(loop);
+    };
+
+    const start = () => {
+      if (reducedMotion || running || !visible) return;
+      running = true;
+      lastTime = performance.now();
+      frameId = window.requestAnimationFrame(loop);
+    };
+
+    const stop = () => {
+      running = false;
+      window.cancelAnimationFrame(frameId);
+    };
+
+    const intersection = new IntersectionObserver(
+      (entries) => {
+        visible = entries.some((entry) => entry.isIntersecting);
+        if (visible) start();
+        else stop();
+      },
+      { root: null, threshold: 0 }
+    );
+
+    root.addEventListener(
+      'contentvisibilityautostatechange',
+      (event) => {
+        const skipped = (event as ContentVisibilityAutoStateChangeEvent)
+          .skipped;
+        if (skipped) stop();
+        else if (visible) start();
+      },
+      { signal }
+    );
+
+    window.addEventListener(
+      'resize',
+      () => {
+        resize();
+        if (reducedMotion) drawStatic();
+      },
+      { signal }
+    );
+
+    const resizeObserver = new ResizeObserver(() => {
+      resize();
+      if (reducedMotion) drawStatic();
+    });
+    resizeObserver.observe(root);
+
+    buildSprites();
+    intersection.observe(root);
+    resize();
+
+    if (reducedMotion) {
+      drawStatic();
+      return;
+    }
+
+    start();
+
+    return () => {
+      stop();
+      abort.abort();
+      resizeObserver.disconnect();
+      intersection.disconnect();
+    };
+  }
+
+  function initAll() {
+    document
+      .querySelectorAll<HTMLElement>('[data-slot="cherry-blossom"]')
+      .forEach((root) => initCherryBlossom(root));
+  }
+
+  document.addEventListener('astro:page-load', initAll);
+  if (document.readyState !== 'loading') initAll();
+</script>
+
+<style>
+  @media (prefers-reduced-motion: no-preference) {
+    .cherry-blossom {
+      content-visibility: auto;
+      contain-intrinsic-size: auto none auto 24rem;
+    }
+  }
+</style>

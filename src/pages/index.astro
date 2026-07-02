@@ -12,7 +12,6 @@ import feature1Image from '@/assets/2-movers-and-customers.jpeg';
 import { fetchHomeSeo } from '@/seo';
 import ImageCompareSlider from '@/components/ImageCompareSlider.astro';
 import Section from '@/components/Section.astro';
-import Container from '@/components/Container.astro';
 import SectionHeader from '@/components/SectionHeader.astro';
 import shkafBefore from '@/assets/shkaf-before.jpeg';
 import shkafAfter from '@/assets/shkaf-after.jpeg';
@@ -27,6 +26,7 @@ import Process1 from '@/blocks/process/Process1.astro';
 import BlogPreview1 from '@/blocks/blog/BlogPreview1.astro';
 import MovingChecklist1 from '@/blocks/checklist/MovingChecklist1.astro';
 import LightboxGridGallery from '@/blocks/gallery/LightboxGridGallery.astro';
+import Container from '@/components/Container.astro';
 
 const [seo, lcpPreload] = await Promise.all([
   fetchHomeSeo(Astro.url),
@@ -73,7 +73,7 @@ const [seo, lcpPreload] = await Promise.all([
           afterSrc={shkafAfter}
           beforeLabel="Before"
           afterLabel="After"
-          alt="Shkaf before and after"
+          alt="Wardrobe before and after"
         />
         <ImageCompareSlider
           beforeSrc={medicalChairBefore}
@@ -98,7 +98,10 @@ const [seo, lcpPreload] = await Promise.all([
 
   <!-- Feature -->
   <Feature1
-    image={{ src: feature1Image, alt: '2 Movers and Truck' }}
+    image={{
+      src: feature1Image,
+      alt: 'Phoenix Moving team with a customer in front of their house',
+    }}
     class="defer-section"
   />
 

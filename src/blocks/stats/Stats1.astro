@@ -33,7 +33,7 @@ const {
   titleHighlight = 'by the Numbers',
   subtitle = 'A decade of smooth, stress-free moves across Massachusetts',
   rating = '5.0',
-  reviewCount = '240+ verified reviews',
+  reviewCount = '329+ verified reviews',
   routeValue = '50+ Cities',
   routeLabel = 'served across Greater Boston & MetroWest',
   stats = [
@@ -46,9 +46,7 @@ const {
 
 <Section class={stats1({ class: className })} {...rest}>
   <Container>
-    <div
-      class="relative overflow-hidden rounded-3xl bg-card border border-border"
-    >
+    <div class="relative overflow-hidden rounded-3xl bg-card border">
       <div class="relative overflow-hidden">
         <!-- Decorative bottom wave band -->
         <svg
@@ -139,9 +137,10 @@ const {
               </svg>
               <h2
                 class="text-3xl font-extrabold tracking-tight text-pretty sm:text-4xl"
-                aria-label={`${titleStart} by the Numbers`}
+                aria-label={`${titleStart} ${titleHighlight}`}
               >
                 {titleStart}
+                {' '}
                 <span class="relative inline-block whitespace-nowrap">
                   {titleHighlight}
                   <svg

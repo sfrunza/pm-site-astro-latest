@@ -1,0 +1,457 @@
+---
+import type { HTMLAttributes } from 'astro/types';
+import { tv } from 'tailwind-variants';
+
+interface Props extends HTMLAttributes<'div'> {
+  /**
+   * Number of leaves per 100,000 px² of surface area. Higher = denser.
+   * The real count is derived from the rendered size and clamped by `maxCount`.
+   * @default 1.6
+   */
+  density?: number;
+  /**
+   * Hard upper bound on the leaf count, regardless of density/size.
+   * @default 42
+   */
+  maxCount?: number;
+  /**
+   * Smallest leaf length in CSS pixels.
+   * @default 14
+   */
+  minSize?: number;
+  /**
+   * Largest leaf length in CSS pixels.
+   * @default 30
+   */
+  maxSize?: number;
+  /**
+   * Base fall speed in CSS pixels per second (leaves drift downward).
+   * @default 46
+   */
+  speed?: number;
+  /**
+   * Horizontal sway amplitude in CSS pixels per second.
+   * @default 34
+   */
+  sway?: number;
+  /**
+   * Maximum leaf opacity (0–1).
+   * @default 0.85
+   */
+  opacity?: number;
+  /**
+   * Autumn palette. Each leaf is randomly assigned one of these colors.
+   * Ignored when `images` are provided.
+   * @default warm autumn tones
+   */
+  colors?: string[];
+  /**
+   * Optional leaf image URLs (e.g. PNGs). When provided, each leaf is drawn
+   * from a randomly assigned image (aspect ratio preserved) instead of the
+   * built-in vector shape. Falls back to the drawn shape if an image fails to
+   * load. Use paths under `public/` (e.g. `/effects/leaf.png`) or imported
+   * asset `.src` values.
+   */
+  images?: string[];
+}
+
+const falling = tv({
+  base: 'falling-leaves pointer-events-none absolute inset-0 -z-10 size-full overflow-hidden',
+});
+
+const {
+  density = 1.6,
+  maxCount = 42,
+  minSize = 14,
+  maxSize = 30,
+  speed = 46,
+  sway = 34,
+  opacity = 0.85,
+  colors = ['#c1440e', '#e07a1f', '#f2a71b', '#a63a1a', '#b5651d', '#d68910'],
+  images = [],
+  class: className,
+  style,
+  ...rest
+} = Astro.props;
+
+// Pipe-delimited so CSS color values containing commas (e.g. rgb(a)) survive.
+const colorsAttr = colors.join('|');
+const imagesAttr = images.join('|');
+---
+
+<div
+  class={falling({ class: className })}
+  style={style}
+  data-slot="falling-leaves"
+  data-density={density}
+  data-max-count={maxCount}
+  data-min-size={minSize}
+  data-max-size={maxSize}
+  data-speed={speed}
+  data-sway={sway}
+  data-opacity={opacity}
+  data-colors={colorsAttr}
+  data-images={imagesAttr}
+  aria-hidden="true"
+  {...rest}
+>
+  <canvas class="block size-full"></canvas>
+</div>
+
+<script>
+  interface Leaf {
+    x: number;
+    y: number;
+    size: number;
+    /** Downward fall speed in px/s. */
+    fall: number;
+    /** Horizontal sway amplitude in px/s. */
+    sway: number;
+    /** Sway frequency in rad/s. */
+    swayFreq: number;
+    /** Sway phase offset in rad. */
+    swayPhase: number;
+    /** Current rotation in rad. */
+    rot: number;
+    /** Rotation speed in rad/s. */
+    spin: number;
+    /** Tumble (edge-on flip) phase in rad. */
+    flip: number;
+    /** Tumble frequency in rad/s. */
+    flipFreq: number;
+    /** Index into the sprite/color list. */
+    sprite: number;
+    /** Peak opacity for this leaf. */
+    alpha: number;
+  }
+
+  const initialized = new WeakSet<HTMLElement>();
+
+  function readNumber(el: HTMLElement, key: string, fallback: number) {
+    const value = Number(el.dataset[key]);
+    return Number.isFinite(value) ? value : fallback;
+  }
+
+  function rand(min: number, max: number) {
+    return min + Math.random() * (max - min);
+  }
+
+  function initFallingLeaves(root: HTMLElement) {
+    if (initialized.has(root)) return;
+    initialized.add(root);
+
+    const canvas = root.querySelector('canvas');
+    if (!canvas) return;
+
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return;
+
+    const density = readNumber(root, 'density', 1.6);
+    const maxCount = readNumber(root, 'maxCount', 42);
+    const minSize = readNumber(root, 'minSize', 14);
+    const maxSize = readNumber(root, 'maxSize', 30);
+    const baseSpeed = readNumber(root, 'speed', 46);
+    const baseSway = readNumber(root, 'sway', 34);
+    const maxAlpha = readNumber(root, 'opacity', 0.85);
+    const colors = (root.dataset.colors || '')
+      .split('|')
+      .map((c) => c.trim())
+      .filter(Boolean);
+    if (colors.length === 0) colors.push('#e07a1f');
+
+    const reducedMotion = window.matchMedia(
+      '(prefers-reduced-motion: reduce)'
+    ).matches;
+
+    let leaves: Leaf[] = [];
+    let width = 0;
+    let height = 0;
+    let dpr = 1;
+    let frameId = 0;
+    let running = false;
+    let visible = true;
+    let lastTime = 0;
+
+    // A sprite is any drawable source plus its aspect ratio (w / h) so
+    // non-square PNGs aren't distorted. Built either from the vector shape
+    // (one per color) or from user-provided images.
+    type Sprite = { image: CanvasImageSource; aspect: number };
+    let sprites: Sprite[] = [];
+    const SPRITE = 64;
+
+    const images = (root.dataset.images || '')
+      .split('|')
+      .map((s) => s.trim())
+      .filter(Boolean);
+
+    const abort = new AbortController();
+    const { signal } = abort;
+
+    const buildSprite = (color: string): Sprite => {
+      const s = document.createElement('canvas');
+      s.width = SPRITE;
+      s.height = SPRITE;
+      const g = s.getContext('2d');
+      if (!g) return { image: s, aspect: 1 };
+
+      const cx = SPRITE / 2;
+      const cy = SPRITE / 2;
+      const h = 46;
+      const w = 26;
+      const topY = cy - h / 2;
+      const botY = cy + h / 2;
+
+      // Leaf body — two mirrored bezier curves meeting at tip and base.
+      g.beginPath();
+      g.moveTo(cx, topY);
+      g.bezierCurveTo(cx + w / 2, topY + h * 0.28, cx + w / 2, botY - h * 0.28, cx, botY);
+      g.bezierCurveTo(cx - w / 2, botY - h * 0.28, cx - w / 2, topY + h * 0.28, cx, topY);
+      g.closePath();
+      g.fillStyle = color;
+      g.fill();
+
+      // Subtle highlight for a touch of depth.
+      g.globalCompositeOperation = 'source-atop';
+      g.fillStyle = 'rgba(255,255,255,0.12)';
+      g.beginPath();
+      g.moveTo(cx, topY);
+      g.bezierCurveTo(cx + w / 2, topY + h * 0.28, cx + w / 2, botY - h * 0.28, cx, botY);
+      g.lineTo(cx, topY);
+      g.fill();
+      g.globalCompositeOperation = 'source-over';
+
+      // Midrib + a couple of side veins.
+      g.strokeStyle = 'rgba(0,0,0,0.18)';
+      g.lineWidth = 1;
+      g.beginPath();
+      g.moveTo(cx, topY + 3);
+      g.lineTo(cx, botY - 1);
+      for (let i = 1; i <= 3; i++) {
+        const vy = topY + (h * i) / 4;
+        g.moveTo(cx, vy);
+        g.lineTo(cx + w * 0.32, vy + 4);
+        g.moveTo(cx, vy);
+        g.lineTo(cx - w * 0.32, vy + 4);
+      }
+      g.stroke();
+
+      // Stem.
+      g.strokeStyle = 'rgba(0,0,0,0.28)';
+      g.lineWidth = 1.4;
+      g.beginPath();
+      g.moveTo(cx, botY);
+      g.lineTo(cx, botY + 5);
+      g.stroke();
+
+      return { image: s, aspect: 1 };
+    };
+
+    const loadImageSprites = (urls: string[]): Promise<Sprite[]> =>
+      Promise.all(
+        urls.map(
+          (url) =>
+            new Promise<Sprite | null>((resolve) => {
+              const img = new Image();
+              img.decoding = 'async';
+              img.onload = () =>
+                resolve({
+                  image: img,
+                  aspect: (img.naturalWidth || 1) / (img.naturalHeight || 1),
+                });
+              img.onerror = () => resolve(null);
+              img.src = url;
+            })
+        )
+      ).then((list) => list.filter((s): s is Sprite => s !== null));
+
+    const makeLeaf = (atRandomY: boolean): Leaf => ({
+      x: rand(0, width),
+      y: atRandomY ? rand(0, height) : rand(-maxSize * 2, -maxSize),
+      size: rand(minSize, maxSize),
+      fall: baseSpeed * rand(0.6, 1.35),
+      sway: baseSway * rand(0.5, 1.1),
+      swayFreq: rand(0.4, 1.1),
+      swayPhase: rand(0, Math.PI * 2),
+      rot: rand(0, Math.PI * 2),
+      spin: rand(-1.2, 1.2),
+      flip: rand(0, Math.PI * 2),
+      flipFreq: rand(0.6, 1.8),
+      sprite: Math.floor(Math.random() * sprites.length),
+      alpha: maxAlpha * rand(0.65, 1),
+    });
+
+    const buildLeaves = () => {
+      const area = width * height;
+      const target = Math.min(
+        maxCount,
+        Math.max(6, Math.round((area / 100_000) * density))
+      );
+      leaves = Array.from({ length: target }, () => makeLeaf(true));
+    };
+
+    const drawLeaf = (leaf: Leaf, alpha: number) => {
+      const sprite = sprites[leaf.sprite];
+      if (!sprite) return;
+      const s = leaf.size * 1.4;
+      // Fit the longest side to `s` so PNGs keep their aspect ratio.
+      const dw = sprite.aspect >= 1 ? s : s * sprite.aspect;
+      const dh = sprite.aspect >= 1 ? s / sprite.aspect : s;
+      const flipX = Math.cos(leaf.flip);
+      ctx.save();
+      ctx.translate(leaf.x, leaf.y);
+      ctx.rotate(leaf.rot);
+      // Squash horizontally to fake a 3D tumble; clamp so it never fully vanishes.
+      ctx.scale(flipX < 0 ? Math.min(flipX, -0.2) : Math.max(flipX, 0.2), 1);
+      ctx.globalAlpha = Math.max(0, Math.min(1, alpha));
+      ctx.drawImage(sprite.image, -dw / 2, -dh / 2, dw, dh);
+      ctx.restore();
+    };
+
+    const drawStatic = () => {
+      ctx.clearRect(0, 0, width, height);
+      for (const leaf of leaves) drawLeaf(leaf, leaf.alpha);
+      ctx.globalAlpha = 1;
+    };
+
+    const resize = () => {
+      const rect = root.getBoundingClientRect();
+      width = Math.max(1, Math.floor(rect.width));
+      height = Math.max(1, Math.floor(rect.height));
+      dpr = Math.min(window.devicePixelRatio || 1, 2);
+
+      canvas.width = Math.floor(width * dpr);
+      canvas.height = Math.floor(height * dpr);
+      canvas.style.width = `${width}px`;
+      canvas.style.height = `${height}px`;
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+
+      buildLeaves();
+      if (reducedMotion) drawStatic();
+    };
+
+    const step = (time: number) => {
+      const dt = Math.min(0.05, (time - lastTime) / 1000 || 0);
+      lastTime = time;
+      const t = time / 1000;
+
+      ctx.clearRect(0, 0, width, height);
+
+      for (const leaf of leaves) {
+        leaf.y += leaf.fall * dt;
+        leaf.x += Math.sin(t * leaf.swayFreq + leaf.swayPhase) * leaf.sway * dt;
+        leaf.rot += leaf.spin * dt;
+        leaf.flip += leaf.flipFreq * dt;
+
+        const margin = leaf.size * 1.5;
+        if (leaf.y - margin > height) {
+          leaf.y = -margin;
+          leaf.x = rand(0, width);
+        }
+        if (leaf.x < -margin) leaf.x = width + margin;
+        else if (leaf.x > width + margin) leaf.x = -margin;
+
+        drawLeaf(leaf, leaf.alpha);
+      }
+
+      ctx.globalAlpha = 1;
+    };
+
+    const loop = (time: number) => {
+      if (!running) return;
+      step(time);
+      frameId = window.requestAnimationFrame(loop);
+    };
+
+    const start = () => {
+      if (reducedMotion || running || !visible) return;
+      running = true;
+      lastTime = performance.now();
+      frameId = window.requestAnimationFrame(loop);
+    };
+
+    const stop = () => {
+      running = false;
+      window.cancelAnimationFrame(frameId);
+    };
+
+    const intersection = new IntersectionObserver(
+      (entries) => {
+        visible = entries.some((entry) => entry.isIntersecting);
+        if (visible) start();
+        else stop();
+      },
+      { root: null, threshold: 0 }
+    );
+
+    root.addEventListener(
+      'contentvisibilityautostatechange',
+      (event) => {
+        const skipped = (event as ContentVisibilityAutoStateChangeEvent)
+          .skipped;
+        if (skipped) stop();
+        else if (visible) start();
+      },
+      { signal }
+    );
+
+    window.addEventListener(
+      'resize',
+      () => {
+        resize();
+        if (reducedMotion) drawStatic();
+      },
+      { signal }
+    );
+
+    const resizeObserver = new ResizeObserver(() => {
+      resize();
+      if (reducedMotion) drawStatic();
+    });
+
+    const setup = () => {
+      resizeObserver.observe(root);
+      intersection.observe(root);
+      resize();
+      if (reducedMotion) {
+        drawStatic();
+        return;
+      }
+      start();
+    };
+
+    if (images.length > 0) {
+      loadImageSprites(images).then((loaded) => {
+        sprites = loaded.length > 0 ? loaded : colors.map(buildSprite);
+        setup();
+      });
+    } else {
+      sprites = colors.map(buildSprite);
+      setup();
+    }
+
+    return () => {
+      stop();
+      abort.abort();
+      resizeObserver.disconnect();
+      intersection.disconnect();
+    };
+  }
+
+  function initAll() {
+    document
+      .querySelectorAll<HTMLElement>('[data-slot="falling-leaves"]')
+      .forEach((root) => initFallingLeaves(root));
+  }
+
+  document.addEventListener('astro:page-load', initAll);
+  if (document.readyState !== 'loading') initAll();
+</script>
+
+<style>
+  @media (prefers-reduced-motion: no-preference) {
+    .falling-leaves {
+      content-visibility: auto;
+      contain-intrinsic-size: auto none auto 24rem;
+    }
+  }
+</style>

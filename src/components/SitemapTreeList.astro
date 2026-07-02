@@ -10,9 +10,7 @@ interface Props {
 const { nodes, depth = 0 } = Astro.props;
 
 const listClass =
-  depth === 0
-    ? 'sitemap-tree-root space-y-1'
-    : 'sitemap-tree-branch mt-2 ml-3 space-y-1 border-l-2 border-border/80 pl-4';
+  depth === 0 ? 'space-y-1' : 'mt-2 ml-3 space-y-1 border-l-2 pl-4';
 ---
 
 <ul class={listClass} role={depth === 0 ? 'tree' : 'group'}>
@@ -21,7 +19,7 @@ const listClass =
       const hasChildren = Boolean(node.children?.length);
 
       return (
-        <li class="sitemap-tree-item" role="treeitem" aria-selected="false">
+        <li role="treeitem" aria-selected="false">
           {hasChildren ? (
             <>
               {node.href ? (

@@ -9,7 +9,7 @@ import {
   CardAction,
 } from '@/components/starwind/card';
 import { Button } from '@/components/starwind/button';
-import { ChevronLeftIcon } from '@/icons';
+import { ArrowRightIcon, ChevronLeftIcon } from '@/icons';
 import { services as defaultServices, type Service } from '@/config/services';
 import Container from '@/components/Container.astro';
 import { tv } from 'tailwind-variants';
@@ -32,9 +32,9 @@ const services1 = tv({
 
 const {
   class: className = '',
-  label = 'Our Service',
+  label = 'Our Services',
   title = 'Our Moving Services',
-  subtitle = `${SITE.businessShortName} Boston is a premier moving company that provides high-quality service to customers throughout the United States. We specialize in long-distance, commercial, and residential moves, providing a stress-free and hassle-free experience.`,
+  subtitle = `${SITE.businessShortName} Boston is a premier moving company providing high-quality service across Greater Boston and beyond. We specialize in local, long-distance, commercial, and residential moves for a stress-free experience from start to finish.`,
   services = defaultServices,
 } = Astro.props;
 ---
@@ -45,8 +45,8 @@ const {
     <div class="relative">
       <Image
         src={sasha}
-        alt="Sasha"
-        title="Sasha"
+        alt="A mover standing next to packed moving boxes"
+        title="A mover standing next to packed moving boxes"
         width={460}
         height={780}
         quality={80}
@@ -85,6 +85,7 @@ const {
                     aria-label={`Learn More about ${service.name}`}
                     href={service.href}
                   >
+                    <ArrowRightIcon slot="icon" aria-hidden="true" />
                     Learn More<span class="sr-only">about {service.name}</span>
                   </Button>
                 </div>

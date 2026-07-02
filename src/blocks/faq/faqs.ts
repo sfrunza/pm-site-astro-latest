@@ -16,7 +16,7 @@ export const faqs: Faq[] = [
       </p>`,
   },
   {
-    question: 'Is the price base on the hours?',
+    question: 'Is the price based on the hours?',
     answer: `
       <p>
         That is correct. If you're having a local move with us, your final price
@@ -77,7 +77,7 @@ export const faqs: Faq[] = [
   },
   {
     question:
-      'Will you provide with moving pads for the furniture? Are those free of charge?',
+      'Will you provide moving blankets for the furniture? Are those free of charge?',
     answer: `
       <p>
         We provide free moving blankets for all moving jobs. However, we do not

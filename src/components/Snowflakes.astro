@@ -1,0 +1,397 @@
+---
+import type { HTMLAttributes } from 'astro/types';
+import { tv } from 'tailwind-variants';
+
+interface Props extends HTMLAttributes<'div'> {
+  /**
+   * Number of flakes per 100,000 px² of surface area. Higher = denser.
+   * The real count is derived from the rendered size and clamped by `maxCount`.
+   * @default 5
+   */
+  density?: number;
+  /**
+   * Hard upper bound on the flake count, regardless of density/size.
+   * @default 110
+   */
+  maxCount?: number;
+  /**
+   * Smallest flake radius in CSS pixels.
+   * @default 1.5
+   */
+  minSize?: number;
+  /**
+   * Largest flake radius in CSS pixels.
+   * @default 4
+   */
+  maxSize?: number;
+  /**
+   * Base fall speed in CSS pixels per second (flakes drift downward).
+   * @default 34
+   */
+  speed?: number;
+  /**
+   * Horizontal sway amplitude in CSS pixels per second.
+   * @default 24
+   */
+  sway?: number;
+  /**
+   * Maximum flake opacity (0–1).
+   * @default 0.9
+   */
+  opacity?: number;
+  /**
+   * Flake color (any CSS color value). Ignored when `images` are provided.
+   * @default white
+   */
+  color?: string;
+  /**
+   * Optional flake image URLs (e.g. PNGs). When provided, each flake is drawn
+   * from a randomly assigned image (aspect ratio preserved) instead of the
+   * built-in soft dot. Falls back to the drawn dot if an image fails to load.
+   * Use paths under `public/` (e.g. `/effects/snowflake.png`) or imported
+   * asset `.src` values.
+   */
+  images?: string[];
+}
+
+const snow = tv({
+  base: 'snowflakes pointer-events-none absolute inset-0 -z-10 size-full overflow-hidden',
+});
+
+const {
+  density = 5,
+  maxCount = 110,
+  minSize = 1.5,
+  maxSize = 4,
+  speed = 34,
+  sway = 24,
+  opacity = 0.9,
+  color = '#ffffff',
+  images = [],
+  class: className,
+  style,
+  ...rest
+} = Astro.props;
+
+const imagesAttr = images.join('|');
+---
+
+<div
+  class={snow({ class: className })}
+  style={`--snowflakes-color: ${color}; ${style ?? ''}`}
+  data-slot="snowflakes"
+  data-density={density}
+  data-max-count={maxCount}
+  data-min-size={minSize}
+  data-max-size={maxSize}
+  data-speed={speed}
+  data-sway={sway}
+  data-opacity={opacity}
+  data-images={imagesAttr}
+  aria-hidden="true"
+  {...rest}
+>
+  <canvas class="block size-full"></canvas>
+</div>
+
+<script>
+  interface Flake {
+    x: number;
+    y: number;
+    size: number;
+    /** Downward fall speed in px/s. */
+    fall: number;
+    /** Horizontal sway amplitude in px/s. */
+    sway: number;
+    /** Sway frequency in rad/s. */
+    swayFreq: number;
+    /** Sway phase offset in rad. */
+    swayPhase: number;
+    /** Index into the sprite list. */
+    sprite: number;
+    /** Peak opacity for this flake. */
+    alpha: number;
+  }
+
+  const initialized = new WeakSet<HTMLElement>();
+
+  function readNumber(el: HTMLElement, key: string, fallback: number) {
+    const value = Number(el.dataset[key]);
+    return Number.isFinite(value) ? value : fallback;
+  }
+
+  function rand(min: number, max: number) {
+    return min + Math.random() * (max - min);
+  }
+
+  function initSnowflakes(root: HTMLElement) {
+    if (initialized.has(root)) return;
+    initialized.add(root);
+
+    const canvas = root.querySelector('canvas');
+    if (!canvas) return;
+
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return;
+
+    const density = readNumber(root, 'density', 5);
+    const maxCount = readNumber(root, 'maxCount', 110);
+    const minSize = readNumber(root, 'minSize', 1.5);
+    const maxSize = readNumber(root, 'maxSize', 4);
+    const baseSpeed = readNumber(root, 'speed', 34);
+    const baseSway = readNumber(root, 'sway', 24);
+    const maxAlpha = readNumber(root, 'opacity', 0.9);
+
+    const reducedMotion = window.matchMedia(
+      '(prefers-reduced-motion: reduce)'
+    ).matches;
+
+    let flakes: Flake[] = [];
+    let width = 0;
+    let height = 0;
+    let dpr = 1;
+    let frameId = 0;
+    let running = false;
+    let visible = true;
+    let lastTime = 0;
+
+    // A sprite is any drawable source plus its aspect ratio (w / h) so
+    // non-square PNGs aren't distorted. Built either from the soft dot or from
+    // user-provided images.
+    type Sprite = { image: CanvasImageSource; aspect: number };
+    let sprites: Sprite[] = [];
+    const SPRITE_SIZE = 64;
+
+    const images = (root.dataset.images || '')
+      .split('|')
+      .map((s) => s.trim())
+      .filter(Boolean);
+
+    const abort = new AbortController();
+    const { signal } = abort;
+
+    const getColor = () =>
+      getComputedStyle(root).getPropertyValue('--snowflakes-color').trim() ||
+      '#ffffff';
+
+    const buildSprite = (): Sprite => {
+      const s = document.createElement('canvas');
+      s.width = SPRITE_SIZE;
+      s.height = SPRITE_SIZE;
+      const sctx = s.getContext('2d');
+      if (!sctx) return { image: s, aspect: 1 };
+
+      const r = SPRITE_SIZE / 2;
+      const gradient = sctx.createRadialGradient(r, r, 0, r, r, r);
+      gradient.addColorStop(0, 'rgba(255,255,255,1)');
+      gradient.addColorStop(0.45, 'rgba(255,255,255,0.9)');
+      gradient.addColorStop(1, 'rgba(255,255,255,0)');
+      sctx.fillStyle = gradient;
+      sctx.beginPath();
+      sctx.arc(r, r, r, 0, Math.PI * 2);
+      sctx.fill();
+
+      sctx.globalCompositeOperation = 'source-in';
+      sctx.fillStyle = getColor();
+      sctx.fillRect(0, 0, SPRITE_SIZE, SPRITE_SIZE);
+
+      return { image: s, aspect: 1 };
+    };
+
+    const loadImageSprites = (urls: string[]): Promise<Sprite[]> =>
+      Promise.all(
+        urls.map(
+          (url) =>
+            new Promise<Sprite | null>((resolve) => {
+              const img = new Image();
+              img.decoding = 'async';
+              img.onload = () =>
+                resolve({
+                  image: img,
+                  aspect: (img.naturalWidth || 1) / (img.naturalHeight || 1),
+                });
+              img.onerror = () => resolve(null);
+              img.src = url;
+            })
+        )
+      ).then((list) => list.filter((s): s is Sprite => s !== null));
+
+    const makeFlake = (atRandomY: boolean): Flake => ({
+      x: rand(0, width),
+      y: atRandomY ? rand(0, height) : rand(-maxSize * 3, -maxSize),
+      size: rand(minSize, maxSize),
+      fall: baseSpeed * rand(0.5, 1.4),
+      sway: baseSway * rand(0.4, 1.1),
+      swayFreq: rand(0.3, 0.9),
+      swayPhase: rand(0, Math.PI * 2),
+      sprite: Math.floor(Math.random() * sprites.length),
+      alpha: maxAlpha * rand(0.5, 1),
+    });
+
+    const buildFlakes = () => {
+      const area = width * height;
+      const target = Math.min(
+        maxCount,
+        Math.max(8, Math.round((area / 100_000) * density))
+      );
+      flakes = Array.from({ length: target }, () => makeFlake(true));
+    };
+
+    const drawFlake = (flake: Flake, alpha: number) => {
+      const sprite = sprites[flake.sprite];
+      if (!sprite) return;
+      const drawn = flake.size * 4;
+      // Fit the longest side to `drawn` so PNGs keep their aspect ratio.
+      const dw = sprite.aspect >= 1 ? drawn : drawn * sprite.aspect;
+      const dh = sprite.aspect >= 1 ? drawn / sprite.aspect : drawn;
+      ctx.globalAlpha = Math.max(0, Math.min(1, alpha));
+      ctx.drawImage(sprite.image, flake.x - dw / 2, flake.y - dh / 2, dw, dh);
+    };
+
+    const drawStatic = () => {
+      ctx.clearRect(0, 0, width, height);
+      for (const flake of flakes) drawFlake(flake, flake.alpha);
+      ctx.globalAlpha = 1;
+    };
+
+    const resize = () => {
+      const rect = root.getBoundingClientRect();
+      width = Math.max(1, Math.floor(rect.width));
+      height = Math.max(1, Math.floor(rect.height));
+      dpr = Math.min(window.devicePixelRatio || 1, 2);
+
+      canvas.width = Math.floor(width * dpr);
+      canvas.height = Math.floor(height * dpr);
+      canvas.style.width = `${width}px`;
+      canvas.style.height = `${height}px`;
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+
+      buildFlakes();
+      if (reducedMotion) drawStatic();
+    };
+
+    const step = (time: number) => {
+      const dt = Math.min(0.05, (time - lastTime) / 1000 || 0);
+      lastTime = time;
+      const t = time / 1000;
+
+      ctx.clearRect(0, 0, width, height);
+
+      for (const flake of flakes) {
+        flake.y += flake.fall * dt;
+        flake.x +=
+          Math.sin(t * flake.swayFreq + flake.swayPhase) * flake.sway * dt;
+
+        const margin = flake.size * 3;
+        if (flake.y - margin > height) {
+          flake.y = -margin;
+          flake.x = rand(0, width);
+        }
+        if (flake.x < -margin) flake.x = width + margin;
+        else if (flake.x > width + margin) flake.x = -margin;
+
+        drawFlake(flake, flake.alpha);
+      }
+
+      ctx.globalAlpha = 1;
+    };
+
+    const loop = (time: number) => {
+      if (!running) return;
+      step(time);
+      frameId = window.requestAnimationFrame(loop);
+    };
+
+    const start = () => {
+      if (reducedMotion || running || !visible) return;
+      running = true;
+      lastTime = performance.now();
+      frameId = window.requestAnimationFrame(loop);
+    };
+
+    const stop = () => {
+      running = false;
+      window.cancelAnimationFrame(frameId);
+    };
+
+    const intersection = new IntersectionObserver(
+      (entries) => {
+        visible = entries.some((entry) => entry.isIntersecting);
+        if (visible) start();
+        else stop();
+      },
+      { root: null, threshold: 0 }
+    );
+
+    root.addEventListener(
+      'contentvisibilityautostatechange',
+      (event) => {
+        const skipped = (event as ContentVisibilityAutoStateChangeEvent)
+          .skipped;
+        if (skipped) stop();
+        else if (visible) start();
+      },
+      { signal }
+    );
+
+    window.addEventListener(
+      'resize',
+      () => {
+        resize();
+        if (reducedMotion) drawStatic();
+      },
+      { signal }
+    );
+
+    const resizeObserver = new ResizeObserver(() => {
+      resize();
+      if (reducedMotion) drawStatic();
+    });
+
+    const setup = () => {
+      resizeObserver.observe(root);
+      intersection.observe(root);
+      resize();
+      if (reducedMotion) {
+        drawStatic();
+        return;
+      }
+      start();
+    };
+
+    if (images.length > 0) {
+      loadImageSprites(images).then((loaded) => {
+        sprites = loaded.length > 0 ? loaded : [buildSprite()];
+        setup();
+      });
+    } else {
+      sprites = [buildSprite()];
+      setup();
+    }
+
+    return () => {
+      stop();
+      abort.abort();
+      resizeObserver.disconnect();
+      intersection.disconnect();
+    };
+  }
+
+  function initAll() {
+    document
+      .querySelectorAll<HTMLElement>('[data-slot="snowflakes"]')
+      .forEach((root) => initSnowflakes(root));
+  }
+
+  document.addEventListener('astro:page-load', initAll);
+  if (document.readyState !== 'loading') initAll();
+</script>
+
+<style>
+  @media (prefers-reduced-motion: no-preference) {
+    .snowflakes {
+      content-visibility: auto;
+      contain-intrinsic-size: auto none auto 24rem;
+    }
+  }
+</style>

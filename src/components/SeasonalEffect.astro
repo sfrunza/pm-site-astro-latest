@@ -1,0 +1,62 @@
+---
+import CherryBlossom from '@/components/CherryBlossom.astro';
+import FallingLeaves from '@/components/FallingLeaves.astro';
+import FloatingParticles from '@/components/FloatingParticles.astro';
+import Snowflakes from '@/components/Snowflakes.astro';
+
+type Season = 'winter' | 'spring' | 'summer' | 'fall';
+
+interface Props {
+  /**
+   * Which seasonal effect to show.
+   * - `'auto'` (default): derived from the current month at build time.
+   *   ❄️ Dec–Feb → winter · 🌸 Mar–May → spring ·
+   *   ☀️ Jun–Aug → summer · 🍂 Sep–Nov → fall
+   * - A specific season: force it (handy for previewing).
+   *
+   * Note: with Astro's static output the "auto" season is fixed at build time,
+   * so it refreshes on each deploy/rebuild rather than live in the browser.
+   * @default 'auto'
+   */
+  season?: Season | 'auto';
+  /** Extra classes forwarded to the active effect's root element. */
+  class?: string;
+  /** Inline styles forwarded to the active effect's root element. */
+  style?: string;
+  /** Particle/leaf/petal/flake density per 100,000 px². */
+  density?: number;
+  /** Hard cap on the number of elements. */
+  maxCount?: number;
+  /** Smallest element size in CSS pixels. */
+  minSize?: number;
+  /** Largest element size in CSS pixels. */
+  maxSize?: number;
+  /** Base movement speed in CSS pixels per second. */
+  speed?: number;
+  /** Horizontal sway amplitude in CSS pixels per second. */
+  sway?: number;
+  /** Maximum opacity (0–1). */
+  opacity?: number;
+  /** Image URLs for the 🍂 fall leaves (falls back to drawn shapes). */
+  leafImages?: string[];
+  /** Image URLs for the ❄️ winter flakes (falls back to drawn shapes). */
+  snowImages?: string[];
+}
+
+const { season = 'auto', leafImages, snowImages, ...rest } = Astro.props;
+
+function seasonForMonth(month: number): Season {
+  if (month === 11 || month <= 1) return 'winter'; // Dec, Jan, Feb
+  if (month <= 4) return 'spring'; // Mar, Apr, May
+  if (month <= 7) return 'summer'; // Jun, Jul, Aug
+  return 'fall'; // Sep, Oct, Nov
+}
+
+const active: Season =
+  season === 'auto' ? seasonForMonth(new Date().getMonth()) : season;
+---
+
+{active === 'winter' && <Snowflakes images={snowImages} {...rest} />}
+{active === 'spring' && <CherryBlossom {...rest} />}
+{active === 'summer' && <FloatingParticles {...rest} />}
+{active === 'fall' && <FallingLeaves images={leafImages} {...rest} />}

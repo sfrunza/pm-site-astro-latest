@@ -9,17 +9,10 @@ import img1 from '@/assets/yelp-1.jpg';
 import img2 from '@/assets/yelp-2.jpg';
 import img3 from '@/assets/yelp-3.jpg';
 import img4 from '@/assets/yelp-4.jpg';
-import img6 from '@/assets/yelp-6.jpg';
-import img7 from '@/assets/yelp-7.jpg';
 import img9 from '@/assets/yelp-9.jpg';
 import img11 from '@/assets/yelp-11.jpg';
 import img12 from '@/assets/yelp-12.jpg';
-import img14 from '@/assets/yelp-14.jpg';
-import img15 from '@/assets/yelp-15.jpg';
 import img16 from '@/assets/yelp-16.jpg';
-import img17 from '@/assets/yelp-17.jpg';
-import img18 from '@/assets/yelp-18.jpg';
-import img19 from '@/assets/yelp-19.jpg';
 import Button from '@/components/starwind/button';
 import { ChevronLeftIcon, ChevronRightIcon, XIcon } from '@/icons';
 import { tv } from 'tailwind-variants';
@@ -29,19 +22,12 @@ type GalleryImage = typeof img1;
 const images: GalleryImage[] = [
   img1,
   img3,
-  img4,
-  img6,
   img12,
-  img7,
+  img4,
   img9,
   img11,
-  img14,
-  img15,
-  img16,
-  img17,
   img2,
-  img18,
-  img19,
+  img16,
 ];
 
 // Pre-generate optimized full-size versions for the lightbox so we serve
@@ -74,7 +60,7 @@ const rootClass = galleryRoot({ class: className });
 
 <Section class={rootClass}>
   <Container>
-    <SectionHeader label="Our Gallery" title="See Our Team At Work" />
+    <SectionHeader label="Our Gallery" title="See Our Team at Work" />
 
     <ul class="gallery-masonry" data-lightbox-grid>
       {

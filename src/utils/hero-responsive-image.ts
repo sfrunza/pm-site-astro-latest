@@ -31,7 +31,7 @@ export async function buildHeroResponsiveImage(
       srcset: images
         .map((img, i) => `${img.src} ${HERO_WIDTHS[i]}w`)
         .join(', '),
-      href: images[2].src,
+      href: images[0].src,
     };
   };
 

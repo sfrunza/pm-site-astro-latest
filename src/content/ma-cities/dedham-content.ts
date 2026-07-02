@@ -408,7 +408,7 @@ const dedhamKeywords = [
 ].join(', ');
 
 const dedhamSeo = {
-  title: `Dedham Movers | ${SITE.businessName} (Free Estimate)`,
+  title: `Dedham, MA Movers | ${SITE.businessName}`,
   description:
     'Dedham movers serving Norfolk County from our Natick HQ. Licensed local & long-distance moves, packing, storage. Free estimate—book your Dedham, MA move today.',
   serviceName: 'Dedham Moving Services',
@@ -460,7 +460,7 @@ export const dedhamPremium: CityPremiumContent = {
   breadcrumbLabel: 'Dedham Movers',
   sectionOrder: dedhamSectionOrder,
   hero: {
-    title: 'Dedham Movers',
+    title: 'Dedham, MA Movers',
     subtitle:
       'Licensed movers in Dedham, MA—residential, commercial, packing, and long-distance service across Norfolk County, dispatched from our Natick headquarters.',
   },
