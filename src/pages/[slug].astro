@@ -110,7 +110,6 @@ const seo = await fetchPageSeo(Astro.url, {
   pathname,
   breadcrumbs: [
     { name: 'Home', path: '/' },
-    { name: 'Local Moving', path: '/local-moving' },
     { name: city.fullName, path: pathname },
   ],
   service: {
@@ -136,6 +135,7 @@ const seo = await fetchPageSeo(Astro.url, {
     bgImage={cityHero}
     title={`${city.name}, ${city.state} Movers`}
     subtitle={`Licensed ${city.name}, ${city.state} movers for local, long-distance, packing, and storage moves.`}
+    breadcrumbs={seo.breadcrumbItems}
   />
   <Services1
     label={`${city.name} Moving Services`}

@@ -4,7 +4,7 @@ import { BUSINESS_ID } from '@/seo/constants';
 const fallbackAggregateRating = {
   '@type': 'AggregateRating',
   ratingValue: '4.98',
-  reviewCount: '243',
+  reviewCount: '329',
   bestRating: '5',
 };
 

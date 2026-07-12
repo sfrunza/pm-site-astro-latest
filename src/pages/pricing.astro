@@ -1,19 +1,22 @@
 ---
-import Carousel2 from '@/blocks/carousel/Carousel2.astro';
+import CarouselSupplies from '@/blocks/carousel/CarouselSupplies.astro';
 import Layout from '@/layouts/Layout.astro';
 import Pricing1 from '@/blocks/pricing/Pricing1.astro';
-import Hero2 from '@/components/Hero2.astro';
+import Hero2, { getHero2LcpPreload } from '@/components/Hero2.astro';
 import heroBg from '@/assets/heros/pricing.jpg';
 import CTA1 from '@/blocks/cta/CTA1.astro';
 import RelatedServices from '@/blocks/related/RelatedServices.astro';
 import FAQ1 from '@/blocks/faq/FAQ1.astro';
-import { fetchPageSeo } from '@/seo';
+import { fetchPageSeo, getSocialImageUrl } from '@/seo';
 import { getRelatedLinks, getServiceFaqs } from '@/config/service-faqs';
 import { servicePageJsonLd } from '@/seo/service-page-schema';
 import { SITE } from '@/config/site';
 
 const pathname = Astro.url.pathname;
 const pageFaqs = getServiceFaqs(pathname);
+const lcpPreload = await getHero2LcpPreload(heroBg);
+const socialImageUrl = await getSocialImageUrl(heroBg);
+
 const seo = await fetchPageSeo(Astro.url, {
   title: `Moving Prices & Rates | ${SITE.businessName}`,
   description:
@@ -24,19 +27,26 @@ const seo = await fetchPageSeo(Astro.url, {
     { name: 'Home', path: '/' },
     { name: 'Pricing', path: '/pricing' },
   ],
+  ogImage: socialImageUrl,
   jsonLdExtra: servicePageJsonLd(pathname),
 });
 ---
 
-<Layout {...seo}>
+<Layout {...seo} lcpPreload={lcpPreload}>
   <Hero2
     bgImage={heroBg}
     title="Moving Prices & Rates"
     subtitle="Compare Boston moving prices for local, long-distance, packing, and storage — then choose the plan that fits your move."
+    breadcrumbs={seo.breadcrumbItems}
   />
-  <Pricing1 />
-  <Carousel2 />
-  <RelatedServices links={getRelatedLinks(pathname)} />
-  <FAQ1 items={pageFaqs} />
-  <CTA1 />
+
+  <Pricing1 class="defer-section" />
+
+  <CarouselSupplies class="defer-section" />
+
+  <RelatedServices links={getRelatedLinks(pathname)} class="defer-section" />
+
+  <FAQ1 items={pageFaqs} class="defer-section" />
+
+  <CTA1 class="defer-section" />
 </Layout>

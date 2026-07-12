@@ -84,7 +84,8 @@ const options = [
 ---
 
 <Layout {...seo} lcpPreload={lcpPreload}>
-  <Hero2 bgImage={heroBg} title="Storage Solutions" />
+  <Hero2 bgImage={heroBg} title="Storage Solutions" breadcrumbs={seo.breadcrumbItems} />
+
   <Feature3
     features={[
       'Secure Storage Facilities',
@@ -97,8 +98,8 @@ const options = [
     ]}
   />
 
-  <!-- Storage Solutions -->
   <FeatureImageLeft
+    class="defer-section"
     title="Welcome to Our Storage Services."
     subtitle=`${SITE.businessShortName} offers a variety of storage solutions to meet your needs, whether you require short-term, long-term, or overnight storage. Our services are designed to provide convenience, affordability, and peace of mind for all your storage needs.`
     image={storageUnits}
@@ -133,6 +134,7 @@ const options = [
   </FeatureImageLeft>
 
   <Feature2
+    class="defer-section"
     title="Why Choose Us As Your Storage Solutions?"
     features={[
       {
@@ -174,8 +176,11 @@ const options = [
     ]}
   />
 
-  <CTA2 />
-  <RelatedServices links={getRelatedLinks(pathname)} />
-  <FAQ1 items={pageFaqs} />
-  <CTA1 />
+  <CTA2 class="defer-section" />
+
+  <RelatedServices links={getRelatedLinks(pathname)} class="defer-section" />
+
+  <FAQ1 items={pageFaqs} class="defer-section" />
+
+  <CTA1 class="defer-section" />
 </Layout>

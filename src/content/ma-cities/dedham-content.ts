@@ -25,7 +25,7 @@ const dedhamTrustFeatures = [
   'Natick HQ · 18 Lakeview Gardens',
   'Fully insured crews',
   'Free moving estimates',
-  '4.98★ average (243 reviews)',
+  '4.98★ average (329 reviews)',
 ];
 
 const dedhamWhyChooseFeatures = [

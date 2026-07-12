@@ -45,6 +45,7 @@ const seo = await fetchPageSeo(Astro.url, {
     bgImage={heroBg}
     title="Moving Tips & Guides Blog"
     subtitle="Practical advice for local and long-distance moves across Greater Boston and Massachusetts — from budgeting and packing to move-day prep."
+    breadcrumbs={seo.breadcrumbItems}
   />
 
   <Section>

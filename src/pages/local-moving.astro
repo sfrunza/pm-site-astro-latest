@@ -2,7 +2,7 @@
 import heroBg from '@/assets/heros/local-moving.jpg';
 import cardImage1 from '@/assets/yelp-2.jpg';
 import cardImage2 from '@/assets/yelp-14.jpg';
-import Carousel1 from '@/blocks/carousel/Carousel1.astro';
+import CarouselPhotos from '@/blocks/carousel/CarouselPhotos.astro';
 import Cities1 from '@/blocks/cities/Cities1.astro';
 import CTA1 from '@/blocks/cta/CTA1.astro';
 import CTA2 from '@/blocks/cta/CTA2.astro';
@@ -65,6 +65,7 @@ const seo = await fetchPageSeo(Astro.url, {
     bgImage={heroBg}
     title="Local Moving"
     subtitle="Boston local movers with experienced crews for residential and commercial moves, packing, and storage across Greater Boston."
+    breadcrumbs={seo.breadcrumbItems}
   />
 
   <Feature3
@@ -226,7 +227,7 @@ const seo = await fetchPageSeo(Astro.url, {
           </CardHeader>
           <CardContent>
             <p>
-              If you require solely loading or unloading assistance, ${
+              If you require solely loading or unloading assistance, {
                 SITE.businessShortName
               } Company has you covered. Our dedicated team ensures efficient and
               secure loading, or unloading, of your belongings, making your move hassle-free.
@@ -245,13 +246,15 @@ const seo = await fetchPageSeo(Astro.url, {
     class="defer-section"
   />
 
-  <Carousel1 class="defer-section" />
+  <CarouselPhotos class="defer-section" />
 
   <CTA2 class="defer-section" />
 
   <Cities1 class="defer-section" />
 
   <RelatedServices links={getRelatedLinks(pathname)} class="defer-section" />
+
   <FAQ1 items={pageFaqs} class="defer-section" />
+
   <CTA1 class="defer-section" />
 </Layout>

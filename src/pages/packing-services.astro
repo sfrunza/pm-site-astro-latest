@@ -1,7 +1,7 @@
 ---
 import heroBg from '@/assets/heros/packing-services.jpg';
 import cardImage1 from '@/assets/two-movers-packing-kitchen.jpeg';
-import Carousel2 from '@/blocks/carousel/Carousel2.astro';
+import CarouselSupplies from '@/blocks/carousel/CarouselSupplies.astro';
 import CTA1 from '@/blocks/cta/CTA1.astro';
 import CTA2 from '@/blocks/cta/CTA2.astro';
 import FAQ1 from '@/blocks/faq/FAQ1.astro';
@@ -55,7 +55,8 @@ const seo = await fetchPageSeo(Astro.url, {
 ---
 
 <Layout {...seo} lcpPreload={lcpPreload}>
-  <Hero2 bgImage={heroBg} title="Packing Services" />
+  <Hero2 bgImage={heroBg} title="Packing Services" breadcrumbs={seo.breadcrumbItems} />
+
   <Feature3
     features={[
       'Flat Rate Pricing',
@@ -185,15 +186,22 @@ const seo = await fetchPageSeo(Astro.url, {
       </div>
     </Container>
   </Section>
-  <Carousel2 class="defer-section" />
+
+  <CarouselSupplies class="defer-section" />
   <!-- <MoveSuppliesCalculator1 class="defer-section" /> -->
+
   <Packages class="defer-section" />
+
   <Feature2
     title="Why Choose Us As Your Packing Services?"
     class="defer-section"
   />
+
   <CTA2 class="defer-section" />
+
   <RelatedServices links={getRelatedLinks(pathname)} class="defer-section" />
+
   <FAQ1 items={pageFaqs} class="defer-section" />
+
   <CTA1 class="defer-section" />
 </Layout>

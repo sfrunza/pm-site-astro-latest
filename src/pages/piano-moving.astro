@@ -2,7 +2,7 @@
 import heroBg from '@/assets/heros/piano-movers.jpg';
 import cardImage1 from '@/assets/yelp-9.jpg';
 import cardImage2 from '@/assets/moving-piano-opt.jpg';
-import Carousel2 from '@/blocks/carousel/Carousel2.astro';
+import CarouselSupplies from '@/blocks/carousel/CarouselSupplies.astro';
 import Cities1 from '@/blocks/cities/Cities1.astro';
 import CTA1 from '@/blocks/cta/CTA1.astro';
 import CTA2 from '@/blocks/cta/CTA2.astro';
@@ -65,6 +65,7 @@ const seo = await fetchPageSeo(Astro.url, {
     bgImage={heroBg}
     title="Piano Moving"
     subtitle="Boston piano movers with specialized equipment, trained crews, and careful handling for upright, baby grand, and grand pianos."
+    breadcrumbs={seo.breadcrumbItems}
   />
 
   <Feature3
@@ -271,7 +272,7 @@ const seo = await fetchPageSeo(Astro.url, {
     class="defer-section"
   />
 
-  <Carousel2 class="defer-section" />
+  <CarouselSupplies class="defer-section" />
 
   <CTA2
     title="Ready to move your piano?"
@@ -282,7 +283,9 @@ const seo = await fetchPageSeo(Astro.url, {
 
   <Cities1 class="defer-section" />
 
-  <RelatedServices links={getRelatedLinks(pathname)} />
+  <RelatedServices links={getRelatedLinks(pathname)} class="defer-section" />
+
   <FAQ1 items={pageFaqs} class="defer-section" />
+
   <CTA1 class="defer-section" />
 </Layout>

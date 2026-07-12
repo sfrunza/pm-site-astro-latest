@@ -1,9 +1,7 @@
-import { defineConfig, fontProviders } from 'astro/config';
-
-import tailwindcss from '@tailwindcss/vite';
-
-import sitemap from '@astrojs/sitemap';
 import mdx from '@astrojs/mdx';
+import sitemap from '@astrojs/sitemap';
+import tailwindcss from '@tailwindcss/vite';
+import { defineConfig, fontProviders } from 'astro/config';
 
 // https://astro.build/config
 export default defineConfig({
@@ -17,11 +15,7 @@ export default defineConfig({
   compressHTML: true,
   vite: {
     plugins: [tailwindcss()],
-    // optimizeDeps: {
-    //   include: ['astro/toolbar'],
-    // },
   },
-
   image: {
     remotePatterns: [
       {

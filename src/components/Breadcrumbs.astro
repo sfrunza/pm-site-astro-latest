@@ -1,0 +1,70 @@
+---
+import type { BreadcrumbItem } from '@/seo/breadcrumbs';
+import { ChevronRightIcon } from '@/icons';
+
+interface Props {
+  items: BreadcrumbItem[];
+  /** `light` for hero overlays; `default` for light page backgrounds. */
+  variant?: 'light' | 'default';
+  class?: string;
+}
+
+const { items, variant = 'default', class: className } = Astro.props;
+
+if (items.length < 2) {
+  throw new Error(
+    'Breadcrumbs requires at least two items (Home + current page).'
+  );
+}
+
+const pathname = Astro.url.pathname.replace(/\/$/, '') || '/';
+
+const linkClass =
+  variant === 'light'
+    ? 'text-neutral-100 transition-colors hover:text-white'
+    : 'text-muted-foreground transition-colors hover:text-foreground';
+
+const currentClass =
+  variant === 'light'
+    ? 'truncate font-medium text-white'
+    : 'truncate font-medium text-foreground';
+
+const separatorClass =
+  variant === 'light' ? 'text-neutral-100' : 'text-muted-foreground';
+---
+
+<nav aria-label="Breadcrumb" class:list={className}>
+  <ol class="flex flex-wrap items-center gap-x-1.5 gap-y-1">
+    {
+      items.map((item, index) => {
+        const isLast = index === items.length - 1;
+        const href = item.path.replace(/\/$/, '') || '/';
+        const isCurrent = isLast || href === pathname;
+
+        return (
+          <li class="flex min-w-0 items-center gap-1.5">
+            {index > 0 && (
+              <ChevronRightIcon
+                class:list={['size-3.5 shrink-0', separatorClass]}
+                aria-hidden="true"
+              />
+            )}
+            {isCurrent ? (
+              <span
+                class:list={[currentClass, isLast && 'max-w-[min(100%,20rem)]']}
+                aria-current="page"
+                title={item.name}
+              >
+                {item.name}
+              </span>
+            ) : (
+              <a href={item.path} class:list={[linkClass, 'whitespace-nowrap']}>
+                {item.name}
+              </a>
+            )}
+          </li>
+        );
+      })
+    }
+  </ol>
+</nav>

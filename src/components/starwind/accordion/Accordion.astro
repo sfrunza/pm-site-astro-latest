@@ -1,26 +1,20 @@
 ---
-import type { HTMLAttributes } from 'astro/types';
-import { tv } from 'tailwind-variants';
+import type { HTMLAttributes } from "astro/types";
 
-type Props = HTMLAttributes<'div'> & {
+import { accordion } from "./variants";
+
+type Props = HTMLAttributes<"div"> & {
   /**
    * The type of accordion.  If "single", only one item can be open at a time.
    */
-  type?: 'single' | 'multiple';
+  type?: "single" | "multiple";
   /**
    * The value of the item that should be open by default
    */
   defaultValue?: string;
 };
 
-export const accordion = tv({ base: 'starwind-accordion flex flex-col gap-4' });
-
-const {
-  type = 'single',
-  defaultValue,
-  class: className,
-  ...rest
-} = Astro.props;
+const { type = "single", defaultValue, class: className, ...rest } = Astro.props;
 ---
 
 <div
@@ -34,8 +28,8 @@ const {
 </div>
 
 <script>
-  type AccordionType = 'single' | 'multiple';
-  type AccordionState = 'open' | 'closed';
+  type AccordionType = "single" | "multiple";
+  type AccordionState = "open" | "closed";
 
   /** Represents a single accordion item with its associated elements */
   interface AccordionItem {
@@ -65,7 +59,7 @@ const {
      */
     constructor(accordion: HTMLElement, idx: number) {
       this.accordion = accordion;
-      this.type = (accordion.dataset.type || 'single') as AccordionType;
+      this.type = (accordion.dataset.type || "single") as AccordionType;
       this.accordionId = `starwind-accordion${idx}`;
 
       // Cache all items and create lookup maps
@@ -82,17 +76,11 @@ const {
      * @returns Array of AccordionItem objects
      */
     private initializeItems(): AccordionItem[] {
-      return Array.from(
-        this.accordion.querySelectorAll<HTMLElement>('.starwind-accordion-item')
-      )
+      return Array.from(this.accordion.querySelectorAll<HTMLElement>(".starwind-accordion-item"))
         .map((element, idx) => {
-          const trigger = element.querySelector<HTMLElement>(
-            '.starwind-accordion-trigger'
-          );
-          const content = element.querySelector<HTMLElement>(
-            '.starwind-accordion-content'
-          );
-          const value = element.getAttribute('data-value') || String(idx);
+          const trigger = element.querySelector<HTMLElement>(".starwind-accordion-trigger");
+          const content = element.querySelector<HTMLElement>(".starwind-accordion-content");
+          const value = element.getAttribute("data-value") || String(idx);
 
           if (!trigger || !content) return null;
 
@@ -107,6 +95,7 @@ const {
     private setupItems(): void {
       this.items.forEach((item, idx) => {
         this.setupAccessibility(item, idx);
+        this.setContentHeight(item.content);
         this.setupEventListeners(item);
       });
     }
@@ -121,27 +110,23 @@ const {
       const contentId = `${this.accordionId}-c${idx}`;
 
       item.trigger.id = triggerId;
-      item.trigger.setAttribute('aria-controls', contentId);
-      item.trigger.setAttribute('aria-expanded', 'false');
+      item.trigger.setAttribute("aria-controls", contentId);
+      item.trigger.setAttribute("aria-expanded", "false");
 
       item.content.id = contentId;
-      item.content.setAttribute('aria-labelledby', triggerId);
-      item.content.setAttribute('role', 'region');
+      item.content.setAttribute("aria-labelledby", triggerId);
+      item.content.setAttribute("role", "region");
     }
 
     /**
-     * Calculates and sets the content height CSS variable for animations.
-     * Uses scrollHeight so closed panels can be measured without layout reads
-     * during initial page setup.
+     * Calculates and sets the content height CSS variable for animations
+     * @param content - The content element to measure
      */
     private setContentHeight(content: HTMLElement): void {
       const contentInner = content.firstElementChild as HTMLElement;
       if (contentInner) {
-        const height = contentInner.scrollHeight;
-        content.style.setProperty(
-          '--starwind-accordion-content-height',
-          `${height}px`
-        );
+        const height = contentInner.getBoundingClientRect().height;
+        content.style.setProperty("--starwind-accordion-content-height", `${height}px`);
       }
     }
 
@@ -163,10 +148,8 @@ const {
      * @param item - The accordion item to setup listeners for
      */
     private setupEventListeners(item: AccordionItem): void {
-      item.trigger.addEventListener('click', () => this.handleClick(item));
-      item.trigger.addEventListener('keydown', (e) =>
-        this.handleKeyDown(e, item)
-      );
+      item.trigger.addEventListener("click", () => this.handleClick(item));
+      item.trigger.addEventListener("keydown", (e) => this.handleKeyDown(e, item));
     }
 
     /**
@@ -174,7 +157,7 @@ const {
      * @param item - The clicked accordion item
      */
     private handleClick(item: AccordionItem): void {
-      const isOpen = item.element.getAttribute('data-state') === 'open';
+      const isOpen = item.element.getAttribute("data-state") === "open";
       this.toggleItem(item, !isOpen);
     }
 
@@ -215,13 +198,10 @@ const {
      * @param shouldOpen - Whether the item should be opened
      */
     private toggleItem(item: AccordionItem, shouldOpen: boolean): void {
-      if (this.type === 'single' && shouldOpen) {
+      if (this.type === "single" && shouldOpen) {
         // Close other items if in single mode
         this.items.forEach((otherItem) => {
-          if (
-            otherItem !== item &&
-            otherItem.element.getAttribute('data-state') === 'open'
-          ) {
+          if (otherItem !== item && otherItem.element.getAttribute("data-state") === "open") {
             this.setItemState(otherItem, false);
           }
         });
@@ -236,25 +216,22 @@ const {
      * @param isOpen - Whether the item should be open
      */
     private setItemState(item: AccordionItem, isOpen: boolean): void {
-      const state: AccordionState = isOpen ? 'open' : 'closed';
-      const wasOpen = item.element.getAttribute('data-state') === 'open';
+      const state: AccordionState = isOpen ? "open" : "closed";
 
       // Skip animation during initial setup, enable for subsequent toggles
       if (!this.isInitialized) {
-        item.content.style.setProperty('animation', 'none');
+        item.content.style.setProperty("animation", "none");
       } else {
-        item.content.style.removeProperty('animation');
+        item.content.style.removeProperty("animation");
       }
 
-      // Measure only when a panel opens or closes — not for idle closed items
-      if (isOpen || wasOpen) {
-        this.setContentHeight(item.content);
-      }
+      // Set content height variable for animations
+      this.setContentHeight(item.content);
 
-      item.element.setAttribute('data-state', state);
-      item.content.setAttribute('data-state', state);
-      item.trigger.setAttribute('data-state', state);
-      item.trigger.setAttribute('aria-expanded', isOpen.toString());
+      item.element.setAttribute("data-state", state);
+      item.content.setAttribute("data-state", state);
+      item.trigger.setAttribute("data-state", state);
+      item.trigger.setAttribute("aria-expanded", isOpen.toString());
     }
   }
 
@@ -263,23 +240,14 @@ const {
   let accordionCounter = 0;
 
   const setupAccordions = () => {
-    document
-      .querySelectorAll<HTMLElement>('.starwind-accordion')
-      .forEach((accordion) => {
-        if (!accordionInstances.has(accordion)) {
-          accordionInstances.set(
-            accordion,
-            new AccordionHandler(accordion, accordionCounter++)
-          );
-        }
-      });
+    document.querySelectorAll<HTMLElement>(".starwind-accordion").forEach((accordion) => {
+      if (!accordionInstances.has(accordion)) {
+        accordionInstances.set(accordion, new AccordionHandler(accordion, accordionCounter++));
+      }
+    });
   };
 
-  const scheduleAccordionSetup = () => {
-    requestAnimationFrame(setupAccordions);
-  };
-
-  scheduleAccordionSetup();
-  document.addEventListener('astro:after-swap', scheduleAccordionSetup);
-  document.addEventListener('starwind:init', scheduleAccordionSetup);
+  setupAccordions();
+  document.addEventListener("astro:after-swap", setupAccordions);
+  document.addEventListener("starwind:init", setupAccordions);
 </script>

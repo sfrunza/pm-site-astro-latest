@@ -17,7 +17,7 @@ import {
 } from '@/components/starwind/card';
 import Button from '@/components/starwind/button';
 import Feature2 from '@/blocks/feature/Feature2.astro';
-import Carousel1 from '@/blocks/carousel/Carousel1.astro';
+import CarouselPhotos from '@/blocks/carousel/CarouselPhotos.astro';
 import CTA2 from '@/blocks/cta/CTA2.astro';
 import RelatedServices from '@/blocks/related/RelatedServices.astro';
 import { fetchPageSeo, getSocialImageUrl } from '@/seo';
@@ -57,7 +57,9 @@ const seo = await fetchPageSeo(Astro.url, {
     bgImage={heroBg}
     title="Interstate Moving"
     subtitle="Interstate moving services with experienced movers. Residential and commercial moves, packing services, and storage solutions."
+    breadcrumbs={seo.breadcrumbItems}
   />
+
   <Feature3
     features={[
       'Flat Rate Pricing',
@@ -70,7 +72,8 @@ const seo = await fetchPageSeo(Astro.url, {
       'Safety and Security',
     ]}
   />
-  <Section>
+
+  <Section class="defer-section">
     <Container class="@container">
       <div class="grid @2xl:grid-cols-2 @4xl:grid-cols-3 gap-6">
         <!-- 1st card -->
@@ -178,10 +181,19 @@ const seo = await fetchPageSeo(Astro.url, {
       </div>
     </Container>
   </Section>
-  <Feature2 title="Why Choose Us As Your Long-Distance Movers?" />
-  <Carousel1 />
-  <CTA2 />
-  <RelatedServices links={getRelatedLinks(pathname)} />
-  <FAQ1 items={pageFaqs} />
-  <CTA1 />
+
+  <Feature2
+    title="Why Choose Us As Your Long-Distance Movers?"
+    class="defer-section"
+  />
+
+  <CarouselPhotos class="defer-section" />
+
+  <CTA2 class="defer-section" />
+
+  <RelatedServices links={getRelatedLinks(pathname)} class="defer-section" />
+
+  <FAQ1 items={pageFaqs} class="defer-section" />
+
+  <CTA1 class="defer-section" />
 </Layout>

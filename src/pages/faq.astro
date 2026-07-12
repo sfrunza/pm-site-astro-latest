@@ -46,6 +46,7 @@ const seo = await fetchPageSeo(Astro.url, {
     bgImage={heroBg}
     title="Frequently Asked Questions"
     subtitle="Answers to your questions about our moving services."
+    breadcrumbs={seo.breadcrumbItems}
   />
   <FAQ1 />
   <RelatedServices

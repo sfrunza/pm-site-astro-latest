@@ -25,7 +25,7 @@ const newtonTrustFeatures = [
   'Newton office · 174 Adams St',
   'Fully insured crews',
   'Free moving estimates',
-  '4.98★ average (243 reviews)',
+  '4.98★ average (329 reviews)',
 ];
 
 const newtonWhyChooseFeatures = [

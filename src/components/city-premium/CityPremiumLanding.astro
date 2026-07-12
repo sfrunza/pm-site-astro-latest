@@ -10,6 +10,7 @@ import {
   type CityPremiumContent,
 } from '@/config/city-premium/types';
 import { SITE } from '@/config/site';
+import type { BreadcrumbItem } from '@/seo/breadcrumbs';
 import type { ImageMetadata } from 'astro';
 import BlogPreview1 from '@/blocks/blog/BlogPreview1.astro';
 import Cities1 from '@/blocks/cities/Cities1.astro';
@@ -18,16 +19,22 @@ interface Props {
   content: CityPremiumContent;
   cityHero: ImageMetadata;
   cityLogo: ImageMetadata;
+  breadcrumbs?: BreadcrumbItem[];
 }
 
-const { content, cityHero, cityLogo } = Astro.props;
+const { content, cityHero, cityLogo, breadcrumbs } = Astro.props;
 const c = content;
 const office = SITE.businessAddresses[c.intro.officeIndex ?? 0];
 const phoneTel = SITE.contactPhone;
 const sectionOrder = c.sectionOrder ?? DEFAULT_CITY_PREMIUM_SECTION_ORDER;
 ---
 
-<Hero2 bgImage={cityHero} title={c.hero.title} subtitle={c.hero.subtitle} />
+<Hero2
+  bgImage={cityHero}
+  title={c.hero.title}
+  subtitle={c.hero.subtitle}
+  breadcrumbs={breadcrumbs}
+/>
 
 <Feature3 features={c.trustFeatures} />
 

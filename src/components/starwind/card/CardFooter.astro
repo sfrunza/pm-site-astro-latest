@@ -1,12 +1,9 @@
 ---
-import type { HTMLAttributes } from 'astro/types';
-import { tv } from 'tailwind-variants';
+import type { HTMLAttributes } from "astro/types";
 
-type Props = HTMLAttributes<'div'>;
+import { cardFooter } from "./variants";
 
-export const cardFooter = tv({
-  base: 'bg-muted/50 flex items-center rounded-b-3xl border-t p-6 group-data-[size=sm]/card:p-4',
-});
+type Props = HTMLAttributes<"div">;
 
 const { class: className, ...rest } = Astro.props;
 ---

@@ -35,7 +35,7 @@ const allLinks: Record<string, NavigationItem[]> = {
 };
 ---
 
-<footer class="bg-neutral-900 relative @container">
+<footer class="bg-neutral-900 relative @container defer-section">
   <div class="relative mx-auto max-w-7xl px-6 py-16">
     <div class="relative w-full">
       <div class="flex w-full select-none justify-between pointer-events-none">
@@ -80,9 +80,12 @@ const allLinks: Record<string, NavigationItem[]> = {
           <a
             href="/"
             title="Home page"
+            aria-label={`${SITE.businessShortName} logo`}
             class="inline-block transition-opacity hover:opacity-90"
           >
-            <h2 class="sr-only">{SITE.businessName}</h2>
+            <h2 aria-label={`${SITE.businessShortName} logo`} class="sr-only">
+              {SITE.businessName}
+            </h2>
             <LogoWhite class="h-10 w-auto" />
           </a>
 
@@ -94,7 +97,7 @@ const allLinks: Record<string, NavigationItem[]> = {
 
           <p class="text-sm text-white/70">
             <span class="font-semibold text-white">4.98★</span> average rating ·
-            <span class="font-medium text-white">329+</span> customer reviews on{
+            <span class="font-medium text-white">26+</span> customer reviews on{
               ' '
             }
             <a
@@ -102,6 +105,7 @@ const allLinks: Record<string, NavigationItem[]> = {
               class="text-secondary underline underline-offset-2"
               rel="noopener noreferrer"
               target="_blank"
+              aria-label="Yelp reviews"
             >
               Yelp
             </a>
@@ -133,13 +137,19 @@ const allLinks: Record<string, NavigationItem[]> = {
         {
           Object.entries(allLinks).map(([key, items]) => (
             <div class="space-y-6">
-              <h3 class="mb-6 text-sm font-semibold text-white/80">{key}</h3>
+              <h3
+                aria-label={key}
+                class="mb-6 text-sm font-semibold text-white/80"
+              >
+                {key}
+              </h3>
               <ul role="list" class="space-y-3.5">
                 {items.map((item) => (
                   <li>
                     {item.href ? (
                       <a
                         href={item.href}
+                        aria-label={item.name}
                         class="group inline-flex items-center text-sm text-white/60 transition-colors hover:text-white"
                       >
                         <span class="relative">{item.name}</span>

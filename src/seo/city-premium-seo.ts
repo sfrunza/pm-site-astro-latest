@@ -6,15 +6,14 @@ import {
   buildLocalMoverJsonLd,
   stripHtmlForSchema,
 } from '@/seo/json-ld';
-import { buildPageSeo } from '@/seo/page-seo';
-import type { AstroSeoProps } from '@/seo/types';
+import { buildPageSeo, type PageSeoResult } from '@/seo/page-seo';
 
 /** Fetches reviews once (cached per build) and builds city premium SEO. */
 export async function fetchCityPremiumPageSeo(
   content: CityPremiumContent,
   pageUrl: URL,
   socialImageUrl?: string,
-): Promise<AstroSeoProps> {
+): Promise<PageSeoResult> {
   const reviewsData = await getGoogleReviews();
   return buildCityPremiumPageSeo(content, pageUrl, socialImageUrl, reviewsData);
 }
@@ -24,7 +23,7 @@ function buildCityPremiumPageSeo(
   pageUrl: URL,
   socialImageUrl: string | undefined,
   reviewsData: Awaited<ReturnType<typeof getGoogleReviews>>,
-): AstroSeoProps {
+): PageSeoResult {
   const pathname = content.path;
 
   const areaServed = content.schema.areaServed ?? [
@@ -69,7 +68,6 @@ function buildCityPremiumPageSeo(
     pathname,
     breadcrumbs: [
       { name: 'Home', path: '/' },
-      { name: 'Local Moving', path: '/local-moving' },
       { name: content.breadcrumbLabel, path: pathname },
     ],
     service: {

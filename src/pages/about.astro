@@ -1,7 +1,7 @@
 ---
 import heroBg from '@/assets/heros/home.jpg';
 import featureImage from '@/assets/2-movers-and-truck-opt.jpg';
-import Carousel1 from '@/blocks/carousel/Carousel1.astro';
+import CarouselPhotos from '@/blocks/carousel/CarouselPhotos.astro';
 import Cities1 from '@/blocks/cities/Cities1.astro';
 import CTA1 from '@/blocks/cta/CTA1.astro';
 import CTA2 from '@/blocks/cta/CTA2.astro';
@@ -38,6 +38,7 @@ const seo = await fetchPageSeo(Astro.url, {
     bgImage={heroBg}
     title={`About ${SITE.businessName}`}
     subtitle="Professional movers serving Greater Boston and beyond — reliable, affordable, and focused on making your move stress-free."
+    breadcrumbs={seo.breadcrumbItems}
   />
 
   <Feature3
@@ -68,9 +69,8 @@ const seo = await fetchPageSeo(Astro.url, {
     <p>
       Our experienced team handles local and long-distance moves, packing and
       unpacking, loading and unloading, storage solutions, and more. We take
-      great pride in our commitment to
-      customer satisfaction and strive to make every move as stress-free as
-      possible.
+      great pride in our commitment to customer satisfaction and strive to make
+      every move as stress-free as possible.
     </p>
     <p>
       With competitive rates, reliable service, and a wide range of solutions
@@ -95,15 +95,16 @@ const seo = await fetchPageSeo(Astro.url, {
       confidence.
     </p>
     <p>
-      From our headquarters in <b>Natick</b> and our local office in <b>Newton</b>,
-      we serve residential and commercial customers throughout
-      Greater Boston, MetroWest, and Massachusetts — with long-distance coverage
-      across the United States.
+      From our headquarters in <b>Natick</b> and our local office in <b
+        >Newton</b
+      >, we serve residential and commercial customers throughout Greater
+      Boston, MetroWest, and Massachusetts — with long-distance coverage across
+      the United States.
     </p>
     <ul>
       <li>
-        <b>Two Massachusetts locations</b> — Natick and Newton for convenient,
-        local service.
+        <b>Two Massachusetts locations</b> — Natick and Newton for convenient, local
+        service.
       </li>
       <li>
         <b>Transparent pricing</b> — detailed upfront estimates with no hidden fees.
@@ -148,7 +149,7 @@ const seo = await fetchPageSeo(Astro.url, {
 
   <Cities1 class="defer-section" />
 
-  <Carousel1 class="defer-section" />
+  <CarouselPhotos class="defer-section" />
 
   <CTA1
     title="Ready to Move? Get Your Free Quote Today."

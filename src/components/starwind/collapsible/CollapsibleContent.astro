@@ -1,12 +1,9 @@
 ---
-import type { HTMLAttributes } from 'astro/types';
-import { tv } from 'tailwind-variants';
+import type { HTMLAttributes } from "astro/types";
 
-type Props = HTMLAttributes<'div'>;
+import { collapsibleContent } from "./variants";
 
-export const collapsibleContent = tv({
-  base: 'starwind-collapsible-content',
-});
+type Props = HTMLAttributes<"div">;
 
 const { class: className, ...rest } = Astro.props;
 ---

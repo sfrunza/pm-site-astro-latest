@@ -10,8 +10,7 @@ import {
   type BlogSeoPost,
 } from '@/seo/json-ld';
 import { buildOpenGraph } from '@/seo/open-graph';
-import { buildPageSeo } from '@/seo/page-seo';
-import type { AstroSeoProps } from '@/seo/types';
+import { buildPageSeo, type PageSeoResult } from '@/seo/page-seo';
 
 function articleImageUrls(image?: string): string[] {
   if (image) {
@@ -28,7 +27,7 @@ function buildBlogPostSeo(
   post: BlogSeoPost,
   displayTitle: string,
   reviewsData?: GooglePlaceReviews,
-): AstroSeoProps {
+): PageSeoResult {
   const pathname = normalizeCanonicalPath(post.pathname);
   const canonical = canonicalUrl(pathname);
   const ogTitle = displayTitle;
@@ -100,7 +99,7 @@ export async function fetchBlogPostSeo(
   pageUrl: URL,
   post: BlogSeoPost,
   displayTitle: string,
-): Promise<AstroSeoProps> {
+): Promise<PageSeoResult> {
   const reviewsData = await getGoogleReviews();
   return buildBlogPostSeo(pageUrl, post, displayTitle, reviewsData);
 }

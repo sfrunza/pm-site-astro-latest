@@ -1,19 +1,14 @@
 ---
-import type { HTMLAttributes } from 'astro/types';
-import { tv } from 'tailwind-variants';
+import type { HTMLAttributes } from "astro/types";
 
-export const prose = tv({
-  base: 'sw-prose max-w-[65ch]',
-});
+import { prose } from "./variants";
 
-type Props = HTMLAttributes<'div'>;
+type Props = HTMLAttributes<"div">;
 
 const { class: className, ...rest } = Astro.props;
 ---
 
-<div class:list={[prose({ class: className })]} {...rest} data-slot="prose">
-  <slot />
-</div>
+<div class:list={[prose({ class: className })]} {...rest} data-slot="prose"><slot /></div>
 
 <style is:global>
   /* ==========================================================================
@@ -47,48 +42,24 @@ const { class: className, ...rest } = Astro.props;
     /* ===================
      * Colors
      * =================== */
-    --sw-prose-color: var(
-      --prose-color,
-      --alpha(var(--color-foreground) / 80%)
-    );
-    --sw-prose-heading-color: var(
-      --prose-heading-color,
-      var(--color-foreground)
-    );
-    --sw-prose-list-marker-color: var(
-      --prose-list-marker-color,
-      var(--color-muted-foreground)
-    );
+    --sw-prose-color: var(--prose-color, --alpha(var(--color-foreground) / 80%));
+    --sw-prose-heading-color: var(--prose-heading-color, var(--color-foreground));
+    --sw-prose-list-marker-color: var(--prose-list-marker-color, var(--color-muted-foreground));
 
     /* ===================
      * Headings
      * =================== */
-    --sw-prose-heading-font: var(
-      --prose-heading-font,
-      var(--font-heading, inherit)
-    );
+    --sw-prose-heading-font: var(--prose-heading-font, var(--font-heading, inherit));
     --sw-prose-heading-weight: var(--prose-heading-weight, 600);
     --sw-prose-heading-line-height: var(--prose-heading-line-height, 1.25);
     --sw-prose-h1-size: var(--prose-h1-size, 2.25em);
-    --sw-prose-h1-weight: var(
-      --prose-h1-weight,
-      var(--sw-prose-heading-weight)
-    );
+    --sw-prose-h1-weight: var(--prose-h1-weight, var(--sw-prose-heading-weight));
     --sw-prose-h2-size: var(--prose-h2-size, 1.5em);
-    --sw-prose-h2-weight: var(
-      --prose-h2-weight,
-      var(--sw-prose-heading-weight)
-    );
+    --sw-prose-h2-weight: var(--prose-h2-weight, var(--sw-prose-heading-weight));
     --sw-prose-h3-size: var(--prose-h3-size, 1.25em);
-    --sw-prose-h3-weight: var(
-      --prose-h3-weight,
-      var(--sw-prose-heading-weight)
-    );
+    --sw-prose-h3-weight: var(--prose-h3-weight, var(--sw-prose-heading-weight));
     --sw-prose-h4-size: var(--prose-h4-size, 1em);
-    --sw-prose-h4-weight: var(
-      --prose-h4-weight,
-      var(--sw-prose-heading-weight)
-    );
+    --sw-prose-h4-weight: var(--prose-h4-weight, var(--sw-prose-heading-weight));
 
     /* ===================
      * Links
@@ -98,10 +69,7 @@ const { class: className, ...rest } = Astro.props;
       --prose-link-decoration-color,
       var(--color-primary-accent)
     );
-    --sw-prose-link-hover-color: var(
-      --prose-link-hover-color,
-      var(--color-primary-accent)
-    );
+    --sw-prose-link-hover-color: var(--prose-link-hover-color, var(--color-primary-accent));
 
     /* ===================
      * Strong/Bold
@@ -112,18 +80,9 @@ const { class: className, ...rest } = Astro.props;
     /* ===================
      * Blockquote
      * =================== */
-    --sw-prose-blockquote-color: var(
-      --prose-blockquote-color,
-      var(--color-foreground)
-    );
-    --sw-prose-blockquote-border-color: var(
-      --prose-blockquote-border-color,
-      var(--color-border)
-    );
-    --sw-prose-blockquote-border-width: var(
-      --prose-blockquote-border-width,
-      4px
-    );
+    --sw-prose-blockquote-color: var(--prose-blockquote-color, var(--color-foreground));
+    --sw-prose-blockquote-border-color: var(--prose-blockquote-border-color, var(--color-border));
+    --sw-prose-blockquote-border-width: var(--prose-blockquote-border-width, 4px);
 
     /* ===================
      * Inline Code
@@ -136,44 +95,26 @@ const { class: className, ...rest } = Astro.props;
     /* ===================
      * Pre / Code Blocks
      * =================== */
-    --sw-prose-pre-border-color: var(
-      --prose-pre-border-color,
-      var(--color-border)
-    );
-    --sw-prose-pre-border-radius: var(
-      --prose-pre-border-radius,
-      var(--radius-md)
-    );
+    --sw-prose-pre-border-color: var(--prose-pre-border-color, var(--color-border));
+    --sw-prose-pre-border-radius: var(--prose-pre-border-radius, var(--radius-md));
 
     /* ===================
      * Tables
      * =================== */
-    --sw-prose-table-heading-color: var(
-      --prose-table-heading-color,
-      var(--color-foreground)
-    );
-    --sw-prose-table-border-color: var(
-      --prose-table-border-color,
-      var(--color-border)
-    );
+    --sw-prose-table-heading-color: var(--prose-table-heading-color, var(--color-foreground));
+    --sw-prose-table-border-color: var(--prose-table-border-color, var(--color-border));
 
     /* ===================
      * Media (images, video, etc.)
      * =================== */
     --sw-prose-media-border-width: var(--prose-media-border-width, 0px);
-    --sw-prose-media-border-color: var(
-      --prose-media-border-color,
-      var(--color-border)
-    );
+    --sw-prose-media-border-color: var(--prose-media-border-color, var(--color-border));
     --sw-prose-media-border-radius: var(--prose-media-border-radius, 0);
 
     /* ===================
      * Mark/Highlight
      * =================== */
-    --sw-prose-highlight-color: var(
-      --prose-highlight-color,
-      var(--color-foreground)
-    );
+    --sw-prose-highlight-color: var(--prose-highlight-color, var(--color-foreground));
     --sw-prose-highlight-bg-color: var(
       --prose-highlight-bg-color,
       --alpha(var(--color-warning) / 30%)
@@ -189,18 +130,7 @@ const { class: className, ...rest } = Astro.props;
   /* Vertical rhythm - spacing between block elements */
   .sw-prose
     :not(a, strong, em, del, span, input, code, br, kbd)
-    + :not(
-      a,
-      strong,
-      em,
-      del,
-      span,
-      input,
-      code,
-      br,
-      kbd,
-      :where(.not-sw-prose *)
-    ) {
+    + :not(a, strong, em, del, span, input, code, br, kbd, :where(.not-sw-prose *)) {
     margin-top: var(--sw-prose-spacing);
   }
 
@@ -286,10 +216,7 @@ const { class: className, ...rest } = Astro.props;
     text-underline-offset: 0.15em;
     font-weight: 500;
     transition-property: color;
-    transition-timing-function: var(
-      --tw-ease,
-      var(--default-transition-timing-function)
-    );
+    transition-timing-function: var(--tw-ease, var(--default-transition-timing-function));
     transition-duration: var(--tw-duration, var(--default-transition-duration));
   }
 
@@ -461,13 +388,11 @@ const { class: className, ...rest } = Astro.props;
    * Images and Media
    * -------------------------------------------------------------------------- */
 
-  .sw-prose
-    :is(img, picture, video, canvas, svg, iframe):not(:where(.not-sw-prose *)) {
+  .sw-prose :is(img, picture, video, canvas, svg, iframe):not(:where(.not-sw-prose *)) {
     display: block;
     max-width: 100%;
     height: auto;
-    border: var(--sw-prose-media-border-width) solid
-      var(--sw-prose-media-border-color);
+    border: var(--sw-prose-media-border-width) solid var(--sw-prose-media-border-color);
     border-radius: var(--sw-prose-media-border-radius);
     margin-top: var(--sw-prose-spacing);
     margin-bottom: var(--sw-prose-spacing);
@@ -599,10 +524,7 @@ const { class: className, ...rest } = Astro.props;
     margin-top: var(--sw-prose-spacing);
     margin-bottom: var(--sw-prose-spacing);
     transition-property: border-color;
-    transition-timing-function: var(
-      --tw-ease,
-      var(--default-transition-timing-function)
-    );
+    transition-timing-function: var(--tw-ease, var(--default-transition-timing-function));
     transition-duration: var(--tw-duration, var(--default-transition-duration));
   }
 
@@ -635,7 +557,7 @@ const { class: className, ...rest } = Astro.props;
     --sw-details-marker-size: 1.25rem;
 
     background-color: currentColor;
-    content: '';
+    content: "";
     display: inline-block;
     height: var(--sw-details-marker-size);
     width: var(--sw-details-marker-size);
@@ -657,8 +579,8 @@ const { class: className, ...rest } = Astro.props;
     transform: rotateZ(90deg);
   }
 
-  [dir='rtl'] .sw-prose summary:not(:where(.not-sw-prose *))::before,
-  .sw-prose [dir='rtl'] summary:not(:where(.not-sw-prose *))::before {
+  [dir="rtl"] .sw-prose summary:not(:where(.not-sw-prose *))::before,
+  .sw-prose [dir="rtl"] summary:not(:where(.not-sw-prose *))::before {
     transform: rotateZ(180deg);
   }
 

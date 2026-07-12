@@ -1,17 +1,14 @@
 ---
-import type { HTMLAttributes } from 'astro/types';
-import { tv } from 'tailwind-variants';
+import type { HTMLAttributes } from "astro/types";
 
-type Props = HTMLAttributes<'div'> & {
+import { accordionItem } from "./variants";
+
+type Props = HTMLAttributes<"div"> & {
   /**
    * The value of the item
    */
   value: string;
 };
-
-export const accordionItem = tv({
-  base: 'starwind-accordion-item',
-});
 
 const { value, class: className, ...rest } = Astro.props;
 ---

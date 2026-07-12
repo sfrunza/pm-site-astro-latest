@@ -18,7 +18,12 @@
 
 // Page builders (what most .astro files import)
 export { buildPageSeo, fetchPageSeo } from '@/seo/page-seo';
-export type { PageSeoBuildInput, PageSeoInput } from '@/seo/page-seo';
+export type {
+  PageSeoBuildInput,
+  PageSeoInput,
+  PageSeoResult,
+} from '@/seo/page-seo';
+export type { BreadcrumbItem } from '@/seo/breadcrumbs';
 export { fetchHomeSeo, homeSeo } from '@/seo/home-seo';
 export { fetchBlogPostSeo } from '@/seo/blog-seo';
 export type { BlogSeoPost } from '@/seo/json-ld';

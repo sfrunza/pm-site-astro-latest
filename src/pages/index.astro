@@ -2,7 +2,7 @@
 import Layout from '../layouts/Layout.astro';
 import Hero, { getHomeHeroLcpPreload } from '@/components/Hero.astro';
 import Pricing1 from '@/blocks/pricing/Pricing1.astro';
-import Services1 from '@/blocks/services/Services1.astro';
+// import Services1 from '@/blocks/services/Services1.astro';
 import Feature1 from '@/blocks/feature/Feature1.astro';
 import CTA1 from '@/blocks/cta/CTA1.astro';
 import Cities1 from '@/blocks/cities/Cities1.astro';
@@ -27,6 +27,7 @@ import BlogPreview1 from '@/blocks/blog/BlogPreview1.astro';
 import MovingChecklist1 from '@/blocks/checklist/MovingChecklist1.astro';
 import LightboxGridGallery from '@/blocks/gallery/LightboxGridGallery.astro';
 import Container from '@/components/Container.astro';
+import Services2 from '@/blocks/services/Services2.astro';
 
 const [seo, lcpPreload] = await Promise.all([
   fetchHomeSeo(Astro.url),
@@ -42,8 +43,8 @@ const [seo, lcpPreload] = await Promise.all([
     class="bg-linear-to-t from-muted/50 to-transparent defer-section"
   />
 
-  <!-- Services -->
-  <Services1 class="defer-section" />
+  <!-- Services2-->
+  <Services2 class="defer-section bg-muted/50" />
 
   <!-- Pricing -->
   <Pricing1 class="defer-section" />

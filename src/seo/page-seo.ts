@@ -13,6 +13,7 @@ import {
 } from '@/seo/json-ld';
 import { buildBusinessRatingJsonLd } from '@/seo/reviews';
 import { buildOpenGraph, buildTwitter } from '@/seo/open-graph';
+import type { BreadcrumbItem } from '@/seo/breadcrumbs';
 import type { AstroSeoProps } from '@/seo/types';
 
 export type PageSeoInput = {
@@ -20,7 +21,7 @@ export type PageSeoInput = {
   description: string;
   keywords: string;
   pathname: string;
-  breadcrumbs: { name: string; path: string }[];
+  breadcrumbs: BreadcrumbItem[];
   service?: {
     name: string;
     description: string;
@@ -45,11 +46,15 @@ export type PageSeoBuildInput = PageSeoInput & {
   reviewsData?: GooglePlaceReviews;
 };
 
+export type PageSeoResult = AstroSeoProps & {
+  breadcrumbItems: BreadcrumbItem[];
+};
+
 /** Builds Layout SEO props from the current page URL and page-specific fields. */
 export function buildPageSeo(
   _pageUrl: URL,
   input: PageSeoBuildInput,
-): AstroSeoProps {
+): PageSeoResult {
   const pathname = normalizeCanonicalPath(input.pathname);
   const canonical = input.canonical ?? canonicalUrl(pathname);
 
@@ -99,6 +104,7 @@ export function buildPageSeo(
         ...(input.jsonLdExtra ?? []),
       ],
     },
+    breadcrumbItems: input.breadcrumbs,
   };
 }
 
@@ -106,7 +112,7 @@ export function buildPageSeo(
 export async function fetchPageSeo(
   pageUrl: URL,
   input: PageSeoInput,
-): Promise<AstroSeoProps> {
+): Promise<PageSeoResult> {
   const reviewsData = await getGoogleReviews();
   const pathname = normalizeCanonicalPath(input.pathname);
 

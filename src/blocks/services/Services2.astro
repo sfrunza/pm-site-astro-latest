@@ -1,0 +1,414 @@
+---
+import Container from '@/components/Container.astro';
+import Section from '@/components/Section.astro';
+import { Button } from '@/components/starwind/button';
+import { ArrowUpRightIcon } from '@/icons';
+import { services as defaultServices, type Service } from '@/config/services';
+import { SITE } from '@/config/site';
+import { tv } from 'tailwind-variants';
+import { card } from '@/components/starwind/card/variants';
+import { badge } from '@/components/starwind/badge/variants';
+
+type Props = {
+  class?: string;
+  label?: string;
+  title?: string;
+  subtitle?: string;
+  services?: Service[];
+};
+
+const services2 = tv({
+  base: 'service-card-fan-section relative isolate overflow-clip',
+});
+
+const {
+  class: className = '',
+  label = 'Our Services',
+  title = 'Our Moving Services',
+  subtitle = `${SITE.businessShortName} Boston is a premier moving company providing high-quality service across Greater Boston and beyond. We specialize in local, long-distance, commercial, and residential moves for a stress-free experience from start to finish.`,
+  services = defaultServices,
+} = Astro.props;
+
+const cardStyles = [
+  'bg-primary text-primary-foreground',
+  'bg-secondary text-secondary-foreground',
+  'bg-info text-info-foreground',
+  'bg-success text-success-foreground',
+  'bg-foreground text-muted',
+];
+---
+
+<Section spacing="none" class={services2({ class: className })}>
+  <service-card-fan class="block" data-service-card-fan>
+    <Container>
+      <header
+        class="mx-auto space-y-4 max-w-3xl px-2 pt-16 text-center md:pt-24"
+      >
+        <p
+          class={badge({
+            variant: 'primary',
+            size: 'lg',
+            class:
+              'bg-linear-to-r from-primary/20 to-primary/5 text-violet-900 text-pretty whitespace-normal bg-transparent',
+          })}
+        >
+          {label}
+        </p>
+        <h2
+          aria-label={title}
+          class="text-3xl font-bold tracking-tight sm:text-4xl lg:text-5xl text-pretty"
+        >
+          {title}
+        </h2>
+        <p class="text-lg text-pretty text-muted-foreground leading-relaxed">
+          {subtitle}
+        </p>
+      </header>
+    </Container>
+
+    <div
+      class="service-card-fan__runway"
+      style={`--card-count:${services.length}`}
+    >
+      <div class="service-card-fan__sticky">
+        <div class="service-card-fan__stage" aria-label="Moving services">
+          {
+            services.map((service, index) => (
+              <article
+                class:list={[
+                  card({
+                    class:
+                      'service-card-fan__card group overflow-hidden rounded-4xl border border-white/20 shadow-2xl ring-0',
+                  }),
+                  cardStyles[index % cardStyles.length],
+                ]}
+                style={`--card-index:${index}; --card-count:${services.length}`}
+              >
+                <div class="flex h-full flex-col">
+                  <span class="service-card-fan__icon grid size-16 place-items-center rounded-[1.35rem] border border-white/30 bg-white/15 shadow-[inset_0_1px_0_rgb(255_255_255/0.35),0_12px_30px_rgb(0_0_0/0.12)] backdrop-blur-sm transition-transform duration-300 group-hover:-translate-y-1 group-hover:-rotate-3 group-hover:scale-105">
+                    <svg
+                      class="relative z-10 size-9"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="1.8"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      aria-hidden="true"
+                    >
+                      {service.href.includes('local-moving') && (
+                        <>
+                          <path d="M3 6h11v10H3z" />
+                          <path d="M14 10h3l4 4v2h-7z" />
+                          <circle cx="7" cy="18" r="2" />
+                          <circle cx="17.5" cy="18" r="2" />
+                          <path d="M3 10h7M3 13h5" />
+                        </>
+                      )}
+                      {service.href.includes('interstate-moving') && (
+                        <>
+                          <path d="m3 6 5-2 8 2 5-2v14l-5 2-8-2-5 2z" />
+                          <path d="M8 4v14M16 6v14" />
+                          <path d="M13.5 10.5c0 1.8-2.5 4.5-2.5 4.5s-2.5-2.7-2.5-4.5a2.5 2.5 0 0 1 5 0Z" />
+                          <circle
+                            cx="11"
+                            cy="10.5"
+                            r=".7"
+                            fill="currentColor"
+                            stroke="none"
+                          />
+                        </>
+                      )}
+                      {service.href.includes('storage-solutions') && (
+                        <>
+                          <path d="M3 8h18v12H3zM5 4h14l2 4H3z" />
+                          <path d="M6 11h12M6 14h12M6 17h12" />
+                          <path d="M16 12.5v2" />
+                        </>
+                      )}
+                      {service.href.includes('packing-services') && (
+                        <>
+                          <path d="m4 7 8-4 8 4-8 4z" />
+                          <path d="M4 7v10l8 4 8-4V7M12 11v10" />
+                          <path d="m8 5 8 4" />
+                        </>
+                      )}
+                      {service.href.includes('piano-moving') && (
+                        <>
+                          <path d="M5 3h14v17H5z" />
+                          <path d="M5 12h14M7 12v5M10 12v5M14 12v5M17 12v5" />
+                          <path d="M5 20v2M19 20v2M8 6h8" />
+                        </>
+                      )}
+                    </svg>
+                  </span>
+
+                  <div class="mt-auto pt-8">
+                    <h3
+                      class="text-2xl font-bold text-balance sm:text-3xl text-shadow-2xs"
+                      aria-label={service.name}
+                    >
+                      {service.name}
+                    </h3>
+                    <p class="mt-3 max-w-sm text-base/relaxed opacity-90">
+                      {service.description}
+                    </p>
+                    <Button
+                      href={service.href}
+                      variant="ghost"
+                      class="mt-5 rounded-full border border-white/20 bg-white/10 text-current shadow-sm backdrop-blur-sm hover:bg-white/20 hover:text-current"
+                      aria-label={`Read more about ${service.name}`}
+                    >
+                      <ArrowUpRightIcon slot="icon" aria-hidden="true" />
+                      Read more
+                    </Button>
+                  </div>
+                </div>
+              </article>
+            ))
+          }
+        </div>
+      </div>
+    </div>
+  </service-card-fan>
+</Section>
+
+<script>
+  class ServiceCardFan extends HTMLElement {
+    private cards: HTMLElement[] = [];
+    private runway?: HTMLElement;
+    private frame = 0;
+    private reducedMotion = window.matchMedia(
+      '(prefers-reduced-motion: reduce)'
+    );
+
+    private readonly rotations = [-2, 7, -6, 4, -3];
+
+    connectedCallback() {
+      this.cards = Array.from(
+        this.querySelectorAll<HTMLElement>('.service-card-fan__card')
+      );
+      this.runway =
+        this.querySelector<HTMLElement>('.service-card-fan__runway') ??
+        undefined;
+      this.update = this.update.bind(this);
+      window.addEventListener('scroll', this.requestUpdate, { passive: true });
+      window.addEventListener('resize', this.requestUpdate, { passive: true });
+      this.update();
+    }
+
+    disconnectedCallback() {
+      window.removeEventListener('scroll', this.requestUpdate);
+      window.removeEventListener('resize', this.requestUpdate);
+      cancelAnimationFrame(this.frame);
+    }
+
+    private requestUpdate = () => {
+      if (this.frame) return;
+      this.frame = requestAnimationFrame(this.update);
+    };
+
+    private update() {
+      this.frame = 0;
+      if (
+        !this.runway ||
+        this.reducedMotion.matches ||
+        window.innerWidth < 768
+      ) {
+        return;
+      }
+
+      const rect = this.runway.getBoundingClientRect();
+      const stickyTop = Math.min(Math.max(window.innerHeight * 0.08, 48), 80);
+      const stageHeight = window.innerHeight - stickyTop;
+      const travel = Math.max(this.runway.offsetHeight - stageHeight, 1);
+      const progress = Math.min(
+        Math.max((stickyTop - rect.top) / travel, 0),
+        1
+      );
+      this.style.setProperty('--fan-progress', progress.toFixed(4));
+
+      const cardCount = this.cards.length;
+      const finalFanEnd = Math.max((cardCount - 1) * 0.92 - 0.08 + 1.3, 1);
+      const timeline = progress * finalFanEnd;
+      const slotWidth = Math.min(window.innerWidth * 0.2, 256);
+
+      this.cards.forEach((card, index) => {
+        const entryStart = index === 0 ? -1 : index * 0.92 - 0.72;
+        const entryProgress =
+          index === 0
+            ? 1
+            : this.easeOutCubic(this.clamp((timeline - entryStart) / 0.72));
+        const fanStart = index === 0 ? 0.12 : index * 0.92 - 0.08;
+        const fanProgress = this.easeOutCubic(
+          this.clamp((timeline - fanStart) / 1.3)
+        );
+        const finalSlot = index - (cardCount - 1) / 2;
+        const x = finalSlot * slotWidth * fanProgress;
+        const y =
+          (1 - entryProgress) * Math.max(window.innerHeight * 0.76, 540);
+        const rotation =
+          this.rotations[index % this.rotations.length] * fanProgress;
+
+        card.style.setProperty('--card-x', `${x.toFixed(2)}px`);
+        card.style.setProperty('--card-y', `${y.toFixed(2)}px`);
+        card.style.setProperty('--card-rotation', `${rotation.toFixed(2)}deg`);
+      });
+    }
+
+    private clamp(value: number) {
+      return Math.min(Math.max(value, 0), 1);
+    }
+
+    private easeOutCubic(value: number) {
+      return 1 - Math.pow(1 - value, 3);
+    }
+  }
+
+  if (!customElements.get('service-card-fan')) {
+    customElements.define('service-card-fan', ServiceCardFan);
+  }
+</script>
+
+<style>
+  .service-card-fan__runway {
+    height: calc((var(--card-count) + 1) * 32rem);
+  }
+
+  .service-card-fan__sticky {
+    position: sticky;
+    top: clamp(3rem, 8vh, 5rem);
+    height: calc(100svh - clamp(3rem, 8vh, 5rem));
+    overflow: clip;
+  }
+
+  .service-card-fan__stage {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+  }
+
+  .service-card-fan__card {
+    position: absolute;
+    z-index: calc(var(--card-index) + 1);
+    top: 42%;
+    left: 50%;
+    /* width: clamp(18rem, 26.25vw, 21rem); */
+    /* aspect-ratio: 1; */
+    padding: clamp(1.4rem, 2.5vw, 2rem);
+    pointer-events: auto;
+    opacity: var(--card-opacity);
+    transform: translate(-50%, -50%)
+      translate(var(--card-x, 0), var(--card-y, 0))
+      rotate(var(--card-rotation, 0deg));
+    will-change: transform, opacity;
+  }
+
+  .service-card-fan__card::before {
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(
+        circle at 15% 0%,
+        rgb(255 255 255 / 0.22),
+        transparent 38%
+      ),
+      linear-gradient(135deg, rgb(255 255 255 / 0.1), transparent 45%);
+    content: '';
+    pointer-events: none;
+  }
+
+  .service-card-fan__card > div {
+    position: relative;
+    z-index: 1;
+  }
+
+  .service-card-fan__icon {
+    position: relative;
+    isolation: isolate;
+  }
+
+  .service-card-fan__icon::before {
+    position: absolute;
+    inset: 0.3rem;
+    border-radius: 1rem;
+    background: linear-gradient(
+      145deg,
+      rgb(255 255 255 / 0.2),
+      rgb(255 255 255 / 0.04)
+    );
+    content: '';
+  }
+
+  .service-card-fan__card:first-child {
+    --card-opacity: 1;
+  }
+
+  @media (max-width: 767px) {
+    .service-card-fan__runway {
+      height: auto;
+    }
+
+    .service-card-fan__sticky {
+      position: relative;
+      height: auto;
+      min-height: auto;
+      padding-bottom: 5rem;
+    }
+
+    .service-card-fan__stage {
+      position: relative;
+      inset: auto;
+      display: grid;
+      gap: 1rem;
+      padding: 3rem 1rem 0;
+    }
+
+    .service-card-fan__card {
+      position: relative;
+      top: auto;
+      left: auto;
+      width: min(100%, 28rem);
+      margin-inline: auto;
+      aspect-ratio: auto;
+      min-height: 19rem;
+      opacity: 1;
+      transform: none;
+      will-change: auto;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .service-card-fan__runway {
+      height: auto;
+      margin-top: 3rem;
+    }
+
+    .service-card-fan__sticky {
+      position: relative;
+      height: auto;
+      min-height: auto;
+      padding-bottom: 5rem;
+    }
+
+    .service-card-fan__stage {
+      position: relative;
+      inset: auto;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 1rem;
+      padding: 3rem 1rem 0;
+    }
+
+    .service-card-fan__card {
+      position: relative;
+      top: auto;
+      left: auto;
+      width: min(100%, 22rem);
+      opacity: 1;
+      transform: none;
+      will-change: auto;
+    }
+  }
+</style>
