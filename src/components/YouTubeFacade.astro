@@ -34,7 +34,7 @@ const {
 >
   <button
     type="button"
-    class="group relative size-full cursor-pointer overflow-hidden"
+    class="group/youtube-facade relative size-full cursor-pointer overflow-hidden"
     aria-label={`Play video: ${title}`}
     data-youtube-facade-trigger
   >
@@ -48,20 +48,20 @@ const {
       quality={50}
     />
     <span
-      class="absolute inset-0 bg-black/20 transition-colors group-hover:bg-black/35"
+      class="absolute inset-0 bg-foreground/20 transition-colors group-hover/youtube-facade:bg-foreground/35"
       aria-hidden="true"></span>
     <span
       class="absolute inset-0 flex items-center justify-center"
       aria-hidden="true"
     >
       <span
-        class="flex size-14 items-center justify-center rounded-full bg-white/90 text-black shadow-lg transition group-hover:scale-105"
+        class="flex size-14 items-center justify-center rounded-full bg-white/90 text-foreground shadow-lg transition group-hover/youtube-facade:scale-105"
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 24 24"
           fill="currentColor"
-          class="size-7 translate-x-0.5"
+          class="size-7"
           aria-hidden="true"
         >
           <path d="M8 5v14l11-7z"></path>
