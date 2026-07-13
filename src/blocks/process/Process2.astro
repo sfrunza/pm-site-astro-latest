@@ -1,0 +1,243 @@
+---
+import Container from '@/components/Container.astro';
+import Section from '@/components/Section.astro';
+import SectionHeader from '@/components/SectionHeader.astro';
+import { Image } from '@/components/starwind/image';
+import { movingHowToSteps, type MovingStep } from '@/config/moving-howto';
+import firstProcessImage from '@/assets/2-movers-and-coffee-table-opt.jpg';
+import secondProcessImage from '@/assets/yelp-15.jpg';
+import { tv } from 'tailwind-variants';
+import {
+  card,
+  cardDescription,
+  cardHeader,
+  cardTitle,
+} from '@/components/starwind/card/variants';
+import Badge from '@/components/starwind/badge/Badge.astro';
+
+interface Props {
+  steps?: MovingStep[];
+  label?: string;
+  title?: string;
+  subtitle?: string;
+  class?: string;
+}
+
+const process2 = tv({
+  base: 'overflow-hidden',
+});
+
+const {
+  steps = movingHowToSteps,
+  label = 'Our Process',
+  title = 'Simple Moving Process',
+  subtitle = `Our process begins with a personalized consultation to understand your unique needs and preferences. We then provide a detailed estimate and help you select the best moving options for your situation.`,
+  class: className = '',
+} = Astro.props;
+
+const stepPositions = [
+  '@4xl:col-start-3 @4xl:row-start-1',
+  '@4xl:col-start-3 @4xl:row-start-2',
+  '@4xl:col-start-1 @4xl:row-start-3',
+  '@4xl:col-start-1 @4xl:row-start-4',
+];
+
+const stepNumberClass =
+  'process2-step-icon grid size-14 place-items-center rounded-[1.15rem] border border-primary/15 bg-primary/10 font-bold tracking-wide text-primary-accent shadow-[inset_0_1px_0_rgb(255_255_255/0.8),0_10px_24px_rgb(76_29_149/0.08)] transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:-rotate-3 group-hover:scale-105';
+---
+
+<Section class={process2({ class: className })}>
+  <Container class="@container">
+    <SectionHeader label={label} title={title} subtitle={subtitle} />
+
+    <process-bento
+      class="grid gap-5 @md:grid-cols-2 @4xl:grid-cols-3 @4xl:grid-rows-[repeat(4,14rem)] @4xl:gap-6"
+    >
+      <figure
+        class="process2-media group relative min-h-96 overflow-hidden rounded-3xl border border-background/15 @md:col-span-2 @4xl:col-span-2 @4xl:row-span-2 @4xl:col-start-1 @4xl:row-start-1 @4xl:min-h-0"
+      >
+        <Image
+          src={firstProcessImage}
+          alt="Professional movers carefully handling wrapped furniture"
+          widths={[640, 960, 1280]}
+          sizes="(min-width: 1024px) 640px, 100vw"
+          quality={80}
+          loading="lazy"
+          decoding="async"
+          class="absolute inset-0 h-full w-full object-cover"
+        />
+        <div
+          class="absolute inset-0 bg-linear-to-t from-neutral-950/85 via-neutral-950/15 to-transparent"
+          aria-hidden="true"
+        >
+        </div>
+        <figcaption
+          class="absolute inset-x-0 bottom-0 z-10 p-6 text-white @md:p-8"
+        >
+          <Badge class="bg-background text-foreground">
+            Plan with confidence
+          </Badge>
+          <p
+            class="mt-3 max-w-lg text-shadow-sm text-2xl font-semibold text-balance @md:text-3xl"
+          >
+            A clear plan before moving day begins
+          </p>
+        </figcaption>
+      </figure>
+
+      {
+        steps.slice(0, 2).map((step, index) => (
+          <article
+            class:list={[
+              stepPositions[index],
+              card({ class: 'process2-card group relative' }),
+            ]}
+          >
+            <div class={cardHeader({ class: 'space-y-2' })}>
+              <span class={stepNumberClass}>{step.stepNumber}</span>
+              <h3 class={cardTitle()} aria-label={step.title}>
+                {step.title}
+              </h3>
+              <p class={cardDescription()}>{step.description}</p>
+            </div>
+          </article>
+        ))
+      }
+
+      <figure
+        class="process2-media group relative min-h-96 overflow-hidden rounded-3xl border border-background/15 @md:col-span-2 @4xl:col-span-2 @4xl:row-span-2 @4xl:col-start-2 @4xl:row-start-3 @4xl:min-h-0"
+      >
+        <Image
+          src={secondProcessImage}
+          alt="Professional movers packing a customer's kitchen"
+          widths={[640, 960, 1280]}
+          sizes="(min-width: 1024px) 640px, 100vw"
+          quality={80}
+          loading="lazy"
+          decoding="async"
+          class="absolute inset-0 h-full w-full object-cover"
+        />
+        <div
+          class="absolute inset-0 bg-linear-to-t from-neutral-950/85 via-neutral-950/15 to-neutral-950/5"
+          aria-hidden="true"
+        >
+        </div>
+        <figcaption
+          class="absolute inset-x-0 bottom-0 z-10 p-6 text-white @md:p-8"
+        >
+          <Badge class="bg-background text-foreground">
+            Protected at every step
+          </Badge>
+          <p
+            class="mt-3 max-w-lg text-shadow-sm text-2xl font-semibold text-balance @md:text-3xl"
+          >
+            Careful packing, moving, and placement
+          </p>
+        </figcaption>
+      </figure>
+
+      {
+        steps.slice(2, 4).map((step, offset) => {
+          const index = offset + 2;
+          return (
+            <article
+              class:list={[
+                stepPositions[index],
+                card({ class: 'process2-card group relative' }),
+              ]}
+            >
+              <div class={cardHeader({ class: 'space-y-2' })}>
+                <span class={stepNumberClass}>{step.stepNumber}</span>
+                <h3 class={cardTitle()} aria-label={step.title}>
+                  {step.title}
+                </h3>
+                <p class={cardDescription()}>{step.description}</p>
+              </div>
+            </article>
+          );
+        })
+      }
+    </process-bento>
+  </Container>
+</Section>
+
+<script>
+  class ProcessBento extends HTMLElement {
+    connectedCallback() {
+      this.addEventListener('pointermove', this.handlePointer, {
+        passive: true,
+      });
+    }
+
+    disconnectedCallback() {
+      this.removeEventListener('pointermove', this.handlePointer);
+    }
+
+    private handlePointer = (event: PointerEvent) => {
+      const target = event.target as HTMLElement;
+      const card = target.closest<HTMLElement>('.process2-card');
+      if (!card) return;
+
+      const bounds = card.getBoundingClientRect();
+      card.style.setProperty(
+        '--spotlight-x',
+        `${event.clientX - bounds.left}px`
+      );
+      card.style.setProperty(
+        '--spotlight-y',
+        `${event.clientY - bounds.top}px`
+      );
+    };
+  }
+
+  if (!customElements.get('process-bento')) {
+    customElements.define('process-bento', ProcessBento);
+  }
+</script>
+
+<style>
+  .process2-card::before {
+    position: absolute;
+    inset: -1px;
+    z-index: 0;
+    border-radius: inherit;
+    background: radial-gradient(
+      18rem circle at var(--spotlight-x, 50%) var(--spotlight-y, 50%),
+      color-mix(in oklch, var(--primary) 6%, transparent) 0%,
+      transparent 100%
+    );
+    content: '';
+    opacity: 0;
+    transition: opacity 0.3s;
+    pointer-events: none;
+  }
+
+  /* .process2-step-icon {
+    position: relative;
+    isolation: isolate;
+  }
+
+  .process2-step-icon::before {
+    position: absolute;
+    inset: 0.3rem;
+    border-radius: 0.75rem;
+    background: linear-gradient(
+      145deg,
+      rgb(255 255 255 / 0.8),
+      rgb(255 255 255 / 0.16)
+    );
+    content: '';
+  } */
+
+  @media (hover: hover) and (pointer: fine) {
+    .process2-card:hover::before {
+      opacity: 1;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .process2-media :global(img) {
+      transition: none;
+    }
+  }
+</style>

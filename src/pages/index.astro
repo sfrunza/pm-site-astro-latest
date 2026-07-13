@@ -22,12 +22,13 @@ import pianoAfter from '@/assets/piano-after.jpg';
 import Reviews1 from '@/blocks/reviews/Reviews1.astro';
 import Partners1 from '@/blocks/partners/Partners1.astro';
 import Stats1 from '@/blocks/stats/Stats1.astro';
-import Process1 from '@/blocks/process/Process1.astro';
+// import Process1 from '@/blocks/process/Process1.astro';
 import BlogPreview1 from '@/blocks/blog/BlogPreview1.astro';
 import MovingChecklist1 from '@/blocks/checklist/MovingChecklist1.astro';
 import LightboxGridGallery from '@/blocks/gallery/LightboxGridGallery.astro';
 import Container from '@/components/Container.astro';
 import Services2 from '@/blocks/services/Services2.astro';
+import Process2 from '@/blocks/process/Process2.astro';
 
 const [seo, lcpPreload] = await Promise.all([
   fetchHomeSeo(Astro.url),
@@ -53,7 +54,8 @@ const [seo, lcpPreload] = await Promise.all([
   <Reviews1 class="defer-section" />
 
   <!-- How It Works — 4-step process with HowTo schema -->
-  <Process1 class="defer-section" />
+  <!-- <Process1 class="defer-section" /> -->
+  <Process2 class="defer-section" />
 
   <!-- Trust numbers: 1,200+ moves · 5.0 rating · 10 yrs · 100% insured -->
   <Stats1 class="bg-linear-to-t from-muted/50 to-transparent defer-section" />
