@@ -390,13 +390,29 @@ const clientLoginHref = `https://account.gophoenixmoving.com/login`;
     );
     observer.observe(sheet);
 
-    if (!CSS.supports('animation-timeline: scroll()')) {
-      scroller.addEventListener('scroll', () => {
-        const max = scroller.scrollWidth - scroller.clientWidth;
-        const ratio = max > 0 ? scroller.scrollLeft / max : 0;
-        drawer.style.setProperty('--drawer-backdrop', String(ratio));
-      });
-    }
+    // Keep the backdrop tied to the drawer's horizontal scroll position in
+    // every build. The production CSS optimizer can fold animation-timeline
+    // into an invalid animation shorthand, so JS is the reliable source of
+    // truth for this small visual effect.
+    let backdropFrame = 0;
+    const updateBackdrop = () => {
+      backdropFrame = 0;
+      const max = scroller.scrollWidth - scroller.clientWidth;
+      const ratio = max > 0 ? scroller.scrollLeft / max : 0;
+      drawer.style.setProperty(
+        '--drawer-backdrop',
+        String(Math.min(Math.max(ratio, 0), 1))
+      );
+    };
+    const requestBackdropUpdate = () => {
+      if (backdropFrame) return;
+      backdropFrame = requestAnimationFrame(updateBackdrop);
+    };
+
+    scroller.addEventListener('scroll', requestBackdropUpdate, {
+      passive: true,
+    });
+    updateBackdrop();
 
     trigger.addEventListener('click', openDrawer);
     closeBtn?.addEventListener('click', closeDrawer);
@@ -492,30 +508,4 @@ const clientLoginHref = `https://account.gophoenixmoving.com/login`;
     }
   }
 
-  @supports (animation-timeline: scroll()) {
-    .mobile-drawer {
-      timeline-scope: --mobile-drawer-fade;
-      animation: mobile-drawer-fade linear both;
-      animation-timeline: --mobile-drawer-fade;
-    }
-
-    .mobile-drawer-scroller {
-      scroll-timeline: --mobile-drawer-fade x;
-    }
-
-    @property --drawer-backdrop {
-      syntax: '<number>';
-      inherits: true;
-      initial-value: 0;
-    }
-
-    @keyframes mobile-drawer-fade {
-      0% {
-        --drawer-backdrop: 0;
-      }
-      100% {
-        --drawer-backdrop: 1;
-      }
-    }
-  }
 </style>
