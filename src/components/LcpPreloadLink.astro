@@ -1,9 +1,7 @@
 ---
 import type { LcpPreloadLink } from '@/utils/lcp-preload';
 
-interface Props extends LcpPreloadLink {
-  imagesizes?: string;
-}
+type Props = LcpPreloadLink;
 
 const { href, srcset, type, imagesizes = '100vw' } = Astro.props;
 ---

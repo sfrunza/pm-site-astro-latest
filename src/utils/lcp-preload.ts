@@ -10,6 +10,7 @@ const HERO_LCP_QUALITY = 50;
 export type LcpPreloadLink = {
   href: string;
   srcset: string;
+  imagesizes?: string;
   type: 'image/avif' | 'image/webp';
 };
 

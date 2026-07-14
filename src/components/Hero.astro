@@ -3,7 +3,7 @@ import heroBg from '@/assets/heros/home.jpg';
 import SeasonalEffect from '@/components/SeasonalEffect.astro';
 import Button from '@/components/starwind/button';
 import { SITE } from '@/config/site';
-import { ArrowRightIcon, SparklesIcon } from '@/icons';
+import { ArrowRightIcon, PhoneIcon, ShieldCheckIcon } from '@/icons';
 import { buildHeroResponsiveImage } from '@/utils/hero-responsive-image';
 import type { LcpPreloadLink } from '@/utils/lcp-preload';
 // import leafImage from '@/assets/effects/leaf.png';
@@ -36,6 +36,8 @@ const {
   titleAccent = 'You Can Trust',
   subtitle = 'Professional residential and commercial moving across Greater Boston. Transparent pricing, experienced crews, and a free quote in minutes.',
 } = Astro.props;
+
+const phoneHref = `tel:${SITE.contactPhone.replace(/[^+\d]/g, '')}`;
 
 const stats = [
   { value: '4.9★', label: 'Average Rating' },
@@ -94,10 +96,7 @@ const stats = [
         <p
           class="inline-flex w-fit items-center gap-2 rounded-full border border-white/15 bg-white/10 px-4 py-1.5 text-sm font-medium text-white/90 backdrop-blur-xs"
         >
-          <SparklesIcon
-            class="text-secondary size-4 shrink-0"
-            aria-hidden="true"
-          />
+          <ShieldCheckIcon class="text-secondary size-4.5" aria-hidden="true" />
           {badge}
         </p>
 
@@ -117,22 +116,25 @@ const stats = [
 
         <div class="flex flex-wrap items-center gap-4">
           <Button
-            variant="outline"
+            variant="secondary"
             size="lg"
             href="/book"
-            aria-label="Start Your Move Today"
+            class="w-full shadow-[0_16px_40px_-18px_rgb(250_204_21/0.8)] sm:w-fit"
+            aria-label="Get a free moving quote"
           >
             <ArrowRightIcon slot="icon" aria-hidden="true" />
-            Start Your Move Today
+            Get My Free Quote
           </Button>
           <Button
             variant="outline"
             size="lg"
-            href="/pricing"
+            href={phoneHref}
+            aria-label={`Call Phoenix Moving at ${SITE.contactPhone}`}
             class="border-white/25 bg-white/5 text-white hover:bg-white/10 hover:text-white backdrop-blur-xs"
-            aria-label="View pricing"
           >
-            View Pricing
+            <!-- class="w-full border-white/20 bg-white/6 text-white hover:bg-white/12 hover:text-white sm:w-fit" -->
+            <PhoneIcon slot="icon" aria-hidden="true" />
+            {SITE.contactPhone}
           </Button>
         </div>
       </div>

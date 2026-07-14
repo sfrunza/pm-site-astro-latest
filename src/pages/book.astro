@@ -2,7 +2,6 @@
 import Layout from '@/layouts/Layout.astro';
 import Container from '@/components/Container.astro';
 import Section from '@/components/Section.astro';
-import Process1 from '@/blocks/process/Process1.astro';
 import FAQ1 from '@/blocks/faq/FAQ1.astro';
 import { SITE } from '@/config/site';
 import RelatedServices from '@/blocks/related/RelatedServices.astro';
@@ -13,6 +12,7 @@ import SectionHeader from '@/components/SectionHeader.astro';
 import BookFormFrame from '@/components/BookFormFrame.astro';
 import Stats1 from '@/blocks/stats/Stats1.astro';
 import MouseRepelParticles from '@/components/MouseRepelParticles.astro';
+import Process2 from '@/blocks/process/Process2.astro';
 
 const pathname = Astro.url.pathname;
 const pageFaqs = getServiceFaqs(pathname);
@@ -50,7 +50,7 @@ const seo = await fetchPageSeo(Astro.url, {
     </Container>
   </Section>
 
-  <Process1 class="defer-section" />
+  <Process2 class="defer-section" />
 
   <Stats1 class="defer-section" />
 

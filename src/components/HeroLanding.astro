@@ -1,0 +1,497 @@
+---
+import heroBg from '@/assets/heros/home.jpg';
+import Button from '@/components/starwind/button';
+import { SITE } from '@/config/site';
+import {
+  ArrowRightIcon,
+  CircleCheckIcon,
+  MapPinIcon,
+  PhoneIcon,
+  ShieldCheckIcon,
+  StarIcon,
+} from '@/icons';
+import { buildHeroResponsiveImage } from '@/utils/hero-responsive-image';
+import type { LcpPreloadLink } from '@/utils/lcp-preload';
+
+const HERO_IMAGE_SIZES =
+  '(min-width: 1280px) 640px, (min-width: 1024px) 50vw, 100vw';
+const heroImage = await buildHeroResponsiveImage(heroBg);
+
+/** Pair with `<Layout lcpPreload={await getHomeHeroLcpPreload()} />`. */
+export async function getHomeHeroLcpPreload(): Promise<LcpPreloadLink> {
+  const image = await buildHeroResponsiveImage(heroBg);
+  return {
+    href: image.avif.href,
+    srcset: image.avif.srcset,
+    imagesizes: '(min-width: 1280px) 640px, (min-width: 1024px) 50vw, 100vw',
+    type: 'image/avif',
+  };
+}
+
+interface Props {
+  badge?: string;
+  title?: string;
+  titleAccent?: string;
+  subtitle?: string;
+  season?: 'spring' | 'summer' | 'fall' | 'winter' | 'none';
+}
+
+const {
+  badge = 'Licensed, insured, and local to Greater Boston',
+  title = 'Boston Moves,',
+  titleAccent = 'Handled With Care.',
+  subtitle = 'Residential and commercial moving from our Natick and Newton locations—with experienced crews, transparent pricing, and a free quote in minutes.',
+  season = 'none',
+} = Astro.props;
+
+const phoneHref = `tel:${SITE.contactPhone.replace(/[^+\d]/g, '')}`;
+
+const stats = [
+  { value: '4.9★', label: 'Average Rating' },
+  { value: '329+', label: 'Happy Customers' },
+  { value: '100%', label: 'On-Time Guarantee' },
+];
+
+const seasonClasses = {
+  spring:
+    'bg-[radial-gradient(circle_at_84%_12%,rgb(251_207_232/0.19),transparent_26%),radial-gradient(circle_at_74%_68%,rgb(52_211_153/0.1),transparent_36%),linear-gradient(135deg,rgb(8_15_23)_0%,rgb(27_24_52)_55%,rgb(55_34_76)_100%)]',
+  summer:
+    'bg-[radial-gradient(circle_at_84%_12%,rgb(251_191_36/0.24),transparent_25%),radial-gradient(circle_at_76%_62%,rgb(56_189_248/0.11),transparent_34%),linear-gradient(135deg,rgb(9_13_24)_0%,rgb(28_18_48)_54%,rgb(54_26_76)_100%)]',
+  fall: 'bg-[radial-gradient(circle_at_86%_16%,rgb(245_158_11/0.22),transparent_27%),radial-gradient(circle_at_72%_72%,rgb(194_65_12/0.12),transparent_35%),linear-gradient(135deg,rgb(18_11_14)_0%,rgb(48_22_35)_55%,rgb(74_34_31)_100%)]',
+  winter:
+    'bg-[radial-gradient(circle_at_84%_12%,rgb(186_230_253/0.17),transparent_25%),radial-gradient(circle_at_72%_68%,rgb(129_140_248/0.12),transparent_36%),linear-gradient(135deg,rgb(5_12_24)_0%,rgb(20_26_55)_56%,rgb(39_34_82)_100%)]',
+  none: 'bg-[radial-gradient(circle_at_82%_18%,rgb(109_40_217/0.28),transparent_32%),linear-gradient(135deg,rgb(10_10_10)_0%,rgb(23_15_38)_55%,rgb(38_18_66)_100%)]',
+};
+---
+
+<section
+  class:list={[
+    'relative isolate overflow-clip text-white',
+    seasonClasses[season],
+  ]}
+  data-season={season}
+>
+  <div
+    class="pointer-events-none absolute inset-0 z-0 opacity-[0.035] hero-background-image"
+    aria-hidden="true"
+  >
+  </div>
+
+  {
+    season === 'spring' && (
+      <div class="pointer-events-none absolute inset-0 z-0" aria-hidden="true">
+        <span class="spring-horizon absolute inset-x-0 bottom-0" />
+        <span class="spring-blossom spring-blossom-1 absolute" />
+        <span class="spring-blossom spring-blossom-2 absolute" />
+        <span class="spring-blossom spring-blossom-3 absolute" />
+        <span class="spring-blossom spring-blossom-4 absolute" />
+        <span class="spring-blossom spring-blossom-5 absolute" />
+      </div>
+    )
+  }
+
+  {
+    season === 'summer' && (
+      <div class="pointer-events-none absolute inset-0 z-0" aria-hidden="true">
+        <span class="summer-sun absolute" />
+        <span class="summer-horizon absolute inset-x-0 bottom-0" />
+      </div>
+    )
+  }
+
+  {
+    season === 'fall' && (
+      <div class="pointer-events-none absolute inset-0 z-0" aria-hidden="true">
+        <span class="fall-horizon absolute inset-x-0 bottom-0" />
+        <span class="fall-leaf fall-leaf-1 absolute" />
+        <span class="fall-leaf fall-leaf-2 absolute" />
+        <span class="fall-leaf fall-leaf-3 absolute" />
+        <span class="fall-leaf fall-leaf-4 absolute" />
+        <span class="fall-leaf fall-leaf-5 absolute" />
+      </div>
+    )
+  }
+
+  {
+    season === 'winter' && (
+      <div class="pointer-events-none absolute inset-0 z-0" aria-hidden="true">
+        <span class="winter-moon absolute" />
+        <span class="winter-snow absolute inset-0" />
+        <span class="winter-horizon absolute inset-x-0 bottom-0" />
+      </div>
+    )
+  }
+
+  <div
+    class="relative z-10 mx-auto grid w-full max-w-[1440px] items-center gap-12 px-5 pt-28 pb-16 sm:px-8 lg:min-h-svh lg:grid-cols-[minmax(0,0.92fr)_minmax(0,1.08fr)] lg:gap-16 lg:px-10 lg:pt-32 lg:pb-20 xl:gap-24"
+  >
+    <div class="min-w-0">
+      <p
+        class="mb-6 inline-flex w-fit items-center gap-2 rounded-full border border-white/15 bg-white/6 px-4 py-2 text-sm font-semibold text-white/85"
+      >
+        <ShieldCheckIcon class="text-secondary size-4.5" aria-hidden="true" />
+        {badge}
+      </p>
+
+      <h1
+        class="max-w-3xl text-[clamp(3rem,6vw,5.25rem)] leading-[0.98] font-bold tracking-[-0.045em] text-balance"
+      >
+        {title}
+        <span class="text-secondary block">{titleAccent}</span>
+      </h1>
+
+      <p
+        class="mt-7 max-w-2xl text-lg leading-relaxed font-medium text-pretty text-white/72 sm:text-xl"
+      >
+        {subtitle}
+      </p>
+
+      <div class="mt-8 flex flex-col gap-3 sm:flex-row sm:items-center">
+        <Button
+          variant="secondary"
+          size="lg"
+          href="/book"
+          class="shadow-[0_16px_40px_-18px_rgb(250_204_21/0.8)] w-fit"
+          aria-label="Get a free moving quote"
+        >
+          <ArrowRightIcon slot="icon" aria-hidden="true" />
+          Get My Free Quote
+        </Button>
+        <Button
+          variant="outline"
+          size="lg"
+          href={phoneHref}
+          class="border-white/20 bg-white/6 text-white hover:bg-white/12 hover:text-white w-fit"
+          aria-label={`Call Phoenix Moving at ${SITE.contactPhone}`}
+        >
+          <PhoneIcon slot="icon" aria-hidden="true" />
+          {SITE.contactPhone}
+        </Button>
+      </div>
+
+      <ul
+        class="mt-7 flex flex-wrap gap-x-5 gap-y-2 text-sm font-medium text-white/68"
+        aria-label="Service assurances"
+      >
+        <li class="flex items-center gap-2">
+          <CircleCheckIcon class="text-secondary size-4" aria-hidden="true" />
+          No hidden fees
+        </li>
+        <li class="flex items-center gap-2">
+          <CircleCheckIcon class="text-secondary size-4" aria-hidden="true" />
+          Fully insured crews
+        </li>
+        <li class="flex items-center gap-2">
+          <CircleCheckIcon class="text-secondary size-4" aria-hidden="true" />
+          Free estimates
+        </li>
+      </ul>
+
+      <dl class="mt-10 grid max-w-xl grid-cols-3 border-t border-white/12 pt-7">
+        {
+          stats.map((stat, index) => (
+            <div
+              class:list={[
+                'min-w-0 px-4 first:pl-0 last:pr-0',
+                index > 0 && 'border-l border-white/12',
+              ]}
+            >
+              <dd class="text-2xl font-bold tracking-tight text-white sm:text-3xl font-[system-ui]">
+                {stat.value}
+              </dd>
+              <dt class="mt-1 text-xs leading-tight font-medium text-white/55 sm:text-sm">
+                {stat.label}
+              </dt>
+            </div>
+          ))
+        }
+      </dl>
+
+      <p class="mt-5 text-xs font-medium text-white/42">
+        MDPU #{SITE.businessLicenses.MDPU} · USDOT #{SITE.businessLicenses.DOT}
+      </p>
+    </div>
+
+    <div class="relative min-w-0 lg:pl-4">
+      <div
+        class="absolute -inset-3 rounded-[2.25rem] border border-white/8 bg-white/2.5"
+        aria-hidden="true"
+      >
+      </div>
+
+      <figure
+        class="relative overflow-hidden rounded-[1.75rem] border border-white/12 bg-neutral-900 shadow-[0_32px_100px_-36px_rgb(0_0_0/0.9)]"
+      >
+        <picture class="block aspect-4/3 w-full overflow-hidden">
+          <source
+            srcset={heroImage.avif.srcset}
+            sizes={HERO_IMAGE_SIZES}
+            type="image/avif"
+          />
+          <source
+            srcset={heroImage.webp.srcset}
+            sizes={HERO_IMAGE_SIZES}
+            type="image/webp"
+          />
+          <img
+            src={heroImage.webp.href}
+            srcset={heroImage.webp.srcset}
+            sizes={HERO_IMAGE_SIZES}
+            alt="Phoenix Moving truck serving customers in Boston"
+            title="Phoenix Moving truck in Boston"
+            width={heroImage.width}
+            height={heroImage.height}
+            loading="eager"
+            decoding="sync"
+            fetchpriority="high"
+            class="size-full object-cover"
+          />
+        </picture>
+
+        <figcaption
+          class="absolute inset-x-0 bottom-0 flex items-end justify-between gap-4 bg-linear-to-t from-neutral-950/90 via-neutral-950/35 to-transparent px-5 pt-16 pb-5 sm:px-6 sm:pb-6"
+        >
+          <span
+            class="flex items-center gap-2 text-sm font-semibold text-white"
+          >
+            <MapPinIcon class="text-secondary size-4.5" aria-hidden="true" />
+            Serving Greater Boston
+          </span>
+          <span class="hidden text-xs font-medium text-white/65 sm:block">
+            Natick · Newton
+          </span>
+        </figcaption>
+      </figure>
+
+      <div
+        class="absolute -right-2 top-7 hidden items-center gap-3 rounded-2xl border border-neutral-200 bg-white px-4 py-3 text-neutral-950 shadow-xl sm:flex lg:-right-4 xl:-right-7"
+      >
+        <span
+          class="bg-secondary flex size-10 items-center justify-center rounded-full"
+        >
+          <StarIcon class="size-5 fill-current" aria-hidden="true" />
+        </span>
+        <span>
+          <strong class="block text-sm font-bold">4.9 out of 5</strong>
+          <span class="block text-xs text-neutral-500"
+            >Trusted local movers</span
+          >
+        </span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .hero-background-image {
+    background-image:
+      linear-gradient(to right, currentColor 1px, transparent 1px),
+      linear-gradient(to bottom, currentColor 1px, transparent 1px);
+    background-size: 72px 72px;
+  }
+
+  .spring-horizon {
+    height: min(16rem, 30vh);
+    background:
+      radial-gradient(
+        70% 46% at 78% 112%,
+        rgb(167 243 208 / 0.11),
+        transparent 72%
+      ),
+      linear-gradient(to top, rgb(56 189 248 / 0.055), transparent 74%);
+  }
+
+  .spring-blossom {
+    width: clamp(0.9rem, 1.7vw, 1.4rem);
+    aspect-ratio: 1;
+    opacity: 0.62;
+    background:
+      radial-gradient(
+        circle at 50% 15%,
+        rgb(251 207 232 / 0.75) 0 19%,
+        transparent 21%
+      ),
+      radial-gradient(
+        circle at 84% 40%,
+        rgb(249 168 212 / 0.62) 0 19%,
+        transparent 21%
+      ),
+      radial-gradient(
+        circle at 71% 80%,
+        rgb(251 207 232 / 0.72) 0 19%,
+        transparent 21%
+      ),
+      radial-gradient(
+        circle at 29% 80%,
+        rgb(249 168 212 / 0.58) 0 19%,
+        transparent 21%
+      ),
+      radial-gradient(
+        circle at 16% 40%,
+        rgb(251 207 232 / 0.7) 0 19%,
+        transparent 21%
+      ),
+      radial-gradient(circle, rgb(253 230 138 / 0.8) 0 11%, transparent 13%);
+  }
+
+  .spring-blossom-1 {
+    top: 16%;
+    right: 5%;
+    transform: rotate(12deg);
+  }
+
+  .spring-blossom-2 {
+    top: 34%;
+    right: 2%;
+    transform: rotate(38deg) scale(0.72);
+    opacity: 0.48;
+  }
+
+  .spring-blossom-3 {
+    top: 70%;
+    right: 8%;
+    transform: rotate(-16deg) scale(0.86);
+  }
+
+  .spring-blossom-4 {
+    top: 12%;
+    right: 45%;
+    transform: rotate(25deg) scale(0.58);
+    opacity: 0.42;
+  }
+
+  .spring-blossom-5 {
+    top: 80%;
+    right: 43%;
+    transform: rotate(-28deg) scale(0.68);
+    opacity: 0.4;
+  }
+
+  .summer-sun {
+    top: clamp(2.5rem, 7vw, 6rem);
+    right: clamp(-5rem, 1vw, 1rem);
+    width: clamp(14rem, 30vw, 28rem);
+    aspect-ratio: 1;
+    border-radius: 9999px;
+    background: radial-gradient(
+      circle,
+      rgb(254 240 138 / 0.2) 0 14%,
+      rgb(251 191 36 / 0.1) 30%,
+      rgb(249 115 22 / 0.045) 52%,
+      transparent 72%
+    );
+  }
+
+  .summer-horizon {
+    height: min(15rem, 28vh);
+    background:
+      radial-gradient(
+        70% 42% at 78% 112%,
+        rgb(251 191 36 / 0.12),
+        transparent 70%
+      ),
+      linear-gradient(to top, rgb(14 165 233 / 0.055), transparent 72%);
+  }
+
+  .fall-horizon {
+    height: min(16rem, 30vh);
+    background:
+      radial-gradient(
+        68% 48% at 78% 112%,
+        rgb(251 146 60 / 0.14),
+        transparent 72%
+      ),
+      linear-gradient(to top, rgb(120 53 15 / 0.09), transparent 74%);
+  }
+
+  .fall-leaf {
+    width: clamp(0.8rem, 1.6vw, 1.35rem);
+    aspect-ratio: 0.62;
+    border-radius: 90% 12% 90% 12%;
+    background: linear-gradient(
+      145deg,
+      rgb(253 186 116 / 0.48),
+      rgb(194 65 12 / 0.2)
+    );
+    box-shadow: inset 1px -1px rgb(255 237 213 / 0.16);
+  }
+
+  .fall-leaf-1 {
+    top: 18%;
+    right: 5%;
+    transform: rotate(24deg);
+  }
+
+  .fall-leaf-2 {
+    top: 35%;
+    right: 2%;
+    transform: rotate(78deg) scale(0.72);
+    opacity: 0.7;
+  }
+
+  .fall-leaf-3 {
+    top: 66%;
+    right: 8%;
+    transform: rotate(138deg) scale(0.88);
+  }
+
+  .fall-leaf-4 {
+    top: 12%;
+    right: 46%;
+    transform: rotate(-32deg) scale(0.58);
+    opacity: 0.52;
+  }
+
+  .fall-leaf-5 {
+    top: 78%;
+    right: 42%;
+    transform: rotate(58deg) scale(0.65);
+    opacity: 0.46;
+  }
+
+  .winter-moon {
+    top: clamp(3rem, 8vw, 7rem);
+    right: clamp(-4rem, 2vw, 2rem);
+    width: clamp(13rem, 27vw, 25rem);
+    aspect-ratio: 1;
+    border-radius: 9999px;
+    background: radial-gradient(
+      circle,
+      rgb(240 249 255 / 0.15) 0 13%,
+      rgb(186 230 253 / 0.075) 32%,
+      rgb(129 140 248 / 0.035) 54%,
+      transparent 72%
+    );
+  }
+
+  .winter-snow {
+    opacity: 0.36;
+    background-image:
+      radial-gradient(circle, rgb(255 255 255 / 0.58) 0 1px, transparent 1.5px),
+      radial-gradient(circle, rgb(224 242 254 / 0.38) 0 1.5px, transparent 2px),
+      radial-gradient(
+        circle,
+        rgb(255 255 255 / 0.28) 0 0.75px,
+        transparent 1.25px
+      );
+    background-position:
+      0 0,
+      2.5rem 3.25rem,
+      1rem 5.5rem;
+    background-size:
+      7rem 8rem,
+      11rem 12rem,
+      5rem 6rem;
+  }
+
+  .winter-horizon {
+    height: min(16rem, 30vh);
+    background:
+      radial-gradient(
+        72% 42% at 76% 112%,
+        rgb(186 230 253 / 0.12),
+        transparent 72%
+      ),
+      linear-gradient(to top, rgb(99 102 241 / 0.07), transparent 74%);
+  }
+</style>

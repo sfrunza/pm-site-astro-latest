@@ -78,7 +78,13 @@ const yelpReviews: DisplayReview[] = yelpData.reviews.map((review) => ({
   sortTime: new Date(review.time_created.replace(' ', 'T')).getTime() / 1000,
 }));
 
-const reviews = [...googleReviews, ...yelpReviews].sort(
+const latestGoogleReviews = [...googleReviews]
+  .sort((a, b) => b.sortTime - a.sortTime)
+  .slice(0, 6);
+const latestYelpReviews = [...yelpReviews]
+  .sort((a, b) => b.sortTime - a.sortTime)
+  .slice(0, 3);
+const displayedReviews = [...latestGoogleReviews, ...latestYelpReviews].sort(
   (a, b) => b.sortTime - a.sortTime
 );
 
@@ -109,6 +115,11 @@ const hasYelpConfig = Boolean(yelpApiKey && yelpBusinessIdOrAlias);
 const renderStars = (rating: number) => {
   return Array.from({ length: 5 }, (_, i) => i < rating);
 };
+
+const getReviewCardClass = (source: ReviewSource) =>
+  source === 'google'
+    ? 'bg-linear-to-br from-card via-card to-cyan-500/[0.07] before:via-cyan-500/70 hover:ring-cyan-500/30'
+    : 'bg-linear-to-br from-card via-card to-red-500/[0.07] before:via-red-500/70 hover:ring-red-500/30';
 
 const reviews1 = tv({
   base: 'bg-muted/50 relative isolate overflow-hidden',
@@ -146,10 +157,15 @@ const reviews1 = tv({
     </div>
 
     {
-      reviews.length > 0 ? (
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
-          {reviews.map((review) => (
-            <article class="bg-card relative text-card-foreground ring-border flex flex-col rounded-3xl ring-1 p-5">
+      displayedReviews.length > 0 ? (
+        <div class="mb-12 columns-1 gap-5 md:columns-2 lg:columns-3">
+          {displayedReviews.map((review) => (
+            <article
+              class:list={[
+                'bg-card text-card-foreground ring-border relative mb-5 flex min-w-0 break-inside-avoid flex-col overflow-hidden rounded-3xl p-5 shadow ring-1 transition-all before:absolute before:inset-x-8 before:top-0 before:h-px before:bg-linear-to-r before:from-transparent before:to-transparent hover:-translate-y-1 hover:shadow-lg motion-reduce:transform-none md:p-6',
+                getReviewCardClass(review.source),
+              ]}
+            >
               <div class="absolute top-4 right-4">
                 {review.source === 'google' ? (
                   <svg class="size-8" viewBox="0 0 24 24" aria-hidden="true">
@@ -228,11 +244,10 @@ const reviews1 = tv({
                 ))}
               </div>
 
-              <div class="relative mb-3 flex-1">
-                <p class="text-sm text-muted-foreground leading-relaxed line-clamp-6">
+              <div class="mb-5">
+                <p class="text-muted-foreground line-clamp-8 text-sm leading-relaxed">
                   {review.text}
                 </p>
-                <div class="absolute bottom-0 left-0 right-0 h-12 bg-linear-to-t from-card via-card/50 to-transparent pointer-events-none" />
               </div>
 
               <Button

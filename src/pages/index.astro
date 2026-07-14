@@ -1,8 +1,7 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import Hero, { getHomeHeroLcpPreload } from '@/components/Hero.astro';
+import { getHomeHeroLcpPreload } from '@/components/Hero.astro';
 import Pricing1 from '@/blocks/pricing/Pricing1.astro';
-// import Services1 from '@/blocks/services/Services1.astro';
 import Feature1 from '@/blocks/feature/Feature1.astro';
 import CTA1 from '@/blocks/cta/CTA1.astro';
 import Cities1 from '@/blocks/cities/Cities1.astro';
@@ -22,13 +21,13 @@ import pianoAfter from '@/assets/piano-after.jpg';
 import Reviews1 from '@/blocks/reviews/Reviews1.astro';
 import Partners1 from '@/blocks/partners/Partners1.astro';
 import Stats1 from '@/blocks/stats/Stats1.astro';
-// import Process1 from '@/blocks/process/Process1.astro';
 import BlogPreview1 from '@/blocks/blog/BlogPreview1.astro';
 import MovingChecklist1 from '@/blocks/checklist/MovingChecklist1.astro';
 import LightboxGridGallery from '@/blocks/gallery/LightboxGridGallery.astro';
 import Container from '@/components/Container.astro';
 import Services2 from '@/blocks/services/Services2.astro';
 import Process2 from '@/blocks/process/Process2.astro';
+import HeroLanding from '@/components/HeroLanding.astro';
 
 const [seo, lcpPreload] = await Promise.all([
   fetchHomeSeo(Astro.url),
@@ -37,7 +36,7 @@ const [seo, lcpPreload] = await Promise.all([
 ---
 
 <Layout {...seo} lcpPreload={lcpPreload}>
-  <Hero />
+  <HeroLanding />
 
   <!-- Trust logos -->
   <Partners1
